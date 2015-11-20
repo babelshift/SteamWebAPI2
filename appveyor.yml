@@ -16,6 +16,7 @@ configuration: Release
 build:
   project: SteamWebAPI2.sln
   publish_nuget: true
+  include_nuget_references: true
   
 cache:
   - packages -> **\packages.config
