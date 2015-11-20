@@ -65,7 +65,12 @@ namespace SteamWebAPI2
         /// <returns></returns>
         private string BuildRequestCommand(string interfaceName, string methodName, int methodVersion, IList<SteamWebRequestParameter> parameters)
         {
-            string steamWebApiBaseUrl = ConfigurationManager.AppSettings["steamWebApiBaseUrl"].ToString();
+            string steamWebApiBaseUrl = ConfigurationManager.AppSettings["steamWebApiBaseUrl"];
+
+            if (String.IsNullOrEmpty(steamWebApiBaseUrl))
+            {
+                throw new ConfigurationErrorsException("You must include a 'steamWebApiBaseUrl' value in the AppSettings section of your app.config or web.config. A common value is 'https://api.steampowered.com'. It is up to the application to manage this value in case the URL changes in the future.");
+            }
 
             string command = String.Format("{0}/{1}/{2}/v{3}/", steamWebApiBaseUrl, interfaceName, methodName, methodVersion);
 

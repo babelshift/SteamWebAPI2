@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -34,6 +35,7 @@ namespace SteamWebAPI2.Models
     {
         public string Name { get; set; }
         public string Type { get; set; }
+        [JsonProperty(PropertyName = "optional")]
         public bool IsOptional { get; set; }
         public string Description { get; set; }
     }
