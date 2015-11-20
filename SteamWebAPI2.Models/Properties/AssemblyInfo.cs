@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("SteamWebAPI2.Models")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Contains models and plain-old-class-objects to assist with serialization and deserialization of Steam Web API calls.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Justin Skiles")]
 [assembly: AssemblyProduct("SteamWebAPI2.Models")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
