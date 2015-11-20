@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <licenseUrl>https://raw.githubusercontent.com/babelshift/SteamWebAPI2/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/babelshift/SteamWebAPI2</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <releaseNotes>See release notes at Project URL.</releaseNotes>
+    <copyright>Copyright 2015</copyright>
+    <tags>steam webapi json community</tags>
+  </metadata>
+</package>
