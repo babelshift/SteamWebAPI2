@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SteamWebAPI2.Models
+namespace SteamWebAPI2.Models.DOTA2
 {
-    public class DOTA2PlayerOfficialInfoResult
+    public class PlayerOfficialInfoResult
     {
         public string Name { get; set; }
         public string TeamName { get; set; }

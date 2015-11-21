@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using SteamWebAPI2.Models.CSGO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,13 +23,13 @@ namespace SteamWebAPI2.Models.Utilities
                 return null;
             }
 
-            List<CSGODatacenter> dataCenters = new List<CSGODatacenter>();
+            List<Datacenter> dataCenters = new List<Datacenter>();
 
             JObject o = JObject.Load(reader);
 
             foreach (var x in o)
             {
-                CSGODatacenter dataCenter = new CSGODatacenter()
+                Datacenter dataCenter = new Datacenter()
                 {
                     Name = x.Key,
                     Capacity = x.Value.Value<string>("capacity") ?? "unknown",
@@ -45,7 +46,7 @@ namespace SteamWebAPI2.Models.Utilities
 
         public override bool CanConvert(Type objectType)
         {
-            return typeof(CSGODatacenter).IsAssignableFrom(objectType);
+            return typeof(Datacenter).IsAssignableFrom(objectType);
         }
     }
 }

@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SteamWebAPI2.Models
+namespace SteamWebAPI2.Models.CSGO
 {
-    public class CSGOMatchmaking
+    public class Matchmaking
     {
         public string Scheduler { get; set; }
 

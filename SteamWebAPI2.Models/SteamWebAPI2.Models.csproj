@@ -50,14 +50,21 @@
     <Compile Include="App.cs" />
     <Compile Include="AppNews.cs" />
     <Compile Include="Cart.cs" />
-    <Compile Include="CSGOApp.cs" />
-    <Compile Include="CSGODatacenter.cs" />
-    <Compile Include="CSGOMatchmaking.cs" />
-    <Compile Include="CSGOServerStatusResult.cs" />
-    <Compile Include="CSGOServerStatusResultContainer.cs" />
-    <Compile Include="CSGOServices.cs" />
-    <Compile Include="DOTA2PlayerOfficialInfoResult.cs" />
-    <Compile Include="DOTA2PlayerOfficialInfoResultContainer.cs" />
+    <Compile Include="CSGO\App.cs" />
+    <Compile Include="CSGO\Datacenter.cs" />
+    <Compile Include="CSGO\Matchmaking.cs" />
+    <Compile Include="CSGO\ServerStatusResult.cs" />
+    <Compile Include="CSGO\ServerStatusResultContainer.cs" />
+    <Compile Include="CSGO\Services.cs" />
+    <Compile Include="DOTA2\League.cs" />
+    <Compile Include="DOTA2\LeagueResult.cs" />
+    <Compile Include="DOTA2\LeagueResultContainer.cs" />
+    <Compile Include="DOTA2\ProPlayerListResult.cs" />
+    <Compile Include="DOTA2\ProPlayerListResultContainer.cs" />
+    <Compile Include="DOTA2\PlayerOfficialInfoResult.cs" />
+    <Compile Include="DOTA2\PlayerOfficialInfoResultContainer.cs" />
+    <Compile Include="DOTA2\ProPlayerInfo.cs" />
+    <Compile Include="DOTA2\ProPlayerLeaderboard.cs" />
     <Compile Include="FeedData.cs" />
     <Compile Include="Friend.cs" />
     <Compile Include="GameSchema.cs" />
@@ -81,6 +88,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="TF2\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

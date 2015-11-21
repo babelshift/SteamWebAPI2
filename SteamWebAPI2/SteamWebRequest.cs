@@ -62,8 +62,14 @@ namespace SteamWebAPI2
 
             HttpClient httpClient = new HttpClient();
             string response = await httpClient.GetStringAsync(command);
+
+            // some of the responses contain invalid json so we have to correct for it here
+            // this is probably not the best way to do this since we have to iterate and copy over the entire string, but it works for now
             response = response.Replace("\n", "");
             response = response.Replace("\t", "");
+            response = response.Replace("\\", "");
+            response = response.Replace("\"{", "{");
+            response = response.Replace("\"}", "}");
 
             var deserializedResult = JsonConvert.DeserializeObject<T>(response);
             return deserializedResult;

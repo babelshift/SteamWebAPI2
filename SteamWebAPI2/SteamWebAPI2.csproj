@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="CSGOServers.cs" />
     <Compile Include="DOTA2Fantasy.cs" />
+    <Compile Include="DOTA2Match.cs" />
     <Compile Include="ErrorMessages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -1,4 +1,6 @@
 ﻿using SteamWebAPI2.Models;
+using SteamWebAPI2.Models.CSGO;
+using SteamWebAPI2.Models.DOTA2;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -37,16 +39,28 @@ namespace SteamWebAPI2
             return await steamUser.GetPlayerSummaryAsync(steamId);
         }
 
-        public async Task<CSGOServerStatusResult> GetCSGOGameServerStatusAsync()
+        public async Task<ServerStatusResult> GetCSGOGameServerStatusAsync()
         {
             CSGOServers csgoServers = new CSGOServers(steamWebApiKey);
             return await csgoServers.GetGameServerStatusAsync();
         }
         
-        public async Task<DOTA2PlayerOfficialInfoResult> GetDOTA2PlayerOfficialInfo(long steamId)
+        public async Task<PlayerOfficialInfoResult> GetDOTA2PlayerOfficialInfo(long steamId)
         {
-            DOTA2Fantasy dotaFantasy = new DOTA2Fantasy(steamWebApiKey);
-            return await dotaFantasy.GetPlayerOfficialInfo(steamId);
+            DOTA2Fantasy dota2Fantasy = new DOTA2Fantasy(steamWebApiKey);
+            return await dota2Fantasy.GetPlayerOfficialInfo(steamId);
+        }
+
+        public async Task<ProPlayerListResult> GetDOTA2ProPlayerList()
+        {
+            DOTA2Fantasy dota2Fantasy = new DOTA2Fantasy(steamWebApiKey);
+            return await dota2Fantasy.GetProPlayerList();
+        }
+
+        public async Task<LeagueResult> GetDOTA2LeagueListing()
+        {
+            DOTA2Match dota2Match = new DOTA2Match(steamWebApiKey);
+            return await dota2Match.GetLeagueListing();
         }
     }
 }
