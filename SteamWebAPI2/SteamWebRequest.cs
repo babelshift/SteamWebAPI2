@@ -21,7 +21,7 @@ namespace SteamWebAPI2
             Debug.Assert(developerKey != null);
 
             // we assert here because the name is never determined by the caller and should never be null or empty
-            Debug.Assert(String.IsNullOrEmpty(developerKey.Name));
+            Debug.Assert(!String.IsNullOrEmpty(developerKey.Name));
 
             if (String.IsNullOrEmpty(developerKey.Value))
             {
@@ -57,6 +57,8 @@ namespace SteamWebAPI2
 
             HttpClient httpClient = new HttpClient();
             string response = await httpClient.GetStringAsync(command);
+            response = response.Replace("\n", "");
+            response = response.Replace("\t", "");
 
             var deserializedResult = JsonConvert.DeserializeObject<T>(response);
             return deserializedResult;

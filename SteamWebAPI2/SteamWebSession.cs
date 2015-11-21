@@ -31,10 +31,16 @@ namespace SteamWebAPI2
             return await webInterface.GetSupportedAPIListAsync();
         }
 
-        public async Task<PlayerSummary> GetPlayerSummary(string steamId)
+        public async Task<PlayerSummary> GetPlayerSummaryAsync(string steamId)
         {
             SteamUser steamUser = new SteamUser(steamWebApiKey);
             return await steamUser.GetPlayerSummaryAsync(steamId);
+        }
+
+        public async Task<CSGOServerStatusResult> GetCSGOGameServerStatusAsync()
+        {
+            CSGOServers csgoServers = new CSGOServers(steamWebApiKey);
+            return await csgoServers.GetGameServerStatusAsync();
         }
     }
 }

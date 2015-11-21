@@ -50,6 +50,12 @@
     <Compile Include="App.cs" />
     <Compile Include="AppNews.cs" />
     <Compile Include="Cart.cs" />
+    <Compile Include="CSGOApp.cs" />
+    <Compile Include="CSGODatacenter.cs" />
+    <Compile Include="CSGOMatchmaking.cs" />
+    <Compile Include="CSGOServerStatusResult.cs" />
+    <Compile Include="CSGOServerStatusResultContainer.cs" />
+    <Compile Include="CSGOServices.cs" />
     <Compile Include="FeedData.cs" />
     <Compile Include="Friend.cs" />
     <Compile Include="GameSchema.cs" />
@@ -67,6 +73,7 @@
     <Compile Include="UserBanStatus.cs" />
     <Compile Include="UserStats.cs" />
     <Compile Include="PlayerSummary.cs" />
+    <Compile Include="Utilities\CSGODataCenterJsonConverter.cs" />
     <Compile Include="Utilities\DateTimeExtensions.cs" />
     <Compile Include="Utilities\UnixTimeJsonConverter.cs" />
   </ItemGroup>
