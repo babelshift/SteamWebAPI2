@@ -10,17 +10,18 @@ namespace SteamWebAPI2
 {
     internal class SteamWebAPIUtil : SteamWebRequest
     {
-        public SteamWebAPIUtil(SteamWebRequestParameter developerKey) : base(developerKey) { }
+        public SteamWebAPIUtil(SteamWebRequestParameter developerKey) 
+            : base(developerKey, "ISteamWebAPIUtil") { }
 
         public async Task<SteamServerInfo> GetServerInfoAsync()
         {
-            var steamServerInfo = await GetJsonAsync<SteamServerInfo>("ISteamWebAPIUtil", "GetServerInfo", 1);
+            var steamServerInfo = await GetJsonAsync<SteamServerInfo>(interfaceName, "GetServerInfo", 1);
             return steamServerInfo;
         }
 
         public async Task<IReadOnlyCollection<SteamInterface>> GetSupportedAPIListAsync()
         {
-            var steamApiListContainer = await GetJsonAsync<SteamApiListContainer>("ISteamWebAPIUtil", "GetSupportedAPIList", 1);
+            var steamApiListContainer = await GetJsonAsync<SteamApiListContainer>(interfaceName, "GetSupportedAPIList", 1);
             return new ReadOnlyCollection<SteamInterface>(steamApiListContainer.ApiList.Interfaces);
         }
     }

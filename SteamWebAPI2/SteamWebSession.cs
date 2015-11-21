@@ -42,5 +42,11 @@ namespace SteamWebAPI2
             CSGOServers csgoServers = new CSGOServers(steamWebApiKey);
             return await csgoServers.GetGameServerStatusAsync();
         }
+        
+        public async Task<DOTA2PlayerOfficialInfoResult> GetDOTA2PlayerOfficialInfo(long steamId)
+        {
+            DOTA2Fantasy dotaFantasy = new DOTA2Fantasy(steamWebApiKey);
+            return await dotaFantasy.GetPlayerOfficialInfo(steamId);
+        }
     }
 }

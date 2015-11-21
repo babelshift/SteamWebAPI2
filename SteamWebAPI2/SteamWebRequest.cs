@@ -13,9 +13,10 @@ namespace SteamWebAPI2
 {
     internal abstract class SteamWebRequest
     {
+        protected readonly string interfaceName;
         private SteamWebRequestParameter developerKey;
 
-        public SteamWebRequest(SteamWebRequestParameter developerKey)
+        public SteamWebRequest(SteamWebRequestParameter developerKey, string interfaceName)
         {
             // we assert here because SteamWebRequest is never constructed by the application, instead it is constructed by SteamWebSession (controlled by this library)
             Debug.Assert(developerKey != null);
@@ -29,6 +30,10 @@ namespace SteamWebAPI2
             }
 
             this.developerKey = developerKey;
+
+            Debug.Assert(!String.IsNullOrEmpty(interfaceName));
+
+            this.interfaceName = interfaceName;
         }
 
         protected async Task<T> GetJsonAsync<T>(string interfaceName, string methodName, int methodVersion)

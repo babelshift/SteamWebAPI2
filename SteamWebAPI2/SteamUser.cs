@@ -9,13 +9,14 @@ namespace SteamWebAPI2
 {
     internal class SteamUser : SteamWebRequest
     {
-        public SteamUser(SteamWebRequestParameter developerKey) : base(developerKey) { }
+        public SteamUser(SteamWebRequestParameter developerKey)
+            : base(developerKey, "ISteamUser") { }
 
         public async Task<PlayerSummary> GetPlayerSummaryAsync(string steamId)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
             parameters.Add(new SteamWebRequestParameter("steamids", steamId));
-            var playerSummary = await GetJsonAsync<PlayerSummaryResponseContainer>("ISteamUser", "GetPlayerSummaries", 2, parameters);
+            var playerSummary = await GetJsonAsync<PlayerSummaryResponseContainer>(interfaceName, "GetPlayerSummaries", 2, parameters);
 
             if (playerSummary.Response.Players.Count > 0)
             {
