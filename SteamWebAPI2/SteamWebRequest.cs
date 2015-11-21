@@ -17,11 +17,26 @@ namespace SteamWebAPI2
 
         public SteamWebRequest(SteamWebRequestParameter developerKey)
         {
+            // we assert here because SteamWebRequest is never constructed by the application, instead it is constructed by SteamWebSession (controlled by this library)
+            Debug.Assert(developerKey != null);
+
+            // we assert here because the name is never determined by the caller and should never be null or empty
+            Debug.Assert(String.IsNullOrEmpty(developerKey.Name));
+
+            if (String.IsNullOrEmpty(developerKey.Value))
+            {
+                throw new ArgumentNullException("Steam Web API developer key value cannot be null or empty.");
+            }
+
             this.developerKey = developerKey;
         }
 
         protected async Task<T> GetJsonAsync<T>(string interfaceName, string methodName, int methodVersion)
         {
+            Debug.Assert(!String.IsNullOrEmpty(interfaceName));
+            Debug.Assert(!String.IsNullOrEmpty(methodName));
+            Debug.Assert(methodVersion > 0);
+
             return await GetJsonAsync<T>(interfaceName, methodName, methodVersion, null);
         }
 
@@ -38,20 +53,13 @@ namespace SteamWebAPI2
 
             parameters.Insert(0, developerKey);
 
-            try
-            {
-                string command = BuildRequestCommand(interfaceName, methodName, methodVersion, parameters);
+            string command = BuildRequestCommand(interfaceName, methodName, methodVersion, parameters);
 
-                HttpClient httpClient = new HttpClient();
-                string response = await httpClient.GetStringAsync(command);
+            HttpClient httpClient = new HttpClient();
+            string response = await httpClient.GetStringAsync(command);
 
-                var deserializedResult = JsonConvert.DeserializeObject<T>(response);
-                return deserializedResult;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            var deserializedResult = JsonConvert.DeserializeObject<T>(response);
+            return deserializedResult;
         }
 
         /// <summary>
@@ -65,6 +73,10 @@ namespace SteamWebAPI2
         /// <returns></returns>
         private string BuildRequestCommand(string interfaceName, string methodName, int methodVersion, IList<SteamWebRequestParameter> parameters)
         {
+            Debug.Assert(!String.IsNullOrEmpty(interfaceName));
+            Debug.Assert(!String.IsNullOrEmpty(methodName));
+            Debug.Assert(methodVersion > 0);
+
             string steamWebApiBaseUrl = ConfigurationManager.AppSettings["steamWebApiBaseUrl"];
 
             if (String.IsNullOrEmpty(steamWebApiBaseUrl))

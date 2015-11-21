@@ -13,6 +13,11 @@ namespace SteamWebAPI2
 
         public SteamWebRequestParameter(string name, string value)
         {
+            if(String.IsNullOrEmpty(name))
+            {
+                throw new ArgumentNullException("name");
+            }
+
             this.Name = name;
             this.Value = value;
         }
