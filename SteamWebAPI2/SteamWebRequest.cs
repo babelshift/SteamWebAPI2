@@ -11,32 +11,21 @@ using System.Threading.Tasks;
 
 namespace SteamWebAPI2
 {
-    internal abstract class SteamWebRequest
+    internal class SteamWebRequest
     {
-        protected readonly string interfaceName;
-        private SteamWebRequestParameter developerKey;
+        private string steamWebApiKey;
 
-        public SteamWebRequest(SteamWebRequestParameter developerKey, string interfaceName)
+        public SteamWebRequest(string steamWebApiKey)
         {
-            // we assert here because SteamWebRequest is never constructed by the application, instead it is constructed by SteamWebSession (controlled by this library)
-            Debug.Assert(developerKey != null);
-
-            // we assert here because the name is never determined by the caller and should never be null or empty
-            Debug.Assert(!String.IsNullOrEmpty(developerKey.Name));
-
-            if (String.IsNullOrEmpty(developerKey.Value))
+            if(String.IsNullOrEmpty(steamWebApiKey))
             {
-                throw new ArgumentNullException("Steam Web API developer key value cannot be null or empty.");
+                throw new ArgumentNullException("steamWebApiKey");
             }
 
-            this.developerKey = developerKey;
-
-            Debug.Assert(!String.IsNullOrEmpty(interfaceName));
-
-            this.interfaceName = interfaceName;
+            this.steamWebApiKey = steamWebApiKey;
         }
 
-        protected async Task<T> GetJsonAsync<T>(string interfaceName, string methodName, int methodVersion)
+        public async Task<T> GetJsonAsync<T>(string interfaceName, string methodName, int methodVersion)
         {
             Debug.Assert(!String.IsNullOrEmpty(interfaceName));
             Debug.Assert(!String.IsNullOrEmpty(methodName));
@@ -45,7 +34,7 @@ namespace SteamWebAPI2
             return await GetJsonAsync<T>(interfaceName, methodName, methodVersion, null);
         }
 
-        protected async Task<T> GetJsonAsync<T>(string interfaceName, string methodName, int methodVersion, IList<SteamWebRequestParameter> parameters)
+        public async Task<T> GetJsonAsync<T>(string interfaceName, string methodName, int methodVersion, IList<SteamWebRequestParameter> parameters)
         {
             Debug.Assert(!String.IsNullOrEmpty(interfaceName));
             Debug.Assert(!String.IsNullOrEmpty(methodName));
@@ -56,18 +45,20 @@ namespace SteamWebAPI2
                 parameters = new List<SteamWebRequestParameter>();
             }
 
-            parameters.Insert(0, developerKey);
+            parameters.Insert(0, new SteamWebRequestParameter("key", steamWebApiKey));
 
             string command = BuildRequestCommand(interfaceName, methodName, methodVersion, parameters);
 
             HttpClient httpClient = new HttpClient();
             string response = await httpClient.GetStringAsync(command);
+            //byte[] responseBytes = Encoding.Default.GetBytes(response);
+            //string utf8response = Encoding.UTF8.GetString(responseBytes);
 
             // some of the responses contain invalid json so we have to correct for it here
             // this is probably not the best way to do this since we have to iterate and copy over the entire string, but it works for now
             response = response.Replace("\n", "");
             response = response.Replace("\t", "");
-            response = response.Replace("\\", "");
+            //response = response.Replace("\\", "");
             response = response.Replace("\"{", "{");
             response = response.Replace("\"}", "}");
 
@@ -84,7 +75,7 @@ namespace SteamWebAPI2
         /// <param name="methodVersion">Example: 1</param>
         /// <param name="parameters">Example: { key: 8A05823474AB641D684EBD95AB5F2E47 } </param>
         /// <returns></returns>
-        private string BuildRequestCommand(string interfaceName, string methodName, int methodVersion, IList<SteamWebRequestParameter> parameters)
+        public string BuildRequestCommand(string interfaceName, string methodName, int methodVersion, IList<SteamWebRequestParameter> parameters)
         {
             Debug.Assert(!String.IsNullOrEmpty(interfaceName));
             Debug.Assert(!String.IsNullOrEmpty(methodName));

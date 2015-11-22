@@ -8,20 +8,20 @@ using System.Threading.Tasks;
 
 namespace SteamWebAPI2
 {
-    internal class SteamWebAPIUtil : SteamWebRequest
+    public class SteamWebAPIUtil : SteamWebInterface
     {
-        public SteamWebAPIUtil(SteamWebRequestParameter developerKey) 
-            : base(developerKey, "ISteamWebAPIUtil") { }
+        public SteamWebAPIUtil(string steamWebApiKey) 
+            : base(steamWebApiKey, "ISteamWebAPIUtil") { }
 
         public async Task<SteamServerInfo> GetServerInfoAsync()
         {
-            var steamServerInfo = await GetJsonAsync<SteamServerInfo>(interfaceName, "GetServerInfo", 1);
+            var steamServerInfo = await CallMethodAsync<SteamServerInfo>("GetServerInfo", 1);
             return steamServerInfo;
         }
 
         public async Task<IReadOnlyCollection<SteamInterface>> GetSupportedAPIListAsync()
         {
-            var steamApiListContainer = await GetJsonAsync<SteamApiListContainer>(interfaceName, "GetSupportedAPIList", 1);
+            var steamApiListContainer = await CallMethodAsync<SteamApiListContainer>("GetSupportedAPIList", 1);
             return new ReadOnlyCollection<SteamInterface>(steamApiListContainer.ApiList.Interfaces);
         }
     }

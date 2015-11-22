@@ -5,21 +5,34 @@ using System.Threading.Tasks;
 
 namespace SteamWebAPI2
 {
-    internal class DOTA2Match : SteamWebRequest
+    public class DOTA2Match : SteamWebInterface
     {
-        public DOTA2Match(SteamWebRequestParameter developerKey)
-            : base(developerKey, "IDOTA2Match_570")
-        { }
+        public DOTA2Match(string steamWebApiKey)
+            : base(steamWebApiKey, "IDOTA2Match_570")
+        {
+        }
 
         public async Task<LeagueResult> GetLeagueListing()
         {
-            var leagueListing = await GetJsonAsync<LeagueResultContainer>(interfaceName, "GetLeagueListing", 1);
+            var leagueListing = await CallMethodAsync<LeagueResultContainer>("GetLeagueListing", 1);
             return leagueListing.Result;
         }
 
-        public async Task<IReadOnlyCollection<LiveLeagueGame>> GetLiveLeagueGames()
+        public async Task<IReadOnlyCollection<LiveLeagueGame>> GetLiveLeagueGames(int? leagueId = null, long? matchId = null)
         {
-            var liveLeagueGames = await GetJsonAsync<LiveLeagueGameResultContainer>(interfaceName, "GetLiveLeagueGames", 1);
+            List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
+
+            if(leagueId.HasValue)
+            {
+                parameters.Add(new SteamWebRequestParameter("league_id", leagueId.Value.ToString()));
+            }
+
+            if (matchId.HasValue)
+            {
+                parameters.Add(new SteamWebRequestParameter("match_id", matchId.Value.ToString()));
+            }
+
+            var liveLeagueGames = await CallMethodAsync<LiveLeagueGameResultContainer>("GetLiveLeagueGames", 1, parameters);
             return new ReadOnlyCollection<LiveLeagueGame>(liveLeagueGames.Result.Games);
         }
 
@@ -27,13 +40,13 @@ namespace SteamWebAPI2
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
             parameters.Add(new SteamWebRequestParameter("match_id", matchId.ToString()));
-            var matchDetail = await GetJsonAsync<MatchDetailResultContainer>(interfaceName, "GetMatchDetails", 1, parameters);
+            var matchDetail = await CallMethodAsync<MatchDetailResultContainer>("GetMatchDetails", 1, parameters);
             return matchDetail.Result;
         }
 
         public async Task<MatchHistoryResult> GetMatchHistory()
         {
-            var matchHistory = await GetJsonAsync<MatchHistoryResultContainer>(interfaceName, "GetMatchHistory", 1);
+            var matchHistory = await CallMethodAsync<MatchHistoryResultContainer>("GetMatchHistory", 1);
             return matchHistory.Result;
         }
     }

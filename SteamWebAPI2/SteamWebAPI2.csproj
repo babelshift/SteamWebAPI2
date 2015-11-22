@@ -56,7 +56,8 @@
     <Compile Include="SteamUser.cs" />
     <Compile Include="SteamWebAPIUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SteamWebSession.cs" />
+    <Compile Include="SteamWebFactory.cs" />
+    <Compile Include="SteamWebInterface.cs" />
     <Compile Include="SteamWebRequest.cs" />
     <Compile Include="SteamWebRequestParameter.cs" />
   </ItemGroup>
