@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,7 @@ namespace SteamWebAPI2.Models.DOTA2
 {
     public class LiveLeagueGameBan
     {
+        [JsonProperty(PropertyName = "hero_id")]
         public int HeroId { get; set; }
     }
 }

@@ -16,6 +16,7 @@ namespace SteamWebAPI2.Models.DOTA2
         [JsonProperty(PropertyName = "hero_id")]
         public int HeroId { get; set; }
         public int Kills { get; set; }
+        [JsonProperty(PropertyName = "death")]
         public int Deaths { get; set; }
         public int Assists { get; set; }
         [JsonProperty(PropertyName = "last_hits")]
@@ -40,9 +41,9 @@ namespace SteamWebAPI2.Models.DOTA2
         [JsonProperty(PropertyName = "respawn_timer")]
         public int RespawnTimer { get; set; }
         [JsonProperty(PropertyName = "position_x")]
-        public int PositionX { get; set; }
+        public double PositionX { get; set; }
         [JsonProperty(PropertyName = "position_y")]
-        public int PositionY { get; set; }
+        public double PositionY { get; set; }
         [JsonProperty(PropertyName = "net_worth")]
         public int NetWorth { get; set; }
     }
