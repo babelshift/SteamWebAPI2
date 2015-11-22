@@ -72,6 +72,11 @@
     <Compile Include="DOTA2\LiveLeagueGameTeamDireInfo.cs" />
     <Compile Include="DOTA2\LiveLeagueGameTeamRadiantDetail.cs" />
     <Compile Include="DOTA2\LiveLeagueGameTeamRadiantInfo.cs" />
+    <Compile Include="DOTA2\MatchPlayerAbilityUpgrade.cs" />
+    <Compile Include="DOTA2\MatchDetailResult.cs" />
+    <Compile Include="DOTA2\MatchDetailResultContainer.cs" />
+    <Compile Include="DOTA2\MatchPickBan.cs" />
+    <Compile Include="DOTA2\MatchPlayer.cs" />
     <Compile Include="DOTA2\ProPlayerListResult.cs" />
     <Compile Include="DOTA2\ProPlayerListResultContainer.cs" />
     <Compile Include="DOTA2\PlayerOfficialInfoResult.cs" />

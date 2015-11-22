@@ -22,5 +22,13 @@ namespace SteamWebAPI2
             var liveLeagueGames = await GetJsonAsync<LiveLeagueGameResultContainer>(interfaceName, "GetLiveLeagueGames", 1);
             return new ReadOnlyCollection<LiveLeagueGame>(liveLeagueGames.Result.Games);
         }
+
+        public async Task<MatchDetailResult> GetMatchDetails(int matchId)
+        {
+            List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
+            parameters.Add(new SteamWebRequestParameter("match_id", matchId.ToString()));
+            var matchDetail = await GetJsonAsync<MatchDetailResultContainer>(interfaceName, "GetMatchDetails", 1, parameters);
+            return matchDetail.Result;
+        }
     }
 }

@@ -68,5 +68,11 @@ namespace SteamWebAPI2
             DOTA2Match dota2Match = new DOTA2Match(steamWebApiKey);
             return await dota2Match.GetLiveLeagueGames();
         }
+
+        public async Task<MatchDetailResult> GetDOTA2MatchDetails(int matchId)
+        {
+            DOTA2Match dota2Match = new DOTA2Match(steamWebApiKey);
+            return await dota2Match.GetMatchDetails(matchId);
+        }
     }
 }
