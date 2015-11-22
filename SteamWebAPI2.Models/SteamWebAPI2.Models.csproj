@@ -72,9 +72,11 @@
     <Compile Include="DOTA2\LiveLeagueGameTeamDireInfo.cs" />
     <Compile Include="DOTA2\LiveLeagueGameTeamRadiantDetail.cs" />
     <Compile Include="DOTA2\LiveLeagueGameTeamRadiantInfo.cs" />
+    <Compile Include="DOTA2\MatchHistoryBySequenceNumberResult.cs" />
     <Compile Include="DOTA2\MatchHistoryMatch.cs" />
     <Compile Include="DOTA2\MatchHistoryPlayer.cs" />
     <Compile Include="DOTA2\MatchHistoryResult.cs" />
+    <Compile Include="DOTA2\MatchHistoryBySequenceNumberResultContainer.cs" />
     <Compile Include="DOTA2\MatchHistoryResultContainer.cs" />
     <Compile Include="DOTA2\MatchPlayerAbilityUpgrade.cs" />
     <Compile Include="DOTA2\MatchDetailResult.cs" />
