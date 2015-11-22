@@ -30,5 +30,11 @@ namespace SteamWebAPI2
             var matchDetail = await GetJsonAsync<MatchDetailResultContainer>(interfaceName, "GetMatchDetails", 1, parameters);
             return matchDetail.Result;
         }
+
+        public async Task<MatchHistoryResult> GetMatchHistory()
+        {
+            var matchHistory = await GetJsonAsync<MatchHistoryResultContainer>(interfaceName, "GetMatchHistory", 1);
+            return matchHistory.Result;
+        }
     }
 }
