@@ -70,5 +70,45 @@ namespace SteamWebAPI2
             var matchHistory = await CallMethodAsync<MatchHistoryBySequenceNumberResultContainer>("GetMatchHistoryBySequenceNum", 1);
             return matchHistory.Result;
         }
+
+        /*
+        public async Task<??> GetScheduledLeagueGames(int? dateMin = null, int? dateMax = null)
+        {
+
+        }
+        */
+
+        public async Task<IReadOnlyCollection<TeamInfo>> GetTeamInfoByTeamId(long? startAtTeamId = null, int? teamsRequested = null)
+        {
+            List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
+
+            AddToParametersIfHasValue("start_at_team_id", startAtTeamId, parameters);
+            AddToParametersIfHasValue("teams_requested", teamsRequested, parameters);
+
+            var teamInfos = await CallMethodAsync<TeamInfoResultContainer>("GetTeamInfoByTeamID", 1);
+            return new ReadOnlyCollection<TeamInfo>(teamInfos.Result.Teams);
+        }
+
+        /*
+        public async Task<??> GetTopLiveGame(int? partner = null)
+        {
+
+        }
+        */
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="accountId"></param>
+        /// <param name="leagueId">This method only works properly with 65006 league id (The International) for some reason</param>
+        /// <param name="heroId"></param>
+        /// <param name="matchId"></param>
+        /// <param name="phaseId"></param>
+        /// <returns></returns>
+        public async Task GetTournamentPlayerStats(string accountId = "", string leagueId = "", string heroId = "", 
+            long? matchId = null, int? phaseId = null)
+        {
+            throw new NotImplementedException("I can't find good test conditions for this, so I don't know how to implement a response parser.");
+        }
     }
 }

@@ -46,8 +46,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CSGOServers.cs" />
+    <Compile Include="DOTA2Econ.cs" />
     <Compile Include="DOTA2Fantasy.cs" />
     <Compile Include="DOTA2Match.cs" />
+    <Compile Include="DOTA2Ticket.cs" />
     <Compile Include="ErrorMessages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -60,6 +62,7 @@
     <Compile Include="SteamWebInterface.cs" />
     <Compile Include="SteamWebRequest.cs" />
     <Compile Include="SteamWebRequestParameter.cs" />
+    <Compile Include="Utilities\SteamIdExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ErrorMessages.resx">

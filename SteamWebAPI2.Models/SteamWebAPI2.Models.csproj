@@ -56,6 +56,9 @@
     <Compile Include="CSGO\ServerStatusResult.cs" />
     <Compile Include="CSGO\ServerStatusResultContainer.cs" />
     <Compile Include="CSGO\Services.cs" />
+    <Compile Include="DOTA2\GameItem.cs" />
+    <Compile Include="DOTA2\GameItemResult.cs" />
+    <Compile Include="DOTA2\GameItemResultContainer.cs" />
     <Compile Include="DOTA2\League.cs" />
     <Compile Include="DOTA2\LeagueResult.cs" />
     <Compile Include="DOTA2\LeagueResultContainer.cs" />
@@ -89,6 +92,9 @@
     <Compile Include="DOTA2\PlayerOfficialInfoResultContainer.cs" />
     <Compile Include="DOTA2\ProPlayerInfo.cs" />
     <Compile Include="DOTA2\ProPlayerLeaderboard.cs" />
+    <Compile Include="DOTA2\TeamInfoResult.cs" />
+    <Compile Include="DOTA2\TeamInfo.cs" />
+    <Compile Include="DOTA2\TeamInfoResultContainer.cs" />
     <Compile Include="FeedData.cs" />
     <Compile Include="Friend.cs" />
     <Compile Include="GameSchema.cs" />
@@ -108,6 +114,7 @@
     <Compile Include="PlayerSummary.cs" />
     <Compile Include="Utilities\CSGODataCenterJsonConverter.cs" />
     <Compile Include="Utilities\DateTimeExtensions.cs" />
+    <Compile Include="Utilities\TeamInfoJsonConverter.cs" />
     <Compile Include="Utilities\UnixTimeJsonConverter.cs" />
   </ItemGroup>
   <ItemGroup>
