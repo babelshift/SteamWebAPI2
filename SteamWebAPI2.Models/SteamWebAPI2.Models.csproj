@@ -107,6 +107,8 @@
     <Compile Include="DOTA2\TeamInfoResultContainer.cs" />
     <Compile Include="Economy\EconItemResultContainer.cs" />
     <Compile Include="Economy\SchemaResultContainer.cs" />
+    <Compile Include="Economy\SchemaURLResultContainer.cs" />
+    <Compile Include="Economy\StoreMetaDataResultContainer.cs" />
     <Compile Include="FeedData.cs" />
     <Compile Include="Friend.cs" />
     <Compile Include="GameSchema.cs" />
