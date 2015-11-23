@@ -59,8 +59,8 @@ namespace SteamWebAPI2
             response = response.Replace("\n", "");
             response = response.Replace("\t", "");
             //response = response.Replace("\\", "");
-            response = response.Replace("\"{", "{");
-            response = response.Replace("\"}", "}");
+            //response = response.Replace("\"{", "{");
+            //response = response.Replace("\"}", "}");
 
             var deserializedResult = JsonConvert.DeserializeObject<T>(response);
             return deserializedResult;

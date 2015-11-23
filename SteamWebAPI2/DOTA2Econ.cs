@@ -33,8 +33,8 @@ namespace SteamWebAPI2
 
             AddToParametersIfHasValue("language", language, parameters);
 
-            var teamInfos = await CallMethodAsync<GameItemResultContainer>("GetGameItems", 1);
-            return new ReadOnlyCollection<GameItem>(teamInfos.Result.Items);
+            var gameItems = await CallMethodAsync<GameItemResultContainer>("GetGameItems", 1);
+            return new ReadOnlyCollection<GameItem>(gameItems.Result.Items);
         }
 
         public async Task<IReadOnlyCollection<Hero>> GetHeroesAsync(string language = "", bool itemizedOnly = false)
@@ -46,8 +46,40 @@ namespace SteamWebAPI2
             AddToParametersIfHasValue("language", language, parameters);
             AddToParametersIfHasValue("itemizedonly", itemizedOnlyValue, parameters);
 
-            var teamInfos = await CallMethodAsync<HeroResultContainer>("GetHeroes", 1);
-            return new ReadOnlyCollection<Hero>(teamInfos.Result.Heroes);
+            var heroes = await CallMethodAsync<HeroResultContainer>("GetHeroes", 1);
+            return new ReadOnlyCollection<Hero>(heroes.Result.Heroes);
+        }
+        
+        /// <summary>
+        /// It is important to note that the "items" this method is referring to are not the in game items. These are actually cosmetic items found in the DOTA 2 store and workshop.
+        /// </summary>
+        /// <param name="iconName"></param>
+        /// <param name="iconType"></param>
+        /// <returns></returns>
+        public async Task<string> GetItemIconPathAsync(string iconName, string iconType = "")
+        {
+            if(String.IsNullOrEmpty(iconName))
+            {
+                throw new ArgumentNullException("iconName");
+            }
+
+            List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
+
+            AddToParametersIfHasValue("iconname", iconName, parameters);
+            AddToParametersIfHasValue("icontype", iconType, parameters);
+
+            var itemIconPath = await CallMethodAsync<ItemIconPathResultContainer>("GetItemIconPath", 1);
+            return itemIconPath.Result.Path;
+        }
+
+        public async Task<RarityResult> GetRaritiesAsync(string language = "")
+        {
+            List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
+
+            AddToParametersIfHasValue("language", language, parameters);
+
+            var raritiesContainer = await CallMethodAsync<RarityResultContainer>("GetRarities", 1);
+            return raritiesContainer.Result;
         }
     }
 }

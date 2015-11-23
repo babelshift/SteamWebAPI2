@@ -62,6 +62,8 @@
     <Compile Include="DOTA2\Hero.cs" />
     <Compile Include="DOTA2\HeroResult.cs" />
     <Compile Include="DOTA2\HeroResultContainer.cs" />
+    <Compile Include="DOTA2\ItemIconPathResult.cs" />
+    <Compile Include="DOTA2\ItemIconPathResultContainer.cs" />
     <Compile Include="DOTA2\League.cs" />
     <Compile Include="DOTA2\LeagueResult.cs" />
     <Compile Include="DOTA2\LeagueResultContainer.cs" />
@@ -95,6 +97,9 @@
     <Compile Include="DOTA2\PlayerOfficialInfoResultContainer.cs" />
     <Compile Include="DOTA2\ProPlayerInfo.cs" />
     <Compile Include="DOTA2\ProPlayerLeaderboard.cs" />
+    <Compile Include="DOTA2\Rarity.cs" />
+    <Compile Include="DOTA2\RarityResult.cs" />
+    <Compile Include="DOTA2\RarityResultContainer.cs" />
     <Compile Include="DOTA2\TeamInfoResult.cs" />
     <Compile Include="DOTA2\TeamInfo.cs" />
     <Compile Include="DOTA2\TeamInfoResultContainer.cs" />
