@@ -57,6 +57,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ErrorMessages.resx</DependentUpon>
     </Compile>
+    <Compile Include="SteamEconomy.cs" />
     <Compile Include="SteamApps.cs" />
     <Compile Include="SteamUser.cs" />
     <Compile Include="SteamWebAPIUtil.cs" />

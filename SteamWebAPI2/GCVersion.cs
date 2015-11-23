@@ -1,9 +1,6 @@
 ﻿using SteamWebAPI2.Models;
-using SteamWebAPI2.Models.Economy;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SteamWebAPI2
@@ -15,12 +12,13 @@ namespace SteamWebAPI2
         // The API only exposes certain methods for certain App Ids in the EconItems interface
         // I'm hard coding the values for now until I come up with a better, more dynamic solution
         private List<int> validClientVersionAppIds = new List<int>();
+
         private List<int> validServerVersionAppIds = new List<int>();
 
         public GCVersion(string steamWebApiKey, int appId)
             : base(steamWebApiKey, "IGCVersion_" + appId)
         {
-            if(appId <= 0)
+            if (appId <= 0)
             {
                 throw new ArgumentOutOfRangeException("appId");
             }
@@ -41,7 +39,7 @@ namespace SteamWebAPI2
             {
                 throw new InvalidOperationException(String.Format("AppId {0} is not valid for the GetClientVersion method.", appId));
             }
-            
+
             var clientVersion = await CallMethodAsync<GameClientResultContainer>("GetClientVersion", 1);
             return clientVersion.Result;
         }

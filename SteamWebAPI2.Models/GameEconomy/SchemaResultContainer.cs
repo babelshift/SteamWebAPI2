@@ -10,7 +10,7 @@
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace SteamWebAPI2.Models.Economy
+namespace SteamWebAPI2.Models.GameEconomy
 {
     public class SchemaQualities
     {

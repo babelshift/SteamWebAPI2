@@ -48,6 +48,7 @@
     <Compile Include="Achievement.cs" />
     <Compile Include="AchievementPercentage.cs" />
     <Compile Include="AppNews.cs" />
+    <Compile Include="SteamAppUpToDateCheckResultContainer.cs" />
     <Compile Include="Cart.cs" />
     <Compile Include="CSGO\App.cs" />
     <Compile Include="CSGO\Datacenter.cs" />
@@ -104,11 +105,11 @@
     <Compile Include="DOTA2\TeamInfoResult.cs" />
     <Compile Include="DOTA2\TeamInfo.cs" />
     <Compile Include="DOTA2\TeamInfoResultContainer.cs" />
-    <Compile Include="Economy\EconItemResultContainer.cs" />
-    <Compile Include="Economy\SchemaResultContainer.cs" />
-    <Compile Include="Economy\SchemaURLResultContainer.cs" />
-    <Compile Include="Economy\StoreMetaDataResultContainer.cs" />
-    <Compile Include="Economy\StoreStatusResultContainer.cs" />
+    <Compile Include="GameEconomy\EconItemResultContainer.cs" />
+    <Compile Include="GameEconomy\SchemaResultContainer.cs" />
+    <Compile Include="GameEconomy\SchemaURLResultContainer.cs" />
+    <Compile Include="GameEconomy\StoreMetaDataResultContainer.cs" />
+    <Compile Include="GameEconomy\StoreStatusResultContainer.cs" />
     <Compile Include="FeedData.cs" />
     <Compile Include="Friend.cs" />
     <Compile Include="GameClientResultContainer.cs" />
@@ -122,6 +123,7 @@
     <Compile Include="SteamApiList.cs" />
     <Compile Include="SteamApiListContainer.cs" />
     <Compile Include="SteamAppListResultContainer.cs" />
+    <Compile Include="SteamEconomy\AssetPriceResultContainer.cs" />
     <Compile Include="SteamInterface.cs" />
     <Compile Include="SteamServerInfo.cs" />
     <Compile Include="UserAchievements.cs" />
