@@ -105,11 +105,6 @@
     <Compile Include="DOTA2\TeamInfoResult.cs" />
     <Compile Include="DOTA2\TeamInfo.cs" />
     <Compile Include="DOTA2\TeamInfoResultContainer.cs" />
-    <Compile Include="Economy\EconItem.cs" />
-    <Compile Include="Economy\EconItemAttribute.cs" />
-    <Compile Include="Economy\EconItemAttributeAccountInfo.cs" />
-    <Compile Include="Economy\EconItemEquipped.cs" />
-    <Compile Include="Economy\EconItemResult.cs" />
     <Compile Include="Economy\EconItemResultContainer.cs" />
     <Compile Include="Economy\SchemaResultContainer.cs" />
     <Compile Include="FeedData.cs" />
