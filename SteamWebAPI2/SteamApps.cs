@@ -17,8 +17,8 @@ namespace SteamWebAPI2
 
         public async Task<IReadOnlyCollection<SteamApp>> GetAppList()
         {
-            var steamAppList = await CallMethodAsync<SteamAppListResultContainer>("GetAppList", 1);
-            return new ReadOnlyCollection<SteamApp>(steamAppList.AppListResult.AppList.Apps);
+            var steamAppList = await CallMethodAsync<SteamAppListResultContainer>("GetAppList", 2);
+            return new ReadOnlyCollection<SteamApp>(steamAppList.AppListResult.Apps);
         }
     }
 }

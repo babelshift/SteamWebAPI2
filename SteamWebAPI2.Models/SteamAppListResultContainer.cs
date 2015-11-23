@@ -15,16 +15,10 @@ namespace SteamWebAPI2.Models
         public string Name { get; set; }
     }
 
-    public class SteamAppList
-    {
-        [JsonProperty("app")]
-        public IList<SteamApp> Apps { get; set; }
-    }
-
     public class SteamAppListResult
     {
         [JsonProperty("apps")]
-        public SteamAppList AppList { get; set; }
+        public IList<SteamApp> Apps { get; set; }
     }
 
     public class SteamAppListResultContainer
