@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SteamWebAPI2.Models
 {
-    public class Group
+    public class UserGroup
     {
         public long ID { get; set; }
         public string Name { get; set; }

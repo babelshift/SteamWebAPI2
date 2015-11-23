@@ -54,5 +54,15 @@ namespace SteamWebAPI2
             var playerBansContainer = await CallMethodAsync<PlayerBansContainer>("GetPlayerBans", 1, parameters);
             return new ReadOnlyCollection<PlayerBans>(playerBansContainer.PlayerBans);
         }
+
+        public async Task<UserGroupListResult> GetUserGroupsAsync(long steamId)
+        {
+            List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
+            
+            AddToParametersIfHasValue("steamid", steamId, parameters);
+
+            var userGroupResultContainer = await CallMethodAsync<UserGroupListResultContainer>("GetUserGroupList", 1, parameters);
+            return userGroupResultContainer.Result;
+        }
     }
 }

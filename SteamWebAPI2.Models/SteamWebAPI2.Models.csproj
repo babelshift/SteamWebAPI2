@@ -130,6 +130,7 @@
     <Compile Include="SteamServerInfo.cs" />
     <Compile Include="UserAchievements.cs" />
     <Compile Include="UserBanStatus.cs" />
+    <Compile Include="UserGroupListResultContainer.cs" />
     <Compile Include="UserStats.cs" />
     <Compile Include="PlayerSummary.cs" />
     <Compile Include="Utilities\AssetClassInfoJsonConverter.cs" />
