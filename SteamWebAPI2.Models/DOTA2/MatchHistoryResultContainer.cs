@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json;
+using SteamWebAPI2.Models.Utilities;
+using System;
 using System.Collections.Generic;
 
 namespace SteamWebAPI2.Models.DOTA2
