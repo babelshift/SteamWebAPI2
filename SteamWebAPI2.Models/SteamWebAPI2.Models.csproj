@@ -111,6 +111,7 @@
     <Compile Include="Economy\EconItemEquipped.cs" />
     <Compile Include="Economy\EconItemResult.cs" />
     <Compile Include="Economy\EconItemResultContainer.cs" />
+    <Compile Include="Economy\SchemaResultContainer.cs" />
     <Compile Include="FeedData.cs" />
     <Compile Include="Friend.cs" />
     <Compile Include="GameSchema.cs" />
