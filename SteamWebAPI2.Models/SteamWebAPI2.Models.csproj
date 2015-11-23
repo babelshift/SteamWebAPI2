@@ -47,7 +47,6 @@
   <ItemGroup>
     <Compile Include="Achievement.cs" />
     <Compile Include="AchievementPercentage.cs" />
-    <Compile Include="App.cs" />
     <Compile Include="AppNews.cs" />
     <Compile Include="Cart.cs" />
     <Compile Include="CSGO\App.cs" />
@@ -122,6 +121,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SteamApiList.cs" />
     <Compile Include="SteamApiListContainer.cs" />
+    <Compile Include="SteamAppListResultContainer.cs" />
     <Compile Include="SteamInterface.cs" />
     <Compile Include="SteamServerInfo.cs" />
     <Compile Include="UserAchievements.cs" />
