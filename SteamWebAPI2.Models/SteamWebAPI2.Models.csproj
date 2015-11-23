@@ -112,6 +112,7 @@
     <Compile Include="Economy\StoreStatusResultContainer.cs" />
     <Compile Include="FeedData.cs" />
     <Compile Include="Friend.cs" />
+    <Compile Include="GameClientResultContainer.cs" />
     <Compile Include="GameSchema.cs" />
     <Compile Include="Group.cs" />
     <Compile Include="LineItem.cs" />
