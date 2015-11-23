@@ -81,5 +81,15 @@ namespace SteamWebAPI2
             var raritiesContainer = await CallMethodAsync<RarityResultContainer>("GetRarities", 1);
             return raritiesContainer.Result;
         }
+
+        public async Task<PrizePoolResult> GetTournamentPrizePool(int? leagueId = null)
+        {
+            List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
+
+            AddToParametersIfHasValue("leagueid", leagueId, parameters);
+
+            var raritiesContainer = await CallMethodAsync<PrizePoolResultContainer>("GetTournamentPrizePool", 1);
+            return raritiesContainer.Result;
+        }
     }
 }

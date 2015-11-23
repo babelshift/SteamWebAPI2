@@ -91,6 +91,8 @@
     <Compile Include="DOTA2\MatchDetailResultContainer.cs" />
     <Compile Include="DOTA2\MatchPickBan.cs" />
     <Compile Include="DOTA2\MatchPlayer.cs" />
+    <Compile Include="DOTA2\PrizePoolResult.cs" />
+    <Compile Include="DOTA2\PrizePoolResultContainer.cs" />
     <Compile Include="DOTA2\ProPlayerListResult.cs" />
     <Compile Include="DOTA2\ProPlayerListResultContainer.cs" />
     <Compile Include="DOTA2\PlayerOfficialInfoResult.cs" />
