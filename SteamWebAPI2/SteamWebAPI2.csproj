@@ -52,11 +52,6 @@
     <Compile Include="DOTA2Ticket.cs" />
     <Compile Include="GCVersion.cs" />
     <Compile Include="EconItems.cs" />
-    <Compile Include="ErrorMessages.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ErrorMessages.resx</DependentUpon>
-    </Compile>
     <Compile Include="SteamEconomy.cs" />
     <Compile Include="SteamApps.cs" />
     <Compile Include="SteamNews.cs" />
@@ -69,12 +64,6 @@
     <Compile Include="Utilities\SteamIdExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="ErrorMessages.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>ErrorMessages.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\SteamWebAPI2.Models\SteamWebAPI2.Models.csproj">
       <Project>{3c941daf-a4f0-4111-994a-031e0d631469}</Project>
       <Name>SteamWebAPI2.Models</Name>
@@ -82,6 +71,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Interfaces\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using SteamWebAPI2.Models.Utilities;
 using System;
+using System.Collections.Generic;
 
 namespace SteamWebAPI2.Models
 {
@@ -39,7 +40,7 @@ namespace SteamWebAPI2.Models
         Private = 2,
         Public = 3
     }
-    
+
     /// <summary>
     /// Represents a single player summary from ISteamUser/GetPlayerSummaries interface/method. Not every field will be populated
     /// depending on the user's privacy choices or omission of data completely.
@@ -136,7 +137,7 @@ namespace SteamWebAPI2.Models
         public DateTime AccountCreatedDate { get; set; }
 
         /// <summary>
-        /// The player's selected country 
+        /// The player's selected country
         /// </summary>
         [JsonProperty(PropertyName = "loccountrycode")]
         public string CountryCode { get; set; }
@@ -164,5 +165,28 @@ namespace SteamWebAPI2.Models
         /// </summary>
         [JsonProperty(PropertyName = "gameid")]
         public string PlayingGameId { get; set; }
+    }
+
+    /// <summary>
+    /// Represents the list of player summaries from ISteamUser/GetPlayerSummaries interface/method.
+    /// </summary>
+    public class PlayerSummaryResult
+    {
+        /// <summary>
+        /// Contains the list of player summaries in the JSON response.
+        /// </summary>
+        public IList<PlayerSummary> Players { get; set; }
+    }
+
+    /// <summary>
+    /// Represents the container of the response from ISteamUser/GetPlayerSummaries interface/method.
+    /// </summary>
+    public class PlayerSummaryResultContainer
+    {
+        /// <summary>
+        /// The JSON response has a top level "response" object
+        /// </summary>
+        [JsonProperty(PropertyName = "response")]
+        public PlayerSummaryResult Result { get; set; }
     }
 }

@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace SteamWebAPI2.Models
 {
+    public class SteamApiList
+    {
+        public IList<SteamInterface> Interfaces { get; set; }
+    }
+
     public class SteamApiListContainer
     {
         public SteamApiList ApiList { get; set; }

@@ -17,11 +17,11 @@ namespace SteamWebAPI2
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
             AddToParametersIfHasValue("steamids", steamId, parameters);
-            var playerSummary = await CallMethodAsync<PlayerSummaryResponseContainer>("GetPlayerSummaries", 2, parameters);
+            var playerSummary = await CallMethodAsync<PlayerSummaryResultContainer>("GetPlayerSummaries", 2, parameters);
 
-            if (playerSummary.Response.Players.Count > 0)
+            if (playerSummary.Result.Players.Count > 0)
             {
-                return playerSummary.Response.Players[0];
+                return playerSummary.Result.Players[0];
             }
             else
             {
