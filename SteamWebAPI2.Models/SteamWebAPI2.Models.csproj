@@ -123,6 +123,7 @@
     <Compile Include="SteamApiList.cs" />
     <Compile Include="SteamApiListContainer.cs" />
     <Compile Include="SteamAppListResultContainer.cs" />
+    <Compile Include="SteamEconomy\AssetClassInfoResultContainer.cs" />
     <Compile Include="SteamEconomy\AssetPriceResultContainer.cs" />
     <Compile Include="SteamInterface.cs" />
     <Compile Include="SteamServerInfo.cs" />
@@ -130,6 +131,7 @@
     <Compile Include="UserBanStatus.cs" />
     <Compile Include="UserStats.cs" />
     <Compile Include="PlayerSummary.cs" />
+    <Compile Include="Utilities\AssetClassInfoJsonConverter.cs" />
     <Compile Include="Utilities\CSGODataCenterJsonConverter.cs" />
     <Compile Include="Utilities\DateTimeExtensions.cs" />
     <Compile Include="Utilities\TeamInfoJsonConverter.cs" />

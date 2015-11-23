@@ -1,4 +1,5 @@
 ﻿using SteamWebAPI2.Models;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
@@ -10,6 +11,23 @@ namespace SteamWebAPI2
         public SteamEconomy(string steamWebApiKey)
             : base(steamWebApiKey, "ISteamEconomy")
         {
+        }
+
+        public async Task<AssetClassInfoResult> GetAssetClassInfo(int appId, IReadOnlyList<long> classIds)
+        {
+            List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
+
+            AddToParametersIfHasValue("appid", appId, parameters);
+
+            AddToParametersIfHasValue("class_count", classIds.Count, parameters);
+
+            for (int i = 0; i < classIds.Count; i++)
+            {
+                AddToParametersIfHasValue(String.Format("classid{0}", i), classIds[i], parameters);
+            }
+
+            var assetClassInfoResult = await CallMethodAsync<AssetClassInfoResultContainer>("GetAssetClassInfo", 1, parameters);
+            return assetClassInfoResult.Result;
         }
 
         public async Task<AssetPriceResult> GetAssetPricesAsync(int appId, string currency = "", string language = "")
