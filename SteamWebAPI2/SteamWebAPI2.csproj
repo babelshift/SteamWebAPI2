@@ -59,6 +59,7 @@
     </Compile>
     <Compile Include="SteamEconomy.cs" />
     <Compile Include="SteamApps.cs" />
+    <Compile Include="SteamNews.cs" />
     <Compile Include="SteamUser.cs" />
     <Compile Include="SteamWebAPIUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

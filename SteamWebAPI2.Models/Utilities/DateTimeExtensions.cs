@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SteamWebAPI2.Models.Utilities
 {
-    internal static class DateTimeExtensions
+    public static class DateTimeExtensions
     {
         public static DateTime ToDateTime(this long unixTimeStamp)
         {

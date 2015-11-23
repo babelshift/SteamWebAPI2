@@ -1,7 +1,6 @@
 ﻿using SteamWebAPI2.Models;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
 namespace SteamWebAPI2
@@ -13,12 +12,11 @@ namespace SteamWebAPI2
         {
         }
 
-        public async Task<AssetClassInfoResult> GetAssetClassInfo(int appId, IReadOnlyList<long> classIds)
+        public async Task<AssetClassInfoResult> GetAssetClassInfoAsync(int appId, IReadOnlyList<long> classIds)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
             AddToParametersIfHasValue("appid", appId, parameters);
-
             AddToParametersIfHasValue("class_count", classIds.Count, parameters);
 
             for (int i = 0; i < classIds.Count; i++)
