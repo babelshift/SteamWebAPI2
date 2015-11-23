@@ -50,6 +50,7 @@
     <Compile Include="DOTA2Fantasy.cs" />
     <Compile Include="DOTA2Match.cs" />
     <Compile Include="DOTA2Ticket.cs" />
+    <Compile Include="EconItems.cs" />
     <Compile Include="ErrorMessages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -58,7 +59,6 @@
     <Compile Include="SteamUser.cs" />
     <Compile Include="SteamWebAPIUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SteamWebFactory.cs" />
     <Compile Include="SteamWebInterface.cs" />
     <Compile Include="SteamWebRequest.cs" />
     <Compile Include="SteamWebRequestParameter.cs" />

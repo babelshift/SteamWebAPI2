@@ -14,6 +14,11 @@ namespace SteamWebAPI2
 
         public SteamWebInterface(string steamWebApiKey, string interfaceName)
         {
+            if(String.IsNullOrEmpty(steamWebApiKey))
+            {
+                throw new ArgumentNullException("steamWebApiKey");
+            }
+
             Debug.Assert(!String.IsNullOrEmpty(interfaceName));
 
             this.interfaceName = interfaceName;
