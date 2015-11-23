@@ -59,6 +59,9 @@
     <Compile Include="DOTA2\GameItem.cs" />
     <Compile Include="DOTA2\GameItemResult.cs" />
     <Compile Include="DOTA2\GameItemResultContainer.cs" />
+    <Compile Include="DOTA2\Hero.cs" />
+    <Compile Include="DOTA2\HeroResult.cs" />
+    <Compile Include="DOTA2\HeroResultContainer.cs" />
     <Compile Include="DOTA2\League.cs" />
     <Compile Include="DOTA2\LeagueResult.cs" />
     <Compile Include="DOTA2\LeagueResultContainer.cs" />

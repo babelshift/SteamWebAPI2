@@ -36,5 +36,18 @@ namespace SteamWebAPI2
             var teamInfos = await CallMethodAsync<GameItemResultContainer>("GetGameItems", 1);
             return new ReadOnlyCollection<GameItem>(teamInfos.Result.Items);
         }
+
+        public async Task<IReadOnlyCollection<Hero>> GetHeroesAsync(string language = "", bool itemizedOnly = false)
+        {
+            List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
+
+            int itemizedOnlyValue = itemizedOnly ? 1 : 0;
+
+            AddToParametersIfHasValue("language", language, parameters);
+            AddToParametersIfHasValue("itemizedonly", itemizedOnlyValue, parameters);
+
+            var teamInfos = await CallMethodAsync<HeroResultContainer>("GetHeroes", 1);
+            return new ReadOnlyCollection<Hero>(teamInfos.Result.Heroes);
+        }
     }
 }
