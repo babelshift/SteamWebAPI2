@@ -9,7 +9,7 @@ namespace SteamWebAPI2.Models
     public class UserGroupGid
     {
         [JsonProperty("gid")]
-        public string Gid { get; set; }
+        public long Gid { get; set; }
     }
 
     public class UserGroupListResult

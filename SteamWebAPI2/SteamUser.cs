@@ -64,5 +64,16 @@ namespace SteamWebAPI2
             var userGroupResultContainer = await CallMethodAsync<UserGroupListResultContainer>("GetUserGroupList", 1, parameters);
             return userGroupResultContainer.Result;
         }
+
+        public async Task<long> ResolveVanityUrlAsync(string vanityUrl, int? urlType = null)
+        {
+            List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
+
+            AddToParametersIfHasValue("vanityurl", vanityUrl, parameters);
+            AddToParametersIfHasValue("url_type", urlType, parameters);
+
+            var userGroupResultContainer = await CallMethodAsync<ResolveVanityUrlResultContainer>("ResolveVanityURL", 1, parameters);
+            return userGroupResultContainer.Result.SteamId;
+        }
     }
 }

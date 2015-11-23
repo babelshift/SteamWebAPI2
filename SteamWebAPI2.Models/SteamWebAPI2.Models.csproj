@@ -49,6 +49,7 @@
     <Compile Include="AchievementPercentage.cs" />
     <Compile Include="FriendListResultContainer.cs" />
     <Compile Include="PlayerBansContainer.cs" />
+    <Compile Include="ResolveVanityUrlResultContainer.cs" />
     <Compile Include="SteamAppUpToDateCheckResultContainer.cs" />
     <Compile Include="Cart.cs" />
     <Compile Include="CSGO\App.cs" />
