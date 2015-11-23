@@ -37,5 +37,22 @@ namespace SteamWebAPI2
             var friendsListResult = await CallMethodAsync<FriendsListResultContainer>("GetFriendList", 1, parameters);
             return new ReadOnlyCollection<Friend>(friendsListResult.Result.Friends);
         }
+
+        public async Task<IReadOnlyCollection<PlayerBans>> GetPlayerBansAsync(long steamId)
+        {
+            return await GetPlayerBansAsync(new List<long>() { steamId });
+        }
+
+        public async Task<IReadOnlyCollection<PlayerBans>> GetPlayerBansAsync(IReadOnlyCollection<long> steamIds)
+        {
+            List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
+
+            string steamIdsParamValue = String.Join(",", steamIds);
+            
+            AddToParametersIfHasValue("steamids", steamIdsParamValue, parameters);
+
+            var playerBansContainer = await CallMethodAsync<PlayerBansContainer>("GetPlayerBans", 1, parameters);
+            return new ReadOnlyCollection<PlayerBans>(playerBansContainer.PlayerBans);
+        }
     }
 }
