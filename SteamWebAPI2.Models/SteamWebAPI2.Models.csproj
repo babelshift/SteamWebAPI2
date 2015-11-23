@@ -109,6 +109,7 @@
     <Compile Include="Economy\SchemaResultContainer.cs" />
     <Compile Include="Economy\SchemaURLResultContainer.cs" />
     <Compile Include="Economy\StoreMetaDataResultContainer.cs" />
+    <Compile Include="Economy\StoreStatusResultContainer.cs" />
     <Compile Include="FeedData.cs" />
     <Compile Include="Friend.cs" />
     <Compile Include="GameSchema.cs" />

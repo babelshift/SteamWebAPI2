@@ -11,6 +11,8 @@ namespace SteamWebAPI2
     {
         private int appId;
 
+        // The API only exposes certain methods for certain App Ids in the EconItems interface
+        // I'm hard coding the values for now until I come up with a better, more dynamic solution
         private List<int> validSchemaAppIds = new List<int>();
         private List<int> validSchemaUrlAppIds = new List<int>();
         private List<int> validStoreMetaDataAppIds = new List<int>();
@@ -38,6 +40,7 @@ namespace SteamWebAPI2
 
             validStoreMetaDataAppIds.Add(440);
             validStoreMetaDataAppIds.Add(570);
+            validSchemaUrlAppIds.Add(730);
 
             validStoreStatusAppIds.Add(440);
         }
@@ -67,15 +70,41 @@ namespace SteamWebAPI2
             return schemaResult.Result;
         }
 
-        public async Task<SchemaUrlResult> GetSchemaUrlAsync(string language = "")
+        public async Task<SchemaUrlResult> GetSchemaUrlAsync()
         {
             if (!validSchemaUrlAppIds.Contains(appId))
             {
                 throw new InvalidOperationException(String.Format("AppId {0} is not valid for the GetSchemaUrl method.", appId));
             }
 
-            var schemaResult = await CallMethodAsync<SchemaUrlResultContainer>("GetSchemaURL", 1);
-            return schemaResult.Result;
+            var schemaUrlResult = await CallMethodAsync<SchemaUrlResultContainer>("GetSchemaURL", 1);
+            return schemaUrlResult.Result;
+        }
+
+        public async Task<StoreMetaDataResult> GetStoreMetaDataAsync(string language = "")
+        {
+            if (!validStoreMetaDataAppIds.Contains(appId))
+            {
+                throw new InvalidOperationException(String.Format("AppId {0} is not valid for the GetStoreMetaData method.", appId));
+            }
+
+            List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
+
+            AddToParametersIfHasValue("language", language, parameters);
+
+            var storeMetaDataResult = await CallMethodAsync<StoreMetaDataResultContainer>("GetStoreMetaData", 1);
+            return storeMetaDataResult.Result;
+        }
+
+        public async Task<StoreStatusResult> GetStoreStatusAsync()
+        {
+            if (!validStoreStatusAppIds.Contains(appId))
+            {
+                throw new InvalidOperationException(String.Format("AppId {0} is not valid for the GetStoreStatus method.", appId));
+            }
+
+            var storeStatusResult = await CallMethodAsync<StoreStatusResultContainer>("GetStoreStatus", 1);
+            return storeStatusResult.Result;
         }
     }
 }
