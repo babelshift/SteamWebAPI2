@@ -1,6 +1,7 @@
 ﻿using SteamWebAPI2.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,24 @@ namespace SteamWebAPI2
         public PlayerService(string steamWebApiKey)
             : base(steamWebApiKey, "IPlayerService")
         {
+        }
+
+        public async Task<PlayingSharedGameResult> IsPlayingSharedGameAsync(long steamId, int appId)
+        {
+            List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
+            AddToParametersIfHasValue("steamid", steamId, parameters);
+            AddToParametersIfHasValue("appid_playing", appId, parameters);
+            var playingSharedGameResult = await CallMethodAsync<PlayingSharedGameResultContainer>("IsPlayingSharedGame", 1, parameters);
+            return playingSharedGameResult.Result;
+        }
+
+        public async Task<IReadOnlyCollection<BadgeQuest>> GetCommunityBadgeProgressAsync(long steamId, int? badgeId = null)
+        {
+            List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
+            AddToParametersIfHasValue("steamid", steamId, parameters);
+            AddToParametersIfHasValue("badgeid", badgeId, parameters);
+            var badgeProgressResult = await CallMethodAsync<CommunityBadgeProgressResultContainer>("GetCommunityBadgeProgress", 1, parameters);
+            return new ReadOnlyCollection<BadgeQuest>(badgeProgressResult.Result.Quests);
         }
 
         public async Task<BadgesResult> GetBadgesAsync(long steamId)
