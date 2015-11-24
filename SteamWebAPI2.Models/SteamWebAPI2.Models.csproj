@@ -51,6 +51,7 @@
     <Compile Include="CurrentPlayersResultContainer.cs" />
     <Compile Include="PlayerAchievementResultContainer.cs" />
     <Compile Include="PlayerBansContainer.cs" />
+    <Compile Include="RecentlyPlayedGameResultContainer.cs" />
     <Compile Include="ResolveVanityUrlResultContainer.cs" />
     <Compile Include="SchemaForGameResultContainer.cs" />
     <Compile Include="SteamAppUpToDateCheckResultContainer.cs" />

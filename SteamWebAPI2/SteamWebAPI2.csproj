@@ -52,6 +52,7 @@
     <Compile Include="DOTA2Ticket.cs" />
     <Compile Include="GCVersion.cs" />
     <Compile Include="EconItems.cs" />
+    <Compile Include="PlayerService.cs" />
     <Compile Include="SteamEconomy.cs" />
     <Compile Include="SteamApps.cs" />
     <Compile Include="SteamNews.cs" />
