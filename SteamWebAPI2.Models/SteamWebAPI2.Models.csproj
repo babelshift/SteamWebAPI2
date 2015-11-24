@@ -46,8 +46,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Achievement.cs" />
-    <Compile Include="AchievementPercentage.cs" />
     <Compile Include="FriendListResultContainer.cs" />
+    <Compile Include="GlobalAchievementPercentagesResultContainer.cs" />
+    <Compile Include="GlobalStatsForGameResultContainer.cs" />
     <Compile Include="PlayerBansContainer.cs" />
     <Compile Include="ResolveVanityUrlResultContainer.cs" />
     <Compile Include="SteamAppUpToDateCheckResultContainer.cs" />
@@ -98,6 +99,7 @@
     <Compile Include="Utilities\AssetClassInfoJsonConverter.cs" />
     <Compile Include="Utilities\CSGODataCenterJsonConverter.cs" />
     <Compile Include="Utilities\DateTimeExtensions.cs" />
+    <Compile Include="Utilities\GlobalStatJsonConverter.cs" />
     <Compile Include="Utilities\TeamInfoJsonConverter.cs" />
     <Compile Include="Utilities\UnixTimeJsonConverter.cs" />
   </ItemGroup>

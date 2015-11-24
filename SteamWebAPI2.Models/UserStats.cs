@@ -10,12 +10,12 @@ namespace SteamWebAPI2.Models
     {
         public long SteamID { get; set; }
         public string GameName { get; set; }
-        public IList<Achievement> Achievements { get; set; }
+        public IList<GlobalAchievementPercentage> Achievements { get; set; }
         public IList<PlayerStat> Stats { get; set; }
 
         public UserStats()
         {
-            Achievements = new List<Achievement>();
+            Achievements = new List<GlobalAchievementPercentage>();
             Stats = new List<PlayerStat>();
         }
     }
