@@ -83,8 +83,6 @@
     <Compile Include="GameEconomy\StoreStatusResultContainer.cs" />
     <Compile Include="FeedData.cs" />
     <Compile Include="GameClientResultContainer.cs" />
-    <Compile Include="Group.cs" />
-    <Compile Include="LineItem.cs" />
     <Compile Include="PlayerSummaryResultContainer.cs" />
     <Compile Include="Profile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -93,13 +91,13 @@
     <Compile Include="SteamEconomy\AssetClassInfoResultContainer.cs" />
     <Compile Include="SteamEconomy\AssetPriceResultContainer.cs" />
     <Compile Include="SteamInterface.cs" />
+    <Compile Include="SteamLevelResultContainer.cs" />
     <Compile Include="SteamNewsResultContainer.cs" />
     <Compile Include="SteamServerInfo.cs" />
     <Compile Include="TF2\GoldenWrenchResultContainer.cs" />
     <Compile Include="UserAchievements.cs" />
     <Compile Include="UserBanStatus.cs" />
     <Compile Include="UserGroupListResultContainer.cs" />
-    <Compile Include="UserStats.cs" />
     <Compile Include="UserStatsForGameResultContainer.cs" />
     <Compile Include="Utilities\AssetClassInfoJsonConverter.cs" />
     <Compile Include="Utilities\CSGODataCenterJsonConverter.cs" />

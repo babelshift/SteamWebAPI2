@@ -14,6 +14,14 @@ namespace SteamWebAPI2
         {
         }
 
+        public async Task<int> GetSteamLevelAsync(long steamId)
+        {
+            List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
+            AddToParametersIfHasValue("steamid", steamId, parameters);
+            var steamLevelResult = await CallMethodAsync<SteamLevelResultContainer>("GetSteamLevel", 1, parameters);
+            return steamLevelResult.Result.PlayerLevel;
+        }
+
         public async Task<OwnedGamesResult> GetOwnedGamesAsync(long steamId, bool? includeAppInfo = null, bool? includeFreeGames = null, IReadOnlyCollection<int> appIdsToFilter = null)
         {
             int? includeAppInfoBit = 0;
