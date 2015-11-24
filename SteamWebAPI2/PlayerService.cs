@@ -14,6 +14,14 @@ namespace SteamWebAPI2
         {
         }
 
+        public async Task<BadgesResult> GetBadgesAsync(long steamId)
+        {
+            List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
+            AddToParametersIfHasValue("steamid", steamId, parameters);
+            var badgesResult = await CallMethodAsync<BadgesResultContainer>("GetBadges", 1, parameters);
+            return badgesResult.Result;
+        }
+
         public async Task<int> GetSteamLevelAsync(long steamId)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();

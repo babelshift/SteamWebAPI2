@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BadgesResultContainer.cs" />
     <Compile Include="FriendListResultContainer.cs" />
     <Compile Include="GlobalAchievementPercentagesResultContainer.cs" />
     <Compile Include="GlobalStatsForGameResultContainer.cs" />
@@ -56,7 +57,6 @@
     <Compile Include="ResolveVanityUrlResultContainer.cs" />
     <Compile Include="SchemaForGameResultContainer.cs" />
     <Compile Include="SteamAppUpToDateCheckResultContainer.cs" />
-    <Compile Include="Cart.cs" />
     <Compile Include="CSGO\App.cs" />
     <Compile Include="CSGO\Datacenter.cs" />
     <Compile Include="CSGO\Matchmaking.cs" />
@@ -81,7 +81,6 @@
     <Compile Include="GameEconomy\SchemaURLResultContainer.cs" />
     <Compile Include="GameEconomy\StoreMetaDataResultContainer.cs" />
     <Compile Include="GameEconomy\StoreStatusResultContainer.cs" />
-    <Compile Include="FeedData.cs" />
     <Compile Include="GameClientResultContainer.cs" />
     <Compile Include="PlayerSummaryResultContainer.cs" />
     <Compile Include="Profile.cs" />
