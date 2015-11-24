@@ -1,14 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace SteamWebAPI2.Models
 {
-    public class SteamApiList
+    public class SteamApiListResult
     {
         public IList<SteamInterface> Interfaces { get; set; }
     }
 
-    public class SteamApiListContainer
+    internal class SteamApiListContainer
     {
-        public SteamApiList ApiList { get; set; }
+        [JsonProperty("apilist")]
+        public SteamApiListResult Result { get; set; }
     }
 }

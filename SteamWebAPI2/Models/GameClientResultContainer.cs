@@ -17,7 +17,7 @@ namespace SteamWebAPI2.Models
         public int ActiveVersion { get; set; }
     }
 
-    public class GameClientResultContainer
+    internal class GameClientResultContainer
     {
         [JsonProperty("result")]
         public GameClientResult Result { get; set; }

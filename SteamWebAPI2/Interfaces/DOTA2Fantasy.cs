@@ -22,7 +22,7 @@ namespace SteamWebAPI2.Interfaces
         public async Task<ProPlayerListResult> GetProPlayerList()
         {
             var proPlayerList = await CallMethodAsync<ProPlayerListResultContainer>("GetProPlayerList", 1);
-            return proPlayerList.Results;
+            return proPlayerList.Result;
         }
     }
 }

@@ -270,7 +270,7 @@ namespace SteamWebAPI2.Models.GameEconomy
         public StoreHomePageData HomePageData { get; set; }
     }
 
-    public class StoreMetaDataResultContainer
+    internal class StoreMetaDataResultContainer
     {
         [JsonProperty("result")]
         public StoreMetaDataResult Result { get; set; }

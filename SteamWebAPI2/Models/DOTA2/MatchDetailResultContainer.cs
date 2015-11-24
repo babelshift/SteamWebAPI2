@@ -178,7 +178,7 @@ namespace SteamWebAPI2.Models.DOTA2
         public IList<MatchPickBan> PicksAndBans { get; set; }
     }
 
-    public class MatchDetailResultContainer
+    internal class MatchDetailResultContainer
     {
         public MatchDetailResult Result { get; set; }
     }

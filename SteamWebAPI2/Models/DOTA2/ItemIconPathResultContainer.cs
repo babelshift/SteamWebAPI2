@@ -5,7 +5,7 @@
         public string Path { get; set; }
     }
 
-    public class ItemIconPathResultContainer
+    internal class ItemIconPathResultContainer
     {
         public ItemIconPathResult Result { get; set; }
     }

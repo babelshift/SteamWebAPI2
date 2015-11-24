@@ -13,7 +13,7 @@ namespace SteamWebAPI2.Models.DOTA2
         public int Status { get; set; }
     }
 
-    public class PrizePoolResultContainer
+    internal class PrizePoolResultContainer
     {
         public PrizePoolResult Result { get; set; }
     }

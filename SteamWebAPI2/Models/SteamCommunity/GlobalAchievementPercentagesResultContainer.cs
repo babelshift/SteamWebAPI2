@@ -21,7 +21,7 @@ namespace SteamWebAPI2.Models.SteamCommunity
         public IList<GlobalAchievementPercentage> AchievementPercentages { get; set; }
     }
 
-    public class GlobalAchievementPercentagesResultContainer
+    internal class GlobalAchievementPercentagesResultContainer
     {
         [JsonProperty("achievementpercentages")]
         public GlobalAchievementPercentagesResult Result { get; set; }

@@ -30,7 +30,7 @@ namespace SteamWebAPI2.Models.TF2
         public IList<GoldenWrench> GoldenWrenches { get; set; }
     }
 
-    public class GoldenWrenchResultContainer
+    internal class GoldenWrenchResultContainer
     {
         [JsonProperty("results")]
         public GoldenWrenchResult Result { get; set; }

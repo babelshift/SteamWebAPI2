@@ -11,7 +11,7 @@ namespace SteamWebAPI2.Models.SteamCommunity
         public int PlayerLevel { get; set; }
     }
 
-    public class SteamLevelResultContainer
+    internal class SteamLevelResultContainer
     {
         [JsonProperty("response")]
         public SteamLevelResult Result { get; set; }

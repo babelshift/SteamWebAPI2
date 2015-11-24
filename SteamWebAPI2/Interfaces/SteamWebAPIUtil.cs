@@ -20,7 +20,7 @@ namespace SteamWebAPI2.Interfaces
         public async Task<IReadOnlyCollection<SteamInterface>> GetSupportedAPIListAsync()
         {
             var steamApiListContainer = await CallMethodAsync<SteamApiListContainer>("GetSupportedAPIList", 1);
-            return new ReadOnlyCollection<SteamInterface>(steamApiListContainer.ApiList.Interfaces);
+            return new ReadOnlyCollection<SteamInterface>(steamApiListContainer.Result.Interfaces);
         }
     }
 }

@@ -181,7 +181,7 @@ namespace SteamWebAPI2.Models.SteamCommunity
     /// <summary>
     /// Represents the container of the response from ISteamUser/GetPlayerSummaries interface/method.
     /// </summary>
-    public class PlayerSummaryResultContainer
+    internal class PlayerSummaryResultContainer
     {
         /// <summary>
         /// The JSON response has a top level "response" object

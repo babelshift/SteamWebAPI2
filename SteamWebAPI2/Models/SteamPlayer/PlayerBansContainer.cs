@@ -23,7 +23,7 @@ namespace SteamWebAPI2.Models.SteamPlayer
         public string EconomyBan { get; set; }
     }
 
-    public class PlayerBansContainer
+    internal class PlayerBansContainer
     {
         [JsonProperty(PropertyName = "players")]
         public IList<PlayerBans> PlayerBans { get; set; }

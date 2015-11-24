@@ -23,7 +23,7 @@ namespace SteamWebAPI2.Models.SteamCommunity
         public int Status { get; set; }
     }
 
-    public class GlobalStatsForGameResultContainer
+    internal class GlobalStatsForGameResultContainer
     {
         [JsonProperty("response")]
         public GlobalStatsForGameResult Result { get; set; }

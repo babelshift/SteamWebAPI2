@@ -27,7 +27,7 @@ namespace SteamWebAPI2.Models.SteamCommunity
         public IList<Friend> Friends { get; set; }
     }
 
-    public class FriendsListResultContainer
+    internal class FriendsListResultContainer
     {
         [JsonProperty("friendslist")]
         public FriendsList Result { get; set; }

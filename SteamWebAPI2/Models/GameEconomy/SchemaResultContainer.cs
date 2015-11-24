@@ -531,7 +531,7 @@ namespace SteamWebAPI2.Models.GameEconomy
         public IList<SchemaStringLookup> StringLookups { get; set; }
     }
 
-    public class SchemaResultContainer
+    internal class SchemaResultContainer
     {
         [JsonProperty("result")]
         public SchemaResult Result { get; set; }

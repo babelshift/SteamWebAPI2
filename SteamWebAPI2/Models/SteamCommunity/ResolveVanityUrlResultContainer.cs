@@ -14,7 +14,7 @@ namespace SteamWebAPI2.Models.SteamCommunity
         public int Success { get; set; }
     }
 
-    public class ResolveVanityUrlResultContainer
+    internal class ResolveVanityUrlResultContainer
     {
         [JsonProperty("response")]
         public ResolveVanityUrlResult Result { get; set; }

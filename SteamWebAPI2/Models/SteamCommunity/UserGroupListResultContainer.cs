@@ -21,7 +21,7 @@ namespace SteamWebAPI2.Models.SteamCommunity
         public IList<UserGroupGid> Groups { get; set; }
     }
 
-    public class UserGroupListResultContainer
+    internal class UserGroupListResultContainer
     {
         [JsonProperty("response")]
         public UserGroupListResult Result { get; set; }

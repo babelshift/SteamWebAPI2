@@ -17,7 +17,7 @@ namespace SteamWebAPI2.Models.DOTA2
         public IList<Rarity> Rarities { get; set; }
     }
 
-    public class RarityResultContainer
+    internal class RarityResultContainer
     {
         public RarityResult Result { get; set; }
     }

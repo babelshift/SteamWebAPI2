@@ -51,7 +51,7 @@ namespace SteamWebAPI2.Models.SteamCommunity
         public int PlayerXpNeededCurrentLevel { get; set; }
     }
 
-    public class BadgesResultContainer
+    internal class BadgesResultContainer
     {
         [JsonProperty("response")]
         public BadgesResult Result { get; set; }

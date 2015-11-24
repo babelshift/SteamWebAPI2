@@ -15,7 +15,7 @@ namespace SteamWebAPI2.Models.SteamPlayer
         public int Achieved { get; set; }
     }
 
-    public class PlayerStats
+    public class PlayerAchievementResult
     {
         [JsonProperty("steamID")]
         public string SteamId { get; set; }
@@ -30,9 +30,9 @@ namespace SteamWebAPI2.Models.SteamPlayer
         public bool Success { get; set; }
     }
 
-    public class PlayerAchievementResultContainer
+    internal class PlayerAchievementResultContainer
     {
         [JsonProperty("playerstats")]
-        public PlayerStats PlayerStats { get; set; }
+        public PlayerAchievementResult Result { get; set; }
     }
 }

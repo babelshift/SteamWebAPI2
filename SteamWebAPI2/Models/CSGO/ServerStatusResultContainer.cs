@@ -58,7 +58,7 @@ namespace SteamWebAPI2.Models.CSGO
         public ServerStatusMatchmaking Matchmaking { get; set; }
     }
 
-    public class ServerStatusResultContainer
+    internal class ServerStatusResultContainer
     {
         public ServerStatusResult Result { get; set; }
     }

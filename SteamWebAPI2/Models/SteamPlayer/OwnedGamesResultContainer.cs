@@ -39,7 +39,7 @@ namespace SteamWebAPI2.Models.SteamPlayer
         public IList<OwnedGame> OwnedGames { get; set; }
     }
 
-    public class OwnedGamesResultContainer
+    internal class OwnedGamesResultContainer
     {
         [JsonProperty("response")]
         public OwnedGamesResult Result { get; set; }

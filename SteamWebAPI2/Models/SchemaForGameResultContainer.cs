@@ -63,7 +63,7 @@ namespace SteamWebAPI2.Models
         public AvailableGameStats AvailableGameStats { get; set; }
     }
 
-    public class SchemaForGameResultContainer
+    internal class SchemaForGameResultContainer
     {
         [JsonProperty("game")]
         public SchemaForGameResult Result { get; set; }

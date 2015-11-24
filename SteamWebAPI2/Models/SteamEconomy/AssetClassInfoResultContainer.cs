@@ -118,7 +118,7 @@ namespace SteamWebAPI2.Models.SteamEconomy
         public bool Success { get; set; }
     }
 
-    public class AssetClassInfoResultContainer
+    internal class AssetClassInfoResultContainer
     {
         [JsonProperty("result")]
         [JsonConverter(typeof(AssetClassInfoJsonConverter))]

@@ -14,7 +14,7 @@ namespace SteamWebAPI2.Models.GameEconomy
         public int StoreStatus { get; set; }
     }
 
-    public class StoreStatusResultContainer
+    internal class StoreStatusResultContainer
     {
         [JsonProperty("result")]
         public StoreStatusResult Result { get; set; }

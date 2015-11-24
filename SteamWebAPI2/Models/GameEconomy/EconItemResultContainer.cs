@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 namespace SteamWebAPI2.Models.GameEconomy
 {
-    public class EconItemResultContainer
+    internal class EconItemResultContainer
     {
         public EconItemResult Result { get; set; }
     }

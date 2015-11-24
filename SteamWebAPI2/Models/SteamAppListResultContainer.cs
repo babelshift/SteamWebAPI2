@@ -21,9 +21,9 @@ namespace SteamWebAPI2.Models
         public IList<SteamApp> Apps { get; set; }
     }
 
-    public class SteamAppListResultContainer
+    internal class SteamAppListResultContainer
     {
         [JsonProperty("applist")]
-        public SteamAppListResult AppListResult { get; set; }
+        public SteamAppListResult Result { get; set; }
     }
 }

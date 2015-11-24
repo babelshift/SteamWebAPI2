@@ -23,7 +23,7 @@ namespace SteamWebAPI2.Models.DOTA2
         public IList<GameItem> Items { get; set; }
     }
 
-    public class GameItemResultContainer
+    internal class GameItemResultContainer
     {
         public GameItemResult Result { get; set; }
     }

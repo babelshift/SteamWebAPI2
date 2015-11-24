@@ -21,7 +21,7 @@ namespace SteamWebAPI2.Models.SteamCommunity
         public IList<BadgeQuest> Quests { get; set; }
     }
 
-    public class CommunityBadgeProgressResultContainer
+    internal class CommunityBadgeProgressResultContainer
     {
         [JsonProperty("response")]
         public CommunityBadgeProgressResult Result { get; set; }

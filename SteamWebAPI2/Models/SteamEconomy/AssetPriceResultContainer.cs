@@ -198,7 +198,7 @@ namespace SteamWebAPI2.Models.SteamEconomy
         public AssetTagIds TagIds { get; set; }
     }
 
-    public class AssetPriceResultContainer
+    internal class AssetPriceResultContainer
     {
         [JsonProperty("result")]
         public AssetPriceResult Result { get; set; }

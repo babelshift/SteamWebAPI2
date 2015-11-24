@@ -9,7 +9,7 @@
         public int FantasyRole { get; set; }
     }
 
-    public class PlayerOfficialInfoResultContainer
+    internal class PlayerOfficialInfoResultContainer
     {
         public PlayerOfficialInfoResult Result { get; set; }
     }

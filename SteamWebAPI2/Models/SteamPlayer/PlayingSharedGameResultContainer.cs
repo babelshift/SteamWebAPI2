@@ -11,7 +11,7 @@ namespace SteamWebAPI2.Models.SteamPlayer
         public string LenderSteamId { get; set; }
     }
 
-    public class PlayingSharedGameResultContainer
+    internal class PlayingSharedGameResultContainer
     {
         [JsonProperty("response")]
         public PlayingSharedGameResult Result { get; set; }

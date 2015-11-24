@@ -14,7 +14,7 @@ namespace SteamWebAPI2.Models.GameEconomy
         public string ItemsGameUrl { get; set; }
     }
 
-    public class SchemaUrlResultContainer
+    internal class SchemaUrlResultContainer
     {
         [JsonProperty("result")]
         public SchemaUrlResult Result { get; set; }

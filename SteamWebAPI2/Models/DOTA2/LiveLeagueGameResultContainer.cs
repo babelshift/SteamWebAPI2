@@ -225,7 +225,7 @@ namespace SteamWebAPI2.Models.DOTA2
         public int Status { get; set; }
     }
 
-    public class LiveLeagueGameResultContainer
+    internal class LiveLeagueGameResultContainer
     {
         public LiveLeagueGameResult Result { get; set; }
     }

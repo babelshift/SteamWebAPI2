@@ -23,7 +23,7 @@ namespace SteamWebAPI2.Models
         public string Message { get; set; }
     }
 
-    public class SteamAppUpToDateCheckResultContainer
+    internal class SteamAppUpToDateCheckResultContainer
     {
         [JsonProperty("response")]
         public SteamAppUpToDateCheckResult Result { get; set; }

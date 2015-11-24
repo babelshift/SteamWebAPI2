@@ -14,7 +14,7 @@ namespace SteamWebAPI2.Models.SteamPlayer
         public int Result { get; set; }
     }
 
-    public class CurrentPlayersResultContainer
+    internal class CurrentPlayersResultContainer
     {
         [JsonProperty("response")]
         public CurrentPlayersResult Result { get; set; }

@@ -39,7 +39,7 @@ namespace SteamWebAPI2.Models
         public IList<UserStatAchievement> Achievements { get; set; }
     }
 
-    public class UserStatsForGameResultContainer
+    internal class UserStatsForGameResultContainer
     {
         [JsonProperty("playerstats")]
         public UserStatsForGameResult Result { get; set; }

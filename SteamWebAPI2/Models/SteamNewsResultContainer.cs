@@ -45,7 +45,7 @@ namespace SteamWebAPI2.Models
         public IList<NewsItem> NewsItems { get; set; }
     }
 
-    public class SteamNewsResultContainer
+    internal class SteamNewsResultContainer
     {
         [JsonProperty("appnews")]
         public SteamNewsResult Result { get; set; }

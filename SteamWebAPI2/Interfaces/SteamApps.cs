@@ -15,7 +15,7 @@ namespace SteamWebAPI2.Interfaces
         public async Task<IReadOnlyCollection<SteamApp>> GetAppListAsync()
         {
             var steamAppList = await CallMethodAsync<SteamAppListResultContainer>("GetAppList", 2);
-            return new ReadOnlyCollection<SteamApp>(steamAppList.AppListResult.Apps);
+            return new ReadOnlyCollection<SteamApp>(steamAppList.Result.Apps);
         }
 
         public async Task<SteamAppUpToDateCheckResult> UpToDateCheckAsync(int appId, int version)

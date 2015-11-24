@@ -29,7 +29,7 @@ namespace SteamWebAPI2.Models.DOTA2
         public IList<TeamInfo> Teams { get; set; }
     }
 
-    public class TeamInfoResultContainer
+    internal class TeamInfoResultContainer
     {
         public TeamInfoResult Result { get; set; }
     }

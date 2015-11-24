@@ -36,7 +36,7 @@ namespace SteamWebAPI2.Models.SteamPlayer
         public IList<RecentlyPlayedGame> RecentlyPlayedGames { get; set; }
     }
 
-    public class RecentlyPlayedGameResultContainer
+    internal class RecentlyPlayedGameResultContainer
     {
         [JsonProperty("response")]
         public RecentlyPlayedGameResult Result { get; set; }
