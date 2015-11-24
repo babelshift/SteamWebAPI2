@@ -23,8 +23,8 @@ namespace SteamWebAPI2.Interfaces
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
-            AddToParametersIfHasValue("league_id", leagueId, parameters);
-            AddToParametersIfHasValue("match_id", matchId, parameters);
+            AddToParametersIfHasValue(leagueId, "league_id", parameters);
+            AddToParametersIfHasValue(matchId, "match_id", parameters);
 
             var liveLeagueGames = await CallMethodAsync<LiveLeagueGameResultContainer>("GetLiveLeagueGames", 1, parameters);
             return new ReadOnlyCollection<LiveLeagueGame>(liveLeagueGames.Result.Games);
@@ -34,7 +34,7 @@ namespace SteamWebAPI2.Interfaces
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
-            AddToParametersIfHasValue("match_id", matchId, parameters);
+            AddToParametersIfHasValue(matchId, "match_id", parameters);
 
             var matchDetail = await CallMethodAsync<MatchDetailResultContainer>("GetMatchDetails", 1, parameters);
             return matchDetail.Result;
@@ -46,15 +46,15 @@ namespace SteamWebAPI2.Interfaces
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
-            AddToParametersIfHasValue("hero_id", heroId, parameters);
-            AddToParametersIfHasValue("game_mode", gameMode, parameters);
-            AddToParametersIfHasValue("skill", skill, parameters);
-            AddToParametersIfHasValue("min_players", minPlayers, parameters);
-            AddToParametersIfHasValue("account_id", accountId, parameters);
-            AddToParametersIfHasValue("league_id", leagueId, parameters);
-            AddToParametersIfHasValue("start_at_match_id", startAtMatchId, parameters);
-            AddToParametersIfHasValue("matches_requested", matchesRequested, parameters);
-            AddToParametersIfHasValue("tournament_games_only", tournamentGamesOnly, parameters);
+            AddToParametersIfHasValue(heroId, "hero_id", parameters);
+            AddToParametersIfHasValue(gameMode, "game_mode", parameters);
+            AddToParametersIfHasValue(skill, "skill", parameters);
+            AddToParametersIfHasValue(minPlayers, "min_players", parameters);
+            AddToParametersIfHasValue(accountId, "account_id", parameters);
+            AddToParametersIfHasValue(leagueId, "league_id", parameters);
+            AddToParametersIfHasValue(startAtMatchId, "start_at_match_id", parameters);
+            AddToParametersIfHasValue(matchesRequested, "matches_requested", parameters);
+            AddToParametersIfHasValue(tournamentGamesOnly, "tournament_games_only", parameters);
 
             var matchHistory = await CallMethodAsync<MatchHistoryResultContainer>("GetMatchHistory", 1);
             return matchHistory.Result;
@@ -64,8 +64,8 @@ namespace SteamWebAPI2.Interfaces
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
-            AddToParametersIfHasValue("start_at_match_seq_num", startAtMatchSequenceNumber, parameters);
-            AddToParametersIfHasValue("matches_requested", matchesRequested, parameters);
+            AddToParametersIfHasValue(startAtMatchSequenceNumber, "start_at_match_seq_num", parameters);
+            AddToParametersIfHasValue(matchesRequested, "matches_requested", parameters);
 
             var matchHistory = await CallMethodAsync<MatchHistoryBySequenceNumberResultContainer>("GetMatchHistoryBySequenceNum", 1);
             return matchHistory.Result;
@@ -81,8 +81,8 @@ namespace SteamWebAPI2.Interfaces
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
-            AddToParametersIfHasValue("start_at_team_id", startAtTeamId, parameters);
-            AddToParametersIfHasValue("teams_requested", teamsRequested, parameters);
+            AddToParametersIfHasValue(startAtTeamId, "start_at_team_id", parameters);
+            AddToParametersIfHasValue(teamsRequested, "teams_requested", parameters);
 
             var teamInfos = await CallMethodAsync<TeamInfoResultContainer>("GetTeamInfoByTeamID", 1);
             return new ReadOnlyCollection<TeamInfo>(teamInfos.Result.Teams);

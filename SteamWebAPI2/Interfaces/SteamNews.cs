@@ -24,10 +24,10 @@ namespace SteamWebAPI2.Interfaces
 
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
-            AddToParametersIfHasValue("appid", appId, parameters);
-            AddToParametersIfHasValue("maxlength", maxLength, parameters);
-            AddToParametersIfHasValue("enddate", endDateUnixTimeStamp, parameters);
-            AddToParametersIfHasValue("count", count, parameters);
+            AddToParametersIfHasValue(appId, "appid", parameters);
+            AddToParametersIfHasValue(maxLength, "maxlength", parameters);
+            AddToParametersIfHasValue(endDateUnixTimeStamp, "enddate", parameters);
+            AddToParametersIfHasValue(count, "count", parameters);
 
             var appNews = await CallMethodAsync<SteamNewsResultContainer>("GetNewsForApp", 2, parameters);
             return appNews.Result;

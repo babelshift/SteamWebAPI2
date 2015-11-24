@@ -22,8 +22,8 @@ namespace SteamWebAPI2.Interfaces
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
-            AddToParametersIfHasValue("appid", appId, parameters);
-            AddToParametersIfHasValue("version", version, parameters);
+            AddToParametersIfHasValue(appId, "appid", parameters);
+            AddToParametersIfHasValue(version, "version", parameters);
 
             var upToDateCheckResult = await CallMethodAsync<SteamAppUpToDateCheckResultContainer>("UpToDateCheck", 1, parameters);
             return upToDateCheckResult.Result;

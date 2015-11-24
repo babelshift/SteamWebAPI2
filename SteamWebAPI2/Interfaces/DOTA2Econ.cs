@@ -29,7 +29,7 @@ namespace SteamWebAPI2.Interfaces
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
-            AddToParametersIfHasValue("language", language, parameters);
+            AddToParametersIfHasValue(language, "language", parameters);
 
             var gameItems = await CallMethodAsync<GameItemResultContainer>("GetGameItems", 1);
             return new ReadOnlyCollection<GameItem>(gameItems.Result.Items);
@@ -41,8 +41,8 @@ namespace SteamWebAPI2.Interfaces
 
             int itemizedOnlyValue = itemizedOnly ? 1 : 0;
 
-            AddToParametersIfHasValue("language", language, parameters);
-            AddToParametersIfHasValue("itemizedonly", itemizedOnlyValue, parameters);
+            AddToParametersIfHasValue(language, "language", parameters);
+            AddToParametersIfHasValue(itemizedOnlyValue, "itemizedonly", parameters);
 
             var heroes = await CallMethodAsync<HeroResultContainer>("GetHeroes", 1);
             return new ReadOnlyCollection<Hero>(heroes.Result.Heroes);
@@ -63,8 +63,8 @@ namespace SteamWebAPI2.Interfaces
 
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
-            AddToParametersIfHasValue("iconname", iconName, parameters);
-            AddToParametersIfHasValue("icontype", iconType, parameters);
+            AddToParametersIfHasValue(iconName, "iconname", parameters);
+            AddToParametersIfHasValue(iconType, "icontype", parameters);
 
             var itemIconPath = await CallMethodAsync<ItemIconPathResultContainer>("GetItemIconPath", 1);
             return itemIconPath.Result.Path;
@@ -74,7 +74,7 @@ namespace SteamWebAPI2.Interfaces
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
-            AddToParametersIfHasValue("language", language, parameters);
+            AddToParametersIfHasValue(language, "language", parameters);
 
             var raritiesContainer = await CallMethodAsync<RarityResultContainer>("GetRarities", 1);
             return raritiesContainer.Result;
@@ -84,7 +84,7 @@ namespace SteamWebAPI2.Interfaces
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
-            AddToParametersIfHasValue("leagueid", leagueId, parameters);
+            AddToParametersIfHasValue(leagueId, "leagueid", parameters);
 
             var raritiesContainer = await CallMethodAsync<PrizePoolResultContainer>("GetTournamentPrizePool", 1);
             return raritiesContainer.Result;

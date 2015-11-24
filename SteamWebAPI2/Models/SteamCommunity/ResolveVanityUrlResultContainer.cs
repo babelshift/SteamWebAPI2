@@ -8,7 +8,7 @@ namespace SteamWebAPI2.Models.SteamCommunity
     public class ResolveVanityUrlResult
     {
         [JsonProperty("steamid")]
-        public long SteamId { get; set; }
+        public ulong SteamId { get; set; }
 
         [JsonProperty("success")]
         public int Success { get; set; }

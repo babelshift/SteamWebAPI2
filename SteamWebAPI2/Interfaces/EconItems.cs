@@ -48,7 +48,7 @@ namespace SteamWebAPI2.Interfaces
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
-            AddToParametersIfHasValue("steamid", steamId, parameters);
+            AddToParametersIfHasValue(steamId, "steamid", parameters);
 
             var econItemsResult = await CallMethodAsync<EconItemResultContainer>("GetPlayerItems", 1, parameters);
             return econItemsResult.Result;
@@ -63,7 +63,7 @@ namespace SteamWebAPI2.Interfaces
 
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
-            AddToParametersIfHasValue("language", language, parameters);
+            AddToParametersIfHasValue(language, "language", parameters);
 
             var schemaResult = await CallMethodAsync<SchemaResultContainer>("GetSchema", 1, parameters);
             return schemaResult.Result;
@@ -89,7 +89,7 @@ namespace SteamWebAPI2.Interfaces
 
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
-            AddToParametersIfHasValue("language", language, parameters);
+            AddToParametersIfHasValue(language, "language", parameters);
 
             var storeMetaDataResult = await CallMethodAsync<StoreMetaDataResultContainer>("GetStoreMetaData", 1);
             return storeMetaDataResult.Result;

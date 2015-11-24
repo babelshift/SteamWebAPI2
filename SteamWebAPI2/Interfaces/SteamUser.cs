@@ -16,7 +16,7 @@ namespace SteamWebAPI2.Interfaces
         public async Task<PlayerSummary> GetPlayerSummaryAsync(long steamId)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
-            AddToParametersIfHasValue("steamids", steamId, parameters);
+            AddToParametersIfHasValue(steamId, "steamids", parameters);
             var playerSummary = await CallMethodAsync<PlayerSummaryResultContainer>("GetPlayerSummaries", 2, parameters);
 
             if (playerSummary.Result.Players.Count > 0)
@@ -32,8 +32,8 @@ namespace SteamWebAPI2.Interfaces
         public async Task<IReadOnlyCollection<Friend>> GetFriendsListAsync(long steamId, string relationship = "")
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
-            AddToParametersIfHasValue("steamid", steamId, parameters);
-            AddToParametersIfHasValue("relationship", relationship, parameters);
+            AddToParametersIfHasValue(steamId, "steamid", parameters);
+            AddToParametersIfHasValue(relationship, "relationship", parameters);
             var friendsListResult = await CallMethodAsync<FriendsListResultContainer>("GetFriendList", 1, parameters);
             return new ReadOnlyCollection<Friend>(friendsListResult.Result.Friends);
         }
@@ -49,7 +49,7 @@ namespace SteamWebAPI2.Interfaces
 
             string steamIdsParamValue = String.Join(",", steamIds);
 
-            AddToParametersIfHasValue("steamids", steamIdsParamValue, parameters);
+            AddToParametersIfHasValue(steamIdsParamValue, "steamids", parameters);
 
             var playerBansContainer = await CallMethodAsync<PlayerBansContainer>("GetPlayerBans", 1, parameters);
             return new ReadOnlyCollection<PlayerBans>(playerBansContainer.PlayerBans);
@@ -59,18 +59,18 @@ namespace SteamWebAPI2.Interfaces
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
-            AddToParametersIfHasValue("steamid", steamId, parameters);
+            AddToParametersIfHasValue(steamId, "steamid", parameters);
 
             var userGroupResultContainer = await CallMethodAsync<UserGroupListResultContainer>("GetUserGroupList", 1, parameters);
             return userGroupResultContainer.Result;
         }
 
-        public async Task<long> ResolveVanityUrlAsync(string vanityUrl, int? urlType = null)
+        public async Task<ulong> ResolveVanityUrlAsync(string vanityUrl, int? urlType = null)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
-            AddToParametersIfHasValue("vanityurl", vanityUrl, parameters);
-            AddToParametersIfHasValue("url_type", urlType, parameters);
+            AddToParametersIfHasValue(vanityUrl, "vanityurl", parameters);
+            AddToParametersIfHasValue(urlType, "url_type", parameters);
 
             var userGroupResultContainer = await CallMethodAsync<ResolveVanityUrlResultContainer>("ResolveVanityURL", 1, parameters);
             return userGroupResultContainer.Result.SteamId;

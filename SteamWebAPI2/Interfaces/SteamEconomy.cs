@@ -16,12 +16,12 @@ namespace SteamWebAPI2.Interfaces
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
-            AddToParametersIfHasValue("appid", appId, parameters);
-            AddToParametersIfHasValue("class_count", classIds.Count, parameters);
+            AddToParametersIfHasValue(appId, "appid", parameters);
+            AddToParametersIfHasValue(classIds.Count, "class_count", parameters);
 
             for (int i = 0; i < classIds.Count; i++)
             {
-                AddToParametersIfHasValue(String.Format("classid{0}", i), classIds[i], parameters);
+                AddToParametersIfHasValue(classIds[i], String.Format("classid{0}", i), parameters);
             }
 
             var assetClassInfoResult = await CallMethodAsync<AssetClassInfoResultContainer>("GetAssetClassInfo", 1, parameters);
@@ -32,9 +32,9 @@ namespace SteamWebAPI2.Interfaces
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
-            AddToParametersIfHasValue("appid", appId, parameters);
-            AddToParametersIfHasValue("currency", currency, parameters);
-            AddToParametersIfHasValue("language", language, parameters);
+            AddToParametersIfHasValue(appId, "appid", parameters);
+            AddToParametersIfHasValue(currency, "currency", parameters);
+            AddToParametersIfHasValue(language, "language", parameters);
 
             var assetPriceResult = await CallMethodAsync<AssetPriceResultContainer>("GetAssetPrices", 1, parameters);
             return assetPriceResult.Result;

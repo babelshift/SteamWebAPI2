@@ -95,6 +95,7 @@
     <Compile Include="Models\SteamCommunity\UserGroupListResultContainer.cs" />
     <Compile Include="Models\SteamEconomy\AssetClassInfoResultContainer.cs" />
     <Compile Include="Models\SteamEconomy\AssetPriceResultContainer.cs" />
+    <Compile Include="Models\SteamId.cs" />
     <Compile Include="Models\SteamInterface.cs" />
     <Compile Include="Models\SteamNewsResultContainer.cs" />
     <Compile Include="Models\SteamPlayer\CurrentPlayersResultContainer.cs" />
@@ -117,7 +118,6 @@
     <Compile Include="Utilities\JsonConverters\GlobalStatJsonConverter.cs" />
     <Compile Include="Utilities\JsonConverters\TeamInfoJsonConverter.cs" />
     <Compile Include="Utilities\JsonConverters\UnixTimeJsonConverter.cs" />
-    <Compile Include="Utilities\SteamIdExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
