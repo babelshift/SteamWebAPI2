@@ -62,6 +62,7 @@
     <Compile Include="SteamWebInterface.cs" />
     <Compile Include="SteamWebRequest.cs" />
     <Compile Include="SteamWebRequestParameter.cs" />
+    <Compile Include="TFItems.cs" />
     <Compile Include="Utilities\SteamIdExtensions.cs" />
   </ItemGroup>
   <ItemGroup>

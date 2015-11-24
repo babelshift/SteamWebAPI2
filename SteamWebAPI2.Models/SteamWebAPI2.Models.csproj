@@ -93,6 +93,7 @@
     <Compile Include="SteamInterface.cs" />
     <Compile Include="SteamNewsResultContainer.cs" />
     <Compile Include="SteamServerInfo.cs" />
+    <Compile Include="TF2\GoldenWrenchResultContainer.cs" />
     <Compile Include="UserAchievements.cs" />
     <Compile Include="UserBanStatus.cs" />
     <Compile Include="UserGroupListResultContainer.cs" />
@@ -110,7 +111,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="SteamCommunity\" />
-    <Folder Include="TF2\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
