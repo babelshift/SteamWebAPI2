@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SteamWebAPI2
@@ -14,7 +12,7 @@ namespace SteamWebAPI2
 
         public SteamWebInterface(string steamWebApiKey, string interfaceName)
         {
-            if(String.IsNullOrEmpty(steamWebApiKey))
+            if (String.IsNullOrEmpty(steamWebApiKey))
             {
                 throw new ArgumentNullException("steamWebApiKey");
             }
@@ -50,7 +48,7 @@ namespace SteamWebAPI2
                 parameters.Add(new SteamWebRequestParameter(name, value.ToString()));
             }
         }
-        
+
         internal void AddToParametersIfHasValue(string name, string value, IList<SteamWebRequestParameter> parameters)
         {
             if (!String.IsNullOrEmpty(value))

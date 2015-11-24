@@ -45,26 +45,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BadgesResultContainer.cs" />
-    <Compile Include="CommunityBadgeProgressResultContainer.cs" />
-    <Compile Include="FriendListResultContainer.cs" />
-    <Compile Include="GlobalAchievementPercentagesResultContainer.cs" />
-    <Compile Include="GlobalStatsForGameResultContainer.cs" />
-    <Compile Include="CurrentPlayersResultContainer.cs" />
-    <Compile Include="OwnedGamesResultContainer.cs" />
-    <Compile Include="PlayerAchievementResultContainer.cs" />
-    <Compile Include="PlayerBansContainer.cs" />
-    <Compile Include="PlayingSharedGameResultContainer.cs" />
-    <Compile Include="RecentlyPlayedGameResultContainer.cs" />
-    <Compile Include="ResolveVanityUrlResultContainer.cs" />
+    <Compile Include="SteamCommunity\BadgesResultContainer.cs" />
+    <Compile Include="SteamCommunity\CommunityBadgeProgressResultContainer.cs" />
+    <Compile Include="SteamCommunity\FriendListResultContainer.cs" />
+    <Compile Include="SteamCommunity\GlobalAchievementPercentagesResultContainer.cs" />
+    <Compile Include="SteamCommunity\GlobalStatsForGameResultContainer.cs" />
+    <Compile Include="SteamPlayer\CurrentPlayersResultContainer.cs" />
+    <Compile Include="SteamPlayer\OwnedGamesResultContainer.cs" />
+    <Compile Include="SteamPlayer\PlayerAchievementResultContainer.cs" />
+    <Compile Include="SteamPlayer\PlayerBansContainer.cs" />
+    <Compile Include="SteamPlayer\PlayingSharedGameResultContainer.cs" />
+    <Compile Include="SteamPlayer\RecentlyPlayedGameResultContainer.cs" />
+    <Compile Include="SteamCommunity\ResolveVanityUrlResultContainer.cs" />
     <Compile Include="SchemaForGameResultContainer.cs" />
     <Compile Include="SteamAppUpToDateCheckResultContainer.cs" />
-    <Compile Include="CSGO\App.cs" />
-    <Compile Include="CSGO\Datacenter.cs" />
-    <Compile Include="CSGO\Matchmaking.cs" />
-    <Compile Include="CSGO\ServerStatusResult.cs" />
     <Compile Include="CSGO\ServerStatusResultContainer.cs" />
-    <Compile Include="CSGO\Services.cs" />
     <Compile Include="DOTA2\GameItemResultContainer.cs" />
     <Compile Include="DOTA2\HeroResultContainer.cs" />
     <Compile Include="DOTA2\ItemIconPathResultContainer.cs" />
@@ -84,21 +79,19 @@
     <Compile Include="GameEconomy\StoreMetaDataResultContainer.cs" />
     <Compile Include="GameEconomy\StoreStatusResultContainer.cs" />
     <Compile Include="GameClientResultContainer.cs" />
-    <Compile Include="PlayerSummaryResultContainer.cs" />
-    <Compile Include="Profile.cs" />
+    <Compile Include="SteamCommunity\PlayerSummaryResultContainer.cs" />
+    <Compile Include="SteamCommunity\SteamCommunityProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SteamApiListContainer.cs" />
     <Compile Include="SteamAppListResultContainer.cs" />
     <Compile Include="SteamEconomy\AssetClassInfoResultContainer.cs" />
     <Compile Include="SteamEconomy\AssetPriceResultContainer.cs" />
     <Compile Include="SteamInterface.cs" />
-    <Compile Include="SteamLevelResultContainer.cs" />
+    <Compile Include="SteamCommunity\SteamLevelResultContainer.cs" />
     <Compile Include="SteamNewsResultContainer.cs" />
     <Compile Include="SteamServerInfo.cs" />
     <Compile Include="TF2\GoldenWrenchResultContainer.cs" />
-    <Compile Include="UserAchievements.cs" />
-    <Compile Include="UserBanStatus.cs" />
-    <Compile Include="UserGroupListResultContainer.cs" />
+    <Compile Include="SteamCommunity\UserGroupListResultContainer.cs" />
     <Compile Include="UserStatsForGameResultContainer.cs" />
     <Compile Include="Utilities\AssetClassInfoJsonConverter.cs" />
     <Compile Include="Utilities\CSGODataCenterJsonConverter.cs" />
@@ -110,9 +103,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="SteamCommunity\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

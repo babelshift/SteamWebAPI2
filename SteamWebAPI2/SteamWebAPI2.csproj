@@ -45,25 +45,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CSGOServers.cs" />
-    <Compile Include="DOTA2Econ.cs" />
-    <Compile Include="DOTA2Fantasy.cs" />
-    <Compile Include="DOTA2Match.cs" />
-    <Compile Include="DOTA2Ticket.cs" />
-    <Compile Include="GCVersion.cs" />
-    <Compile Include="EconItems.cs" />
-    <Compile Include="PlayerService.cs" />
-    <Compile Include="SteamEconomy.cs" />
-    <Compile Include="SteamApps.cs" />
-    <Compile Include="SteamNews.cs" />
-    <Compile Include="SteamUser.cs" />
-    <Compile Include="SteamUserStats.cs" />
-    <Compile Include="SteamWebAPIUtil.cs" />
+    <Compile Include="Interfaces\CSGOServers.cs" />
+    <Compile Include="Interfaces\DOTA2Econ.cs" />
+    <Compile Include="Interfaces\DOTA2Fantasy.cs" />
+    <Compile Include="Interfaces\DOTA2Match.cs" />
+    <Compile Include="Interfaces\DOTA2Ticket.cs" />
+    <Compile Include="Interfaces\GCVersion.cs" />
+    <Compile Include="Interfaces\EconItems.cs" />
+    <Compile Include="Interfaces\PlayerService.cs" />
+    <Compile Include="Interfaces\SteamEconomy.cs" />
+    <Compile Include="Interfaces\SteamApps.cs" />
+    <Compile Include="Interfaces\SteamNews.cs" />
+    <Compile Include="Interfaces\SteamUser.cs" />
+    <Compile Include="Interfaces\SteamUserStats.cs" />
+    <Compile Include="Interfaces\SteamWebAPIUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SteamWebInterface.cs" />
     <Compile Include="SteamWebRequest.cs" />
     <Compile Include="SteamWebRequestParameter.cs" />
-    <Compile Include="TFItems.cs" />
+    <Compile Include="Interfaces\TFItems.cs" />
     <Compile Include="Utilities\SteamIdExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -75,9 +75,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Interfaces\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

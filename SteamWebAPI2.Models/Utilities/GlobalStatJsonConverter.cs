@@ -1,10 +1,8 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using SteamWebAPI2.Models.SteamCommunity;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SteamWebAPI2.Models.Utilities
 {
@@ -38,7 +36,7 @@ namespace SteamWebAPI2.Models.Utilities
 
                     if (globalStatDetailsProperty.Name == "total") { globalStat.Total = Int32.Parse(value); }
                 }
-                
+
                 globalStats.Add(globalStat);
             }
 

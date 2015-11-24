@@ -3,9 +3,6 @@ using Newtonsoft.Json.Linq;
 using SteamWebAPI2.Models.CSGO;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SteamWebAPI2.Models.Utilities
 {
@@ -23,13 +20,13 @@ namespace SteamWebAPI2.Models.Utilities
                 return null;
             }
 
-            List<Datacenter> dataCenters = new List<Datacenter>();
+            List<ServerStatusDatacenter> dataCenters = new List<ServerStatusDatacenter>();
 
             JObject o = JObject.Load(reader);
 
             foreach (var x in o)
             {
-                Datacenter dataCenter = new Datacenter()
+                ServerStatusDatacenter dataCenter = new ServerStatusDatacenter()
                 {
                     Name = x.Key,
                     Capacity = x.Value.Value<string>("capacity") ?? "unknown",
@@ -46,7 +43,7 @@ namespace SteamWebAPI2.Models.Utilities
 
         public override bool CanConvert(Type objectType)
         {
-            return typeof(Datacenter).IsAssignableFrom(objectType);
+            return typeof(ServerStatusDatacenter).IsAssignableFrom(objectType);
         }
     }
 }

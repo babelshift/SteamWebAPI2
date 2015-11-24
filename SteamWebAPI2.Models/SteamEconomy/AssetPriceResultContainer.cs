@@ -4,7 +4,7 @@
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace SteamWebAPI2.Models
+namespace SteamWebAPI2.Models.SteamEconomy
 {
     public class AssetPrices
     {

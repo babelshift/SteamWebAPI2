@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 using SteamWebAPI2.Models.Utilities;
 using System.Collections.Generic;
 
-namespace SteamWebAPI2.Models
+namespace SteamWebAPI2.Models.SteamEconomy
 {
     public class AssetClassDescription
     {
@@ -44,7 +44,7 @@ namespace SteamWebAPI2.Models
 
         public string CategoryName { get; set; }
     }
-    
+
     public class AssetClassAppDataFilter
     {
         public IList<long> ElementIds { get; set; }
@@ -53,15 +53,15 @@ namespace SteamWebAPI2.Models
     public class AssetClassAppData
     {
         public string DefIndex { get; set; }
-        
+
         public string Quality { get; set; }
-        
+
         public string Slot { get; set; }
-        
+
         public IList<AssetClassAppDataFilter> FilterData { get; set; }
-        
+
         public IList<long> PlayerClassIds { get; set; }
-        
+
         public string HighlightColor { get; set; }
     }
 

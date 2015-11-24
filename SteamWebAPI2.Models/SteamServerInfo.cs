@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SteamWebAPI2.Models.Utilities;
+﻿using SteamWebAPI2.Models.Utilities;
+using System;
 
 namespace SteamWebAPI2.Models
 {

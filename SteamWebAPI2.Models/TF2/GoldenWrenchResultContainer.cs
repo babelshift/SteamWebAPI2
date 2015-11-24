@@ -6,7 +6,7 @@ using SteamWebAPI2.Models.Utilities;
 using System;
 using System.Collections.Generic;
 
-namespace SteamWebAPI2.Models
+namespace SteamWebAPI2.Models.TF2
 {
     public class GoldenWrench
     {

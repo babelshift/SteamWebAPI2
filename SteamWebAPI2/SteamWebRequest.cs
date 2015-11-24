@@ -1,12 +1,9 @@
-﻿using Newtonsoft.Json.Linq;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SteamWebAPI2
@@ -17,7 +14,7 @@ namespace SteamWebAPI2
 
         public SteamWebRequest(string steamWebApiKey)
         {
-            if(String.IsNullOrEmpty(steamWebApiKey))
+            if (String.IsNullOrEmpty(steamWebApiKey))
             {
                 throw new ArgumentNullException("steamWebApiKey");
             }

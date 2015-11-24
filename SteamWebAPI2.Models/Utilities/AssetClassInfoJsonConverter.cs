@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using SteamWebAPI2.Models.SteamEconomy;
 using System;
 using System.Collections.Generic;
 
@@ -8,10 +9,10 @@ namespace SteamWebAPI2.Models.Utilities
     /// <summary>
     /// Handles manual deserialization of the response from ISteamEconomy/GetAssetClassInfo.
     /// I could not rely on automatic deserialization with property attribute decorators because the JSON structure of the response is completely awful.
-    /// Instead of using JSON arrays, the JSON response contains multiple dynamically build objects with varying numbers of properties whose values correspond to 
+    /// Instead of using JSON arrays, the JSON response contains multiple dynamically build objects with varying numbers of properties whose values correspond to
     /// what appear to be arrays indices.
     /// So to clean this up, I manually deserialize into objects that aren't awful.
-    /// 
+    ///
     /// Example of the bad JSON response:
     /// "descriptions": {
     ///		"0": {
@@ -26,7 +27,7 @@ namespace SteamWebAPI2.Models.Utilities
     ///		    "app_data": ""
     ///     }
     /// }
-    /// 
+    ///
     /// You can see in the above that the properties "0" and "1" seem to be array indices. Each AssetClassInfo in the response can have a varying number of these
     /// properties. So I fixed that by deserializing into sane arrays.
     /// </summary>
