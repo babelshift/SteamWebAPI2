@@ -60,5 +60,24 @@ namespace SteamWebAPI2
             var globalStatsResult = await CallMethodAsync<CurrentPlayersResultContainer>("GetNumberOfCurrentPlayers", 1, parameters);
             return globalStatsResult.Result.PlayerCount;
         }
+
+        public async Task<PlayerStats> GetPlayerAchievementsAsync(long appId, long steamId, string language = "")
+        {
+            List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
+            AddToParametersIfHasValue("appid", appId, parameters);
+            AddToParametersIfHasValue("steamid", steamId, parameters);
+            AddToParametersIfHasValue("l", language, parameters);
+            var playerStatsResult = await CallMethodAsync<PlayerAchievementResultContainer>("GetPlayerAchievements", 1, parameters);
+            return playerStatsResult.PlayerStats;
+        }
+
+        public async Task<SchemaForGameResult> GetSchemaForGamesAsync(long appId, string language = "")
+        {
+            List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
+            AddToParametersIfHasValue("appid", appId, parameters);
+            AddToParametersIfHasValue("l", language, parameters);
+            var schemaForGameResult = await CallMethodAsync<SchemaForGameResultContainer>("GetSchemaForGame", 2, parameters);
+            return schemaForGameResult.Result;
+        }
     }
 }
