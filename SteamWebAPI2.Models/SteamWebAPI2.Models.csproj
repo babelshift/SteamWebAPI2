@@ -49,6 +49,7 @@
     <Compile Include="FriendListResultContainer.cs" />
     <Compile Include="GlobalAchievementPercentagesResultContainer.cs" />
     <Compile Include="GlobalStatsForGameResultContainer.cs" />
+    <Compile Include="CurrentPlayersResultContainer.cs" />
     <Compile Include="PlayerBansContainer.cs" />
     <Compile Include="ResolveVanityUrlResultContainer.cs" />
     <Compile Include="SteamAppUpToDateCheckResultContainer.cs" />
