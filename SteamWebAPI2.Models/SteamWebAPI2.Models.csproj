@@ -49,6 +49,7 @@
     <Compile Include="GlobalAchievementPercentagesResultContainer.cs" />
     <Compile Include="GlobalStatsForGameResultContainer.cs" />
     <Compile Include="CurrentPlayersResultContainer.cs" />
+    <Compile Include="OwnedGamesResultContainer.cs" />
     <Compile Include="PlayerAchievementResultContainer.cs" />
     <Compile Include="PlayerBansContainer.cs" />
     <Compile Include="RecentlyPlayedGameResultContainer.cs" />
