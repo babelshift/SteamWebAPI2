@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using SteamWebAPI2.Models.Utilities;
+using SteamWebAPI2.Utilities.JsonConverters;
 using System;
 using System.Collections.Generic;
 

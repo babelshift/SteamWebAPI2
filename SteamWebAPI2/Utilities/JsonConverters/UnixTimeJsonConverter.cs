@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 
-namespace SteamWebAPI2.Models.Utilities
+namespace SteamWebAPI2.Utilities.JsonConverters
 {
     internal class UnixTimeJsonConverter : JsonConverter
     {

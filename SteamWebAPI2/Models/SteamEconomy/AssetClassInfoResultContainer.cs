@@ -2,7 +2,7 @@
 // http://www.xamasoft.com/json-class-generator
 
 using Newtonsoft.Json;
-using SteamWebAPI2.Models.Utilities;
+using SteamWebAPI2.Utilities.JsonConverters;
 using System.Collections.Generic;
 
 namespace SteamWebAPI2.Models.SteamEconomy

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SteamWebAPI2.Models.Utilities
+namespace SteamWebAPI2.Utilities
 {
     public static class DateTimeExtensions
     {

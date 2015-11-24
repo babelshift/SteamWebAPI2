@@ -1,4 +1,4 @@
-﻿using SteamWebAPI2.Models.Utilities;
+﻿using SteamWebAPI2.Utilities;
 using System;
 
 namespace SteamWebAPI2.Models

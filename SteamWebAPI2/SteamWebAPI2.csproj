@@ -59,18 +59,65 @@
     <Compile Include="Interfaces\SteamUser.cs" />
     <Compile Include="Interfaces\SteamUserStats.cs" />
     <Compile Include="Interfaces\SteamWebAPIUtil.cs" />
+    <Compile Include="Models\CSGO\ServerStatusResultContainer.cs" />
+    <Compile Include="Models\DOTA2\GameItemResultContainer.cs" />
+    <Compile Include="Models\DOTA2\HeroResultContainer.cs" />
+    <Compile Include="Models\DOTA2\ItemIconPathResultContainer.cs" />
+    <Compile Include="Models\DOTA2\LeagueResultContainer.cs" />
+    <Compile Include="Models\DOTA2\LiveLeagueGameResultContainer.cs" />
+    <Compile Include="Models\DOTA2\MatchDetailResultContainer.cs" />
+    <Compile Include="Models\DOTA2\MatchHistoryBySequenceNumberResultContainer.cs" />
+    <Compile Include="Models\DOTA2\MatchHistoryResultContainer.cs" />
+    <Compile Include="Models\DOTA2\PlayerOfficialInfoResultContainer.cs" />
+    <Compile Include="Models\DOTA2\PrizePoolResultContainer.cs" />
+    <Compile Include="Models\DOTA2\ProPlayerListResultContainer.cs" />
+    <Compile Include="Models\DOTA2\RarityResultContainer.cs" />
+    <Compile Include="Models\DOTA2\TeamInfoResultContainer.cs" />
+    <Compile Include="Models\GameClientResultContainer.cs" />
+    <Compile Include="Models\GameEconomy\EconItemResultContainer.cs" />
+    <Compile Include="Models\GameEconomy\SchemaResultContainer.cs" />
+    <Compile Include="Models\GameEconomy\SchemaURLResultContainer.cs" />
+    <Compile Include="Models\GameEconomy\StoreMetaDataResultContainer.cs" />
+    <Compile Include="Models\GameEconomy\StoreStatusResultContainer.cs" />
+    <Compile Include="Models\SchemaForGameResultContainer.cs" />
+    <Compile Include="Models\SteamApiListContainer.cs" />
+    <Compile Include="Models\SteamAppListResultContainer.cs" />
+    <Compile Include="Models\SteamAppUpToDateCheckResultContainer.cs" />
+    <Compile Include="Models\SteamCommunity\BadgesResultContainer.cs" />
+    <Compile Include="Models\SteamCommunity\CommunityBadgeProgressResultContainer.cs" />
+    <Compile Include="Models\SteamCommunity\FriendListResultContainer.cs" />
+    <Compile Include="Models\SteamCommunity\GlobalAchievementPercentagesResultContainer.cs" />
+    <Compile Include="Models\SteamCommunity\GlobalStatsForGameResultContainer.cs" />
+    <Compile Include="Models\SteamCommunity\PlayerSummaryResultContainer.cs" />
+    <Compile Include="Models\SteamCommunity\ResolveVanityUrlResultContainer.cs" />
+    <Compile Include="Models\SteamCommunity\SteamCommunityProfile.cs" />
+    <Compile Include="Models\SteamCommunity\SteamLevelResultContainer.cs" />
+    <Compile Include="Models\SteamCommunity\UserGroupListResultContainer.cs" />
+    <Compile Include="Models\SteamEconomy\AssetClassInfoResultContainer.cs" />
+    <Compile Include="Models\SteamEconomy\AssetPriceResultContainer.cs" />
+    <Compile Include="Models\SteamInterface.cs" />
+    <Compile Include="Models\SteamNewsResultContainer.cs" />
+    <Compile Include="Models\SteamPlayer\CurrentPlayersResultContainer.cs" />
+    <Compile Include="Models\SteamPlayer\OwnedGamesResultContainer.cs" />
+    <Compile Include="Models\SteamPlayer\PlayerAchievementResultContainer.cs" />
+    <Compile Include="Models\SteamPlayer\PlayerBansContainer.cs" />
+    <Compile Include="Models\SteamPlayer\PlayingSharedGameResultContainer.cs" />
+    <Compile Include="Models\SteamPlayer\RecentlyPlayedGameResultContainer.cs" />
+    <Compile Include="Models\SteamServerInfo.cs" />
+    <Compile Include="Models\TF2\GoldenWrenchResultContainer.cs" />
+    <Compile Include="Models\UserStatsForGameResultContainer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SteamWebInterface.cs" />
     <Compile Include="SteamWebRequest.cs" />
     <Compile Include="SteamWebRequestParameter.cs" />
     <Compile Include="Interfaces\TFItems.cs" />
+    <Compile Include="Utilities\DateTimeExtensions.cs" />
+    <Compile Include="Utilities\JsonConverters\AssetClassInfoJsonConverter.cs" />
+    <Compile Include="Utilities\JsonConverters\CSGODataCenterJsonConverter.cs" />
+    <Compile Include="Utilities\JsonConverters\GlobalStatJsonConverter.cs" />
+    <Compile Include="Utilities\JsonConverters\TeamInfoJsonConverter.cs" />
+    <Compile Include="Utilities\JsonConverters\UnixTimeJsonConverter.cs" />
     <Compile Include="Utilities\SteamIdExtensions.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SteamWebAPI2.Models\SteamWebAPI2.Models.csproj">
-      <Project>{3c941daf-a4f0-4111-994a-031e0d631469}</Project>
-      <Name>SteamWebAPI2.Models</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

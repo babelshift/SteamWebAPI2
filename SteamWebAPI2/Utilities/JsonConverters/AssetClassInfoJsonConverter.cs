@@ -4,7 +4,7 @@ using SteamWebAPI2.Models.SteamEconomy;
 using System;
 using System.Collections.Generic;
 
-namespace SteamWebAPI2.Models.Utilities
+namespace SteamWebAPI2.Utilities.JsonConverters
 {
     /// <summary>
     /// Handles manual deserialization of the response from ISteamEconomy/GetAssetClassInfo.

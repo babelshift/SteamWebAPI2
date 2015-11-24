@@ -1,5 +1,5 @@
 ﻿using SteamWebAPI2.Models;
-using SteamWebAPI2.Models.Utilities;
+using SteamWebAPI2.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

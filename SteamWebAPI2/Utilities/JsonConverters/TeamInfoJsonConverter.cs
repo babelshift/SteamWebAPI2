@@ -4,7 +4,7 @@ using SteamWebAPI2.Models.DOTA2;
 using System;
 using System.Collections.Generic;
 
-namespace SteamWebAPI2.Models.Utilities
+namespace SteamWebAPI2.Utilities.JsonConverters
 {
     internal class TeamInfoJsonConverter : JsonConverter
     {
