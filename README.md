@@ -3,3 +3,51 @@
 [![NuGet](https://img.shields.io/nuget/v/SteamWebAPI2.svg)](https://www.nuget.org/packages/SteamWebAPI2)
 
 This is a .NET library that makes it easy to use the Steam Web API. It conveniently wraps around all of the JSON data and ugly API details with clean methods, structures and classes.
+
+## About this Library
+This library was created to address the (at times) awful nature of the Steam Web API. Many of the exposed endpoints have little to no documentation on the parameters and absolutely no documentation on any of the responses. In addition, many of the endpoints do not follow any type of coding convention as it appears that different developers created different endpoints without collaborating with one another.
+
+For example, some responses have a containing "response" object while others have a containing "result" object. To make it worse, some have a containing "results" or "responses" or "applist" or "playerstats" object or a number of other unconventional choices.
+
+Instead of stressing about parsing the ugly JSON responses yourself, just use this library to make a method call and get back a response with everything in a more C#/.NET style. These are the rules on which the library was built:
+
+  * Make the library as easy and user friendly as possible.
+  * Document everything as thoroughly as possible.
+  * Standardize all property names on returned JSON objects.
+  * Deserialize UNIX TimeStamps to `DateTime`.
+  * Deserialize "types" into `enum` where possible.
+  * Clean up some of the more egregious JSON responses where JSON arrays should have been used but weren't.
+  * Offer a sane way of handling the various representations and conversions of Steam ID by offering a SteamId class.
+    * Handles legacy, modern, and 64-bit Steam Id representations
+
+## Install the Library from NuGet
+See the library in the NuGet gallery [here](https://www.nuget.org/packages/SteamWebAPI2). You can install the library into your project directly from the package manager.
+
+```
+Install-Package SteamWebAPI2 
+```
+
+## How Valve's Steam Web API is Architected
+Gain a basic understanding of how Valve's Steam Web API is laid out: please see [this helper site](http://steamwebapi.azurewebsites.net/) that I made to more easily describe the available endpoints.
+
+## How to Use the Library
+  1. Read the `About` section so you understand why this library exists
+  2. Install the library from NuGet
+  3. Instantiate an object from any class that inherits from `SteamWebInterface` for whatever endpoint you want to use
+    1. Requires a Steam Web API developer key (KEEP THIS SECRET)
+    2. Some endpoints require an AppId (such as 440 for Team Fortress 2)
+  4. Call the method with your parameters that you want to use
+
+## Sample Usage
+```cs
+// this will map to the ISteamUser endpoint
+var steamInterface = new SteamUser("<devKeyHere>");
+
+// this will map to ISteamUser/GetPlayerSummaries method in the Steam Web API
+// see PlayerSummaryResultContainer.cs for response documentation
+var playerSummary = await steamInterface.GetPlayerSummaryAsync(<steamIdHere>);
+
+// this will map to ISteamUser/GetFriendsListAsync method in the Steam Web API
+// see FriendListResultContainer.cs for response documentation
+var friendsList = await steamInterface.GetFriendsListAsync(<steamIdHere>);
+```
