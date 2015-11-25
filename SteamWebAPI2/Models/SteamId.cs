@@ -1,6 +1,7 @@
 ﻿using SteamWebAPI2.Exceptions;
 using SteamWebAPI2.Interfaces;
 using System;
+using System.Runtime.ExceptionServices;
 using System.Threading.Tasks;
 
 namespace SteamWebAPI2.Models
@@ -188,45 +189,62 @@ namespace SteamWebAPI2.Models
 
                 SteamUser steamUser = new SteamUser(steamWebApiKey);
 
-                Task.Run(async () =>
+                try
                 {
-                    // the caller provided a uri
-                    if (isUri)
+                    Task.Run(async () =>
                     {
-                        // the caller provided a uri in the format we expected
-                        if (uriResult.Segments.Length == 3)
+                        // the caller provided a uri
+                        if (isUri)
                         {
-                            string profileId = uriResult.Segments[2];
-
-                            // try to parse the 3rd segment as a 64-bit Steam ID (http://steamcommunity.com/profiles/762541427451 for example)
-                            isSteamId64 = ulong.TryParse(profileId, out steamId);
-
-                            // the third segment isn't a 64-bit Steam ID, check if it's a profile name which resolves to a 64-bit Steam ID
-                            if (!isSteamId64)
+                            // the caller provided a uri in the format we expected
+                            if (uriResult.Segments.Length == 3)
                             {
-                                steamId = await ResolveSteamIdFromValueAsync(steamUser, profileId);
+                                string profileId = uriResult.Segments[2];
+
+                                // try to parse the 3rd segment as a 64-bit Steam ID (http://steamcommunity.com/profiles/762541427451 for example)
+                                isSteamId64 = ulong.TryParse(profileId, out steamId);
+
+                                // the third segment isn't a 64-bit Steam ID, check if it's a profile name which resolves to a 64-bit Steam ID
+                                if (!isSteamId64)
+                                {
+                                    steamId = await ResolveSteamIdFromValueAsync(steamUser, profileId);
+                                }
                             }
+                            else
+                            {
+                                throw new InvalidSteamCommunityUriException(ErrorMessages.InvalidSteamCommunityUri);
+                            }
+
+                            ResolvedFrom = SteamIdResolvedFrom.SteamCommunityUri;
                         }
                         else
                         {
-                            throw new InvalidSteamCommunityUriException(ErrorMessages.InvalidSteamCommunityUri);
+                            // not a 64-bit Steam ID and not a uri, try to just resolve it as if it was a Steam Community Profile Name
+                            steamId = await ResolveSteamIdFromValueAsync(steamUser, value);
+                            ResolvedFrom = SteamIdResolvedFrom.SteamCommunityProfileName;
                         }
-
-                        ResolvedFrom = SteamIdResolvedFrom.SteamCommunityUri;
-                    }
-                    else
+                    }).Wait();
+                }
+                catch (AggregateException ex)
+                {
+                    foreach (var innerEx in ex.InnerExceptions)
                     {
-                        // not a 64-bit Steam ID and not a uri, try to just resolve it as if it was a Steam Community Profile Name
-                        steamId = await ResolveSteamIdFromValueAsync(steamUser, value);
-                        ResolvedFrom = SteamIdResolvedFrom.SteamCommunityProfileName;
+                        // throw the first specific exception that we expect
+                        if (innerEx is VanityUrlNotResolvedException || innerEx is InvalidSteamCommunityUriException)
+                        {
+                            ExceptionDispatchInfo.Capture(innerEx).Throw();
+                        }
                     }
-                }).Wait();
+
+                    // otherwise just throw the Aggregate and let the caller handle it
+                    throw;
+                }
             }
             else
             {
                 ResolvedFrom = SteamIdResolvedFrom.SteamId64;
             }
-            
+
             if (steamId > 0)
             {
                 ConstructFromSteamId64(steamId);

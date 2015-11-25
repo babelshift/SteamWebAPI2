@@ -61,7 +61,7 @@ namespace SteamWebAPI2 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The provided value is a Uri but not in the format from which a Steam ID can be constructed..
+        ///   Looks up a localized string similar to The provided value is a URL but not in the format from which a Steam ID can be constructed..
         /// </summary>
         internal static string InvalidSteamCommunityUri {
             get {

@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="InvalidSteamCommunityUri" xml:space="preserve">
-    <value>The provided value is a Uri but not in the format from which a Steam ID can be constructed.</value>
+    <value>The provided value is a URL but not in the format from which a Steam ID can be constructed.</value>
   </data>
   <data name="SteamIdNotConstructed" xml:space="preserve">
     <value>After multiple attempts, the Steam ID could not be constructed from the provided value.</value>
