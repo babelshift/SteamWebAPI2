@@ -45,6 +45,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ErrorMessages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ErrorMessages.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Exceptions\InvalidSteamCommunityUriException.cs" />
+    <Compile Include="Exceptions\SteamIdNotConstructedException.cs" />
+    <Compile Include="Exceptions\VanityUrlNotResolvedException.cs" />
     <Compile Include="Interfaces\CSGOServers.cs" />
     <Compile Include="Interfaces\DOTA2Econ.cs" />
     <Compile Include="Interfaces\DOTA2Fantasy.cs" />
@@ -122,7 +130,12 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="ErrorMessages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ErrorMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -103,8 +103,7 @@ namespace SteamWebAPI2.Interfaces
         /// <param name="matchId"></param>
         /// <param name="phaseId"></param>
         /// <returns></returns>
-        public void GetTournamentPlayerStats(string accountId = "", string leagueId = "", string heroId = "",
-            long? matchId = null, int? phaseId = null)
+        public void GetTournamentPlayerStats(string accountId = "", string leagueId = "", string heroId = "", long? matchId = null, int? phaseId = null)
         {
             throw new NotImplementedException("I can't find good test conditions for this, so I don't know how to implement a response parser.");
         }
