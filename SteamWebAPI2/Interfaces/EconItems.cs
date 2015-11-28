@@ -5,6 +5,12 @@ using System.Threading.Tasks;
 
 namespace SteamWebAPI2.Interfaces
 {
+    public enum SteamAppId
+    {
+        TeamFortress2 = 440,
+        Dota2 = 570
+    }
+
     public class EconItems : SteamWebInterface
     {
         private int appId;
@@ -17,15 +23,15 @@ namespace SteamWebAPI2.Interfaces
         private List<int> validStoreMetaDataAppIds = new List<int>();
         private List<int> validStoreStatusAppIds = new List<int>();
 
-        public EconItems(string steamWebApiKey, int appId)
-            : base(steamWebApiKey, "IEconItems_" + appId)
+        public EconItems(string steamWebApiKey, SteamAppId appId)
+            : base(steamWebApiKey, "IEconItems_" + (int)appId)
         {
             if (appId <= 0)
             {
                 throw new ArgumentOutOfRangeException("appId");
             }
 
-            this.appId = appId;
+            this.appId = (int)appId;
 
             validSchemaAppIds.Add(440);
             validSchemaAppIds.Add(570);

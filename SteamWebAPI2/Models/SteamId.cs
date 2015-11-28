@@ -2,17 +2,22 @@
 using SteamWebAPI2.Interfaces;
 using System;
 using System.Runtime.ExceptionServices;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace SteamWebAPI2.Models
 {
+    #region Enum Types
+
     public enum SteamIdResolvedFrom
     {
         IndividualComponents = 0,
         SteamCommunityUri,
         SteamCommunityProfileName,
         SteamId64,
-        AccountIdApproximation
+        AccountIdApproximation,
+        LegacySteamId,
+        ModernSteamId
     }
 
     public enum SteamUniverse
@@ -27,29 +32,46 @@ namespace SteamWebAPI2.Models
     public enum SteamAccountType
     {
         Invalid = 0,
-        Individual,
-        Multiseat,
-        GameServer,
-        AnonGameServer,
-        Pending,
-        ContentServer,
-        Clan,
-        Chat,
-        Chat_Clan,
-        Chat_Lobby,
-        P2P_SuperSeeder,
-        AnonUser
+        Individual = 1,
+        Multiseat = 2,
+        GameServer = 3,
+        AnonGameServer = 4,
+        Pending = 5,
+        ContentServer = 6,
+        Clan = 7,
+        Chat = 8,
+        Chat_Clan = 8,
+        Chat_Lobby = 8,
+        P2P_SuperSeeder = 9,
+        AnonUser = 10
     }
 
+    public enum SteamInstance
+    {
+        All = 0,
+        Desktop = 1,
+        Console = 2,
+        Web = 4
+    }
+
+    #endregion Enum Types
+
     /// <summary>
-    /// A SteamID is a unique identifier used to identify a Steam account. It is also used to refer to a user's Steam Community profile page.
-    /// See: https://developer.valvesoftware.com/wiki/SteamID.
+    /// A SteamID (64-bit identifier) is a unique identifier used to identify a Steam account on various parts of the Steam network.
+    /// It is also used to refer to a user's Steam Community profile page. See: https://developer.valvesoftware.com/wiki/SteamID.
+    /// This class is immutable. If you need a new one, construct a new one.
     /// </summary>
     public class SteamId
     {
         #region Members
 
-        private uint? instanceId;
+        // Special flags for chat accounts in the high 8 bits of the Steam ID instance. Adopted from https://github.com/xPaw/SteamID.php.
+        private uint instanceFlagClan = 524288;         // (SteamAccountInstanceMask + 1) >> 1
+
+        private uint instanceFlagLobby = 262144;        // (SteamAccountInstanceMask + 1) >> 2
+        private uint instanceFlagMMSLobby = 131072;     // (SteamAccountInstanceMask + 1) >> 3
+
+        private SteamAccountType accountType;
 
         #endregion Members
 
@@ -63,29 +85,37 @@ namespace SteamWebAPI2.Models
         /// <summary>
         /// Identifies the account type of the Steam Id. Most Steam Ids are Individual (1).
         /// </summary>
-        public SteamAccountType AccountType { get; private set; }
-
-        /// <summary>
-        /// Not really sure. It seems to mostly be "1".
-        /// </summary>
-        public uint? InstanceId
+        public SteamAccountType AccountType
         {
-            get
-            {
-                if (instanceId.HasValue) { return instanceId.Value; }
-                else { return 0; }
-            }
+            get { return accountType; }
             set
             {
-                instanceId = value;
+                accountType = value;
+                if (accountType == SteamAccountType.Individual || accountType == SteamAccountType.GameServer)
+                {
+                    Instance = SteamInstance.Desktop;
+                }
+                else if (accountType == SteamAccountType.Clan)
+                {
+                    Instance = SteamInstance.All;
+                }
             }
         }
 
         /// <summary>
-        /// A user's unique account id (sometimes incorrectly referred to as "SteamId32" or "32-bit Steam Id". This is the lowest 32-bits of the 64-bit Steam Id.
+        /// Seems to indicate the system group from which a user is connecting such as "Desktop", "Console", or "Web". Most common is "Desktop".
+        /// </summary>
+        public SteamInstance Instance { get; private set; }
+
+        /// <summary>
+        /// A user's unique account id (sometimes incorrectly referred to as "SteamId32" or "32-bit Steam Id". This is the lowest 32-bits of the 64-bit Steam Id. Used as
+        /// an identifier in Dota 2.
         /// </summary>
         public uint AccountId { get; private set; }
 
+        /// <summary>
+        /// Indicates how the Steam Id was resolved (from url, components, 64-bit id, etc...)
+        /// </summary>
         public SteamIdResolvedFrom ResolvedFrom { get; private set; }
 
         #endregion Properties
@@ -98,12 +128,12 @@ namespace SteamWebAPI2.Models
         /// <param name="universe">Which Steam system this Steam Id belongs to (such as Public)</param>
         /// <param name="accountType">The type of account for this Steam Id (such as Individual)</param>
         /// <param name="accountId">The 32-bit account identifier for the Steam account</param>
-        /// <param name="instanceId">Not really sure. It seems to mostly be "1".</param>
-        public SteamId(SteamUniverse universe, SteamAccountType accountType, uint accountId, uint instanceId)
+        /// <param name="instance">Not really sure. It seems to mostly be "1".</param>
+        public SteamId(SteamUniverse universe, SteamAccountType accountType, uint accountId, SteamInstance instance)
         {
             Universe = universe;
             AccountType = accountType;
-            InstanceId = instanceId;
+            Instance = instance;
             AccountId = accountId;
 
             ResolvedFrom = SteamIdResolvedFrom.IndividualComponents;
@@ -121,18 +151,13 @@ namespace SteamWebAPI2.Models
             AccountType = accountType;
             AccountId = accountId;
 
-            if (AccountType == SteamAccountType.Individual)
-            {
-                InstanceId = 1;
-            }
-
             ResolvedFrom = SteamIdResolvedFrom.IndividualComponents;
         }
 
         /// <summary>
         /// Constructs an approximated Steam Id based on a 32-bit Account Id. Since a full Steam Id includes more than just an Account Id, it is
         /// impossible to convert directly from Account Id to 64-bit Steam Id without making some assumptions. This constructor will assume the following.
-        /// Universe: Public (1), Instance: 1, AccountType: Individual (1).
+        /// Universe: Public (1), Instance: Desktop (1), AccountType: Individual (1).
         /// </summary>
         /// <param name="accountId">32-bit Account Id portion of the Steam Id (the lowest 32-bits of the 64-bit Steam Id)</param>
         public SteamId(uint accountId)
@@ -153,34 +178,64 @@ namespace SteamWebAPI2.Models
         public SteamId(ulong steamId64)
         {
             ConstructFromSteamId64(steamId64);
+
             ResolvedFrom = SteamIdResolvedFrom.SteamId64;
         }
 
         /// <summary>
         /// Constructs a Steam Id by parsing the provided value. This constructor will try to parse the value to a 64-bit Steam Id or a Steam Community Profile URL depending on the input.
-        /// If a Profile URL is provided but is unable to be resolved to a 64-bit Steam ID, a VanityUrlNotResolvedException will be thrown.
+        /// If a Profile URL is provided but is unable to be resolved to a 64-bit Steam ID, a VanityUrlNotResolvedException will be thrown. Network access may be required
+        /// to receive a return value from this method in the event that the Steam Web API is required.
         /// </summary>
         /// <param name="value">Value to parse, can be a 64-bit Steam ID, a full Steam Community Profile URL, or the user's Steam Community Profile Name.</param>
-        /// <param name="steamWebApiKey">Required in the event that the Steam Web API is required to resolve a Profiel URL to a 64-bit Steam ID.</param>
-        public SteamId(string value, string steamWebApiKey)
+        /// <param name="steamWebApiKey">Required in the event that the Steam Web API is needed to resolve a Profile URL to a 64-bit Steam ID.</param>
+        public SteamId(string value, string steamWebApiKey = "")
         {
             if (String.IsNullOrEmpty(value))
             {
                 throw new ArgumentNullException("value");
             }
 
-            if (String.IsNullOrEmpty(steamWebApiKey))
-            {
-                throw new ArgumentNullException("steamWebApiKey");
-            }
-
             ulong steamId = 0;
+            MatchCollection legacyCheckResult = null;
+            MatchCollection modernCheckResult = null;
 
-            // first check to see if the caller provided a 64-bit Steam ID
-            bool isSteamId64 = ulong.TryParse(value, out steamId);
+            // it's a legacy steam id in the format of STEAM_X:Y:Z
+            if (IsLegacySteamId(value, out legacyCheckResult))
+            {
+                string universe = legacyCheckResult[0].Groups[1].Value;
+                string authServer = legacyCheckResult[0].Groups[2].Value;
+                string accountId = legacyCheckResult[0].Groups[3].Value;
 
-            // the caller didn't provide a 64-bit Steam ID
-            if (!isSteamId64)
+                ConstructFromLegacySteamId(universe, authServer, accountId);
+
+                ResolvedFrom = SteamIdResolvedFrom.LegacySteamId;
+            }
+            // it's a modern steam id in the format of [A:B:C:D]
+            else if (IsModernSteamId(value, out modernCheckResult))
+            {
+                string accountTypeCharacter = modernCheckResult[0].Groups[1].Value;
+                string universe = modernCheckResult[0].Groups[2].Value;
+                string accountId = modernCheckResult[0].Groups[3].Value;
+                string instance = String.Empty;
+                if (modernCheckResult[0].Groups.Count == 5)
+                {
+                    instance = modernCheckResult[0].Groups[4].Value;
+                }
+
+                ConstructFromModernSteamId(accountTypeCharacter, instance, universe, accountId);
+
+                ResolvedFrom = SteamIdResolvedFrom.ModernSteamId;
+            }
+            // it's a 64-bit steam id
+            else if (ulong.TryParse(value, out steamId))
+            {
+                ConstructFromSteamId64(steamId);
+
+                ResolvedFrom = SteamIdResolvedFrom.SteamId64;
+            }
+            // it's some other type of string, let's find out what it is
+            else
             {
                 // check if the caller entered a valid uri
                 Uri uriResult;
@@ -202,13 +257,20 @@ namespace SteamWebAPI2.Models
                                 string profileId = uriResult.Segments[2];
 
                                 // try to parse the 3rd segment as a 64-bit Steam ID (http://steamcommunity.com/profiles/762541427451 for example)
-                                isSteamId64 = ulong.TryParse(profileId, out steamId);
+                                bool isSteamId64 = ulong.TryParse(profileId, out steamId);
 
                                 // the third segment isn't a 64-bit Steam ID, check if it's a profile name which resolves to a 64-bit Steam ID
                                 if (!isSteamId64)
                                 {
+                                    if (String.IsNullOrEmpty(steamWebApiKey))
+                                    {
+                                        throw new InvalidOperationException(ErrorMessages.SteamWebApiKeyNotProvided);
+                                    }
+
                                     steamId = await ResolveSteamIdFromValueAsync(steamUser, profileId);
                                 }
+
+                                ConstructFromSteamId64(steamId);
                             }
                             else
                             {
@@ -219,8 +281,16 @@ namespace SteamWebAPI2.Models
                         }
                         else
                         {
+                            if (String.IsNullOrEmpty(steamWebApiKey))
+                            {
+                                throw new InvalidOperationException(ErrorMessages.SteamWebApiKeyNotProvided);
+                            }
+
                             // not a 64-bit Steam ID and not a uri, try to just resolve it as if it was a Steam Community Profile Name
                             steamId = await ResolveSteamIdFromValueAsync(steamUser, value);
+
+                            ConstructFromSteamId64(steamId);
+
                             ResolvedFrom = SteamIdResolvedFrom.SteamCommunityProfileName;
                         }
                     }).Wait();
@@ -240,19 +310,95 @@ namespace SteamWebAPI2.Models
                     throw;
                 }
             }
-            else
+        }
+
+        private void ConstructFromModernSteamId(string accountTypeCharacter, string instance, string universe, string accountId)
+        {
+            // set the account type based on the character
+            char parsedAccountTypeCharacter = char.Parse(accountTypeCharacter);
+            AccountType = GetAccountTypeFromCharacter(parsedAccountTypeCharacter);
+
+            // set the default instance for the account type character
+            if (parsedAccountTypeCharacter == GetCharacterFromAccountType(SteamAccountType.Individual))
             {
-                ResolvedFrom = SteamIdResolvedFrom.SteamId64;
+                Instance = SteamInstance.Desktop;
+            }
+            else { Instance = SteamInstance.All; }
+
+            // override if an instance was provided
+            if (!String.IsNullOrEmpty(instance))
+            {
+                Instance = (SteamInstance)uint.Parse(instance);
             }
 
-            if (steamId > 0)
-            {
-                ConstructFromSteamId64(steamId);
-            }
-            else
-            {
-                throw new SteamIdNotConstructedException(ErrorMessages.SteamIdNotConstructed);
-            }
+            // set the universe
+            Universe = (SteamUniverse)uint.Parse(universe);
+
+            // set the account id
+            AccountId = uint.Parse(accountId);
+        }
+
+        private void ConstructFromLegacySteamId(string universe, string authServer, string partialAccountId)
+        {
+            // setup the universe
+            Universe = (SteamUniverse)GetUniverseFromLegacySteamId(universe);
+
+            // setup the account id
+            AccountId = GetAccountIdFromLegacySteamId(authServer, partialAccountId);
+
+            // default the account type to individual since legacy steam doesn't have this in it
+            AccountType = SteamAccountType.Individual;
+        }
+
+        /// <summary>
+        /// Gets the correct Universe value from the passed string.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        private uint GetUniverseFromLegacySteamId(string value)
+        {
+            uint universe = uint.Parse(value);
+            if (universe == 0) { universe = 1; }
+            return universe;
+        }
+
+        /// <summary>
+        /// Determines if the passed value is a Modern Steam Id format. Out parameter contains the matching results of the RegEx to test this.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="matches"></param>
+        /// <returns></returns>
+        private bool IsModernSteamId(string value, out MatchCollection matches)
+        {
+            Regex modernSteamIdCheck = new Regex("^\\[([AGMPCgcLTIUai]):([0-4]):([0-9]{1,10})(:([0-9]+))?\\]$");
+            matches = modernSteamIdCheck.Matches(value);
+            return matches.Count > 0;
+        }
+
+        /// <summary>
+        /// Determines if the passed value is a Legacy Steam Id format. Out parameter contains the matching results of the RegEx to test this.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="matches"></param>
+        /// <returns></returns>
+        private bool IsLegacySteamId(string value, out MatchCollection matches)
+        {
+            Regex legacySteamIdCheck = new Regex("^STEAM_([0-4]):([0-1]):([0-9]{1,10})$");
+            matches = legacySteamIdCheck.Matches(value);
+            return matches.Count > 0;
+        }
+
+        /// <summary>
+        /// Combines the two parameters to create a 32-bit Steam Account Id.
+        /// </summary>
+        /// <param name="authServer"></param>
+        /// <param name="partialAccountId"></param>
+        /// <returns></returns>
+        private uint GetAccountIdFromLegacySteamId(string authServer, string partialAccountId)
+        {
+            uint authServerValue = uint.Parse(authServer);
+            uint partialAccountIdValue = uint.Parse(partialAccountId);
+            return (partialAccountIdValue << 1) | authServerValue;
         }
 
         /// <summary>
@@ -310,7 +456,7 @@ namespace SteamWebAPI2.Models
         public string ToModernFormat()
         {
             // C = a char representing the account type or a combination of account type + instance id
-            char c = GetAccountTypeCharacter(AccountType);
+            char c = GetCharacterFromAccountType(AccountType);
 
             // U = universe
             int u = (int)Universe;
@@ -331,7 +477,7 @@ namespace SteamWebAPI2.Models
             ulong low32bits = AccountId;
 
             // next 20 bits = instance
-            ulong next20bits = (ulong)InstanceId << 32;
+            ulong next20bits = (ulong)Instance << 32;
 
             // next 4 bits = account type
             ulong next4bits = (ulong)AccountType << 52;
@@ -352,7 +498,7 @@ namespace SteamWebAPI2.Models
             AccountId = (uint)steamId64;
 
             // Instance Id = next 20 bits
-            InstanceId = (uint)(steamId64 >> 32) & 0xFFFFF;
+            Instance = (SteamInstance)((uint)(steamId64 >> 32) & 0xFFFFF);
 
             // Account Type = 4 bits
             AccountType = (SteamAccountType)((uint)(steamId64 >> 52) & 0xF);
@@ -366,49 +512,43 @@ namespace SteamWebAPI2.Models
         /// </summary>
         /// <param name="accountType">A character identifier for the account type</param>
         /// <returns></returns>
-        private char GetAccountTypeCharacter(SteamAccountType accountType)
+        private char GetCharacterFromAccountType(SteamAccountType accountType)
         {
-            switch (accountType)
-            {
-                case SteamAccountType.Invalid:
-                    return 'I';
+            if (accountType == SteamAccountType.Invalid) { return 'I'; }
+            else if (accountType == SteamAccountType.Individual) { return 'U'; }
+            else if (accountType == SteamAccountType.Multiseat) { return 'M'; }
+            else if (accountType == SteamAccountType.GameServer) { return 'G'; }
+            else if (accountType == SteamAccountType.AnonGameServer) { return 'A'; }
+            else if (accountType == SteamAccountType.Pending) { return 'P'; }
+            else if (accountType == SteamAccountType.ContentServer) { return 'C'; }
+            else if (accountType == SteamAccountType.Clan) { return 'g'; }
+            else if (accountType == SteamAccountType.Chat) { return 'T'; }
+            else if (accountType == SteamAccountType.Chat_Clan) { return 'c'; }
+            else if (accountType == SteamAccountType.Chat_Lobby) { return 'L'; }
+            else if (accountType == SteamAccountType.AnonUser) { return 'a'; }
+            else { return ' '; }
+        }
 
-                case SteamAccountType.Individual:
-                    return 'U';
-
-                case SteamAccountType.Multiseat:
-                    return 'M';
-
-                case SteamAccountType.GameServer:
-                    return 'G';
-
-                case SteamAccountType.AnonGameServer:
-                    return 'A';
-
-                case SteamAccountType.Pending:
-                    return 'P';
-
-                case SteamAccountType.ContentServer:
-                    return 'C';
-
-                case SteamAccountType.Clan:
-                    return 'g';
-
-                case SteamAccountType.Chat:
-                    return 'T';
-
-                case SteamAccountType.Chat_Clan:
-                    return 'c';
-
-                case SteamAccountType.Chat_Lobby:
-                    return 'L';
-
-                case SteamAccountType.AnonUser:
-                    return 'a';
-
-                default:
-                    return ' ';
-            }
+        /// <summary>
+        /// Returns the Steam Accoun Type associated with the passed character. Returns Account Type Invalid if the character doesn't match anything.
+        /// </summary>
+        /// <param name="c"></param>
+        /// <returns></returns>
+        private SteamAccountType GetAccountTypeFromCharacter(char c)
+        {
+            if (c == 'I') { return SteamAccountType.Invalid; }
+            else if (c == 'U') { return SteamAccountType.Individual; }
+            else if (c == 'M') { return SteamAccountType.Multiseat; }
+            else if (c == 'G') { return SteamAccountType.GameServer; }
+            else if (c == 'A') { return SteamAccountType.AnonGameServer; }
+            else if (c == 'P') { return SteamAccountType.Pending; }
+            else if (c == 'C') { return SteamAccountType.ContentServer; }
+            else if (c == 'g') { return SteamAccountType.Clan; }
+            else if (c == 'T') { return SteamAccountType.Chat; }
+            else if (c == 'c') { return SteamAccountType.Chat_Clan; }
+            else if (c == 'L') { return SteamAccountType.Chat_Lobby; }
+            else if (c == 'a') { return SteamAccountType.AnonUser; }
+            else { return SteamAccountType.Invalid; }
         }
 
         #endregion Methods

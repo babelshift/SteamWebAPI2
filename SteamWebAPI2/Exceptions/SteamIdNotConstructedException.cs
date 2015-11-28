@@ -2,6 +2,9 @@
 
 namespace SteamWebAPI2.Exceptions
 {
+    /// <summary>
+    /// Represents an exception that has been thrown as a result of all parsing options failing to work with a given Steam ID.
+    /// </summary>
     public class SteamIdNotConstructedException : Exception
     {
         public SteamIdNotConstructedException()

@@ -123,6 +123,9 @@
   <data name="SteamIdNotConstructed" xml:space="preserve">
     <value>After multiple attempts, the Steam ID could not be constructed from the provided value.</value>
   </data>
+  <data name="SteamWebApiKeyNotProvided" xml:space="preserve">
+    <value>Value needs to be resolved using Steam Web API but a Web API key was not provided.</value>
+  </data>
   <data name="VanityUrlNotResolved" xml:space="preserve">
     <value>The entered value for the Vanity URL could not be resolved to a Steam ID.</value>
   </data>

@@ -79,6 +79,15 @@ namespace SteamWebAPI2 {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Value needs to be resolved using Steam Web API but a Web API key was not provided..
+        /// </summary>
+        internal static string SteamWebApiKeyNotProvided {
+            get {
+                return ResourceManager.GetString("SteamWebApiKeyNotProvided", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The entered value for the Vanity URL could not be resolved to a Steam ID..
         /// </summary>
         internal static string VanityUrlNotResolved {
