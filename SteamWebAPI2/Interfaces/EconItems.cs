@@ -5,10 +5,16 @@ using System.Threading.Tasks;
 
 namespace SteamWebAPI2.Interfaces
 {
-    public enum SteamAppId
+    public enum EconItemsAppId
     {
         TeamFortress2 = 440,
-        Dota2 = 570
+        Dota2 = 570,
+        Payday2 = 218620,
+        DefenseGrid2 = 221540,
+        BattleBlockTheater = 238460,
+        Portal2 = 620,
+        CounterStrikeGO = 730,
+        Portal2_Beta = 841
     }
 
     public class EconItems : SteamWebInterface
@@ -23,7 +29,7 @@ namespace SteamWebAPI2.Interfaces
         private List<int> validStoreMetaDataAppIds = new List<int>();
         private List<int> validStoreStatusAppIds = new List<int>();
 
-        public EconItems(string steamWebApiKey, SteamAppId appId)
+        public EconItems(string steamWebApiKey, EconItemsAppId appId)
             : base(steamWebApiKey, "IEconItems_" + (int)appId)
         {
             if (appId <= 0)

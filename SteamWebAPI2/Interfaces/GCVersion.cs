@@ -5,6 +5,13 @@ using System.Threading.Tasks;
 
 namespace SteamWebAPI2.Interfaces
 {
+    public enum GCVersionAppId
+    {
+        TeamFortress2 = 440,
+        Dota2 = 570,
+        CounterStrikeGO = 730
+    }
+
     public class GCVersion : SteamWebInterface
     {
         private int appId;
@@ -15,15 +22,15 @@ namespace SteamWebAPI2.Interfaces
 
         private List<int> validServerVersionAppIds = new List<int>();
 
-        public GCVersion(string steamWebApiKey, int appId)
-            : base(steamWebApiKey, "IGCVersion_" + appId)
+        public GCVersion(string steamWebApiKey, GCVersionAppId appId)
+            : base(steamWebApiKey, "IGCVersion_" + (int)appId)
         {
             if (appId <= 0)
             {
                 throw new ArgumentOutOfRangeException("appId");
             }
 
-            this.appId = appId;
+            this.appId = (int)appId;
 
             validClientVersionAppIds.Add(440);
             validClientVersionAppIds.Add(570);

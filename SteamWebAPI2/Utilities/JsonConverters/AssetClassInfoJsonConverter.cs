@@ -10,7 +10,7 @@ namespace SteamWebAPI2.Utilities.JsonConverters
     /// Handles manual deserialization of the response from ISteamEconomy/GetAssetClassInfo.
     /// I could not rely on automatic deserialization with property attribute decorators because the JSON structure of the response is completely awful.
     /// Instead of using JSON arrays, the JSON response contains multiple dynamically build objects with varying numbers of properties whose values correspond to
-    /// what appear to be arrays indices.
+    /// what appear to be arrays indices. The response appears to be a conversion from Valve Data Format (VDF) to JSON.
     /// So to clean this up, I manually deserialize into objects that aren't awful.
     ///
     /// Example of the bad JSON response:
