@@ -13,13 +13,13 @@ namespace SteamWebAPI2.Interfaces
         {
         }
 
-        public async Task<LeagueResult> GetLeagueListing()
+        public async Task<LeagueResult> GetLeagueListingAsync()
         {
             var leagueListing = await CallMethodAsync<LeagueResultContainer>("GetLeagueListing", 1);
             return leagueListing.Result;
         }
 
-        public async Task<IReadOnlyCollection<LiveLeagueGame>> GetLiveLeagueGames(int? leagueId = null, long? matchId = null)
+        public async Task<IReadOnlyCollection<LiveLeagueGame>> GetLiveLeagueGamesAsync(int? leagueId = null, long? matchId = null)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
@@ -30,7 +30,7 @@ namespace SteamWebAPI2.Interfaces
             return new ReadOnlyCollection<LiveLeagueGame>(liveLeagueGames.Result.Games);
         }
 
-        public async Task<MatchDetailResult> GetMatchDetails(int matchId)
+        public async Task<MatchDetailResult> GetMatchDetailsAsync(int matchId)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
@@ -40,7 +40,7 @@ namespace SteamWebAPI2.Interfaces
             return matchDetail.Result;
         }
 
-        public async Task<MatchHistoryResult> GetMatchHistory(int? heroId = null, int? gameMode = null, int? skill = null,
+        public async Task<MatchHistoryResult> GetMatchHistoryAsync(int? heroId = null, int? gameMode = null, int? skill = null,
             string minPlayers = "", string accountId = "", string leagueId = "", long? startAtMatchId = null,
             string matchesRequested = "", string tournamentGamesOnly = "")
         {
@@ -60,7 +60,7 @@ namespace SteamWebAPI2.Interfaces
             return matchHistory.Result;
         }
 
-        public async Task<MatchHistoryBySequenceNumberResult> GetMatchHistoryBySequenceNumber(long? startAtMatchSequenceNumber = null, int? matchesRequested = null)
+        public async Task<MatchHistoryBySequenceNumberResult> GetMatchHistoryBySequenceNumberAsync(long? startAtMatchSequenceNumber = null, int? matchesRequested = null)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
@@ -77,7 +77,7 @@ namespace SteamWebAPI2.Interfaces
         }
         */
 
-        public async Task<IReadOnlyCollection<TeamInfo>> GetTeamInfoByTeamId(long? startAtTeamId = null, int? teamsRequested = null)
+        public async Task<IReadOnlyCollection<TeamInfo>> GetTeamInfoByTeamIdAsync(long? startAtTeamId = null, int? teamsRequested = null)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
