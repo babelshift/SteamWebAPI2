@@ -56,7 +56,7 @@ namespace SteamWebAPI2.Interfaces
             AddToParametersIfHasValue(matchesRequested, "matches_requested", parameters);
             AddToParametersIfHasValue(tournamentGamesOnly, "tournament_games_only", parameters);
 
-            var matchHistory = await CallMethodAsync<MatchHistoryResultContainer>("GetMatchHistory", 1);
+            var matchHistory = await CallMethodAsync<MatchHistoryResultContainer>("GetMatchHistory", 1, parameters);
             return matchHistory.Result;
         }
 
@@ -67,7 +67,7 @@ namespace SteamWebAPI2.Interfaces
             AddToParametersIfHasValue(startAtMatchSequenceNumber, "start_at_match_seq_num", parameters);
             AddToParametersIfHasValue(matchesRequested, "matches_requested", parameters);
 
-            var matchHistory = await CallMethodAsync<MatchHistoryBySequenceNumberResultContainer>("GetMatchHistoryBySequenceNum", 1);
+            var matchHistory = await CallMethodAsync<MatchHistoryBySequenceNumberResultContainer>("GetMatchHistoryBySequenceNum", 1, parameters);
             return matchHistory.Result;
         }
 
@@ -84,7 +84,7 @@ namespace SteamWebAPI2.Interfaces
             AddToParametersIfHasValue(startAtTeamId, "start_at_team_id", parameters);
             AddToParametersIfHasValue(teamsRequested, "teams_requested", parameters);
 
-            var teamInfos = await CallMethodAsync<TeamInfoResultContainer>("GetTeamInfoByTeamID", 1);
+            var teamInfos = await CallMethodAsync<TeamInfoResultContainer>("GetTeamInfoByTeamID", 1, parameters);
             return new ReadOnlyCollection<TeamInfo>(teamInfos.Result.Teams);
         }
 

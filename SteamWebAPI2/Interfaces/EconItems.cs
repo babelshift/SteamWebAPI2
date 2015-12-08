@@ -103,7 +103,7 @@ namespace SteamWebAPI2.Interfaces
 
             AddToParametersIfHasValue(language, "language", parameters);
 
-            var storeMetaDataResult = await CallMethodAsync<StoreMetaDataResultContainer>("GetStoreMetaData", 1);
+            var storeMetaDataResult = await CallMethodAsync<StoreMetaDataResultContainer>("GetStoreMetaData", 1, parameters);
             return storeMetaDataResult.Result;
         }
 
