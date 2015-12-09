@@ -63,6 +63,7 @@
     <Compile Include="Interfaces\PlayerService.cs" />
     <Compile Include="Interfaces\SteamEconomy.cs" />
     <Compile Include="Interfaces\SteamApps.cs" />
+    <Compile Include="Interfaces\SteamRemoteStorage.cs" />
     <Compile Include="Interfaces\SteamNews.cs" />
     <Compile Include="Interfaces\SteamUser.cs" />
     <Compile Include="Interfaces\SteamUserStats.cs" />
@@ -114,6 +115,7 @@
     <Compile Include="Models\SteamPlayer\RecentlyPlayedGameResultContainer.cs" />
     <Compile Include="Models\SteamServerInfo.cs" />
     <Compile Include="Models\TF2\GoldenWrenchResultContainer.cs" />
+    <Compile Include="Models\UGCFileDetailsResultContainer.cs" />
     <Compile Include="Models\UserStatsForGameResultContainer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SteamWebInterface.cs" />

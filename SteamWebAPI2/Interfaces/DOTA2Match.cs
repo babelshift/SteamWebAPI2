@@ -27,6 +27,7 @@ namespace SteamWebAPI2.Interfaces
             AddToParametersIfHasValue(matchId, "match_id", parameters);
 
             var liveLeagueGames = await CallMethodAsync<LiveLeagueGameResultContainer>("GetLiveLeagueGames", 1, parameters);
+
             return new ReadOnlyCollection<LiveLeagueGame>(liveLeagueGames.Result.Games);
         }
 

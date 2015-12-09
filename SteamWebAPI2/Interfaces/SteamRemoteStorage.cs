@@ -1,0 +1,36 @@
+﻿using SteamWebAPI2.Models;
+using SteamWebAPI2.Utilities;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Threading.Tasks;
+
+namespace SteamWebAPI2.Interfaces
+{
+    public class SteamRemoteStorage : SteamWebInterface
+    {
+        public SteamRemoteStorage(string steamWebApiKey)
+            : base(steamWebApiKey, "ISteamRemoteStorage")
+        {
+        }
+
+        public async Task<UGCFileDetails> GetUGCFileDetailsAsync(long ugcId, int appId, long? steamId = null)
+        {
+            Debug.Assert(appId > 0);
+
+            if(ugcId <= 0)
+            {
+                return null;
+            }
+
+            List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
+
+            AddToParametersIfHasValue(ugcId, "ugcid", parameters);
+            AddToParametersIfHasValue(appId, "appid", parameters);
+            AddToParametersIfHasValue(steamId, "steamid", parameters);
+
+            var ugcFileDetails = await CallMethodAsync<UGCFileDetailsResultContainer>("GetUGCFileDetails", 1, parameters);
+            return ugcFileDetails.Result;
+        }
+    }
+}
