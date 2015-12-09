@@ -3,6 +3,7 @@ using SteamWebAPI2.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace SteamWebAPI2.Interfaces
@@ -18,7 +19,7 @@ namespace SteamWebAPI2.Interfaces
         {
             Debug.Assert(appId > 0);
 
-            if(ugcId <= 0)
+            if (ugcId <= 0)
             {
                 return null;
             }
@@ -29,8 +30,15 @@ namespace SteamWebAPI2.Interfaces
             AddToParametersIfHasValue(appId, "appid", parameters);
             AddToParametersIfHasValue(steamId, "steamid", parameters);
 
-            var ugcFileDetails = await CallMethodAsync<UGCFileDetailsResultContainer>("GetUGCFileDetails", 1, parameters);
-            return ugcFileDetails.Result;
+            try
+            {
+                var ugcFileDetails = await CallMethodAsync<UGCFileDetailsResultContainer>("GetUGCFileDetails", 1, parameters);
+                return ugcFileDetails.Result;
+            }
+            catch (HttpRequestException)
+            {
+                return null;
+            }
         }
     }
 }

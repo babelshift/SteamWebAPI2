@@ -117,7 +117,7 @@ namespace SteamWebAPI2
             string commandUrl = String.Format("{0}/{1}/{2}/v{3}/", steamWebApiBaseUrl, interfaceName, methodName, methodVersion);
 
             // if we have parameters, join them together with & delimiter and append them to the command URL
-            if(parameters != null && parameters.Count > 0)
+            if (parameters != null && parameters.Count > 0)
             {
                 string parameterString = String.Join("&", parameters);
                 commandUrl += String.Format("?{0}", parameterString);
