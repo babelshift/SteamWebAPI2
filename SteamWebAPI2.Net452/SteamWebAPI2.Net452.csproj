@@ -1,0 +1,301 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D16DFA6F-EB9A-4668-8D24-232E7ADA8D98}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SteamWebAPI2.Net452</RootNamespace>
+    <AssemblyName>SteamWebAPI2</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\bin\Debug\net452\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\bin\Release\net452\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\SteamWebAPI2\ErrorMessages.Designer.cs">
+      <Link>ErrorMessages.Designer.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Exceptions\InvalidSteamCommunityUriException.cs">
+      <Link>Exceptions\InvalidSteamCommunityUriException.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Exceptions\SteamIdNotConstructedException.cs">
+      <Link>Exceptions\SteamIdNotConstructedException.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Exceptions\VanityUrlNotResolvedException.cs">
+      <Link>Exceptions\VanityUrlNotResolvedException.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Interfaces\CSGOServers.cs">
+      <Link>Interfaces\CSGOServers.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Interfaces\DOTA2Econ.cs">
+      <Link>Interfaces\DOTA2Econ.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Interfaces\DOTA2Fantasy.cs">
+      <Link>Interfaces\DOTA2Fantasy.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Interfaces\DOTA2Match.cs">
+      <Link>Interfaces\DOTA2Match.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Interfaces\DOTA2Ticket.cs">
+      <Link>Interfaces\DOTA2Ticket.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Interfaces\EconItems.cs">
+      <Link>Interfaces\EconItems.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Interfaces\GCVersion.cs">
+      <Link>Interfaces\GCVersion.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Interfaces\PlayerService.cs">
+      <Link>Interfaces\PlayerService.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Interfaces\SteamApps.cs">
+      <Link>Interfaces\SteamApps.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Interfaces\SteamEconomy.cs">
+      <Link>Interfaces\SteamEconomy.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Interfaces\SteamNews.cs">
+      <Link>Interfaces\SteamNews.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Interfaces\SteamRemoteStorage.cs">
+      <Link>Interfaces\SteamRemoteStorage.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Interfaces\SteamUser.cs">
+      <Link>Interfaces\SteamUser.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Interfaces\SteamUserStats.cs">
+      <Link>Interfaces\SteamUserStats.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Interfaces\SteamWebAPIUtil.cs">
+      <Link>Interfaces\SteamWebAPIUtil.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Interfaces\TFItems.cs">
+      <Link>Interfaces\TFItems.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Models\CSGO\ServerStatusResultContainer.cs">
+      <Link>Models\CSGO\ServerStatusResultContainer.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Models\DOTA2\GameItemResultContainer.cs">
+      <Link>Models\DOTA2\GameItemResultContainer.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Models\DOTA2\HeroResultContainer.cs">
+      <Link>Models\DOTA2\HeroResultContainer.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Models\DOTA2\ItemIconPathResultContainer.cs">
+      <Link>Models\DOTA2\ItemIconPathResultContainer.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Models\DOTA2\LeagueResultContainer.cs">
+      <Link>Models\DOTA2\LeagueResultContainer.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Models\DOTA2\LiveLeagueGameResultContainer.cs">
+      <Link>Models\DOTA2\LiveLeagueGameResultContainer.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Models\DOTA2\MatchDetailResultContainer.cs">
+      <Link>Models\DOTA2\MatchDetailResultContainer.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Models\DOTA2\MatchHistoryBySequenceNumberResultContainer.cs">
+      <Link>Models\DOTA2\MatchHistoryBySequenceNumberResultContainer.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Models\DOTA2\MatchHistoryResultContainer.cs">
+      <Link>Models\DOTA2\MatchHistoryResultContainer.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Models\DOTA2\PlayerOfficialInfoResultContainer.cs">
+      <Link>Models\DOTA2\PlayerOfficialInfoResultContainer.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Models\DOTA2\PrizePoolResultContainer.cs">
+      <Link>Models\DOTA2\PrizePoolResultContainer.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Models\DOTA2\ProPlayerListResultContainer.cs">
+      <Link>Models\DOTA2\ProPlayerListResultContainer.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Models\DOTA2\RarityResultContainer.cs">
+      <Link>Models\DOTA2\RarityResultContainer.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Models\DOTA2\TeamInfoResultContainer.cs">
+      <Link>Models\DOTA2\TeamInfoResultContainer.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Models\GameClientResultContainer.cs">
+      <Link>Models\GameClientResultContainer.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Models\GameEconomy\EconItemResultContainer.cs">
+      <Link>Models\GameEconomy\EconItemResultContainer.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Models\GameEconomy\SchemaResultContainer.cs">
+      <Link>Models\GameEconomy\SchemaResultContainer.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Models\GameEconomy\SchemaURLResultContainer.cs">
+      <Link>Models\GameEconomy\SchemaURLResultContainer.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Models\GameEconomy\StoreMetaDataResultContainer.cs">
+      <Link>Models\GameEconomy\StoreMetaDataResultContainer.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Models\GameEconomy\StoreStatusResultContainer.cs">
+      <Link>Models\GameEconomy\StoreStatusResultContainer.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Models\SchemaForGameResultContainer.cs">
+      <Link>Models\SchemaForGameResultContainer.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Models\SteamApiListContainer.cs">
+      <Link>Models\SteamApiListContainer.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Models\SteamAppListResultContainer.cs">
+      <Link>Models\SteamAppListResultContainer.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Models\SteamAppUpToDateCheckResultContainer.cs">
+      <Link>Models\SteamAppUpToDateCheckResultContainer.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Models\SteamCommunity\BadgesResultContainer.cs">
+      <Link>Models\SteamCommunity\BadgesResultContainer.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Models\SteamCommunity\CommunityBadgeProgressResultContainer.cs">
+      <Link>Models\SteamCommunity\CommunityBadgeProgressResultContainer.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Models\SteamCommunity\FriendListResultContainer.cs">
+      <Link>Models\SteamCommunity\FriendListResultContainer.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Models\SteamCommunity\GlobalAchievementPercentagesResultContainer.cs">
+      <Link>Models\SteamCommunity\GlobalAchievementPercentagesResultContainer.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Models\SteamCommunity\GlobalStatsForGameResultContainer.cs">
+      <Link>Models\SteamCommunity\GlobalStatsForGameResultContainer.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Models\SteamCommunity\PlayerSummaryResultContainer.cs">
+      <Link>Models\SteamCommunity\PlayerSummaryResultContainer.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Models\SteamCommunity\ResolveVanityUrlResultContainer.cs">
+      <Link>Models\SteamCommunity\ResolveVanityUrlResultContainer.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Models\SteamCommunity\SteamCommunityProfile.cs">
+      <Link>Models\SteamCommunity\SteamCommunityProfile.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Models\SteamCommunity\SteamLevelResultContainer.cs">
+      <Link>Models\SteamCommunity\SteamLevelResultContainer.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Models\SteamCommunity\UserGroupListResultContainer.cs">
+      <Link>Models\SteamCommunity\UserGroupListResultContainer.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Models\SteamEconomy\AssetClassInfoResultContainer.cs">
+      <Link>Models\SteamEconomy\AssetClassInfoResultContainer.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Models\SteamEconomy\AssetPriceResultContainer.cs">
+      <Link>Models\SteamEconomy\AssetPriceResultContainer.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Models\SteamId.cs">
+      <Link>Models\SteamId.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Models\SteamInterface.cs">
+      <Link>Models\SteamInterface.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Models\SteamNewsResultContainer.cs">
+      <Link>Models\SteamNewsResultContainer.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Models\SteamPlayer\CurrentPlayersResultContainer.cs">
+      <Link>Models\SteamPlayer\CurrentPlayersResultContainer.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Models\SteamPlayer\OwnedGamesResultContainer.cs">
+      <Link>Models\SteamPlayer\OwnedGamesResultContainer.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Models\SteamPlayer\PlayerAchievementResultContainer.cs">
+      <Link>Models\SteamPlayer\PlayerAchievementResultContainer.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Models\SteamPlayer\PlayerBansContainer.cs">
+      <Link>Models\SteamPlayer\PlayerBansContainer.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Models\SteamPlayer\PlayingSharedGameResultContainer.cs">
+      <Link>Models\SteamPlayer\PlayingSharedGameResultContainer.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Models\SteamPlayer\RecentlyPlayedGameResultContainer.cs">
+      <Link>Models\SteamPlayer\RecentlyPlayedGameResultContainer.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Models\SteamServerInfo.cs">
+      <Link>Models\SteamServerInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Models\TF2\GoldenWrenchResultContainer.cs">
+      <Link>Models\TF2\GoldenWrenchResultContainer.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Models\UGCFileDetailsResultContainer.cs">
+      <Link>Models\UGCFileDetailsResultContainer.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Models\UserStatsForGameResultContainer.cs">
+      <Link>Models\UserStatsForGameResultContainer.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\SteamWebInterface.cs">
+      <Link>SteamWebInterface.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\SteamWebRequest.cs">
+      <Link>SteamWebRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\SteamWebRequestParameter.cs">
+      <Link>SteamWebRequestParameter.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Utilities\DateTimeExtensions.cs">
+      <Link>Utilities\DateTimeExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Utilities\JsonConverters\AssetClassInfoJsonConverter.cs">
+      <Link>Utilities\JsonConverters\AssetClassInfoJsonConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Utilities\JsonConverters\CSGODataCenterJsonConverter.cs">
+      <Link>Utilities\JsonConverters\CSGODataCenterJsonConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Utilities\JsonConverters\GlobalStatJsonConverter.cs">
+      <Link>Utilities\JsonConverters\GlobalStatJsonConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Utilities\JsonConverters\TeamInfoJsonConverter.cs">
+      <Link>Utilities\JsonConverters\TeamInfoJsonConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Utilities\JsonConverters\UnixTimeJsonConverter.cs">
+      <Link>Utilities\JsonConverters\UnixTimeJsonConverter.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\SteamWebAPI2\ErrorMessages.resx">
+      <Link>ErrorMessages.resx</Link>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SteamWebAPI2", "SteamWebAPI2\SteamWebAPI2.csproj", "{F5BE3B4F-5F56-45CB-9EEB-2BC017AC8EB5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SteamWebAPI2.Net452", "SteamWebAPI2.Net452\SteamWebAPI2.Net452.csproj", "{D16DFA6F-EB9A-4668-8D24-232E7ADA8D98}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{F5BE3B4F-5F56-45CB-9EEB-2BC017AC8EB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F5BE3B4F-5F56-45CB-9EEB-2BC017AC8EB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F5BE3B4F-5F56-45CB-9EEB-2BC017AC8EB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D16DFA6F-EB9A-4668-8D24-232E7ADA8D98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D16DFA6F-EB9A-4668-8D24-232E7ADA8D98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D16DFA6F-EB9A-4668-8D24-232E7ADA8D98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D16DFA6F-EB9A-4668-8D24-232E7ADA8D98}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

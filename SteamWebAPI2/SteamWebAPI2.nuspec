@@ -14,4 +14,10 @@
     <copyright>Copyright 2015</copyright>
     <tags>steam webapi json community</tags>
   </metadata>
+  <files>
+    <file src="..\bin\Release\net452\SteamWebAPI2.pdb" target="lib\net452\SteamWebAPI2.pdb"/>
+    <file src="..\bin\Release\net452\SteamWebAPI2.dll" target="lib\net452\SteamWebAPI2.dll"/>
+	
+    <file src="..\bin\Release\net46\SteamWebAPI2.pdb" target="lib\net46\SteamWebAPI2.pdb"/>
+  </files>
 </package>
