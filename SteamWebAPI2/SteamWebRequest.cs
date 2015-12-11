@@ -15,7 +15,7 @@ namespace SteamWebAPI2
     /// </summary>
     internal class SteamWebRequest
     {
-        private readonly string steamWebApiBaseUrl;
+        private string steamWebApiBaseUrl;
         private readonly string steamWebApiKey;
 
         /// <summary>
@@ -113,6 +113,11 @@ namespace SteamWebAPI2
             Debug.Assert(!String.IsNullOrEmpty(interfaceName));
             Debug.Assert(!String.IsNullOrEmpty(methodName));
             Debug.Assert(methodVersion > 0);
+
+            if(steamWebApiBaseUrl.EndsWith("/"))
+            {
+                steamWebApiBaseUrl = steamWebApiBaseUrl.Remove(steamWebApiBaseUrl.Length - 1, 1);
+            }
 
             string commandUrl = String.Format("{0}/{1}/{2}/v{3}/", steamWebApiBaseUrl, interfaceName, methodName, methodVersion);
 
