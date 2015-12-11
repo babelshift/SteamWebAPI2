@@ -23,3 +23,10 @@ cache:
   
 before_build:
   - cmd: nuget restore
+  
+deploy:
+  provider: NuGet
+  api_key:
+    secure: vIHuOdB4aYJEqNACb3jjCg3m/qZLqpwYlruu8J0BOiX81lRrmussVEUqiWRBTrRQ
+  skip_symbols: false
+  artifact: /.*\.nupkg/
