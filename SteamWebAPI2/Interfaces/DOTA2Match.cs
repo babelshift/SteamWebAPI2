@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SteamWebAPI2.Interfaces
 {
-    public class DOTA2Match : SteamWebInterface
+    public class DOTA2Match : SteamWebInterface, IDOTA2Match
     {
         public DOTA2Match(string steamWebApiKey)
             : base(steamWebApiKey, "IDOTA2Match_570")

@@ -17,7 +17,7 @@ namespace SteamWebAPI2.Interfaces
         Portal2_Beta = 841
     }
 
-    public class EconItems : SteamWebInterface
+    public class EconItems : SteamWebInterface, IEconItems
     {
         private int appId;
 

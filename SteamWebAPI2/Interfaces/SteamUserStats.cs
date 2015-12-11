@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SteamWebAPI2.Interfaces
 {
-    public class SteamUserStats : SteamWebInterface
+    public class SteamUserStats : SteamWebInterface, ISteamUserStats
     {
         public SteamUserStats(string steamWebApiKey)
             : base(steamWebApiKey, "ISteamUserStats")

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SteamWebAPI2.Interfaces
 {
-    public class SteamNews : SteamWebInterface
+    public class SteamNews : SteamWebInterface, ISteamNews
     {
         public SteamNews(string steamWebApiKey)
             : base(steamWebApiKey, "ISteamNews")

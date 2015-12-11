@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SteamWebAPI2.Interfaces
 {
-    public class SteamUser : SteamWebInterface
+    public class SteamUser : SteamWebInterface, ISteamUser
     {
         public SteamUser(string steamWebApiKey)
             : base(steamWebApiKey, "ISteamUser")

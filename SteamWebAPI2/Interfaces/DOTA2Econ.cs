@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SteamWebAPI2.Interfaces
 {
-    public class DOTA2Econ : SteamWebInterface
+    public class DOTA2Econ : SteamWebInterface, IDOTA2Econ
     {
         public DOTA2Econ(string steamWebApiKey)
             : base(steamWebApiKey, "IEconDOTA2_570")

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SteamWebAPI2.Interfaces
 {
-    public class PlayerService : SteamWebInterface
+    public class PlayerService : SteamWebInterface, IPlayerService
     {
         public PlayerService(string steamWebApiKey)
             : base(steamWebApiKey, "IPlayerService")

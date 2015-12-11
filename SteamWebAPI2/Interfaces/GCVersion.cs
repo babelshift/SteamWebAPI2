@@ -12,7 +12,7 @@ namespace SteamWebAPI2.Interfaces
         CounterStrikeGO = 730
     }
 
-    public class GCVersion : SteamWebInterface
+    public class GCVersion : SteamWebInterface, IGCVersion
     {
         private int appId;
 

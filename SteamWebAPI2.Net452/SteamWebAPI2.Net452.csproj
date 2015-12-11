@@ -79,6 +79,54 @@
     <Compile Include="..\SteamWebAPI2\Interfaces\GCVersion.cs">
       <Link>Interfaces\GCVersion.cs</Link>
     </Compile>
+    <Compile Include="..\SteamWebAPI2\Interfaces\ICSGOServers.cs">
+      <Link>Interfaces\ICSGOServers.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Interfaces\IDOTA2Econ.cs">
+      <Link>Interfaces\IDOTA2Econ.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Interfaces\IDOTA2Fantasy.cs">
+      <Link>Interfaces\IDOTA2Fantasy.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Interfaces\IDOTA2Match.cs">
+      <Link>Interfaces\IDOTA2Match.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Interfaces\IDOTA2Ticket.cs">
+      <Link>Interfaces\IDOTA2Ticket.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Interfaces\IEconItems.cs">
+      <Link>Interfaces\IEconItems.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Interfaces\IGCVersion.cs">
+      <Link>Interfaces\IGCVersion.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Interfaces\IPlayerService.cs">
+      <Link>Interfaces\IPlayerService.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Interfaces\ISteamApps.cs">
+      <Link>Interfaces\ISteamApps.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Interfaces\ISteamEconomy.cs">
+      <Link>Interfaces\ISteamEconomy.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Interfaces\ISteamNews.cs">
+      <Link>Interfaces\ISteamNews.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Interfaces\ISteamRemoteStorage.cs">
+      <Link>Interfaces\ISteamRemoteStorage.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Interfaces\ISteamUser.cs">
+      <Link>Interfaces\ISteamUser.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Interfaces\ISteamUserStats.cs">
+      <Link>Interfaces\ISteamUserStats.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Interfaces\ISteamWebAPIUtil.cs">
+      <Link>Interfaces\ISteamWebAPIUtil.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Interfaces\ITFItems.cs">
+      <Link>Interfaces\ITFItems.cs</Link>
+    </Compile>
     <Compile Include="..\SteamWebAPI2\Interfaces\PlayerService.cs">
       <Link>Interfaces\PlayerService.cs</Link>
     </Compile>

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SteamWebAPI2.Interfaces
 {
-    public class SteamRemoteStorage : SteamWebInterface
+    public class SteamRemoteStorage : SteamWebInterface, ISteamRemoteStorage
     {
         public SteamRemoteStorage(string steamWebApiKey)
             : base(steamWebApiKey, "ISteamRemoteStorage")

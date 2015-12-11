@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace SteamWebAPI2.Interfaces
 {
-    public class SteamEconomy : SteamWebInterface
+    public class SteamEconomy : SteamWebInterface, ISteamEconomy
     {
         public SteamEconomy(string steamWebApiKey)
             : base(steamWebApiKey, "ISteamEconomy")

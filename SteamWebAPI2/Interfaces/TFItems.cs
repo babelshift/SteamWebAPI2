@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace SteamWebAPI2.Interfaces
 {
-    public class TFItems : SteamWebInterface
+    public class TFItems : SteamWebInterface, ITFItems
     {
         public TFItems(string steamWebApiKey)
             : base(steamWebApiKey, "ITFItems_440")

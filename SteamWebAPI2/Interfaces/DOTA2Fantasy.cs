@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace SteamWebAPI2.Interfaces
 {
-    public class DOTA2Fantasy : SteamWebInterface
+    public class DOTA2Fantasy : SteamWebInterface, IDOTA2Fantasy
     {
         public DOTA2Fantasy(string steamWebApiKey)
             : base(steamWebApiKey, "IDOTA2Fantasy_570")

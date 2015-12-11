@@ -6,7 +6,7 @@ namespace SteamWebAPI2.Interfaces
     /// <summary>
     /// Represents a Steam Web API interface endpoint located at ICSGOServers_730
     /// </summary>
-    public class CSGOServers : SteamWebInterface
+    public class CSGOServers : SteamWebInterface, ICSGOServers
     {
         /// <summary>
         /// Default constructor established the Steam Web API key and initializes for subsequent method calls
