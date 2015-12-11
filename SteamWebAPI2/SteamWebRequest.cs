@@ -15,19 +15,26 @@ namespace SteamWebAPI2
     /// </summary>
     internal class SteamWebRequest
     {
-        private string steamWebApiKey;
+        private readonly string steamWebApiBaseUrl;
+        private readonly string steamWebApiKey;
 
         /// <summary>
         /// Every web request requires a secret Steam Web API key
         /// </summary>
         /// <param name="steamWebApiKey"></param>
-        public SteamWebRequest(string steamWebApiKey)
+        public SteamWebRequest(string steamWebApiBaseUrl, string steamWebApiKey)
         {
+            if (String.IsNullOrEmpty(steamWebApiBaseUrl))
+            {
+                throw new ArgumentNullException("steamWebApiBaseUrl");
+            }
+
             if (String.IsNullOrEmpty(steamWebApiKey))
             {
                 throw new ArgumentNullException("steamWebApiKey");
             }
 
+            this.steamWebApiBaseUrl = steamWebApiBaseUrl;
             this.steamWebApiKey = steamWebApiKey;
         }
 
@@ -106,13 +113,6 @@ namespace SteamWebAPI2
             Debug.Assert(!String.IsNullOrEmpty(interfaceName));
             Debug.Assert(!String.IsNullOrEmpty(methodName));
             Debug.Assert(methodVersion > 0);
-
-            string steamWebApiBaseUrl = ConfigurationManager.AppSettings["steamWebApiBaseUrl"];
-
-            if (String.IsNullOrEmpty(steamWebApiBaseUrl))
-            {
-                throw new ConfigurationErrorsException("You must include a 'steamWebApiBaseUrl' value in the AppSettings section of your app.config or web.config. A common value is 'https://api.steampowered.com'. It is up to the application to manage this value in case the URL changes in the future.");
-            }
 
             string commandUrl = String.Format("{0}/{1}/{2}/v{3}/", steamWebApiBaseUrl, interfaceName, methodName, methodVersion);
 

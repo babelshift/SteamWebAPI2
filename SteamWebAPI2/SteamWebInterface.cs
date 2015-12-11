@@ -11,6 +11,7 @@ namespace SteamWebAPI2
     /// </summary>
     public abstract class SteamWebInterface
     {
+        private const string steamWebApiBaseUrl = "https://api.steampowered.com/";
         private readonly SteamWebRequest steamWebRequest;
         private readonly string interfaceName;
 
@@ -30,7 +31,27 @@ namespace SteamWebAPI2
             Debug.Assert(!String.IsNullOrEmpty(interfaceName));
 
             this.interfaceName = interfaceName;
-            this.steamWebRequest = new SteamWebRequest(steamWebApiKey);
+            this.steamWebRequest = new SteamWebRequest(steamWebApiBaseUrl, steamWebApiKey);
+        }
+        
+        /// <summary>
+        /// Default constructor requires a Steam Web API key (secret to each developer) and the name for this web interface (such as "IDOTA2Match_570).
+        /// </summary>
+        /// <param name="steamWebApiBaseUrl">Used to override the base URL of each web request. Default is 'https://api.steampowered.com/'.</param>
+        /// <param name="steamWebApiKey">Steam Web API key (secret to each developer)</param>
+        /// <param name="interfaceName">Name for this web interface (such as "IDOTA2Match_570). Must match the Steam Web API interface name exactly as this value
+        /// is used to construct the URL to perform the GET or POST.</param>
+        public SteamWebInterface(string steamWebApiBaseUrl, string steamWebApiKey, string interfaceName)
+        {
+            if (String.IsNullOrEmpty(steamWebApiKey))
+            {
+                throw new ArgumentNullException("steamWebApiKey");
+            }
+
+            Debug.Assert(!String.IsNullOrEmpty(interfaceName));
+
+            this.interfaceName = interfaceName;
+            this.steamWebRequest = new SteamWebRequest(steamWebApiBaseUrl, steamWebApiKey);
         }
 
         /// <summary>
