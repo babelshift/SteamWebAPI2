@@ -196,8 +196,8 @@
     <Compile Include="..\SteamWebAPI2\Models\DOTA2\TeamInfoResultContainer.cs">
       <Link>Models\DOTA2\TeamInfoResultContainer.cs</Link>
     </Compile>
-    <Compile Include="..\SteamWebAPI2\Models\DOTA2\TowerStates.cs">
-      <Link>Models\DOTA2\TowerStates.cs</Link>
+    <Compile Include="..\SteamWebAPI2\Models\DOTA2\TowerState.cs">
+      <Link>Models\DOTA2\TowerState.cs</Link>
     </Compile>
     <Compile Include="..\SteamWebAPI2\Models\GameClientResultContainer.cs">
       <Link>Models\GameClientResultContainer.cs</Link>
