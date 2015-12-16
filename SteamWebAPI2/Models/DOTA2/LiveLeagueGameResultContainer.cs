@@ -31,6 +31,8 @@ namespace SteamWebAPI2.Models.DOTA2
         public IList<LiveLeagueGameBan> Bans { get; set; }
         public IList<LiveLeagueGamePlayerDetail> Players { get; set; }
         public IList<LiveLeagueGameAbility> Abilities { get; set; }
+
+        public TowerState TowerStates { get { return new TowerState(TowerState); } }
     }
 
     public class LiveLeagueGameTeamDireInfo
@@ -61,6 +63,8 @@ namespace SteamWebAPI2.Models.DOTA2
         public IList<LiveLeagueGameBan> Bans { get; set; }
         public IList<LiveLeagueGamePlayerDetail> Players { get; set; }
         public IList<LiveLeagueGameAbility> Abilities { get; set; }
+
+        public TowerState TowerStates { get { return new TowerState(TowerState); } }
     }
 
     public class LiveLeagueGameScoreboard

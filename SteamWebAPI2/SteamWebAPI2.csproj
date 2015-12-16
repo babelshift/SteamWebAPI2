@@ -90,6 +90,7 @@
     <Compile Include="Models\DOTA2\ItemIconPathResultContainer.cs" />
     <Compile Include="Models\DOTA2\LeagueResultContainer.cs" />
     <Compile Include="Models\DOTA2\LiveLeagueGameResultContainer.cs" />
+    <Compile Include="Models\DOTA2\TowerState.cs" />
     <Compile Include="Models\DOTA2\MatchDetailResultContainer.cs" />
     <Compile Include="Models\DOTA2\MatchHistoryBySequenceNumberResultContainer.cs" />
     <Compile Include="Models\DOTA2\MatchHistoryResultContainer.cs" />
