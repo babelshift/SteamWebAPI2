@@ -32,7 +32,57 @@ namespace SteamWebAPI2.Interfaces
             AddToParametersIfHasValue(language, "language", parameters);
 
             var gameItems = await CallMethodAsync<GameItemResultContainer>("GetGameItems", 1, parameters);
+
+            // work around the stupid bug that Valve introduced with patch 6.86 which returns the wrong IDs
+            foreach(var gameItem in gameItems.Result.Items)
+            {
+                gameItem.Id = GetCorrectedId(gameItem.Id, gameItem.Name);
+            }
+
             return new ReadOnlyCollection<GameItem>(gameItems.Result.Items);
+        }
+
+        private static int GetCorrectedId(int id, string name)
+        {
+            // iron talon
+            if (id == 239 && name == "item_iron_talon")
+            {
+                return 273;
+            }
+            // aether lens
+            else if (id == 232 && name == "item_aether_lens")
+            {
+                return 1028;
+            }
+            // faerie fire
+            else if (id == 237 && name == "item_faerie_fire")
+            {
+                return 1023;
+            }
+            // dragon lance
+            else if (id == 236 && name == "item_dragon_lance")
+            {
+                return 1025;
+            }
+            // recipe: iron talon
+            else if (id == 238 && name == "item_recipe_iron_talon")
+            {
+                return 272;
+            }
+            // recipe: aether lens
+            else if (id == 233 && name == "item_recipe_aether_lens")
+            {
+                return 1027;
+            }
+            // recipe: dragon lance
+            else if (id == 234 && name == "item_dragon_lance")
+            {
+                return 1024;
+            }
+            else
+            {
+                return id;
+            }
         }
 
         public async Task<IReadOnlyCollection<Hero>> GetHeroesAsync(string language = "", bool itemizedOnly = false)
