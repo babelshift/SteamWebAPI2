@@ -157,6 +157,9 @@
     <Compile Include="..\SteamWebAPI2\Models\CSGO\ServerStatusResultContainer.cs">
       <Link>Models\CSGO\ServerStatusResultContainer.cs</Link>
     </Compile>
+    <Compile Include="..\SteamWebAPI2\Models\DOTA2\BarracksState.cs">
+      <Link>Models\DOTA2\BarracksState.cs</Link>
+    </Compile>
     <Compile Include="..\SteamWebAPI2\Models\DOTA2\GameItemResultContainer.cs">
       <Link>Models\DOTA2\GameItemResultContainer.cs</Link>
     </Compile>

@@ -34,6 +34,7 @@ namespace SteamWebAPI2.Models.DOTA2
         public IList<LiveLeagueGameAbility> Abilities { get; set; }
 
         public TowerState TowerStates { get { return new TowerState(TowerState); } }
+        public TowerState BarracksStates { get { return new TowerState(BarracksState); } }
     }
 
     public class LiveLeagueGameTeamDireInfo
