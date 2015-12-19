@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using SteamWebAPI2.Interfaces;
 using System.Collections.Generic;
 
 namespace SteamWebAPI2.Models.DOTA2
@@ -127,7 +128,7 @@ namespace SteamWebAPI2.Models.DOTA2
         public string StageName { get; set; }
 
         [JsonProperty(PropertyName = "league_tier")]
-        public int LeagueTier { get; set; }
+        public DotaLeagueTier LeagueTier { get; set; }
 
         public LiveLeagueGameScoreboard Scoreboard { get; set; }
     }

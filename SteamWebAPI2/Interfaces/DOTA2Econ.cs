@@ -33,11 +33,11 @@ namespace SteamWebAPI2.Interfaces
 
             var gameItems = await CallMethodAsync<GameItemResultContainer>("GetGameItems", 1, parameters);
 
-            // work around the stupid bug that Valve introduced with patch 6.86 which returns the wrong IDs
-            foreach(var gameItem in gameItems.Result.Items)
-            {
-                gameItem.Id = GetCorrectedId(gameItem.Id, gameItem.Name);
-            }
+            //// work around the stupid bug that Valve introduced with patch 6.86 which returns the wrong IDs
+            //foreach(var gameItem in gameItems.Result.Items)
+            //{
+            //    gameItem.Id = GetCorrectedId(gameItem.Id, gameItem.Name);
+            //}
 
             return new ReadOnlyCollection<GameItem>(gameItems.Result.Items);
         }
