@@ -10,8 +10,8 @@ namespace SteamWebAPI2.Models.DOTA2
     {
         public TowerState(int towerState)
         {
-            IsAncientTopAlive = ((towerState >> 10) & 1) == 1 ? true : false;
-            IsAncientBottomAlive = ((towerState >> 9) & 1) == 1 ? true : false;
+            IsAncientBottomAlive = ((towerState >> 10) & 1) == 1 ? true : false;
+            IsAncientTopAlive = ((towerState >> 9) & 1) == 1 ? true : false;
             IsBottomTier3Alive = ((towerState >> 8) & 1) == 1 ? true : false;
             IsBottomTier2Alive = ((towerState >> 7) & 1) == 1 ? true : false;
             IsBottomTier1Alive = ((towerState >> 6) & 1) == 1 ? true : false;
