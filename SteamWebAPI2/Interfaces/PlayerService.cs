@@ -68,6 +68,16 @@ namespace SteamWebAPI2.Interfaces
             }
 
             var ownedGamesResult = await CallMethodAsync<OwnedGamesResultContainer>("GetOwnedGames", 1, parameters);
+
+            // for some reason, some games have trailing spaces in the result
+            if (ownedGamesResult.Result != null && ownedGamesResult.Result.OwnedGames != null)
+            {
+                foreach (var ownedGame in ownedGamesResult.Result.OwnedGames)
+                {
+                    ownedGame.Name = ownedGame.Name.Trim();
+                }
+            }
+
             return ownedGamesResult.Result;
         }
 
