@@ -30,7 +30,7 @@ deploy:
       secure: vIHuOdB4aYJEqNACb3jjCg3m/qZLqpwYlruu8J0BOiX81lRrmussVEUqiWRBTrRQ
     skip_symbols: false
     artifact: /.*\.nupkg/
-	
+
   - provider: GitHub
     release: Release_$(appveyor_build_version)
     auth_token:
