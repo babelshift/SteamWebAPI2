@@ -15,6 +15,9 @@
     <tags>steam webapi json community</tags>
   </metadata>
   <files>
+    <file src="..\bin\Release\portable\SteamWebAPI2.pdb" target="lib\portable\SteamWebAPI2.pdb"/>
+    <file src="..\bin\Release\portable\SteamWebAPI2.dll" target="lib\portable\SteamWebAPI2.dll"/>
+	
     <file src="..\bin\Release\net452\SteamWebAPI2.pdb" target="lib\net452\SteamWebAPI2.pdb"/>
     <file src="..\bin\Release\net452\SteamWebAPI2.dll" target="lib\net452\SteamWebAPI2.dll"/>
 	

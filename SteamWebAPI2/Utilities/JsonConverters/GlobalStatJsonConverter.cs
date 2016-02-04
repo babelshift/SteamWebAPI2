@@ -3,6 +3,7 @@ using Newtonsoft.Json.Linq;
 using SteamWebAPI2.Models.SteamCommunity;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace SteamWebAPI2.Utilities.JsonConverters
 {
@@ -47,7 +48,7 @@ namespace SteamWebAPI2.Utilities.JsonConverters
 
         public override bool CanConvert(Type objectType)
         {
-            return typeof(IList<GlobalStat>).IsAssignableFrom(objectType);
+            return typeof(IList<GlobalStat>).GetTypeInfo().IsAssignableFrom(objectType.GetTypeInfo());
         }
     }
 }

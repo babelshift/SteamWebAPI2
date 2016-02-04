@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Reflection;
 
 namespace SteamWebAPI2.Utilities.JsonConverters
 {
@@ -20,7 +21,7 @@ namespace SteamWebAPI2.Utilities.JsonConverters
 
         public override bool CanConvert(Type objectType)
         {
-            return typeof(long).IsAssignableFrom(objectType);
+            return typeof(long).GetTypeInfo().IsAssignableFrom(objectType.GetTypeInfo());
         }
     }
 }

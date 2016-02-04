@@ -240,7 +240,7 @@ namespace SteamWebAPI2.Models
                 // check if the caller entered a valid uri
                 Uri uriResult;
                 bool isUri = Uri.TryCreate(value, UriKind.Absolute, out uriResult)
-                    && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
+                    && (uriResult.Scheme == "http" || uriResult.Scheme == "https");
 
                 SteamUser steamUser = new SteamUser(steamWebApiKey);
 

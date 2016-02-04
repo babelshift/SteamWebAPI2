@@ -3,6 +3,7 @@ using Newtonsoft.Json.Linq;
 using SteamWebAPI2.Models.DOTA2;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace SteamWebAPI2.Utilities.JsonConverters
 {
@@ -68,7 +69,7 @@ namespace SteamWebAPI2.Utilities.JsonConverters
 
         public override bool CanConvert(Type objectType)
         {
-            return typeof(TeamInfo).IsAssignableFrom(objectType);
+            return typeof(TeamInfo).GetTypeInfo().IsAssignableFrom(objectType.GetTypeInfo());
         }
     }
 }
