@@ -94,7 +94,7 @@ namespace SteamWebAPI2.Models.DOTA2
         public long LobbyId { get; set; }
 
         [JsonProperty(PropertyName = "match_id")]
-        public int MatchId { get; set; }
+        public long MatchId { get; set; }
 
         public int Spectators { get; set; }
 

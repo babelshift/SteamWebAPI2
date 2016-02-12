@@ -8,7 +8,7 @@ namespace SteamWebAPI2.Models.DOTA2
     public class MatchHistoryMatch
     {
         [JsonProperty(PropertyName = "match_id")]
-        public int MatchId { get; set; }
+        public long MatchId { get; set; }
 
         [JsonProperty(PropertyName = "match_seq_num")]
         public int MatchSequenceNumber { get; set; }

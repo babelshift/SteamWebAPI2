@@ -102,7 +102,7 @@ namespace SteamWebAPI2.Models.DOTA2
         public int StartTime { get; set; }
 
         [JsonProperty(PropertyName = "match_id")]
-        public int MatchId { get; set; }
+        public long MatchId { get; set; }
 
         [JsonProperty(PropertyName = "match_seq_num")]
         public int MatchSequenceNumber { get; set; }
