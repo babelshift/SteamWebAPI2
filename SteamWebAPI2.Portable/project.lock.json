@@ -97,6 +97,14 @@
           "lib/net45/Newtonsoft.Json.dll": {}
         }
       },
+      "Steam.Models/1.0.0.6": {
+        "compile": {
+          "lib/net46/Steam.Models.dll": {}
+        },
+        "runtime": {
+          "lib/net46/Steam.Models.dll": {}
+        }
+      },
       "System.AppContext/4.0.0": {
         "dependencies": {
           "System.Runtime": "[4.0.0, )"
@@ -758,6 +766,14 @@
         },
         "runtime": {
           "lib/net45/Newtonsoft.Json.dll": {}
+        }
+      },
+      "Steam.Models/1.0.0.6": {
+        "compile": {
+          "lib/net46/Steam.Models.dll": {}
+        },
+        "runtime": {
+          "lib/net46/Steam.Models.dll": {}
         }
       },
       "System.AppContext/4.0.0": {
@@ -1445,6 +1461,14 @@
         },
         "runtime": {
           "lib/net45/Newtonsoft.Json.dll": {}
+        }
+      },
+      "Steam.Models/1.0.0.6": {
+        "compile": {
+          "lib/net46/Steam.Models.dll": {}
+        },
+        "runtime": {
+          "lib/net46/Steam.Models.dll": {}
         }
       },
       "System.AppContext/4.0.0": {
@@ -2180,6 +2204,14 @@
         },
         "runtime": {
           "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
+        }
+      },
+      "Steam.Models/1.0.0.6": {
+        "compile": {
+          "lib/portable-net452+win81/Steam.Models.dll": {}
+        },
+        "runtime": {
+          "lib/portable-net452+win81/Steam.Models.dll": {}
         }
       },
       "System.AppContext/4.0.0": {
@@ -3011,6 +3043,14 @@
         },
         "runtime": {
           "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
+        }
+      },
+      "Steam.Models/1.0.0.6": {
+        "compile": {
+          "lib/portable-net452+win81/Steam.Models.dll": {}
+        },
+        "runtime": {
+          "lib/portable-net452+win81/Steam.Models.dll": {}
         }
       },
       "System.AppContext/4.0.0": {
@@ -4148,6 +4188,14 @@
         },
         "runtime": {
           "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
+        }
+      },
+      "Steam.Models/1.0.0.6": {
+        "compile": {
+          "lib/portable-net452+win81/Steam.Models.dll": {}
+        },
+        "runtime": {
+          "lib/portable-net452+win81/Steam.Models.dll": {}
         }
       },
       "System.AppContext/4.0.0": {
@@ -5331,6 +5379,14 @@
           "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
         }
       },
+      "Steam.Models/1.0.0.6": {
+        "compile": {
+          "lib/portable-net452+win81/Steam.Models.dll": {}
+        },
+        "runtime": {
+          "lib/portable-net452+win81/Steam.Models.dll": {}
+        }
+      },
       "System.AppContext/4.0.0": {
         "dependencies": {
           "System.Collections": "[4.0.0, )",
@@ -6487,6 +6543,14 @@
         },
         "runtime": {
           "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
+        }
+      },
+      "Steam.Models/1.0.0.6": {
+        "compile": {
+          "lib/portable-net452+win81/Steam.Models.dll": {}
+        },
+        "runtime": {
+          "lib/portable-net452+win81/Steam.Models.dll": {}
         }
       },
       "System.AppContext/4.0.0": {
@@ -7670,6 +7734,14 @@
           "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
         }
       },
+      "Steam.Models/1.0.0.6": {
+        "compile": {
+          "lib/portable-net452+win81/Steam.Models.dll": {}
+        },
+        "runtime": {
+          "lib/portable-net452+win81/Steam.Models.dll": {}
+        }
+      },
       "System.AppContext/4.0.0": {
         "dependencies": {
           "System.Collections": "[4.0.0, )",
@@ -8826,6 +8898,14 @@
         },
         "runtime": {
           "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
+        }
+      },
+      "Steam.Models/1.0.0.6": {
+        "compile": {
+          "lib/portable-net452+win81/Steam.Models.dll": {}
+        },
+        "runtime": {
+          "lib/portable-net452+win81/Steam.Models.dll": {}
         }
       },
       "System.AppContext/4.0.0": {
@@ -10007,6 +10087,14 @@
         },
         "runtime": {
           "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
+        }
+      },
+      "Steam.Models/1.0.0.6": {
+        "compile": {
+          "lib/portable-net452+win81/Steam.Models.dll": {}
+        },
+        "runtime": {
+          "lib/portable-net452+win81/Steam.Models.dll": {}
         }
       },
       "System.AppContext/4.0.0": {
@@ -11620,6 +11708,24 @@
         "Newtonsoft.Json.nuspec",
         "package/services/metadata/core-properties/cc8c591d554640789c6a6ef6456f7772.psmdcp",
         "tools/install.ps1"
+      ]
+    },
+    "Steam.Models/1.0.0.6": {
+      "sha512": "BMqtnu3KFYImmGm98cqHWYuCPD9i7Dv+atmHkRi8uLZ88DSJvGt7NB6tn4ZNk9GmU9ZJ1Z65u5vUrl0uraj9dA==",
+      "type": "Package",
+      "files": [
+        "[Content_Types].xml",
+        "_rels/.rels",
+        "lib/net451/Steam.Models.dll",
+        "lib/net451/Steam.Models.pdb",
+        "lib/net452/Steam.Models.dll",
+        "lib/net452/Steam.Models.pdb",
+        "lib/net46/Steam.Models.dll",
+        "lib/net46/Steam.Models.pdb",
+        "lib/portable-net452+win81/Steam.Models.dll",
+        "lib/portable-net452+win81/Steam.Models.pdb",
+        "package/services/metadata/core-properties/6e16ea26ffa144b69be155a473cd8b51.psmdcp",
+        "Steam.Models.nuspec"
       ]
     },
     "System.AppContext/4.0.0": {
@@ -13663,7 +13769,8 @@
     "": [
       "Microsoft.NETCore >= 5.0.0",
       "Microsoft.NETCore.Portable.Compatibility >= 1.0.0",
-      "Newtonsoft.Json >= 8.0.2"
+      "Newtonsoft.Json >= 8.0.2",
+      "Steam.Models >= 1.0.0.6"
     ],
     ".NETPlatform,Version=v5.0": []
   }
