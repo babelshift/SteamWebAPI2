@@ -35,6 +35,10 @@
       <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Steam.Models, Version=1.0.0.6, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Steam.Models.1.0.0.6\lib\net451\Steam.Models.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -44,7 +48,7 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
   </ItemGroup>
-<ItemGroup>
+  <ItemGroup>
     <Compile Include="..\SteamWebAPI2\ErrorMessages.Designer.cs">
       <Link>ErrorMessages.Designer.cs</Link>
     </Compile>
@@ -156,9 +160,6 @@
     <Compile Include="..\SteamWebAPI2\Models\CSGO\ServerStatusResultContainer.cs">
       <Link>Models\CSGO\ServerStatusResultContainer.cs</Link>
     </Compile>
-    <Compile Include="..\SteamWebAPI2\Models\DOTA2\BarracksState.cs">
-      <Link>Models\DOTA2\BarracksState.cs</Link>
-    </Compile>
     <Compile Include="..\SteamWebAPI2\Models\DOTA2\GameItemResultContainer.cs">
       <Link>Models\DOTA2\GameItemResultContainer.cs</Link>
     </Compile>
@@ -197,9 +198,6 @@
     </Compile>
     <Compile Include="..\SteamWebAPI2\Models\DOTA2\TeamInfoResultContainer.cs">
       <Link>Models\DOTA2\TeamInfoResultContainer.cs</Link>
-    </Compile>
-    <Compile Include="..\SteamWebAPI2\Models\DOTA2\TowerState.cs">
-      <Link>Models\DOTA2\TowerState.cs</Link>
     </Compile>
     <Compile Include="..\SteamWebAPI2\Models\GameClientResultContainer.cs">
       <Link>Models\GameClientResultContainer.cs</Link>
@@ -252,9 +250,6 @@
     <Compile Include="..\SteamWebAPI2\Models\SteamCommunity\ResolveVanityUrlResultContainer.cs">
       <Link>Models\SteamCommunity\ResolveVanityUrlResultContainer.cs</Link>
     </Compile>
-    <Compile Include="..\SteamWebAPI2\Models\SteamCommunity\SteamCommunityProfile.cs">
-      <Link>Models\SteamCommunity\SteamCommunityProfile.cs</Link>
-    </Compile>
     <Compile Include="..\SteamWebAPI2\Models\SteamCommunity\SteamLevelResultContainer.cs">
       <Link>Models\SteamCommunity\SteamLevelResultContainer.cs</Link>
     </Compile>
@@ -293,9 +288,6 @@
     </Compile>
     <Compile Include="..\SteamWebAPI2\Models\SteamPlayer\RecentlyPlayedGameResultContainer.cs">
       <Link>Models\SteamPlayer\RecentlyPlayedGameResultContainer.cs</Link>
-    </Compile>
-    <Compile Include="..\SteamWebAPI2\Models\SteamServerInfo.cs">
-      <Link>Models\SteamServerInfo.cs</Link>
     </Compile>
     <Compile Include="..\SteamWebAPI2\Models\TF2\GoldenWrenchResultContainer.cs">
       <Link>Models\TF2\GoldenWrenchResultContainer.cs</Link>

@@ -34,6 +34,10 @@
       <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Steam.Models, Version=1.0.0.6, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Steam.Models.1.0.0.6\lib\net46\Steam.Models.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -90,8 +94,6 @@
     <Compile Include="Models\DOTA2\ItemIconPathResultContainer.cs" />
     <Compile Include="Models\DOTA2\LeagueResultContainer.cs" />
     <Compile Include="Models\DOTA2\LiveLeagueGameResultContainer.cs" />
-    <Compile Include="Models\DOTA2\BarracksState.cs" />
-    <Compile Include="Models\DOTA2\TowerState.cs" />
     <Compile Include="Models\DOTA2\MatchDetailResultContainer.cs" />
     <Compile Include="Models\DOTA2\MatchHistoryBySequenceNumberResultContainer.cs" />
     <Compile Include="Models\DOTA2\MatchHistoryResultContainer.cs" />
@@ -117,7 +119,6 @@
     <Compile Include="Models\SteamCommunity\GlobalStatsForGameResultContainer.cs" />
     <Compile Include="Models\SteamCommunity\PlayerSummaryResultContainer.cs" />
     <Compile Include="Models\SteamCommunity\ResolveVanityUrlResultContainer.cs" />
-    <Compile Include="Models\SteamCommunity\SteamCommunityProfile.cs" />
     <Compile Include="Models\SteamCommunity\SteamLevelResultContainer.cs" />
     <Compile Include="Models\SteamCommunity\UserGroupListResultContainer.cs" />
     <Compile Include="Models\SteamEconomy\AssetClassInfoResultContainer.cs" />
@@ -131,7 +132,6 @@
     <Compile Include="Models\SteamPlayer\PlayerBansContainer.cs" />
     <Compile Include="Models\SteamPlayer\PlayingSharedGameResultContainer.cs" />
     <Compile Include="Models\SteamPlayer\RecentlyPlayedGameResultContainer.cs" />
-    <Compile Include="Models\SteamServerInfo.cs" />
     <Compile Include="Models\TF2\GoldenWrenchResultContainer.cs" />
     <Compile Include="Models\UGCFileDetailsResultContainer.cs" />
     <Compile Include="Models\UserStatsForGameResultContainer.cs" />

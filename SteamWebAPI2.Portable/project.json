@@ -6,7 +6,8 @@
   "dependencies": {
     "Microsoft.NETCore": "5.0.0",
     "Microsoft.NETCore.Portable.Compatibility": "1.0.0",
-    "Newtonsoft.Json": "8.0.2"
+    "Newtonsoft.Json": "8.0.2",
+    "Steam.Models": "1.0.0.6"
   },
   "frameworks": {
     "dotnet": {
