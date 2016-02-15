@@ -411,17 +411,8 @@ namespace SteamWebAPI2.Models
         {
             ulong steamId64 = 0;
 
-            var result = await steamUser.ResolveVanityUrlAsync(value);
-
-            // the value didn't resolve to a 64-bit Steam ID
-            if (result.Success == 42) // returns 42 on "no match"
-            {
-                throw new VanityUrlNotResolvedException(ErrorMessages.VanityUrlNotResolved);
-            }
-            else
-            {
-                steamId64 = result.SteamId;
-            }
+            var steamId = await steamUser.ResolveVanityUrlAsync(value);
+            steamId64 = steamId;
 
             return steamId64;
         }

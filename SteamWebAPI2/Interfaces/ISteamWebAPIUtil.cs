@@ -7,7 +7,7 @@ namespace SteamWebAPI2.Interfaces
 {
     public interface ISteamWebAPIUtil
     {
-        Task<SteamServerInfo> GetServerInfoAsync();
-        Task<IReadOnlyCollection<SteamInterface>> GetSupportedAPIListAsync();
+        Task<SteamServerInfoModel> GetServerInfoAsync();
+        Task<IReadOnlyCollection<SteamInterfaceModel>> GetSupportedAPIListAsync();
     }
 }

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace SteamWebAPI2.Models.DOTA2
 {
-    public class LiveLeagueGameTeamRadiantInfo
+    internal class LiveLeagueGameTeamRadiantInfo
     {
         [JsonProperty(PropertyName = "team_name")]
         public string TeamName { get; set; }
@@ -19,7 +19,7 @@ namespace SteamWebAPI2.Models.DOTA2
         public bool Complete { get; set; }
     }
 
-    public class LiveLeagueGameTeamRadiantDetail
+    internal class LiveLeagueGameTeamRadiantDetail
     {
         public int Score { get; set; }
 
@@ -38,7 +38,7 @@ namespace SteamWebAPI2.Models.DOTA2
         public TowerStateModel BarracksStates { get { return new TowerStateModel(BarracksState); } }
     }
 
-    public class LiveLeagueGameTeamDireInfo
+    internal class LiveLeagueGameTeamDireInfo
     {
         [JsonProperty(PropertyName = "team_name")]
         public string TeamName { get; set; }
@@ -52,7 +52,7 @@ namespace SteamWebAPI2.Models.DOTA2
         public bool Complete { get; set; }
     }
 
-    public class LiveLeagueGameTeamDireDetail
+    internal class LiveLeagueGameTeamDireDetail
     {
         public int Score { get; set; }
 
@@ -70,7 +70,7 @@ namespace SteamWebAPI2.Models.DOTA2
         public TowerStateModel TowerStates { get { return new TowerStateModel(TowerState); } }
     }
 
-    public class LiveLeagueGameScoreboard
+    internal class LiveLeagueGameScoreboard
     {
         public double Duration { get; set; }
 
@@ -81,7 +81,7 @@ namespace SteamWebAPI2.Models.DOTA2
         public LiveLeagueGameTeamDireDetail Dire { get; set; }
     }
 
-    public class LiveLeagueGame
+    internal class LiveLeagueGame
     {
         public IList<LiveLeagueGamePlayerInfo> Players { get; set; }
 
@@ -135,7 +135,7 @@ namespace SteamWebAPI2.Models.DOTA2
         public LiveLeagueGameScoreboard Scoreboard { get; set; }
     }
 
-    public class LiveLeagueGameAbility
+    internal class LiveLeagueGameAbility
     {
         [JsonProperty(PropertyName = "ability_id")]
         public int AbilityId { get; set; }
@@ -144,25 +144,25 @@ namespace SteamWebAPI2.Models.DOTA2
         public int AbilityLevel { get; set; }
     }
 
-    public class LiveLeagueGameBan
+    internal class LiveLeagueGameBan
     {
         [JsonProperty(PropertyName = "hero_id")]
         public int HeroId { get; set; }
     }
 
-    public class LiveLeagueGamePick
+    internal class LiveLeagueGamePick
     {
         [JsonProperty(PropertyName = "hero_id")]
         public int HeroId { get; set; }
     }
 
-    public class LiveLeagueGamePlayerDetail
+    internal class LiveLeagueGamePlayerDetail
     {
         [JsonProperty(PropertyName = "player_slot")]
         public int PlayerSlot { get; set; }
 
         [JsonProperty(PropertyName = "account_id")]
-        public int AccountId { get; set; }
+        public uint AccountId { get; set; }
 
         [JsonProperty(PropertyName = "hero_id")]
         public int HeroId { get; set; }
@@ -213,10 +213,10 @@ namespace SteamWebAPI2.Models.DOTA2
         public int NetWorth { get; set; }
     }
 
-    public class LiveLeagueGamePlayerInfo
+    internal class LiveLeagueGamePlayerInfo
     {
         [JsonProperty(PropertyName = "account_id")]
-        public int AccountId { get; set; }
+        public uint AccountId { get; set; }
 
         public string Name { get; set; }
 
@@ -226,7 +226,7 @@ namespace SteamWebAPI2.Models.DOTA2
         public int Team { get; set; }
     }
 
-    public class LiveLeagueGameResult
+    internal class LiveLeagueGameResult
     {
         public IList<LiveLeagueGame> Games { get; set; }
         public int Status { get; set; }

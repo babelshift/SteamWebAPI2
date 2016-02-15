@@ -2,7 +2,7 @@
 
 namespace SteamWebAPI2.Models.DOTA2
 {
-    public class PrizePoolResult
+    internal class PrizePoolResult
     {
         [JsonProperty(PropertyName = "prize_pool")]
         public int PrizePool { get; set; }

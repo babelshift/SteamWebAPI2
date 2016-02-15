@@ -1,4 +1,5 @@
-﻿using SteamWebAPI2.Models;
+﻿using Steam.Models;
+using SteamWebAPI2.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -40,7 +41,7 @@ namespace SteamWebAPI2.Interfaces
             validServerVersionAppIds.Add(730);
         }
 
-        public async Task<GameClientResult> GetClientVersionAsync()
+        public async Task<GameClientResultModel> GetClientVersionAsync()
         {
             if (!validClientVersionAppIds.Contains(appId))
             {
@@ -48,10 +49,13 @@ namespace SteamWebAPI2.Interfaces
             }
 
             var clientVersion = await CallMethodAsync<GameClientResultContainer>("GetClientVersion", 1);
-            return clientVersion.Result;
+
+            var clientVersionModel = AutoMapperConfiguration.Mapper.Map<GameClientResult, GameClientResultModel>(clientVersion.Result);
+
+            return clientVersionModel;
         }
 
-        public async Task<GameClientResult> GetServerVersionAsync()
+        public async Task<GameClientResultModel> GetServerVersionAsync()
         {
             if (!validServerVersionAppIds.Contains(appId))
             {
@@ -59,7 +63,10 @@ namespace SteamWebAPI2.Interfaces
             }
 
             var serverVersion = await CallMethodAsync<GameClientResultContainer>("GetServerVersion", 1);
-            return serverVersion.Result;
+
+            var serverVersionModel = AutoMapperConfiguration.Mapper.Map<GameClientResult, GameClientResultModel>(serverVersion.Result);
+
+            return serverVersionModel;
         }
     }
 }

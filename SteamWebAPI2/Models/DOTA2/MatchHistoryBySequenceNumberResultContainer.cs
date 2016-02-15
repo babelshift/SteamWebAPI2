@@ -2,7 +2,7 @@
 
 namespace SteamWebAPI2.Models.DOTA2
 {
-    public class MatchHistoryBySequenceNumberResult
+    internal class MatchHistoryBySequenceNumberResult
     {
         public int Status { get; set; }
         public IList<MatchHistoryMatch> Matches { get; set; }

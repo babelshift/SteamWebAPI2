@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Steam.Models.SteamCommunity;
 using SteamWebAPI2.Utilities.JsonConverters;
 using System;
 using System.Collections.Generic;
@@ -6,47 +7,11 @@ using System.Collections.Generic;
 namespace SteamWebAPI2.Models.SteamCommunity
 {
     /// <summary>
-    /// Indicates the current status of the user on the Steam network
-    /// </summary>
-    public enum UserStatus
-    {
-        Offline = 0,
-        Online = 1,
-        Busy = 2,
-        Away = 3,
-        Snooze = 4,
-        Unknown = 5,
-        InGame = 6
-    }
-
-    /// <summary>
-    /// Indicates the selected privacy/visibility level of the player's Steam Community profile
-    /// </summary>
-    public enum ProfileVisibility
-    {
-        Unknown = 0,
-        Private = 1,
-        Public = 3,
-        FriendsOnly = 8,
-    }
-
-    /// <summary>
-    /// Indicates the selected privacy/visibility level of the player's comments section on their Steam Community profile
-    /// </summary>
-    public enum CommentPermission
-    {
-        Unknown = 0,
-        FriendsOnly = 1,
-        Private = 2,
-        Public = 3
-    }
-
-    /// <summary>
     /// Represents a single player summary from ISteamUser/GetPlayerSummaries interface/method. Not every field will be populated
     /// depending on the user's privacy choices or omission of data completely.
     /// </summary>
     /// </summary>
-    public class PlayerSummary
+    internal class PlayerSummary
     {
         /// <summary>
         /// Unique Steam ID of the player. Resolve this using ResolveVanityUrl interface method.
@@ -170,7 +135,7 @@ namespace SteamWebAPI2.Models.SteamCommunity
     /// <summary>
     /// Represents the list of player summaries from ISteamUser/GetPlayerSummaries interface/method.
     /// </summary>
-    public class PlayerSummaryResult
+    internal class PlayerSummaryResult
     {
         /// <summary>
         /// Contains the list of player summaries in the JSON response.

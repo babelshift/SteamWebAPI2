@@ -39,6 +39,9 @@
     <!-- A reference to the entire .NET Framework is automatically included -->
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\SteamWebAPI2\AutoMapperConfiguration.cs">
+      <Link>AutoMapperConfiguration.cs</Link>
+    </Compile>
     <Compile Include="..\SteamWebAPI2\ErrorMessages.Designer.cs">
       <Link>ErrorMessages.Designer.cs</Link>
     </Compile>

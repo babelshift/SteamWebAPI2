@@ -1,31 +1,32 @@
-﻿using SteamWebAPI2.Models.DOTA2;
+﻿using Steam.Models.DOTA2;
+using SteamWebAPI2.Models.DOTA2;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace SteamWebAPI2.Interfaces
 {
+    /// <summary>
+    /// Represents a Steam Web API interface endpoint located at IDOTA2Econ
+    /// </summary>
     public class DOTA2Econ : SteamWebInterface, IDOTA2Econ
     {
+        /// <summary>
+        /// Default constructor established the Steam Web API key and initializes for subsequent method calls
+        /// </summary>
+        /// <param name="steamWebApiKey"></param>
         public DOTA2Econ(string steamWebApiKey)
             : base(steamWebApiKey, "IEconDOTA2_570")
         {
         }
 
         /// <summary>
-        ///
+        /// Returns a collection of in game Dota 2 items. Example: blink dagger.
         /// </summary>
-        /// <param name="eventId">This is possibly the same as League Id according to documentation...why?</param>
-        /// <param name="steamId"></param>
         /// <param name="language"></param>
         /// <returns></returns>
-        public void GetSteamAccountValidForEvent(int eventId, long steamId, string language = "")
-        {
-            throw new NotImplementedException("I can't find good test conditions for this, so I don't know how to implement a response parser.");
-        }
-
-        public async Task<IReadOnlyCollection<GameItem>> GetGameItemsAsync(string language = "")
+        public async Task<IReadOnlyCollection<GameItemModel>> GetGameItemsAsync(string language = "")
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
@@ -33,15 +34,27 @@ namespace SteamWebAPI2.Interfaces
 
             var gameItems = await CallMethodAsync<GameItemResultContainer>("GetGameItems", 1, parameters);
 
-            //// work around the stupid bug that Valve introduced with patch 6.86 which returns the wrong IDs
-            //foreach(var gameItem in gameItems.Result.Items)
-            //{
-            //    gameItem.Id = GetCorrectedId(gameItem.Id, gameItem.Name);
-            //}
+            var gameItemModels = gameItems.Result.Items.Select(x => new GameItemModel()
+            {
+                Id = x.Id,
+                Cost = x.Cost,
+                IsAvailableAtSecretShop = x.SecretShop == 1 ? true : false,
+                IsAvailableAtSideShop = x.SideShop == 1 ? true : false,
+                IsRecipe = x.Recipe == 1 ? true : false,
+                Name = x.Name
+            })
+            .ToList()
+            .AsReadOnly();
 
-            return new ReadOnlyCollection<GameItem>(gameItems.Result.Items);
+            return gameItemModels;
         }
 
+        /// <summary>
+        /// Some items have an incorrect id in the schema file. This method returns the corrected id based on the wrong id and the item name.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
         private static int GetCorrectedId(int id, string name)
         {
             // iron talon
@@ -85,7 +98,13 @@ namespace SteamWebAPI2.Interfaces
             }
         }
 
-        public async Task<IReadOnlyCollection<Hero>> GetHeroesAsync(string language = "", bool itemizedOnly = false)
+        /// <summary>
+        /// Returns a collection of heroes and basic hero data.
+        /// </summary>
+        /// <param name="language"></param>
+        /// <param name="itemizedOnly"></param>
+        /// <returns></returns>
+        public async Task<IReadOnlyCollection<HeroModel>> GetHeroesAsync(string language = "", bool itemizedOnly = false)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
@@ -95,7 +114,16 @@ namespace SteamWebAPI2.Interfaces
             AddToParametersIfHasValue(itemizedOnlyValue, "itemizedonly", parameters);
 
             var heroes = await CallMethodAsync<HeroResultContainer>("GetHeroes", 1, parameters);
-            return new ReadOnlyCollection<Hero>(heroes.Result.Heroes);
+
+            var heroModels = heroes.Result.Heroes.Select(x => new HeroModel()
+            {
+                Id = x.Id,
+                Name = x.Name
+            })
+            .ToList()
+            .AsReadOnly();
+
+            return heroModels;
         }
 
         /// <summary>
@@ -120,24 +148,45 @@ namespace SteamWebAPI2.Interfaces
             return itemIconPath.Result.Path;
         }
 
-        public async Task<RarityResult> GetRaritiesAsync(string language = "")
+        /// <summary>
+        /// Returns a collection of item rarities.
+        /// </summary>
+        /// <param name="language"></param>
+        /// <returns></returns>
+        public async Task<IReadOnlyCollection<RarityModel>> GetRaritiesAsync(string language = "")
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
             AddToParametersIfHasValue(language, "language", parameters);
 
             var raritiesContainer = await CallMethodAsync<RarityResultContainer>("GetRarities", 1, parameters);
-            return raritiesContainer.Result;
+
+            var rarityModels = raritiesContainer.Result.Rarities.Select(x => new RarityModel()
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Color = x.Color,
+                Order = x.Order
+            })
+            .ToList()
+            .AsReadOnly();
+
+            return rarityModels;
         }
 
-        public async Task<PrizePoolResult> GetTournamentPrizePool(int? leagueId = null)
+        /// <summary>
+        /// Returns a tournament prize pool amount for a specific league.
+        /// </summary>
+        /// <param name="leagueId"></param>
+        /// <returns></returns>
+        public async Task<int> GetTournamentPrizePoolAsync(int? leagueId = null)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
             AddToParametersIfHasValue(leagueId, "leagueid", parameters);
 
             var raritiesContainer = await CallMethodAsync<PrizePoolResultContainer>("GetTournamentPrizePool", 1, parameters);
-            return raritiesContainer.Result;
+            return raritiesContainer.Result.PrizePool;
         }
     }
 }

@@ -12,16 +12,22 @@ namespace SteamWebAPI2.Interfaces
             : base(steamWebApiKey, "ISteamWebAPIUtil")
         { }
 
-        public async Task<SteamServerInfo> GetServerInfoAsync()
+        public async Task<SteamServerInfoModel> GetServerInfoAsync()
         {
             var steamServerInfo = await CallMethodAsync<SteamServerInfo>("GetServerInfo", 1);
-            return steamServerInfo;
+
+            var steamServerInfoModel = AutoMapperConfiguration.Mapper.Map<SteamServerInfo, SteamServerInfoModel>(steamServerInfo);
+
+            return steamServerInfoModel;
         }
 
-        public async Task<IReadOnlyCollection<SteamInterface>> GetSupportedAPIListAsync()
+        public async Task<IReadOnlyCollection<SteamInterfaceModel>> GetSupportedAPIListAsync()
         {
             var steamApiListContainer = await CallMethodAsync<SteamApiListContainer>("GetSupportedAPIList", 1);
-            return new ReadOnlyCollection<SteamInterface>(steamApiListContainer.Result.Interfaces);
+
+            var steamApiListModel = AutoMapperConfiguration.Mapper.Map<IList<SteamInterface>, IList<SteamInterfaceModel>>(steamApiListContainer.Result.Interfaces);
+
+            return new ReadOnlyCollection<SteamInterfaceModel>(steamApiListModel);
         }
     }
 }

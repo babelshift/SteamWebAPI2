@@ -2,13 +2,13 @@
 
 namespace SteamWebAPI2.Models.DOTA2
 {
-    public class Hero
+    internal class Hero
     {
         public string Name { get; set; }
         public int Id { get; set; }
     }
 
-    public class HeroResult
+    internal class HeroResult
     {
         public IList<Hero> Heroes { get; set; }
     }

@@ -1,18 +1,13 @@
-﻿using SteamWebAPI2.Models.DOTA2;
+﻿using Steam.Models.DOTA2;
+using SteamWebAPI2.Models.DOTA2;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace SteamWebAPI2.Interfaces
 {
-    public enum DotaLeagueTier
-    {
-        Amateur = 1,
-        Professional,
-        Premier
-    }
-
     public class DOTA2Match : SteamWebInterface, IDOTA2Match
     {
         public DOTA2Match(string steamWebApiKey)
@@ -20,13 +15,23 @@ namespace SteamWebAPI2.Interfaces
         {
         }
 
-        public async Task<LeagueResult> GetLeagueListingAsync()
+        public async Task<IReadOnlyCollection<LeagueModel>> GetLeagueListingAsync()
         {
             var leagueListing = await CallMethodAsync<LeagueResultContainer>("GetLeagueListing", 1);
-            return leagueListing.Result;
+
+            var leagueModels = leagueListing.Result.Leagues.Select(x => new LeagueModel()
+            {
+                Description = x.Description,
+                ItemDef = x.ItemDef,
+                LeagueId = x.LeagueId,
+                Name = x.Name,
+                TournamentUrl = x.TournamentUrl
+            }).ToList().AsReadOnly();
+
+            return leagueModels;
         }
 
-        public async Task<IReadOnlyCollection<LiveLeagueGame>> GetLiveLeagueGamesAsync(int? leagueId = null, long? matchId = null)
+        public async Task<IReadOnlyCollection<LiveLeagueGameModel>> GetLiveLeagueGamesAsync(int? leagueId = null, long? matchId = null)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
@@ -35,20 +40,25 @@ namespace SteamWebAPI2.Interfaces
 
             var liveLeagueGames = await CallMethodAsync<LiveLeagueGameResultContainer>("GetLiveLeagueGames", 1, parameters);
 
-            return new ReadOnlyCollection<LiveLeagueGame>(liveLeagueGames.Result.Games);
+            var liveLeagueGamesModel = AutoMapperConfiguration.Mapper.Map<IList<LiveLeagueGame>, IList<LiveLeagueGameModel>>(liveLeagueGames.Result.Games);
+
+            return new ReadOnlyCollection<LiveLeagueGameModel>(liveLeagueGamesModel);
         }
 
-        public async Task<MatchDetailResult> GetMatchDetailsAsync(int matchId)
+        public async Task<MatchDetailModel> GetMatchDetailsAsync(long matchId)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
             AddToParametersIfHasValue(matchId, "match_id", parameters);
 
             var matchDetail = await CallMethodAsync<MatchDetailResultContainer>("GetMatchDetails", 1, parameters);
-            return matchDetail.Result;
+
+            var matchDetailModel = AutoMapperConfiguration.Mapper.Map<MatchDetailResult, MatchDetailModel>(matchDetail.Result);
+
+            return matchDetailModel;
         }
 
-        public async Task<MatchHistoryResult> GetMatchHistoryAsync(int? heroId = null, int? gameMode = null, int? skill = null,
+        public async Task<MatchHistoryModel> GetMatchHistoryAsync(int? heroId = null, int? gameMode = null, int? skill = null,
             string minPlayers = "", string accountId = "", string leagueId = "", long? startAtMatchId = null,
             string matchesRequested = "", string tournamentGamesOnly = "")
         {
@@ -65,10 +75,13 @@ namespace SteamWebAPI2.Interfaces
             AddToParametersIfHasValue(tournamentGamesOnly, "tournament_games_only", parameters);
 
             var matchHistory = await CallMethodAsync<MatchHistoryResultContainer>("GetMatchHistory", 1, parameters);
-            return matchHistory.Result;
+
+            var matchHistoryModel = AutoMapperConfiguration.Mapper.Map<MatchHistoryResult, MatchHistoryModel>(matchHistory.Result);
+
+            return matchHistoryModel;
         }
 
-        public async Task<MatchHistoryBySequenceNumberResult> GetMatchHistoryBySequenceNumberAsync(long? startAtMatchSequenceNumber = null, int? matchesRequested = null)
+        public async Task<IReadOnlyCollection<MatchHistoryMatchModel>> GetMatchHistoryBySequenceNumberAsync(long? startAtMatchSequenceNumber = null, int? matchesRequested = null)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
@@ -76,16 +89,13 @@ namespace SteamWebAPI2.Interfaces
             AddToParametersIfHasValue(matchesRequested, "matches_requested", parameters);
 
             var matchHistory = await CallMethodAsync<MatchHistoryBySequenceNumberResultContainer>("GetMatchHistoryBySequenceNum", 1, parameters);
-            return matchHistory.Result;
+
+            var matchHistoryModel = AutoMapperConfiguration.Mapper.Map<MatchHistoryBySequenceNumberResult, MatchHistoryModel>(matchHistory.Result);
+            
+            return matchHistoryModel.Matches;
         }
 
-        /*
-        public async Task<??> GetScheduledLeagueGames(int? dateMin = null, int? dateMax = null)
-        {
-        }
-        */
-
-        public async Task<IReadOnlyCollection<TeamInfo>> GetTeamInfoByTeamIdAsync(long? startAtTeamId = null, int? teamsRequested = null)
+        public async Task<IReadOnlyCollection<TeamInfoModel>> GetTeamInfoByTeamIdAsync(long? startAtTeamId = null, int? teamsRequested = null)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
@@ -93,27 +103,10 @@ namespace SteamWebAPI2.Interfaces
             AddToParametersIfHasValue(teamsRequested, "teams_requested", parameters);
 
             var teamInfos = await CallMethodAsync<TeamInfoResultContainer>("GetTeamInfoByTeamID", 1, parameters);
-            return new ReadOnlyCollection<TeamInfo>(teamInfos.Result.Teams);
-        }
 
-        /*
-        public async Task<??> GetTopLiveGame(int? partner = null)
-        {
-        }
-        */
+            var teamInfoModels = AutoMapperConfiguration.Mapper.Map<IList<TeamInfo>, IList<TeamInfoModel>>(teamInfos.Result.Teams);
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="accountId"></param>
-        /// <param name="leagueId">This method only works properly with 65006 league id (The International) for some reason</param>
-        /// <param name="heroId"></param>
-        /// <param name="matchId"></param>
-        /// <param name="phaseId"></param>
-        /// <returns></returns>
-        public void GetTournamentPlayerStats(string accountId = "", string leagueId = "", string heroId = "", long? matchId = null, int? phaseId = null)
-        {
-            throw new NotImplementedException("I can't find good test conditions for this, so I don't know how to implement a response parser.");
+            return new ReadOnlyCollection<TeamInfoModel>(teamInfoModels);
         }
     }
 }

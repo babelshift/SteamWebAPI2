@@ -3,17 +3,17 @@ using System.Collections.Generic;
 
 namespace SteamWebAPI2.Models.DOTA2
 {
-    public class MatchPlayerAbilityUpgrade
+    internal class MatchPlayerAbilityUpgrade
     {
         public int Ability { get; set; }
         public int Time { get; set; }
         public int Level { get; set; }
     }
 
-    public class MatchPlayer
+    internal class MatchPlayer
     {
         [JsonProperty(PropertyName = "account_id")]
-        public int AccountId { get; set; }
+        public uint AccountId { get; set; }
 
         [JsonProperty(PropertyName = "player_slot")]
         public int PlayerSlot { get; set; }
@@ -77,7 +77,7 @@ namespace SteamWebAPI2.Models.DOTA2
         public IList<MatchPlayerAbilityUpgrade> AbilityUpgrades { get; set; }
     }
 
-    public class MatchPickBan
+    internal class MatchPickBan
     {
         [JsonProperty(PropertyName = "is_pick")]
         public bool IsPick { get; set; }
@@ -89,7 +89,7 @@ namespace SteamWebAPI2.Models.DOTA2
         public int Order { get; set; }
     }
 
-    public class MatchDetailResult
+    internal class MatchDetailResult
     {
         public IList<MatchPlayer> Players { get; set; }
 

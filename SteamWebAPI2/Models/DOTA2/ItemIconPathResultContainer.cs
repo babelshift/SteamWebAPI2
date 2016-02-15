@@ -1,6 +1,6 @@
 ﻿namespace SteamWebAPI2.Models.DOTA2
 {
-    public class ItemIconPathResult
+    internal class ItemIconPathResult
     {
         public string Path { get; set; }
     }

@@ -1,4 +1,5 @@
-﻿using SteamWebAPI2.Models;
+﻿using Steam.Models;
+using SteamWebAPI2.Models;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
@@ -12,13 +13,14 @@ namespace SteamWebAPI2.Interfaces
         {
         }
 
-        public async Task<IReadOnlyCollection<SteamApp>> GetAppListAsync()
+        public async Task<IReadOnlyCollection<SteamAppModel>> GetAppListAsync()
         {
             var steamAppList = await CallMethodAsync<SteamAppListResultContainer>("GetAppList", 2);
-            return new ReadOnlyCollection<SteamApp>(steamAppList.Result.Apps);
+            var steamAppModels = AutoMapperConfiguration.Mapper.Map<IList<SteamApp>, IList<SteamAppModel>>(steamAppList.Result.Apps);
+            return new ReadOnlyCollection<SteamAppModel>(steamAppModels);
         }
 
-        public async Task<SteamAppUpToDateCheckResult> UpToDateCheckAsync(int appId, int version)
+        public async Task<SteamAppUpToDateCheckModel> UpToDateCheckAsync(int appId, int version)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
@@ -26,7 +28,8 @@ namespace SteamWebAPI2.Interfaces
             AddToParametersIfHasValue(version, "version", parameters);
 
             var upToDateCheckResult = await CallMethodAsync<SteamAppUpToDateCheckResultContainer>("UpToDateCheck", 1, parameters);
-            return upToDateCheckResult.Result;
+            var upToDateCheckModel = AutoMapperConfiguration.Mapper.Map<SteamAppUpToDateCheckResult, SteamAppUpToDateCheckModel>(upToDateCheckResult.Result);
+            return upToDateCheckModel;
         }
     }
 }

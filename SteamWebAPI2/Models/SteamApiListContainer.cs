@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SteamWebAPI2.Models
 {
-    public class SteamApiListResult
+    internal class SteamApiListResult
     {
         public IList<SteamInterface> Interfaces { get; set; }
     }

@@ -1,6 +1,6 @@
 ﻿namespace SteamWebAPI2.Models.DOTA2
 {
-    public class PlayerOfficialInfoResult
+    internal class PlayerOfficialInfoResult
     {
         public string Name { get; set; }
         public string TeamName { get; set; }

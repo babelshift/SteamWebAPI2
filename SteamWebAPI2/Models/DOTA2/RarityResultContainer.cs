@@ -2,7 +2,7 @@
 
 namespace SteamWebAPI2.Models.DOTA2
 {
-    public class Rarity
+    internal class Rarity
     {
         public string Name { get; set; }
         public int Id { get; set; }
@@ -10,7 +10,7 @@ namespace SteamWebAPI2.Models.DOTA2
         public string Color { get; set; }
     }
 
-    public class RarityResult
+    internal class RarityResult
     {
         public int Count { get; set; }
         public int Status { get; set; }
