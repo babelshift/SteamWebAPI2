@@ -177,6 +177,7 @@ namespace SteamWebAPI2
                     x.CreateMap<LiveLeagueGameBan, LiveLeagueGameBanModel>();
                     x.CreateMap<LiveLeagueGamePick, LiveLeagueGamePickModel>();
                     x.CreateMap<LiveLeagueGameTeamRadiantDetail, LiveLeagueGameTeamRadiantDetailModel>();
+                    x.CreateMap<LiveLeagueGamePlayerDetail, LiveLeagueGamePlayerDetailModel>();
                 });
             }
 
