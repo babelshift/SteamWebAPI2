@@ -6,13 +6,6 @@ using System.Threading.Tasks;
 
 namespace SteamWebAPI2.Interfaces
 {
-    public enum DotaLeagueTier
-    {
-        Amateur = 1,
-        Professional,
-        Premier
-    }
-
     public class DOTA2Match : SteamWebInterface, IDOTA2Match
     {
         public DOTA2Match(string steamWebApiKey)

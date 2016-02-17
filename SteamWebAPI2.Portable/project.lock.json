@@ -97,7 +97,7 @@
           "lib/net45/Newtonsoft.Json.dll": {}
         }
       },
-      "Steam.Models/1.0.0.6": {
+      "Steam.Models/1.0.0.11": {
         "compile": {
           "lib/net46/Steam.Models.dll": {}
         },
@@ -768,7 +768,7 @@
           "lib/net45/Newtonsoft.Json.dll": {}
         }
       },
-      "Steam.Models/1.0.0.6": {
+      "Steam.Models/1.0.0.11": {
         "compile": {
           "lib/net46/Steam.Models.dll": {}
         },
@@ -1463,7 +1463,7 @@
           "lib/net45/Newtonsoft.Json.dll": {}
         }
       },
-      "Steam.Models/1.0.0.6": {
+      "Steam.Models/1.0.0.11": {
         "compile": {
           "lib/net46/Steam.Models.dll": {}
         },
@@ -2206,7 +2206,7 @@
           "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
         }
       },
-      "Steam.Models/1.0.0.6": {
+      "Steam.Models/1.0.0.11": {
         "compile": {
           "lib/portable-net452+win81/Steam.Models.dll": {}
         },
@@ -3045,7 +3045,7 @@
           "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
         }
       },
-      "Steam.Models/1.0.0.6": {
+      "Steam.Models/1.0.0.11": {
         "compile": {
           "lib/portable-net452+win81/Steam.Models.dll": {}
         },
@@ -4190,7 +4190,7 @@
           "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
         }
       },
-      "Steam.Models/1.0.0.6": {
+      "Steam.Models/1.0.0.11": {
         "compile": {
           "lib/portable-net452+win81/Steam.Models.dll": {}
         },
@@ -5379,7 +5379,7 @@
           "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
         }
       },
-      "Steam.Models/1.0.0.6": {
+      "Steam.Models/1.0.0.11": {
         "compile": {
           "lib/portable-net452+win81/Steam.Models.dll": {}
         },
@@ -6545,7 +6545,7 @@
           "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
         }
       },
-      "Steam.Models/1.0.0.6": {
+      "Steam.Models/1.0.0.11": {
         "compile": {
           "lib/portable-net452+win81/Steam.Models.dll": {}
         },
@@ -7734,7 +7734,7 @@
           "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
         }
       },
-      "Steam.Models/1.0.0.6": {
+      "Steam.Models/1.0.0.11": {
         "compile": {
           "lib/portable-net452+win81/Steam.Models.dll": {}
         },
@@ -8900,7 +8900,7 @@
           "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
         }
       },
-      "Steam.Models/1.0.0.6": {
+      "Steam.Models/1.0.0.11": {
         "compile": {
           "lib/portable-net452+win81/Steam.Models.dll": {}
         },
@@ -10089,7 +10089,7 @@
           "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
         }
       },
-      "Steam.Models/1.0.0.6": {
+      "Steam.Models/1.0.0.11": {
         "compile": {
           "lib/portable-net452+win81/Steam.Models.dll": {}
         },
@@ -11710,8 +11710,8 @@
         "tools/install.ps1"
       ]
     },
-    "Steam.Models/1.0.0.6": {
-      "sha512": "BMqtnu3KFYImmGm98cqHWYuCPD9i7Dv+atmHkRi8uLZ88DSJvGt7NB6tn4ZNk9GmU9ZJ1Z65u5vUrl0uraj9dA==",
+    "Steam.Models/1.0.0.11": {
+      "sha512": "2vSv21vYGz/oGVXpbgb2a+TJIbjMKN87ZZ6X/irpfh1UNMTaARAMBNn+KpC6o8f9QqxV0m0LveBmIvfmCi2pew==",
       "type": "Package",
       "files": [
         "[Content_Types].xml",
@@ -11724,7 +11724,7 @@
         "lib/net46/Steam.Models.pdb",
         "lib/portable-net452+win81/Steam.Models.dll",
         "lib/portable-net452+win81/Steam.Models.pdb",
-        "package/services/metadata/core-properties/6e16ea26ffa144b69be155a473cd8b51.psmdcp",
+        "package/services/metadata/core-properties/1901a5a1f6054296943ce35cb22a226c.psmdcp",
         "Steam.Models.nuspec"
       ]
     },
@@ -13770,7 +13770,7 @@
       "Microsoft.NETCore >= 5.0.0",
       "Microsoft.NETCore.Portable.Compatibility >= 1.0.0",
       "Newtonsoft.Json >= 8.0.2",
-      "Steam.Models >= 1.0.0.6"
+      "Steam.Models >= 1.0.0.11"
     ],
     ".NETPlatform,Version=v5.0": []
   }
