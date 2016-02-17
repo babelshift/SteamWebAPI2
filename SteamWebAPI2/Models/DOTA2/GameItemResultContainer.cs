@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SteamWebAPI2.Models.DOTA2
 {
-    public class GameItem
+    internal class GameItem
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -18,7 +18,7 @@ namespace SteamWebAPI2.Models.DOTA2
         public int Recipe { get; set; }
     }
 
-    public class GameItemResult
+    internal class GameItemResult
     {
         public IList<GameItem> Items { get; set; }
     }

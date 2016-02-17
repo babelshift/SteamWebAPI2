@@ -1,5 +1,7 @@
-﻿using SteamWebAPI2.Models.CSGO;
+﻿using Steam.Models.CSGO;
+using SteamWebAPI2.Models.CSGO;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace SteamWebAPI2.Interfaces
 {
@@ -20,10 +22,13 @@ namespace SteamWebAPI2.Interfaces
         /// Maps to the Steam Web API interface/method of ICSGOServers_730/GetGameServersStatus/v1
         /// </summary>
         /// <returns></returns>
-        public async Task<ServerStatusResult> GetGameServerStatusAsync()
+        public async Task<ServerStatusModel> GetGameServerStatusAsync()
         {
             var gameServerStatus = await CallMethodAsync<ServerStatusResultContainer>("GetGameServersStatus", 1);
-            return gameServerStatus.Result;
+
+            var gameServerStatusModel = AutoMapperConfiguration.Mapper.Map<ServerStatusResult, ServerStatusModel>(gameServerStatus.Result);
+
+            return gameServerStatusModel;
         }
     }
 }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace SteamWebAPI2.Models.DOTA2
 {
-    public class TeamInfo
+    internal class TeamInfo
     {
         public int TeamId { get; set; }
         public string Name { get; set; }
@@ -16,12 +16,12 @@ namespace SteamWebAPI2.Models.DOTA2
         public string CountryCode { get; set; }
         public string Url { get; set; }
         public int GamesPlayedWithCurrentRoster { get; set; }
-        public int AdminAccountId { get; set; }
+        public uint AdminAccountId { get; set; }
         public IList<int> PlayerIds { get; set; }
         public IList<int> LeagueIds { get; set; }
     }
 
-    public class TeamInfoResult
+    internal class TeamInfoResult
     {
         public int Status { get; set; }
 

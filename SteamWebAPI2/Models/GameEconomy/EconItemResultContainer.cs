@@ -1,10 +1,4 @@
-﻿/*
-*
-*   These are models related to the JSON response of the GetPlayerItems method from various IEconItems_<AppId> interfaces.
-*
-*/
-
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
 namespace SteamWebAPI2.Models.GameEconomy
@@ -14,7 +8,7 @@ namespace SteamWebAPI2.Models.GameEconomy
         public EconItemResult Result { get; set; }
     }
 
-    public class EconItemResult
+    internal class EconItemResult
     {
         public int Status { get; set; }
 
@@ -24,7 +18,7 @@ namespace SteamWebAPI2.Models.GameEconomy
         public IList<EconItem> Items { get; set; }
     }
 
-    public class EconItemEquipped
+    internal class EconItemEquipped
     {
         [JsonProperty(PropertyName = "class")]
         public int ClassId { get; set; }
@@ -32,16 +26,16 @@ namespace SteamWebAPI2.Models.GameEconomy
         public int Slot { get; set; }
     }
 
-    public class EconItemAttributeAccountInfo
+    internal class EconItemAttributeAccountInfo
     {
         public long SteamId { get; set; }
         public string PersonaName { get; set; }
     }
 
-    public class EconItemAttribute
+    internal class EconItemAttribute
     {
         public int DefIndex { get; set; }
-        public long Value { get; set; }
+        public object Value { get; set; }
 
         [JsonProperty(PropertyName = "float_value")]
         public double FloatValue { get; set; }
@@ -50,7 +44,7 @@ namespace SteamWebAPI2.Models.GameEconomy
         public EconItemAttributeAccountInfo AccountInfo { get; set; }
     }
 
-    public class EconItem
+    internal class EconItem
     {
         public long Id { get; set; }
 

@@ -1,4 +1,5 @@
-﻿using SteamWebAPI2.Models;
+﻿using Steam.Models;
+using SteamWebAPI2.Models;
 using SteamWebAPI2.Utilities;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace SteamWebAPI2.Interfaces
         {
         }
 
-        public async Task<SteamNewsResult> GetNewsForAppAsync(int appId, int? maxLength = null, DateTime? endDate = null, int? count = null)
+        public async Task<SteamNewsResultModel> GetNewsForAppAsync(int appId, int? maxLength = null, DateTime? endDate = null, int? count = null)
         {
             long? endDateUnixTimeStamp = null;
 
@@ -30,7 +31,10 @@ namespace SteamWebAPI2.Interfaces
             AddToParametersIfHasValue(count, "count", parameters);
 
             var appNews = await CallMethodAsync<SteamNewsResultContainer>("GetNewsForApp", 2, parameters);
-            return appNews.Result;
+
+            var appNewsModel = AutoMapperConfiguration.Mapper.Map<SteamNewsResult, SteamNewsResultModel>(appNews.Result);
+
+            return appNewsModel;
         }
     }
 }

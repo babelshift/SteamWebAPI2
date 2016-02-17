@@ -1,4 +1,5 @@
-﻿using SteamWebAPI2.Models;
+﻿using Steam.Models;
+using SteamWebAPI2.Models;
 using SteamWebAPI2.Utilities;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace SteamWebAPI2.Interfaces
         {
         }
 
-        public async Task<UGCFileDetails> GetUGCFileDetailsAsync(long ugcId, int appId, long? steamId = null)
+        public async Task<UGCFileDetailsModel> GetUGCFileDetailsAsync(long ugcId, int appId, long? steamId = null)
         {
             Debug.Assert(appId > 0);
 
@@ -33,7 +34,10 @@ namespace SteamWebAPI2.Interfaces
             try
             {
                 var ugcFileDetails = await CallMethodAsync<UGCFileDetailsResultContainer>("GetUGCFileDetails", 1, parameters);
-                return ugcFileDetails.Result;
+
+                var ugcFileDetailsModel = AutoMapperConfiguration.Mapper.Map<UGCFileDetails, UGCFileDetailsModel>(ugcFileDetails.Result);
+
+                return ugcFileDetailsModel;
             }
             catch (HttpRequestException)
             {

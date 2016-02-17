@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace SteamWebAPI2.Models.DOTA2
 {
-    public class MatchHistoryMatch
+    internal class MatchHistoryMatch
     {
         [JsonProperty(PropertyName = "match_id")]
         public long MatchId { get; set; }
@@ -29,10 +29,10 @@ namespace SteamWebAPI2.Models.DOTA2
         public List<MatchHistoryPlayer> Players { get; set; }
     }
 
-    public class MatchHistoryPlayer
+    internal class MatchHistoryPlayer
     {
         [JsonProperty(PropertyName = "account_id")]
-        public object AccountId { get; set; }
+        public uint AccountId { get; set; }
 
         [JsonProperty(PropertyName = "player_slot")]
         public int PlayerSlot { get; set; }
@@ -41,7 +41,7 @@ namespace SteamWebAPI2.Models.DOTA2
         public int HeroId { get; set; }
     }
 
-    public class MatchHistoryResult
+    internal class MatchHistoryResult
     {
         public int Status { get; set; }
 

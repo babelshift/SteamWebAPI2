@@ -46,7 +46,7 @@ namespace SteamWebAPI2.Utilities.JsonConverters
                     if (teamProperty.Name == "country_code") { teamInfo.CountryCode = value; }
                     if (teamProperty.Name == "url") { teamInfo.Url = value; }
                     if (teamProperty.Name == "games_played_with_current_roster") { teamInfo.GamesPlayedWithCurrentRoster = Int32.Parse(value); }
-                    if (teamProperty.Name == "admin_account_id") { teamInfo.AdminAccountId = Int32.Parse(value); }
+                    if (teamProperty.Name == "admin_account_id") { teamInfo.AdminAccountId = UInt32.Parse(value); }
                     if (teamProperty.Name.StartsWith("player_"))
                     {
                         playerAccountIds.Add(Int32.Parse(value.ToString()));

@@ -3,12 +3,12 @@ using System.Collections.Generic;
 
 namespace SteamWebAPI2.Models.DOTA2
 {
-    public class LeagueResult
+    internal class LeagueResult
     {
         public IList<League> Leagues { get; set; }
     }
 
-    public class League
+    internal class League
     {
         public string Name { get; set; }
         public int LeagueId { get; set; }

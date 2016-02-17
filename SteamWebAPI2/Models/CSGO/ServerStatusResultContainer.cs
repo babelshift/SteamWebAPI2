@@ -4,21 +4,21 @@ using System.Collections.Generic;
 
 namespace SteamWebAPI2.Models.CSGO
 {
-    public class ServerStatusApp
+    internal class ServerStatusApp
     {
         public int Version { get; set; }
         public long Timestamp { get; set; }
         public string Time { get; set; }
     }
 
-    public class ServerStatusDatacenter
+    internal class ServerStatusDatacenter
     {
         public string Name { get; set; }
         public string Capacity { get; set; }
         public string Load { get; set; }
     }
 
-    public class ServerStatusMatchmaking
+    internal class ServerStatusMatchmaking
     {
         public string Scheduler { get; set; }
 
@@ -35,7 +35,7 @@ namespace SteamWebAPI2.Models.CSGO
         public int SearchSecondsAverage { get; set; }
     }
 
-    public class ServerStatusServices
+    internal class ServerStatusServices
     {
         public string SessionsLogon { get; set; }
         public string SteamCommunity { get; set; }
@@ -43,7 +43,7 @@ namespace SteamWebAPI2.Models.CSGO
         public string Leaderboards { get; set; }
     }
 
-    public class ServerStatusResult
+    internal class ServerStatusResult
     {
         public ServerStatusApp App { get; set; }
         public ServerStatusServices Services { get; set; }

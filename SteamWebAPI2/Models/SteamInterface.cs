@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SteamWebAPI2.Models
 {
-    public class SteamInterface
+    internal class SteamInterface
     {
         public string Name { get; set; }
         public IList<SteamMethod> Methods { get; private set; }
@@ -14,7 +14,7 @@ namespace SteamWebAPI2.Models
         }
     }
 
-    public class SteamMethod
+    internal class SteamMethod
     {
         public string Name { get; set; }
         public int Version { get; set; }
@@ -27,7 +27,7 @@ namespace SteamWebAPI2.Models
         }
     }
 
-    public class SteamParameter
+    internal class SteamParameter
     {
         public string Name { get; set; }
         public string Type { get; set; }

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 
 namespace SteamWebAPI2.Models.DOTA2
 {
-    public class ProPlayerInfo
+    internal class ProPlayerInfo
     {
         [JsonProperty(PropertyName = "account_id")]
-        public int AccountId { get; set; }
+        public uint AccountId { get; set; }
 
         public string Name { get; set; }
 
@@ -31,15 +31,15 @@ namespace SteamWebAPI2.Models.DOTA2
         public string Sponsor { get; set; }
     }
 
-    public class ProPlayerLeaderboard
+    internal class ProPlayerLeaderboard
     {
         public int Division { get; set; }
 
         [JsonProperty(PropertyName = "account_ids")]
-        public IList<int> AccountIds { get; set; }
+        public IList<uint> AccountIds { get; set; }
     }
 
-    public class ProPlayerListResult
+    internal class ProPlayerListResult
     {
         [JsonProperty(PropertyName = "player_infos")]
         public IList<ProPlayerInfo> PlayerInfos { get; set; }
