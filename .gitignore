@@ -78,4 +78,4 @@ _[Ss]cripts
 *.ncrunchsolution
 *.dot[Cc]over 
 *.lock.json
-.vs/config
+.vs/
