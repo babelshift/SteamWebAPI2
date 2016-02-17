@@ -77,3 +77,4 @@ _[Ss]cripts
 *.nupkg
 *.ncrunchsolution
 *.dot[Cc]over 
+*.lock.json
