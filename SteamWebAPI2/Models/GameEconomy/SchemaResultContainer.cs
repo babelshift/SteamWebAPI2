@@ -281,14 +281,11 @@ namespace SteamWebAPI2.Models.GameEconomy
 
     internal class SchemaItem
     {
+        [JsonProperty("defindex")]
+        public int DefIndex { get; set; }
+
         [JsonProperty("name")]
         public string Name { get; set; }
-
-        [JsonProperty("defindex")]
-        public int Defindex { get; set; }
-
-        [JsonProperty("item_class")]
-        public string ItemClass { get; set; }
 
         [JsonProperty("item_type_name")]
         public string ItemTypeName { get; set; }
@@ -296,6 +293,15 @@ namespace SteamWebAPI2.Models.GameEconomy
         [JsonProperty("item_name")]
         public string ItemName { get; set; }
 
+        [JsonProperty("item_description")]
+        public string ItemDescription { get; set; }
+
+        [JsonProperty("image_inventory")]
+        public string ImageInventoryPath { get; set; }
+
+        [JsonProperty("item_class")]
+        public string ItemClass { get; set; }
+        
         [JsonProperty("proper_name")]
         public bool ProperName { get; set; }
 
@@ -307,9 +313,6 @@ namespace SteamWebAPI2.Models.GameEconomy
 
         [JsonProperty("item_quality")]
         public int ItemQuality { get; set; }
-
-        [JsonProperty("image_inventory")]
-        public string ImageInventory { get; set; }
 
         [JsonProperty("min_ilevel")]
         public int MinIlevel { get; set; }
@@ -337,9 +340,6 @@ namespace SteamWebAPI2.Models.GameEconomy
 
         [JsonProperty("styles")]
         public IList<SchemaStyle> Styles { get; set; }
-
-        [JsonProperty("item_description")]
-        public string ItemDescription { get; set; }
 
         [JsonProperty("attributes")]
         public IList<SchemaItemAttribute> Attributes { get; set; }
@@ -414,7 +414,7 @@ namespace SteamWebAPI2.Models.GameEconomy
         public IList<SchemaItemSetAttribute> Attributes { get; set; }
 
         [JsonProperty("store_bundle")]
-        public string StoreBundle { get; set; }
+        public string StoreBundleName { get; set; }
     }
 
     internal class SchemaAttributeControlledAttachedParticle
