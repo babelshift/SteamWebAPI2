@@ -1,4 +1,5 @@
-﻿using Steam.Models.GameEconomy;
+﻿using Steam.Models.DOTA2;
+using Steam.Models.GameEconomy;
 using SteamWebAPI2.Models.GameEconomy;
 using System;
 using System.Collections.Generic;

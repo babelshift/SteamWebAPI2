@@ -32,25 +32,25 @@ namespace SteamWebAPI2
                 config = new MapperConfiguration(x =>
                 {
                     x.CreateMap<SchemaResult, SchemaModel>();
-                    x.CreateMap<SchemaAdditionalHiddenBodygroups, SchemaAdditionalHiddenBodygroupsModel>();
-                    x.CreateMap<SchemaAttributeControlledAttachedParticle, SchemaAttributeControlledAttachedParticleModel>();
-                    x.CreateMap<SchemaAttribute, SchemaAttributeModel>();
-                    x.CreateMap<SchemaCapabilities, SchemaCapabilitiesModel>();
-                    x.CreateMap<SchemaItemAttribute, SchemaItemAttributeModel>();
-                    x.CreateMap<SchemaItemLevel, SchemaItemLevelModel>();
-                    x.CreateMap<SchemaItem, SchemaItemModel>();
-                    x.CreateMap<SchemaLevel, SchemaLevelModel>();
-                    x.CreateMap<SchemaItemSetAttribute, SchemaItemSetAttributeModel>();
-                    x.CreateMap<SchemaItemSet, SchemaItemSetModel>();
-                    x.CreateMap<SchemaKillEaterScoreType, SchemaKillEaterScoreTypeModel>();
-                    x.CreateMap<SchemaOriginName, SchemaOriginNameModel>();
-                    x.CreateMap<SchemaPerClassLoadoutSlots, SchemaPerClassLoadoutSlotsModel>();
-                    x.CreateMap<SchemaQualities, SchemaQualitiesModel>();
-                    x.CreateMap<SchemaStringLookup, SchemaStringLookupModel>();
-                    x.CreateMap<SchemaString, SchemaStringModel>();
-                    x.CreateMap<SchemaStyle, SchemaStyleModel>();
-                    x.CreateMap<SchemaTool, SchemaToolModel>();
-                    x.CreateMap<SchemaUsageCapabilities, SchemaUsageCapabilitiesModel>();
+                    //x.CreateMap<SchemaAdditionalHiddenBodygroups, SchemaAdditionalHiddenBodygroupsModel>();
+                    //x.CreateMap<SchemaAttributeControlledAttachedParticle, SchemaAttributeControlledAttachedParticleModel>();
+                    //x.CreateMap<SchemaAttribute, SchemaAttributeModel>();
+                    //x.CreateMap<SchemaCapabilities, SchemaCapabilitiesModel>();
+                    //x.CreateMap<SchemaItemAttribute, SchemaItemAttributeModel>();
+                    //x.CreateMap<SchemaItemLevel, SchemaItemLevelModel>();
+                    //x.CreateMap<SchemaItem, SchemaItemModel>();
+                    //x.CreateMap<SchemaLevel, SchemaLevelModel>();
+                    //x.CreateMap<SchemaItemSetAttribute, SchemaItemSetAttributeModel>();
+                    //x.CreateMap<SchemaItemSet, SchemaItemSetModel>();
+                    //x.CreateMap<SchemaKillEaterScoreType, SchemaKillEaterScoreTypeModel>();
+                    //x.CreateMap<SchemaOriginName, SchemaOriginNameModel>();
+                    //x.CreateMap<SchemaPerClassLoadoutSlots, SchemaPerClassLoadoutSlotsModel>();
+                    //x.CreateMap<SchemaQualities, SchemaQualitiesModel>();
+                    //x.CreateMap<SchemaStringLookup, SchemaStringLookupModel>();
+                    //x.CreateMap<SchemaString, SchemaStringModel>();
+                    //x.CreateMap<SchemaStyle, SchemaStyleModel>();
+                    //x.CreateMap<SchemaTool, SchemaToolModel>();
+                    //x.CreateMap<SchemaUsageCapabilities, SchemaUsageCapabilitiesModel>();
 
                     x.CreateMap<StoreBanner, StoreBannerModel>();
                     x.CreateMap<StoreCarouselData, StoreCarouselDataModel>();

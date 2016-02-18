@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using SteamWebAPI2.Models.GameEconomy;
 using Steam.Models.GameEconomy;
+using Steam.Models.DOTA2;
 
 namespace SteamWebAPI2.Interfaces
 {
