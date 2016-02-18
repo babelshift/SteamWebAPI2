@@ -39,7 +39,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Steam.Models, Version=1.0.0.15, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\BitBucket\git\DotaDb.WebAPI\packages\Steam.Models.1.0.0.15\lib\net46\Steam.Models.dll</HintPath>
+      <HintPath>..\packages\Steam.Models.1.0.0.15\lib\net46\Steam.Models.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
