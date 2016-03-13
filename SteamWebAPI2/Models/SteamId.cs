@@ -66,10 +66,9 @@ namespace SteamWebAPI2.Models
         #region Members
 
         // Special flags for chat accounts in the high 8 bits of the Steam ID instance. Adopted from https://github.com/xPaw/SteamID.php.
-        private uint instanceFlagClan = 524288;         // (SteamAccountInstanceMask + 1) >> 1
-
-        private uint instanceFlagLobby = 262144;        // (SteamAccountInstanceMask + 1) >> 2
-        private uint instanceFlagMMSLobby = 131072;     // (SteamAccountInstanceMask + 1) >> 3
+        //private uint instanceFlagClan = 524288;         // (SteamAccountInstanceMask + 1) >> 1
+        //private uint instanceFlagLobby = 262144;        // (SteamAccountInstanceMask + 1) >> 2
+        //private uint instanceFlagMMSLobby = 131072;     // (SteamAccountInstanceMask + 1) >> 3
 
         private SteamAccountType accountType;
 
