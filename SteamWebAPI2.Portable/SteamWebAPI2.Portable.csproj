@@ -288,6 +288,15 @@
     <Compile Include="..\SteamWebAPI2\Models\SteamPlayer\RecentlyPlayedGameResultContainer.cs">
       <Link>Models\SteamPlayer\RecentlyPlayedGameResultContainer.cs</Link>
     </Compile>
+    <Compile Include="..\SteamWebAPI2\Models\SteamStore\AppDetailsContainer.cs">
+      <Link>Models\SteamStore\AppDetailsContainer.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Models\SteamStore\FeaturedCategoriesContainer.cs">
+      <Link>Models\SteamStore\FeaturedCategoriesContainer.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Models\SteamStore\FeaturedProductsContainer.cs">
+      <Link>Models\SteamStore\FeaturedProductsContainer.cs</Link>
+    </Compile>
     <Compile Include="..\SteamWebAPI2\Models\TF2\GoldenWrenchResultContainer.cs">
       <Link>Models\TF2\GoldenWrenchResultContainer.cs</Link>
     </Compile>

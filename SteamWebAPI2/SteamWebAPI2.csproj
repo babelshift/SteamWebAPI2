@@ -35,11 +35,11 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Steam.Models, Version=1.0.0.24, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Steam.Models.1.0.0.24\lib\net46\Steam.Models.dll</HintPath>
+    <Reference Include="Steam.Models, Version=1.0.0.28, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Steam.Models.1.0.0.28\lib\net46\Steam.Models.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -81,6 +81,7 @@
     <Compile Include="Interfaces\ISteamEconomy.cs" />
     <Compile Include="Interfaces\ISteamNews.cs" />
     <Compile Include="Interfaces\ISteamRemoteStorage.cs" />
+    <Compile Include="Interfaces\ISteamStore.cs" />
     <Compile Include="Interfaces\ISteamUser.cs" />
     <Compile Include="Interfaces\ISteamUserStats.cs" />
     <Compile Include="Interfaces\ISteamWebAPIUtil.cs" />
@@ -90,6 +91,7 @@
     <Compile Include="Interfaces\SteamApps.cs" />
     <Compile Include="Interfaces\SteamRemoteStorage.cs" />
     <Compile Include="Interfaces\SteamNews.cs" />
+    <Compile Include="Interfaces\SteamStore.cs" />
     <Compile Include="Interfaces\SteamUser.cs" />
     <Compile Include="Interfaces\SteamUserStats.cs" />
     <Compile Include="Interfaces\SteamWebAPIUtil.cs" />
@@ -137,6 +139,9 @@
     <Compile Include="Models\SteamPlayer\PlayerBansContainer.cs" />
     <Compile Include="Models\SteamPlayer\PlayingSharedGameResultContainer.cs" />
     <Compile Include="Models\SteamPlayer\RecentlyPlayedGameResultContainer.cs" />
+    <Compile Include="Models\SteamStore\AppDetailsContainer.cs" />
+    <Compile Include="Models\SteamStore\FeaturedCategoriesContainer.cs" />
+    <Compile Include="Models\SteamStore\FeaturedProductsContainer.cs" />
     <Compile Include="Models\TF2\GoldenWrenchResultContainer.cs" />
     <Compile Include="Models\UGCFileDetailsResultContainer.cs" />
     <Compile Include="Models\UserStatsForGameResultContainer.cs" />
