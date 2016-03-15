@@ -27,25 +27,15 @@ namespace SteamWebAPI2.Interfaces
         /// </summary>
         /// <param name="language"></param>
         /// <returns></returns>
-        public async Task<IReadOnlyCollection<GameItemModel>> GetGameItemsAsync(string language = "")
+        public async Task<IReadOnlyCollection<GameItemModel>> GetGameItemsAsync(string language = "en_us")
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
             parameters.AddIfHasValue(language, "language");
 
-            var gameItems = await CallMethodAsync<GameItemResultContainer>("GetGameItems", 1);
+            var gameItems = await CallMethodAsync<GameItemResultContainer>("GetGameItems", 1, parameters);
 
-            var gameItemModels = gameItems.Result.Items.Select(x => new GameItemModel()
-            {
-                Id = x.Id,
-                Cost = x.Cost,
-                IsAvailableAtSecretShop = x.SecretShop == 1 ? true : false,
-                IsAvailableAtSideShop = x.SideShop == 1 ? true : false,
-                IsRecipe = x.Recipe == 1 ? true : false,
-                Name = x.Name
-            })
-            .ToList()
-            .AsReadOnly();
+            var gameItemModels = AutoMapperConfiguration.Mapper.Map<IList<GameItem>, IReadOnlyCollection<GameItemModel>>(gameItems.Result.Items);
 
             return gameItemModels;
         }
@@ -105,7 +95,7 @@ namespace SteamWebAPI2.Interfaces
         /// <param name="language"></param>
         /// <param name="itemizedOnly"></param>
         /// <returns></returns>
-        public async Task<IReadOnlyCollection<HeroModel>> GetHeroesAsync(string language = "", bool itemizedOnly = false)
+        public async Task<IReadOnlyCollection<HeroModel>> GetHeroesAsync(string language = "en_us", bool itemizedOnly = false)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
@@ -116,13 +106,7 @@ namespace SteamWebAPI2.Interfaces
 
             var heroes = await CallMethodAsync<HeroResultContainer>("GetHeroes", 1, parameters);
 
-            var heroModels = heroes.Result.Heroes.Select(x => new HeroModel()
-            {
-                Id = x.Id,
-                Name = x.Name
-            })
-            .ToList()
-            .AsReadOnly();
+            var heroModels = AutoMapperConfiguration.Mapper.Map<IList<Hero>, IReadOnlyCollection<HeroModel>>(heroes.Result.Heroes);
 
             return heroModels;
         }

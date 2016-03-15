@@ -71,7 +71,7 @@ namespace SteamWebAPI2
             Debug.Assert(!String.IsNullOrEmpty(methodName));
             Debug.Assert(version > 0);
 
-            return await steamWebRequest.SendWebRequestAsync<T>(interfaceName, methodName, version);
+            return await steamWebRequest.SendWebRequestAsync<T>(interfaceName, methodName, version, parameters);
         }
     }
 }

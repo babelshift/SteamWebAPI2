@@ -16,9 +16,13 @@ namespace SteamWebAPI2.Interfaces
         {
         }
 
-        public async Task<IReadOnlyCollection<LeagueModel>> GetLeagueListingAsync()
+        public async Task<IReadOnlyCollection<LeagueModel>> GetLeagueListingAsync(string language = "en_us")
         {
-            var leagueListing = await CallMethodAsync<LeagueResultContainer>("GetLeagueListing", 1);
+            List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
+            
+            parameters.AddIfHasValue(language, "language");
+
+            var leagueListing = await CallMethodAsync<LeagueResultContainer>("GetLeagueListing", 1, parameters);
 
             var leagueModels = leagueListing.Result.Leagues.Select(x => new LeagueModel()
             {

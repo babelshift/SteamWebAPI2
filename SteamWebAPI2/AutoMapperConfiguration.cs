@@ -33,6 +33,9 @@ namespace SteamWebAPI2
             {
                 config = new MapperConfiguration(x =>
                 {
+                    x.CreateMap<Hero, HeroModel>();
+                    x.CreateMap<GameItem, GameItemModel>();
+
                     x.CreateMap<SchemaResult, SchemaModel>();
                     //x.CreateMap<SchemaAdditionalHiddenBodygroups, SchemaAdditionalHiddenBodygroupsModel>();
                     //x.CreateMap<SchemaAttributeControlledAttachedParticle, SchemaAttributeControlledAttachedParticleModel>();
