@@ -4,6 +4,7 @@ using SteamWebAPI2.Models.GameEconomy;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using SteamWebAPI2.Utilities;
 
 namespace SteamWebAPI2.Interfaces
 {
@@ -61,7 +62,7 @@ namespace SteamWebAPI2.Interfaces
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
-            AddToParametersIfHasValue(steamId, "steamid", parameters);
+            parameters.AddIfHasValue(steamId, "steamid");
 
             var econItemsResult = await CallMethodAsync<EconItemResultContainer>("GetPlayerItems", 1, parameters);
 
@@ -79,7 +80,7 @@ namespace SteamWebAPI2.Interfaces
 
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
-            AddToParametersIfHasValue(language, "language", parameters);
+            parameters.AddIfHasValue(language, "language");
 
             var schemaResult = await CallMethodAsync<SchemaResultContainer>("GetSchema", 1, parameters);
 
@@ -109,7 +110,7 @@ namespace SteamWebAPI2.Interfaces
 
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
-            AddToParametersIfHasValue(language, "language", parameters);
+            parameters.AddIfHasValue(language, "language");
 
             var storeMetaDataResult = await CallMethodAsync<StoreMetaDataResultContainer>("GetStoreMetaData", 1, parameters);
 

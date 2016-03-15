@@ -146,6 +146,8 @@
     <Compile Include="Models\UGCFileDetailsResultContainer.cs" />
     <Compile Include="Models\UserStatsForGameResultContainer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SteamStoreInterface.cs" />
+    <Compile Include="SteamStoreRequest.cs" />
     <Compile Include="SteamWebInterface.cs" />
     <Compile Include="SteamWebRequest.cs" />
     <Compile Include="SteamWebRequestParameter.cs" />
@@ -156,6 +158,7 @@
     <Compile Include="Utilities\JsonConverters\GlobalStatJsonConverter.cs" />
     <Compile Include="Utilities\JsonConverters\TeamInfoJsonConverter.cs" />
     <Compile Include="Utilities\JsonConverters\UnixTimeJsonConverter.cs" />
+    <Compile Include="Utilities\SteamWebRequestParameterExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ErrorMessages.resx">

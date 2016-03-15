@@ -1,7 +1,6 @@
 ﻿using Steam.Models;
 using SteamWebAPI2.Models;
 using SteamWebAPI2.Utilities;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
@@ -27,9 +26,9 @@ namespace SteamWebAPI2.Interfaces
 
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
-            AddToParametersIfHasValue(ugcId, "ugcid", parameters);
-            AddToParametersIfHasValue(appId, "appid", parameters);
-            AddToParametersIfHasValue(steamId, "steamid", parameters);
+            parameters.AddIfHasValue(ugcId, "ugcid");
+            parameters.AddIfHasValue(appId, "appid");
+            parameters.AddIfHasValue(steamId, "steamid");
 
             try
             {

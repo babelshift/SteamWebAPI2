@@ -1,13 +1,14 @@
-﻿using System.Threading.Tasks;
+﻿using Steam.Models.SteamStore;
+using System.Threading.Tasks;
 
 namespace SteamWebAPI2.Interfaces
 {
     internal interface ISteamStore
     {
-        //Task<StoreAppDetailsModel> GetStoreAppDetailsAsync();
+        Task<StoreAppDetailsDataModel> GetStoreAppDetailsAsync(int appId);
 
-        //Task<StoreFeaturedCategoriesModel> GetStoreFeaturedCategoriesAsync();
+        Task<StoreFeaturedCategoriesModel> GetStoreFeaturedCategoriesAsync();
 
-        //Task<StoreFeaturedProductsModel> GetStoreFeaturedProductsAsync();
+        Task<StoreFeaturedProductsModel> GetStoreFeaturedProductsAsync();
     }
 }

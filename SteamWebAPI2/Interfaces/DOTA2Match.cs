@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Linq;
+using SteamWebAPI2.Utilities;
 
 namespace SteamWebAPI2.Interfaces
 {
@@ -35,10 +36,10 @@ namespace SteamWebAPI2.Interfaces
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
-            AddToParametersIfHasValue(leagueId, "league_id", parameters);
-            AddToParametersIfHasValue(matchId, "match_id", parameters);
+            parameters.AddIfHasValue(leagueId, "league_id");
+            parameters.AddIfHasValue(matchId, "match_id");
 
-            var liveLeagueGames = await CallMethodAsync<LiveLeagueGameResultContainer>("GetLiveLeagueGames", 1, parameters);
+            var liveLeagueGames = await CallMethodAsync<LiveLeagueGameResultContainer>("GetLiveLeagueGames", 1);
 
             var liveLeagueGamesModel = AutoMapperConfiguration.Mapper.Map<IList<LiveLeagueGame>, IList<LiveLeagueGameModel>>(liveLeagueGames.Result.Games);
 
@@ -49,9 +50,9 @@ namespace SteamWebAPI2.Interfaces
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
-            AddToParametersIfHasValue(matchId, "match_id", parameters);
+            parameters.AddIfHasValue(matchId, "match_id");
 
-            var matchDetail = await CallMethodAsync<MatchDetailResultContainer>("GetMatchDetails", 1, parameters);
+            var matchDetail = await CallMethodAsync<MatchDetailResultContainer>("GetMatchDetails", 1);
 
             var matchDetailModel = AutoMapperConfiguration.Mapper.Map<MatchDetailResult, MatchDetailModel>(matchDetail.Result);
 
@@ -64,15 +65,15 @@ namespace SteamWebAPI2.Interfaces
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
-            AddToParametersIfHasValue(heroId, "hero_id", parameters);
-            AddToParametersIfHasValue(gameMode, "game_mode", parameters);
-            AddToParametersIfHasValue(skill, "skill", parameters);
-            AddToParametersIfHasValue(minPlayers, "min_players", parameters);
-            AddToParametersIfHasValue(accountId, "account_id", parameters);
-            AddToParametersIfHasValue(leagueId, "league_id", parameters);
-            AddToParametersIfHasValue(startAtMatchId, "start_at_match_id", parameters);
-            AddToParametersIfHasValue(matchesRequested, "matches_requested", parameters);
-            AddToParametersIfHasValue(tournamentGamesOnly, "tournament_games_only", parameters);
+            parameters.AddIfHasValue(heroId, "hero_id");
+            parameters.AddIfHasValue(gameMode, "game_mode");
+            parameters.AddIfHasValue(skill, "skill");
+            parameters.AddIfHasValue(minPlayers, "min_players");
+            parameters.AddIfHasValue(accountId, "account_id");
+            parameters.AddIfHasValue(leagueId, "league_id");
+            parameters.AddIfHasValue(startAtMatchId, "start_at_match_id");
+            parameters.AddIfHasValue(matchesRequested, "matches_requested");
+            parameters.AddIfHasValue(tournamentGamesOnly, "tournament_games_only");
 
             var matchHistory = await CallMethodAsync<MatchHistoryResultContainer>("GetMatchHistory", 1, parameters);
 
@@ -85,8 +86,8 @@ namespace SteamWebAPI2.Interfaces
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
-            AddToParametersIfHasValue(startAtMatchSequenceNumber, "start_at_match_seq_num", parameters);
-            AddToParametersIfHasValue(matchesRequested, "matches_requested", parameters);
+            parameters.AddIfHasValue(startAtMatchSequenceNumber, "start_at_match_seq_num");
+            parameters.AddIfHasValue(matchesRequested, "matches_requested");
 
             var matchHistory = await CallMethodAsync<MatchHistoryBySequenceNumberResultContainer>("GetMatchHistoryBySequenceNum", 1, parameters);
 
@@ -99,8 +100,8 @@ namespace SteamWebAPI2.Interfaces
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
-            AddToParametersIfHasValue(startAtTeamId, "start_at_team_id", parameters);
-            AddToParametersIfHasValue(teamsRequested, "teams_requested", parameters);
+            parameters.AddIfHasValue(startAtTeamId, "start_at_team_id");
+            parameters.AddIfHasValue(teamsRequested, "teams_requested");
 
             var teamInfos = await CallMethodAsync<TeamInfoResultContainer>("GetTeamInfoByTeamID", 1, parameters);
 

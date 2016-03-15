@@ -3,6 +3,7 @@ using SteamWebAPI2.Models;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using SteamWebAPI2.Utilities;
 
 namespace SteamWebAPI2.Interfaces
 {
@@ -24,8 +25,8 @@ namespace SteamWebAPI2.Interfaces
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
-            AddToParametersIfHasValue(appId, "appid", parameters);
-            AddToParametersIfHasValue(version, "version", parameters);
+            parameters.AddIfHasValue(appId, "appid");
+            parameters.AddIfHasValue(version, "version");
 
             var upToDateCheckResult = await CallMethodAsync<SteamAppUpToDateCheckResultContainer>("UpToDateCheck", 1, parameters);
             var upToDateCheckModel = AutoMapperConfiguration.Mapper.Map<SteamAppUpToDateCheckResult, SteamAppUpToDateCheckModel>(upToDateCheckResult.Result);

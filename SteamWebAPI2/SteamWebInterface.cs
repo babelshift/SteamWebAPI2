@@ -71,55 +71,7 @@ namespace SteamWebAPI2
             Debug.Assert(!String.IsNullOrEmpty(methodName));
             Debug.Assert(version > 0);
 
-            return await steamWebRequest.SendWebRequestAsync<T>(interfaceName, methodName, version, parameters);
+            return await steamWebRequest.SendWebRequestAsync<T>(interfaceName, methodName, version);
         }
-
-        #region Helpers
-
-        /// <summary>
-        /// Checks if the passed nullable value has a value. If it does, it is appended to the parameter list as a key/value pair with "name" as the key.
-        /// </summary>
-        /// <typeparam name="T">Type of the value to check</typeparam>
-        /// <param name="value">Nullable value to check</param>
-        /// <param name="name">Name of the key that will be used if the value is appended to the parameter list</param>
-        /// <param name="parameters">List of web request parameters that will be used in the building of the request URL</param>
-        internal void AddToParametersIfHasValue<T>(T? value, string name, IList<SteamWebRequestParameter> parameters) where T : struct
-        {
-            if (value.HasValue)
-            {
-                parameters.Add(new SteamWebRequestParameter(name, value.Value.ToString()));
-            }
-        }
-
-        /// <summary>
-        /// Checks if the passed value is not null. If it is not null, it is appended to the parameter list as a key/value pair with "name" as the key.
-        /// </summary>
-        /// <typeparam name="T">Type of the value to check</typeparam>
-        /// <param name="value">Value to check</param>
-        /// <param name="name">Name of the key that will be used if the value is appended to the parameter list</param>
-        /// <param name="parameters">List of web request parameters that will be used in the building of the request URL</param>
-        internal void AddToParametersIfHasValue<T>(T value, string name, IList<SteamWebRequestParameter> parameters)
-        {
-            if (value != null)
-            {
-                parameters.Add(new SteamWebRequestParameter(name, value.ToString()));
-            }
-        }
-
-        /// <summary>
-        /// Checks if the passed string value is not null or empty. If it is not null or empty, it is appended to the parameter list as a key/value pair with "name" as the key.
-        /// </summary>
-        /// <param name="value">Value to check</param>
-        /// <param name="name">Name of the key that will be used if the value is appended to the parameter list</param>
-        /// <param name="parameters">List of web request parameters that will be used in the building of the request URL</param>
-        internal void AddToParametersIfHasValue(string value, string name, IList<SteamWebRequestParameter> parameters)
-        {
-            if (!String.IsNullOrEmpty(value))
-            {
-                parameters.Add(new SteamWebRequestParameter(name, value));
-            }
-        }
-
-        #endregion Helpers
     }
 }

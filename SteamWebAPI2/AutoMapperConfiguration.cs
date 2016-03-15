@@ -6,6 +6,7 @@ using Steam.Models.GameEconomy;
 using Steam.Models.SteamCommunity;
 using Steam.Models.SteamEconomy;
 using Steam.Models.SteamPlayer;
+using Steam.Models.SteamStore;
 using Steam.Models.TF2;
 using SteamWebAPI2.Models;
 using SteamWebAPI2.Models.CSGO;
@@ -14,6 +15,7 @@ using SteamWebAPI2.Models.GameEconomy;
 using SteamWebAPI2.Models.SteamCommunity;
 using SteamWebAPI2.Models.SteamEconomy;
 using SteamWebAPI2.Models.SteamPlayer;
+using SteamWebAPI2.Models.SteamStore;
 using SteamWebAPI2.Models.TF2;
 
 namespace SteamWebAPI2
@@ -178,6 +180,10 @@ namespace SteamWebAPI2
                     x.CreateMap<LiveLeagueGamePick, LiveLeagueGamePickModel>();
                     x.CreateMap<LiveLeagueGameTeamRadiantDetail, LiveLeagueGameTeamRadiantDetailModel>();
                     x.CreateMap<LiveLeagueGamePlayerDetail, LiveLeagueGamePlayerDetailModel>();
+
+                    x.CreateMap<Data, StoreAppDetailsDataModel>();
+                    x.CreateMap<FeaturedCategoriesContainer, StoreFeaturedCategoriesModel>();
+                    x.CreateMap<FeaturedProductsContainer, StoreFeaturedProductsModel>();
                 });
             }
 

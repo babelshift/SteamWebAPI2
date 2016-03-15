@@ -117,6 +117,9 @@
     <Compile Include="..\SteamWebAPI2\Interfaces\ISteamRemoteStorage.cs">
       <Link>Interfaces\ISteamRemoteStorage.cs</Link>
     </Compile>
+    <Compile Include="..\SteamWebAPI2\Interfaces\ISteamStore.cs">
+      <Link>Interfaces\ISteamStore.cs</Link>
+    </Compile>
     <Compile Include="..\SteamWebAPI2\Interfaces\ISteamUser.cs">
       <Link>Interfaces\ISteamUser.cs</Link>
     </Compile>
@@ -143,6 +146,9 @@
     </Compile>
     <Compile Include="..\SteamWebAPI2\Interfaces\SteamRemoteStorage.cs">
       <Link>Interfaces\SteamRemoteStorage.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Interfaces\SteamStore.cs">
+      <Link>Interfaces\SteamStore.cs</Link>
     </Compile>
     <Compile Include="..\SteamWebAPI2\Interfaces\SteamUser.cs">
       <Link>Interfaces\SteamUser.cs</Link>
@@ -306,6 +312,12 @@
     <Compile Include="..\SteamWebAPI2\Models\UserStatsForGameResultContainer.cs">
       <Link>Models\UserStatsForGameResultContainer.cs</Link>
     </Compile>
+    <Compile Include="..\SteamWebAPI2\SteamStoreInterface.cs">
+      <Link>SteamStoreInterface.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\SteamStoreRequest.cs">
+      <Link>SteamStoreRequest.cs</Link>
+    </Compile>
     <Compile Include="..\SteamWebAPI2\SteamWebInterface.cs">
       <Link>SteamWebInterface.cs</Link>
     </Compile>
@@ -332,6 +344,9 @@
     </Compile>
     <Compile Include="..\SteamWebAPI2\Utilities\JsonConverters\UnixTimeJsonConverter.cs">
       <Link>Utilities\JsonConverters\UnixTimeJsonConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Utilities\SteamWebRequestParameterExtensions.cs">
+      <Link>Utilities\SteamWebRequestParameterExtensions.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
