@@ -339,6 +339,9 @@
     <Compile Include="..\SteamWebAPI2\Utilities\JsonConverters\GlobalStatJsonConverter.cs">
       <Link>Utilities\JsonConverters\GlobalStatJsonConverter.cs</Link>
     </Compile>
+    <Compile Include="..\SteamWebAPI2\Utilities\JsonConverters\StoreAppDetailsContainerJsonConverter.cs">
+      <Link>Utilities\JsonConverters\StoreAppDetailsContainerJsonConverter.cs</Link>
+    </Compile>
     <Compile Include="..\SteamWebAPI2\Utilities\JsonConverters\TeamInfoJsonConverter.cs">
       <Link>Utilities\JsonConverters\TeamInfoJsonConverter.cs</Link>
     </Compile>

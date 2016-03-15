@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using SteamWebAPI2.Utilities.JsonConverters;
 
 namespace SteamWebAPI2.Models.SteamStore
 {
@@ -263,6 +264,7 @@ namespace SteamWebAPI2.Models.SteamStore
         public string Background { get; set; }
     }
 
+    [JsonConverter(typeof(StoreAppDetailsContainerJsonConverter))]
     internal class AppDetailsContainer
     {
         [JsonProperty("success")]

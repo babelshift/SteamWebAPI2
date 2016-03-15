@@ -156,6 +156,7 @@
     <Compile Include="Utilities\JsonConverters\AssetClassInfoJsonConverter.cs" />
     <Compile Include="Utilities\JsonConverters\CSGODataCenterJsonConverter.cs" />
     <Compile Include="Utilities\JsonConverters\GlobalStatJsonConverter.cs" />
+    <Compile Include="Utilities\JsonConverters\StoreAppDetailsContainerJsonConverter.cs" />
     <Compile Include="Utilities\JsonConverters\TeamInfoJsonConverter.cs" />
     <Compile Include="Utilities\JsonConverters\UnixTimeJsonConverter.cs" />
     <Compile Include="Utilities\SteamWebRequestParameterExtensions.cs" />

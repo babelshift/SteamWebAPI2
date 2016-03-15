@@ -1,4 +1,5 @@
 ﻿using Steam.Models.SteamStore;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace SteamWebAPI2.Interfaces

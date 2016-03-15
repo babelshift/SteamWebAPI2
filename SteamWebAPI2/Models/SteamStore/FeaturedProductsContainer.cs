@@ -20,7 +20,7 @@ namespace SteamWebAPI2.Models.SteamStore
         public int DiscountPercent { get; set; }
 
         [JsonProperty("original_price")]
-        public int OriginalPrice { get; set; }
+        public int? OriginalPrice { get; set; }
 
         [JsonProperty("final_price")]
         public int FinalPrice { get; set; }

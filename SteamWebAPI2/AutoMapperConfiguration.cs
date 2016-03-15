@@ -182,8 +182,36 @@ namespace SteamWebAPI2
                     x.CreateMap<LiveLeagueGamePlayerDetail, LiveLeagueGamePlayerDetailModel>();
 
                     x.CreateMap<Data, StoreAppDetailsDataModel>();
+                    x.CreateMap<SupportInfo, StoreSupportInfoModel>();
+                    x.CreateMap<ReleaseDate, StoreReleaseDateModel>();
+                    x.CreateMap<Recommendations, StoreRecommendationsModel>();
+                    x.CreateMap<Movie, StoreMovieModel>();
+                    x.CreateMap<Webm, StoreWebmModel>();
+                    x.CreateMap<Screenshot, StoreScreenshotModel>();
+                    x.CreateMap<Genre, StoreGenreModel>();
+                    x.CreateMap<Category, StoreCategoryModel>();
+                    x.CreateMap<Metacritic, StoreMetacriticModel>();
+                    x.CreateMap<Platforms, StorePlatformsModel>();
+                    x.CreateMap<PackageGroup, StorePackageGroupModel>();
+                    x.CreateMap<Sub, StoreSubModel>();
+                    x.CreateMap<LinuxRequirements, StoreLinuxRequirementsModel>();
+                    x.CreateMap<MacRequirements, StoreMacRequirementsModel>();
+                    x.CreateMap<PcRequirements, StorePcRequirementsModel>();
+
                     x.CreateMap<FeaturedCategoriesContainer, StoreFeaturedCategoriesModel>();
+                    x.CreateMap<TrailerSlideshow, StoreTrailerSlideshowModel>();
+                    x.CreateMap<Genres, StoreFeaturedCategoryGenreModel>();
+                    x.CreateMap<NewReleases, StoreNewReleasesModel>();
+                    x.CreateMap<TopSellers, StoreTopSellersModel>();
+                    x.CreateMap<ComingSoon, StoreComingSoonModel>();
+                    x.CreateMap<Specials, StoreSpecialsModel>();
+                    x.CreateMap<Item, StoreItemModel>();
+
                     x.CreateMap<FeaturedProductsContainer, StoreFeaturedProductsModel>();
+                    x.CreateMap<FeaturedLinux, StoreFeaturedLinuxModel>();
+                    x.CreateMap<FeaturedMac, StoreFeaturedMacModel>();
+                    x.CreateMap<FeaturedWin, StoreFeaturedWinModel>();
+                    x.CreateMap<LargeCapsule, StoreLargeCapsuleModel>();
                 });
             }
 
