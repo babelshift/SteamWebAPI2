@@ -138,7 +138,7 @@ namespace SteamWebAPI2.Interfaces
         /// </summary>
         /// <param name="language"></param>
         /// <returns></returns>
-        public async Task<IReadOnlyCollection<RarityModel>> GetRaritiesAsync(string language = "")
+        public async Task<IReadOnlyCollection<RarityModel>> GetRaritiesAsync(string language = "en_us")
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 

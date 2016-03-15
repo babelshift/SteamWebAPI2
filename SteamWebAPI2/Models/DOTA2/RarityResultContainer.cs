@@ -8,6 +8,7 @@ namespace SteamWebAPI2.Models.DOTA2
         public int Id { get; set; }
         public int Order { get; set; }
         public string Color { get; set; }
+        public string LocalizedName { get; set; }
     }
 
     internal class RarityResult

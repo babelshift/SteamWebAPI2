@@ -39,8 +39,8 @@
       <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Steam.Models, Version=1.0.0.28, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Steam.Models.1.0.0.28\lib\net452\Steam.Models.dll</HintPath>
+    <Reference Include="Steam.Models, Version=1.0.0.30, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Steam.Models.1.0.0.30\lib\net452\Steam.Models.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />

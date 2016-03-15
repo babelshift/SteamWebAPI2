@@ -71,7 +71,7 @@ namespace SteamWebAPI2.Interfaces
             return econItemResultModel;
         }
 
-        public async Task<SchemaModel> GetSchemaAsync(string language = "")
+        public async Task<SchemaModel> GetSchemaAsync(string language = "en_us")
         {
             if (!validSchemaAppIds.Contains(appId))
             {

@@ -10,6 +10,9 @@ namespace SteamWebAPI2.Models.SteamPlayer
 
         [JsonProperty("achieved")]
         public int Achieved { get; set; }
+
+        public string Name { get; set; }
+        public string Description { get; set; }
     }
 
     internal class PlayerAchievementResult

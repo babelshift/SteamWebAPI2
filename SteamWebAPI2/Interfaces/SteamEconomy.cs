@@ -14,11 +14,12 @@ namespace SteamWebAPI2.Interfaces
         {
         }
 
-        public async Task<AssetClassInfoResultModel> GetAssetClassInfoAsync(int appId, IReadOnlyList<long> classIds)
+        public async Task<AssetClassInfoResultModel> GetAssetClassInfoAsync(int appId, IReadOnlyList<long> classIds, string language = "en_us")
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
             parameters.AddIfHasValue(appId, "appid");
+            parameters.AddIfHasValue(language, "language");
             parameters.AddIfHasValue(classIds.Count, "class_count");
 
             for (int i = 0; i < classIds.Count; i++)
@@ -33,7 +34,7 @@ namespace SteamWebAPI2.Interfaces
             return assetClassInfoResultModel;
         }
 
-        public async Task<AssetPriceResultModel> GetAssetPricesAsync(int appId, string currency = "", string language = "")
+        public async Task<AssetPriceResultModel> GetAssetPricesAsync(int appId, string currency = "", string language = "en_us")
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 

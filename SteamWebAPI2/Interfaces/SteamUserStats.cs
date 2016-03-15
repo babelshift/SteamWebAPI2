@@ -70,7 +70,7 @@ namespace SteamWebAPI2.Interfaces
             return globalStatsResult.Result.PlayerCount;
         }
 
-        public async Task<PlayerAchievementResultModel> GetPlayerAchievementsAsync(int appId, long steamId, string language = "")
+        public async Task<PlayerAchievementResultModel> GetPlayerAchievementsAsync(int appId, long steamId, string language = "en_us")
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
             parameters.AddIfHasValue(appId, "appid");
