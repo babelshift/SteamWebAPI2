@@ -20,8 +20,9 @@ namespace SteamWebAPI2.Interfaces
         public async Task<PlayerSummaryModel> GetPlayerSummaryAsync(long steamId)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
-            var playerSummary = await CallMethodAsync<PlayerSummaryResultContainer>("GetPlayerSummaries", 2, parameters);
             parameters.AddIfHasValue(steamId, "steamids");
+
+            var playerSummary = await CallMethodAsync<PlayerSummaryResultContainer>("GetPlayerSummaries", 2, parameters);
 
             if (playerSummary.Result.Players != null && playerSummary.Result.Players.Count > 0)
             {
@@ -37,9 +38,10 @@ namespace SteamWebAPI2.Interfaces
         public async Task<IReadOnlyCollection<FriendModel>> GetFriendsListAsync(long steamId, string relationship = "")
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
-            var friendsListResult = await CallMethodAsync<FriendsListResultContainer>("GetFriendList", 1, parameters);
             parameters.AddIfHasValue(steamId, "steamid");
             parameters.AddIfHasValue(relationship, "relationship");
+
+            var friendsListResult = await CallMethodAsync<FriendsListResultContainer>("GetFriendList", 1, parameters);
 
             var friendsListModel = AutoMapperConfiguration.Mapper.Map<IList<Friend>, IList<FriendModel>>(friendsListResult.Result.Friends);
 
