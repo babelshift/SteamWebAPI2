@@ -255,6 +255,9 @@
     <Compile Include="..\SteamWebAPI2\Models\SteamCommunity\ResolveVanityUrlResultContainer.cs">
       <Link>Models\SteamCommunity\ResolveVanityUrlResultContainer.cs</Link>
     </Compile>
+    <Compile Include="..\SteamWebAPI2\Models\SteamCommunity\SteamCommunityProfile.cs">
+      <Link>Models\SteamCommunity\SteamCommunityProfile.cs</Link>
+    </Compile>
     <Compile Include="..\SteamWebAPI2\Models\SteamCommunity\SteamLevelResultContainer.cs">
       <Link>Models\SteamCommunity\SteamLevelResultContainer.cs</Link>
     </Compile>

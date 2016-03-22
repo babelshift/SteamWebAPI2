@@ -39,12 +39,13 @@
       <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Steam.Models, Version=1.0.0.30, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Steam.Models.1.0.0.30\lib\net451\Steam.Models.dll</HintPath>
+    <Reference Include="Steam.Models, Version=1.0.0.34, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Steam.Models.1.0.0.34\lib\net451\Steam.Models.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -262,6 +263,9 @@
     </Compile>
     <Compile Include="..\SteamWebAPI2\Models\SteamCommunity\ResolveVanityUrlResultContainer.cs">
       <Link>Models\SteamCommunity\ResolveVanityUrlResultContainer.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Models\SteamCommunity\SteamCommunityProfile.cs">
+      <Link>Models\SteamCommunity\SteamCommunityProfile.cs</Link>
     </Compile>
     <Compile Include="..\SteamWebAPI2\Models\SteamCommunity\SteamLevelResultContainer.cs">
       <Link>Models\SteamCommunity\SteamLevelResultContainer.cs</Link>

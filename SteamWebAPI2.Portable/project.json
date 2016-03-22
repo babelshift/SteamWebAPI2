@@ -8,7 +8,8 @@
     "Microsoft.NETCore": "5.0.0",
     "Microsoft.NETCore.Portable.Compatibility": "1.0.0",
     "Newtonsoft.Json": "8.0.3",
-    "Steam.Models": "1.0.0.30"
+    "Steam.Models": "1.0.0.33",
+    "System.Runtime.Serialization.Primitives": "4.0.10"
   },
   "frameworks": {
     "dotnet": {

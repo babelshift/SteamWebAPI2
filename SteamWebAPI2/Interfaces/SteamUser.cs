@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 using System.Linq;
 using SteamWebAPI2.Exceptions;
 using SteamWebAPI2.Utilities;
+using System.Net.Http;
+using System.IO;
+using System.Runtime.Serialization;
 
 namespace SteamWebAPI2.Interfaces
 {
@@ -96,6 +99,30 @@ namespace SteamWebAPI2.Interfaces
             }
 
             return vanityUrlResultContainer.Result.SteamId;
+        }
+
+        public async Task<SteamCommunityProfileModel> GetCommunityProfileAsync(long steamId)
+        {
+            HttpClient httpClient = new HttpClient();
+            string xml = await httpClient.GetStringAsync(String.Format("http://steamcommunity.com/profiles/{0}?xml=1", steamId));
+
+            var profile = DeserializeXML<SteamCommunityProfile>(xml);
+
+            var profileModel = AutoMapperConfiguration.Mapper.Map<SteamCommunityProfile, SteamCommunityProfileModel>(profile);
+
+            return profileModel;
+        }
+
+        private static T DeserializeXML<T>(string xml)
+        {
+            using (Stream stream = new MemoryStream())
+            {
+                byte[] data = System.Text.Encoding.UTF8.GetBytes(xml);
+                stream.Write(data, 0, data.Length);
+                stream.Position = 0;
+                DataContractSerializer deserializer = new DataContractSerializer(typeof(T));
+                return (T)deserializer.ReadObject(stream);
+            }
         }
     }
 }

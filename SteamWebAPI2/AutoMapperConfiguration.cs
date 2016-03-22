@@ -17,6 +17,7 @@ using SteamWebAPI2.Models.SteamEconomy;
 using SteamWebAPI2.Models.SteamPlayer;
 using SteamWebAPI2.Models.SteamStore;
 using SteamWebAPI2.Models.TF2;
+using System;
 
 namespace SteamWebAPI2
 {
@@ -25,7 +26,7 @@ namespace SteamWebAPI2
         private static MapperConfiguration config;
         private static IMapper mapper;
 
-        public static IMapper Mapper {  get { return mapper; } }
+        public static IMapper Mapper { get { return mapper; } }
 
         public static void Initialize()
         {
@@ -215,6 +216,36 @@ namespace SteamWebAPI2
                     x.CreateMap<FeaturedMac, StoreFeaturedMacModel>();
                     x.CreateMap<FeaturedWin, StoreFeaturedWinModel>();
                     x.CreateMap<LargeCapsule, StoreLargeCapsuleModel>();
+
+                    x.CreateMap<ProfileMostPlayedGame, SteamCommunityProfileMostPlayedGameModel>()
+                        .ForMember(dest => dest.Link, opts => opts.MapFrom(source => new Uri(source.GameLink)))
+                        .ForMember(dest => dest.Icon, opts => opts.MapFrom(source => new Uri(source.GameIcon)))
+                        .ForMember(dest => dest.Logo, opts => opts.MapFrom(source => new Uri(source.GameLogo)))
+                        .ForMember(dest => dest.LogoSmall, opts => opts.MapFrom(source => new Uri(source.GameLogoSmall)))
+                        .ForMember(dest => dest.Name, opts => opts.MapFrom(source => source.GameName))
+                        .ForMember(dest => dest.HoursOnRecord, opts => opts.MapFrom(source => !String.IsNullOrEmpty(source.HoursOnRecord) ? double.Parse(source.HoursOnRecord) : 0d))
+                        .ForMember(dest => dest.HoursPlayed, opts => opts.MapFrom(source => (double)source.HoursPlayed))
+                        .ForMember(dest => dest.StatsName, opts => opts.MapFrom(source => source.StatsName));
+
+                    x.CreateMap<SteamCommunityProfile, SteamCommunityProfileModel>()
+                        .ForMember(dest => dest.AvatarFull, opts => opts.MapFrom(source => new Uri(source.AvatarFull)))
+                        .ForMember(dest => dest.Avatar, opts => opts.MapFrom(source => new Uri(source.AvatarIcon)))
+                        .ForMember(dest => dest.AvatarMedium, opts => opts.MapFrom(source => new Uri(source.AvatarMedium)))
+                        .ForMember(dest => dest.CustomURL, opts => opts.MapFrom(source => source.CustomURL))
+                        .ForMember(dest => dest.MostPlayedGames, opts => opts.MapFrom(source => source.MostPlayedGames))
+                        .ForMember(dest => dest.Headline, opts => opts.MapFrom(source => source.Headline))
+                        .ForMember(dest => dest.HoursPlayedLastTwoWeeks, opts => opts.MapFrom(source => source.HoursPlayed2Wk))
+                        .ForMember(dest => dest.IsLimitedAccount, opts => opts.MapFrom(source => source.IsLimitedAccount == 1 ? true : false))
+                        .ForMember(dest => dest.Location, opts => opts.MapFrom(source => source.Location))
+                        .ForMember(dest => dest.MemberSince, opts => opts.MapFrom(source => source.MemberSince))
+                        .ForMember(dest => dest.State, opts => opts.MapFrom(source => source.OnlineState))
+                        .ForMember(dest => dest.StateMessage, opts => opts.MapFrom(source => source.StateMessage))
+                        .ForMember(dest => dest.SteamID, opts => opts.MapFrom(source => source.SteamID64))
+                        .ForMember(dest => dest.SteamRating, opts => opts.MapFrom(source => !String.IsNullOrEmpty(source.SteamRating) ? double.Parse(source.SteamRating) : 0d))
+                        .ForMember(dest => dest.Summary, opts => opts.MapFrom(source => source.Summary))
+                        .ForMember(dest => dest.TradeBanState, opts => opts.MapFrom(source => source.TradeBanState))
+                        .ForMember(dest => dest.IsVacBanned, opts => opts.MapFrom(source => source.VacBanned == 1 ? true : false))
+                        .ForMember(dest => dest.VisibilityState, opts => opts.MapFrom(source => source.VisibilityState));
                 });
             }
 

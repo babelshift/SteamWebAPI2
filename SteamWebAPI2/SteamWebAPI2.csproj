@@ -38,13 +38,14 @@
       <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Steam.Models, Version=1.0.0.30, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Steam.Models.1.0.0.30\lib\net46\Steam.Models.dll</HintPath>
+    <Reference Include="Steam.Models, Version=1.0.0.34, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Steam.Models.1.0.0.34\lib\net46\Steam.Models.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -126,6 +127,7 @@
     <Compile Include="Models\SteamCommunity\GlobalStatsForGameResultContainer.cs" />
     <Compile Include="Models\SteamCommunity\PlayerSummaryResultContainer.cs" />
     <Compile Include="Models\SteamCommunity\ResolveVanityUrlResultContainer.cs" />
+    <Compile Include="Models\SteamCommunity\SteamCommunityProfile.cs" />
     <Compile Include="Models\SteamCommunity\SteamLevelResultContainer.cs" />
     <Compile Include="Models\SteamCommunity\UserGroupListResultContainer.cs" />
     <Compile Include="Models\SteamEconomy\AssetClassInfoResultContainer.cs" />
@@ -159,6 +161,7 @@
     <Compile Include="Utilities\JsonConverters\StoreAppDetailsContainerJsonConverter.cs" />
     <Compile Include="Utilities\JsonConverters\TeamInfoJsonConverter.cs" />
     <Compile Include="Utilities\JsonConverters\UnixTimeJsonConverter.cs" />
+    <Compile Include="Utilities\ParseHelpers.cs" />
     <Compile Include="Utilities\SteamWebRequestParameterExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
