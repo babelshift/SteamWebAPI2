@@ -161,7 +161,6 @@
     <Compile Include="Utilities\JsonConverters\StoreAppDetailsContainerJsonConverter.cs" />
     <Compile Include="Utilities\JsonConverters\TeamInfoJsonConverter.cs" />
     <Compile Include="Utilities\JsonConverters\UnixTimeJsonConverter.cs" />
-    <Compile Include="Utilities\ParseHelpers.cs" />
     <Compile Include="Utilities\SteamWebRequestParameterExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
