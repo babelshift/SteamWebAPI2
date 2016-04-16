@@ -86,7 +86,7 @@ namespace SteamWebAPI2.Interfaces
             return matchHistoryModel;
         }
 
-        public async Task<IReadOnlyCollection<MatchHistoryMatchModel>> GetMatchHistoryBySequenceNumberAsync(long? startAtMatchSequenceNumber = null, int? matchesRequested = null)
+        public async Task<IReadOnlyCollection<MatchHistoryBySequenceNumberMatchModel>> GetMatchHistoryBySequenceNumberAsync(long? startAtMatchSequenceNumber = null, int? matchesRequested = null)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
@@ -95,9 +95,10 @@ namespace SteamWebAPI2.Interfaces
 
             var matchHistory = await CallMethodAsync<MatchHistoryBySequenceNumberResultContainer>("GetMatchHistoryBySequenceNum", 1, parameters);
 
-            var matchHistoryModel = AutoMapperConfiguration.Mapper.Map<MatchHistoryBySequenceNumberResult, MatchHistoryModel>(matchHistory.Result);
-            
-            return matchHistoryModel.Matches;
+            var matchHistoryModels = AutoMapperConfiguration.Mapper
+                .Map<IList<MatchHistoryBySequenceNumberMatch>, IList<MatchHistoryBySequenceNumberMatchModel>>(matchHistory.Result.Matches);
+
+            return new ReadOnlyCollection<MatchHistoryBySequenceNumberMatchModel>(matchHistoryModels);
         }
 
         public async Task<IReadOnlyCollection<TeamInfoModel>> GetTeamInfoByTeamIdAsync(long? startAtTeamId = null, int? teamsRequested = null)

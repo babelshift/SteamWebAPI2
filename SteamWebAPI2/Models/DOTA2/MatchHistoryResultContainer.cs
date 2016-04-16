@@ -26,7 +26,7 @@ namespace SteamWebAPI2.Models.DOTA2
         [JsonProperty(PropertyName = "dire_team_id")]
         public int DireTeamId { get; set; }
 
-        public List<MatchHistoryPlayer> Players { get; set; }
+        public IList<MatchHistoryPlayer> Players { get; set; }
     }
 
     internal class MatchHistoryPlayer

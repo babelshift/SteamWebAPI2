@@ -163,6 +163,10 @@ namespace SteamWebAPI2
                     x.CreateMap<MatchHistoryPlayer, MatchHistoryPlayerModel>();
                     x.CreateMap<MatchHistoryResult, MatchHistoryModel>();
 
+                    x.CreateMap<MatchHistoryBySequenceNumberMatch, MatchHistoryBySequenceNumberMatchModel>();
+                    x.CreateMap<MatchHistoryBySequenceNumberMatchPlayer, MatchHistoryBySequenceNumberMatchPlayerModel>();
+                    x.CreateMap<MatchHistoryBySequenceNumberMatchPlayerAbilityUpgrade, MatchHistoryBySequenceNumberMatchPlayerAbilityUpgradeModel>();
+
                     x.CreateMap<TeamInfo, TeamInfoModel>();
 
                     x.CreateMap<EconItemResult, EconItemResultModel>();
