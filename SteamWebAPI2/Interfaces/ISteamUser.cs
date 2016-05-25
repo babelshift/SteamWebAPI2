@@ -1,5 +1,4 @@
 ﻿using Steam.Models.SteamCommunity;
-using SteamWebAPI2.Models.SteamCommunity;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -14,6 +13,8 @@ namespace SteamWebAPI2.Interfaces
         Task<IReadOnlyCollection<PlayerBansModel>> GetPlayerBansAsync(IReadOnlyCollection<long> steamIds);
 
         Task<PlayerSummaryModel> GetPlayerSummaryAsync(long steamId);
+
+        Task<List<PlayerSummaryModel>> GetPlayerSummariesAsync(List<long> steamIds);
 
         Task<IReadOnlyCollection<long>> GetUserGroupsAsync(long steamId);
 
