@@ -157,7 +157,7 @@ namespace SteamWebAPI2.Models.SteamCommunity
         public string AvatarFull { get; set; }
 
         [DataMember(Name = "memberCount", Order = 8)]
-        public ushort MemberCount { get; set; }
+        public uint MemberCount { get; set; }
         
         public bool MemberCountSpecified { get; set; }
 
