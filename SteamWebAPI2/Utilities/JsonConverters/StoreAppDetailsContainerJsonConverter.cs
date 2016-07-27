@@ -31,8 +31,13 @@ namespace SteamWebAPI2.Utilities.JsonConverters
 
             foreach (var x in o)
             {
+				// Edit by Jir : Previously returning Data; should return the correct object AppDetailsContainer instead. Sorry for ugly code
                 var data = x.Value["data"].ToObject<Data>();
-                return data;
+                var success = x.Value["success"].ToObject<bool>();
+                AppDetailsContainer appDetailsContainer = new AppDetailsContainer{ Data = data, Success = success };
+                return appDetailsContainer;
+				
+				// return data; 
             }
 
             return null;
