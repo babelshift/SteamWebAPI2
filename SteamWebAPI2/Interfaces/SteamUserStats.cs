@@ -22,7 +22,9 @@ namespace SteamWebAPI2.Interfaces
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
             parameters.AddIfHasValue(appId, "gameid");
-            var achievementPercentagesResult = await CallMethodAsync<GlobalAchievementPercentagesResultContainer>("GetGlobalAchievementPercentagesForApp", 2);
+
+            // Edit by Jir : No parameters was passed in to CallMethodAsync; added in Parameters now.
+            var achievementPercentagesResult = await CallMethodAsync<GlobalAchievementPercentagesResultContainer>("GetGlobalAchievementPercentagesForApp", 2, parameters);
 
             var achievementPercentagesResultModel = AutoMapperConfiguration.Mapper.Map<IList<GlobalAchievementPercentage>, IList<GlobalAchievementPercentageModel>>(achievementPercentagesResult.Result.AchievementPercentages);
 
@@ -55,7 +57,8 @@ namespace SteamWebAPI2.Interfaces
                 parameters.AddIfHasValue(statNames[i], String.Format("name[{0}]", i));
             }
 
-            var globalStatsResult = await CallMethodAsync<GlobalStatsForGameResultContainer>("GetGlobalStatsForGame", 1);
+            // Edit by Jir : No parameters was passed in to CallMethodAsync; adding in parameters.
+            var globalStatsResult = await CallMethodAsync<GlobalStatsForGameResultContainer>("GetGlobalStatsForGame", 1 ,parameters);
             
             var globalStatsModel = AutoMapperConfiguration.Mapper.Map<IList<GlobalStat>, IList<GlobalStatModel>>(globalStatsResult.Result.GlobalStats);
 
@@ -65,8 +68,11 @@ namespace SteamWebAPI2.Interfaces
         public async Task<int> GetNumberOfCurrentPlayersForGameAsync(int appId)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
-            var globalStatsResult = await CallMethodAsync<CurrentPlayersResultContainer>("GetNumberOfCurrentPlayers", 1, parameters);
+
+            // Edit by Jir : Moved parameter before Web Request
             parameters.AddIfHasValue(appId, "appid");
+            var globalStatsResult = await CallMethodAsync<CurrentPlayersResultContainer>("GetNumberOfCurrentPlayers", 1, parameters);
+            
             return globalStatsResult.Result.PlayerCount;
         }
 
