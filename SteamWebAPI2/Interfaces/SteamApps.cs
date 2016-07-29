@@ -14,6 +14,10 @@ namespace SteamWebAPI2.Interfaces
         {
         }
 
+        /// <summary>
+        /// Returns a list of all Steam Apps.
+        /// </summary>
+        /// <returns></returns>
         public async Task<IReadOnlyCollection<SteamAppModel>> GetAppListAsync()
         {
             var steamAppList = await CallMethodAsync<SteamAppListResultContainer>("GetAppList", 2);
@@ -21,6 +25,12 @@ namespace SteamWebAPI2.Interfaces
             return new ReadOnlyCollection<SteamAppModel>(steamAppModels);
         }
 
+        /// <summary>
+        /// Checks if a specific version of a specific Steam App is up to date with the Steam servers.
+        /// </summary>
+        /// <param name="appId"></param>
+        /// <param name="version"></param>
+        /// <returns></returns>
         public async Task<SteamAppUpToDateCheckModel> UpToDateCheckAsync(int appId, int version)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();

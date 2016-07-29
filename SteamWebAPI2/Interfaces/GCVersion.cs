@@ -41,6 +41,10 @@ namespace SteamWebAPI2.Interfaces
             validServerVersionAppIds.Add(730);
         }
 
+        /// <summary>
+        /// Returns the most recent client version number based on a specific App ID.
+        /// </summary>
+        /// <returns></returns>
         public async Task<GameClientResultModel> GetClientVersionAsync()
         {
             if (!validClientVersionAppIds.Contains(appId))
@@ -55,6 +59,10 @@ namespace SteamWebAPI2.Interfaces
             return clientVersionModel;
         }
 
+        /// <summary>
+        /// Returns the most recent server version number based on a specific App ID.
+        /// </summary>
+        /// <returns></returns>
         public async Task<GameClientResultModel> GetServerVersionAsync()
         {
             if (!validServerVersionAppIds.Contains(appId))

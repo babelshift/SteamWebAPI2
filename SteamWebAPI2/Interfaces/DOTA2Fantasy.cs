@@ -13,6 +13,11 @@ namespace SteamWebAPI2.Interfaces
             : base(steamWebApiKey, "IDOTA2Fantasy_570")
         { }
 
+        /// <summary>
+        /// Returns some official / league information for a Dota 2 player for fantasy sports purposes.
+        /// </summary>
+        /// <param name="steamId"></param>
+        /// <returns></returns>
         public async Task<PlayerOfficialInfoModel> GetPlayerOfficialInfo(long steamId)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
@@ -32,6 +37,10 @@ namespace SteamWebAPI2.Interfaces
             return playerOfficialInfoModel;
         }
 
+        /// <summary>
+        /// Returns a collection of all professional players registered in professional Dota 2 leagues.
+        /// </summary>
+        /// <returns></returns>
         public async Task<ProPlayerDetailModel> GetProPlayerList()
         {
             var proPlayerList = await CallMethodAsync<ProPlayerListResultContainer>("GetProPlayerList", 1);

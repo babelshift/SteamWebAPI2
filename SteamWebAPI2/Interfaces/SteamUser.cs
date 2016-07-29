@@ -20,6 +20,11 @@ namespace SteamWebAPI2.Interfaces
             : base(steamWebApiKey, "ISteamUser")
         { }
 
+        /// <summary>
+        /// Returns a summary of some player and Steam User information such as their Steam Profile data.
+        /// </summary>
+        /// <param name="steamId"></param>
+        /// <returns></returns>
         public async Task<PlayerSummaryModel> GetPlayerSummaryAsync(long steamId)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
@@ -38,6 +43,12 @@ namespace SteamWebAPI2.Interfaces
             }
         }
 
+        /// <summary>
+        /// Returns a collection of a specific Steam User's friends list.
+        /// </summary>
+        /// <param name="steamId"></param>
+        /// <param name="relationship"></param>
+        /// <returns></returns>
         public async Task<IReadOnlyCollection<FriendModel>> GetFriendsListAsync(long steamId, string relationship = "")
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
@@ -51,12 +62,22 @@ namespace SteamWebAPI2.Interfaces
             return new ReadOnlyCollection<FriendModel>(friendsListModel);
         }
 
+        /// <summary>
+        /// Returns a collection of a specific Steam User's VAC bans.
+        /// </summary>
+        /// <param name="steamId"></param>
+        /// <returns></returns>
         public async Task<IReadOnlyCollection<PlayerBansModel>> GetPlayerBansAsync(long steamId)
         {
             var result = await GetPlayerBansAsync(new List<long>() { steamId });
             return result;
         }
 
+        /// <summary>
+        /// Returns a collection of a collection of Steam User's VAC bans.
+        /// </summary>
+        /// <param name="steamIds"></param>
+        /// <returns></returns>
         public async Task<IReadOnlyCollection<PlayerBansModel>> GetPlayerBansAsync(IReadOnlyCollection<long> steamIds)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
@@ -70,6 +91,11 @@ namespace SteamWebAPI2.Interfaces
             return new ReadOnlyCollection<PlayerBansModel>(playerBansModel);
         }
 
+        /// <summary>
+        /// Returns a collection of a specific Steam User's community groups.
+        /// </summary>
+        /// <param name="steamId"></param>
+        /// <returns></returns>
         public async Task<IReadOnlyCollection<long>> GetUserGroupsAsync(long steamId)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
@@ -84,6 +110,12 @@ namespace SteamWebAPI2.Interfaces
                 .AsReadOnly();
         }
 
+        /// <summary>
+        /// Returns the 64-bit Steam ID of a Steam User based on their "Vanity URL" (which is their custom community profile name).
+        /// </summary>
+        /// <param name="vanityUrl"></param>
+        /// <param name="urlType"></param>
+        /// <returns></returns>
         public async Task<ulong> ResolveVanityUrlAsync(string vanityUrl, int? urlType = null)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
@@ -101,6 +133,11 @@ namespace SteamWebAPI2.Interfaces
             return vanityUrlResultContainer.Result.SteamId;
         }
 
+        /// <summary>
+        /// Returns a community profile data based on parsing the XML of a Steam User's Community Profile.
+        /// </summary>
+        /// <param name="steamId"></param>
+        /// <returns></returns>
         public async Task<SteamCommunityProfileModel> GetCommunityProfileAsync(long steamId)
         {
             HttpClient httpClient = new HttpClient();

@@ -16,6 +16,12 @@ namespace SteamWebAPI2.Interfaces
         {
         }
 
+        /// <summary>
+        /// Returns a message which indicates if a player is playing a shared game (from their shared Steam library).
+        /// </summary>
+        /// <param name="steamId"></param>
+        /// <param name="appId"></param>
+        /// <returns></returns>
         public async Task<string> IsPlayingSharedGameAsync(long steamId, int appId)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
@@ -25,6 +31,12 @@ namespace SteamWebAPI2.Interfaces
             return playingSharedGameResult.Result.LenderSteamId;
         }
 
+        /// <summary>
+        /// Returns a collection of badge meta data which indicates the progress towards a badge for a specific user.
+        /// </summary>
+        /// <param name="steamId"></param>
+        /// <param name="badgeId"></param>
+        /// <returns></returns>
         public async Task<IReadOnlyCollection<BadgeQuestModel>> GetCommunityBadgeProgressAsync(long steamId, int? badgeId = null)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
@@ -35,6 +47,11 @@ namespace SteamWebAPI2.Interfaces
             return new ReadOnlyCollection<BadgeQuestModel>(badgeProgressModels);
         }
 
+        /// <summary>
+        /// Returns a collection of all badges that a user has interacted with on Steam.
+        /// </summary>
+        /// <param name="steamId"></param>
+        /// <returns></returns>
         public async Task<BadgesResultModel> GetBadgesAsync(long steamId)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
@@ -44,6 +61,11 @@ namespace SteamWebAPI2.Interfaces
             return badgesResultModel;
         }
 
+        /// <summary>
+        /// Returns the Steam Level of a specific Steam User.
+        /// </summary>
+        /// <param name="steamId"></param>
+        /// <returns></returns>
         public async Task<int> GetSteamLevelAsync(long steamId)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
@@ -52,6 +74,14 @@ namespace SteamWebAPI2.Interfaces
             return steamLevelResult.Result.PlayerLevel;
         }
 
+        /// <summary>
+        /// Returns a collection of games and game meta data that are owned by a specific Steam User.
+        /// </summary>
+        /// <param name="steamId"></param>
+        /// <param name="includeAppInfo"></param>
+        /// <param name="includeFreeGames"></param>
+        /// <param name="appIdsToFilter"></param>
+        /// <returns></returns>
         public async Task<OwnedGamesResultModel> GetOwnedGamesAsync(long steamId, bool? includeAppInfo = null, bool? includeFreeGames = null, IReadOnlyCollection<int> appIdsToFilter = null)
         {
             int? includeAppInfoBit = 0;
@@ -90,6 +120,11 @@ namespace SteamWebAPI2.Interfaces
             return ownedGamesResultModel;
         }
 
+        /// <summary>
+        /// Returns a collection of recently played games and game meta data by a specific Steam User.
+        /// </summary>
+        /// <param name="steamId"></param>
+        /// <returns></returns>
         public async Task<RecentlyPlayedGamesResultModel> GetRecentlyPlayedGamesAsync(long steamId)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();

@@ -18,12 +18,16 @@ namespace SteamWebAPI2.Interfaces
             : base(steamWebApiKey, "ISteamUserStats")
         { }
 
+        /// <summary>
+        /// Returns a collection of global achievement progress for a specific Steam App.
+        /// </summary>
+        /// <param name="appId"></param>
+        /// <returns></returns>
         public async Task<IReadOnlyCollection<GlobalAchievementPercentageModel>> GetGlobalAchievementPercentagesForAppAsync(int appId)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
             parameters.AddIfHasValue(appId, "gameid");
 
-            // Edit by Jir : No parameters was passed in to CallMethodAsync; added in Parameters now.
             var achievementPercentagesResult = await CallMethodAsync<GlobalAchievementPercentagesResultContainer>("GetGlobalAchievementPercentagesForApp", 2, parameters);
 
             var achievementPercentagesResultModel = AutoMapperConfiguration.Mapper.Map<IList<GlobalAchievementPercentage>, IList<GlobalAchievementPercentageModel>>(achievementPercentagesResult.Result.AchievementPercentages);
@@ -31,6 +35,14 @@ namespace SteamWebAPI2.Interfaces
             return new ReadOnlyCollection<GlobalAchievementPercentageModel>(achievementPercentagesResultModel);
         }
 
+        /// <summary>
+        /// Returns a collection of global statistics for a specific Steam App.
+        /// </summary>
+        /// <param name="appId"></param>
+        /// <param name="statNames"></param>
+        /// <param name="startDate"></param>
+        /// <param name="endDate"></param>
+        /// <returns></returns>
         public async Task<IReadOnlyCollection<GlobalStatModel>> GetGlobalStatsForGameAsync(int appId, IReadOnlyList<string> statNames, DateTime? startDate = null, DateTime? endDate = null)
         {
             long? startDateUnixTimeStamp = null;
@@ -57,25 +69,35 @@ namespace SteamWebAPI2.Interfaces
                 parameters.AddIfHasValue(statNames[i], String.Format("name[{0}]", i));
             }
 
-            // Edit by Jir : No parameters was passed in to CallMethodAsync; adding in parameters.
-            var globalStatsResult = await CallMethodAsync<GlobalStatsForGameResultContainer>("GetGlobalStatsForGame", 1 ,parameters);
-            
+            var globalStatsResult = await CallMethodAsync<GlobalStatsForGameResultContainer>("GetGlobalStatsForGame", 1, parameters);
+
             var globalStatsModel = AutoMapperConfiguration.Mapper.Map<IList<GlobalStat>, IList<GlobalStatModel>>(globalStatsResult.Result.GlobalStats);
 
             return new ReadOnlyCollection<GlobalStatModel>(globalStatsModel);
         }
 
+        /// <summary>
+        /// Returns the number of current players on Steam for a specific Steam App.
+        /// </summary>
+        /// <param name="appId"></param>
+        /// <returns></returns>
         public async Task<int> GetNumberOfCurrentPlayersForGameAsync(int appId)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
-
-            // Edit by Jir : Moved parameter before Web Request
             parameters.AddIfHasValue(appId, "appid");
+
             var globalStatsResult = await CallMethodAsync<CurrentPlayersResultContainer>("GetNumberOfCurrentPlayers", 1, parameters);
-            
+
             return globalStatsResult.Result.PlayerCount;
         }
 
+        /// <summary>
+        /// Returns a specific Steam User's achievements for a specific Steam App.
+        /// </summary>
+        /// <param name="appId"></param>
+        /// <param name="steamId"></param>
+        /// <param name="language"></param>
+        /// <returns></returns>
         public async Task<PlayerAchievementResultModel> GetPlayerAchievementsAsync(int appId, long steamId, string language = "en_us")
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
@@ -90,6 +112,12 @@ namespace SteamWebAPI2.Interfaces
             return playerStatsResultModel;
         }
 
+        /// <summary>
+        /// Returns game version, achievements, and stats overviews for a specific Steam App.
+        /// </summary>
+        /// <param name="appId"></param>
+        /// <param name="language"></param>
+        /// <returns></returns>
         public async Task<SchemaForGameResultModel> GetSchemaForGameAsync(int appId, string language = "")
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
@@ -103,6 +131,12 @@ namespace SteamWebAPI2.Interfaces
             return schemaForGameResultModel;
         }
 
+        /// <summary>
+        /// Returns a specific Steam User's achievement and stats for a specific Steam App.
+        /// </summary>
+        /// <param name="steamId"></param>
+        /// <param name="appId"></param>
+        /// <returns></returns>
         public async Task<UserStatsForGameResultModel> GetUserStatsForGameAsync(long steamId, int appId)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();

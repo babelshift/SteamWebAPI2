@@ -58,6 +58,11 @@ namespace SteamWebAPI2.Interfaces
             validStoreStatusAppIds.Add(440);
         }
 
+        /// <summary>
+        /// Returns all player earned Steam items for a specific Steam user.
+        /// </summary>
+        /// <param name="steamId"></param>
+        /// <returns></returns>
         public async Task<EconItemResultModel> GetPlayerItemsAsync(long steamId)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
@@ -71,6 +76,11 @@ namespace SteamWebAPI2.Interfaces
             return econItemResultModel;
         }
 
+        /// <summary>
+        /// Returns the economy / item schema for a specific App ID.
+        /// </summary>
+        /// <param name="language"></param>
+        /// <returns></returns>
         public async Task<SchemaModel> GetSchemaAsync(string language = "en_us")
         {
             if (!validSchemaAppIds.Contains(appId))
@@ -89,6 +99,10 @@ namespace SteamWebAPI2.Interfaces
             return schemaModel;
         }
 
+        /// <summary>
+        /// Returns a URL which can be used to access the economy / item schema for a specific App ID.
+        /// </summary>
+        /// <returns></returns>
         public async Task<string> GetSchemaUrlAsync()
         {
             if (!validSchemaUrlAppIds.Contains(appId))
@@ -101,6 +115,11 @@ namespace SteamWebAPI2.Interfaces
             return schemaUrlResult.Result.ItemsGameUrl;
         }
 
+        /// <summary>
+        /// Returns some store meta data for a specific App ID such as banner placement, image placement, drop down behaviors, and more. This seems to drive the game's store pages.
+        /// </summary>
+        /// <param name="language"></param>
+        /// <returns></returns>
         public async Task<StoreMetaDataModel> GetStoreMetaDataAsync(string language = "")
         {
             if (!validStoreMetaDataAppIds.Contains(appId))
@@ -119,6 +138,10 @@ namespace SteamWebAPI2.Interfaces
             return storeMetaDataModel;
         }
 
+        /// <summary>
+        /// Returns a status indicator of the current status of a specific App ID.
+        /// </summary>
+        /// <returns></returns>
         public async Task<int> GetStoreStatusAsync()
         {
             if (!validStoreStatusAppIds.Contains(appId))

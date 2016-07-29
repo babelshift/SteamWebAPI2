@@ -13,6 +13,10 @@ namespace SteamWebAPI2.Interfaces
         {
         }
 
+        /// <summary>
+        /// Returns a collection of golden wrench and their collection details.
+        /// </summary>
+        /// <returns></returns>
         public async Task<IReadOnlyCollection<GoldenWrenchModel>> GetGoldenWrenchesAsync()
         {
             var goldenWrenchesResult = await CallMethodAsync<GoldenWrenchResultContainer>("GetGoldenWrenches", 2);

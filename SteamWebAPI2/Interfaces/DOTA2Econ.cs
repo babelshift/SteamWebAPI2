@@ -41,55 +41,6 @@ namespace SteamWebAPI2.Interfaces
         }
 
         /// <summary>
-        /// Some items have an incorrect id in the schema file. This method returns the corrected id based on the wrong id and the item name.
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        private static int GetCorrectedId(int id, string name)
-        {
-            // iron talon
-            if (id == 239 && name == "item_iron_talon")
-            {
-                return 273;
-            }
-            // aether lens
-            else if (id == 232 && name == "item_aether_lens")
-            {
-                return 1028;
-            }
-            // faerie fire
-            else if (id == 237 && name == "item_faerie_fire")
-            {
-                return 1023;
-            }
-            // dragon lance
-            else if (id == 236 && name == "item_dragon_lance")
-            {
-                return 1025;
-            }
-            // recipe: iron talon
-            else if (id == 238 && name == "item_recipe_iron_talon")
-            {
-                return 272;
-            }
-            // recipe: aether lens
-            else if (id == 233 && name == "item_recipe_aether_lens")
-            {
-                return 1027;
-            }
-            // recipe: dragon lance
-            else if (id == 234 && name == "item_dragon_lance")
-            {
-                return 1024;
-            }
-            else
-            {
-                return id;
-            }
-        }
-
-        /// <summary>
         /// Returns a collection of heroes and basic hero data.
         /// </summary>
         /// <param name="language"></param>

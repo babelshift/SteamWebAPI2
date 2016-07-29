@@ -15,6 +15,13 @@ namespace SteamWebAPI2.Interfaces
         {
         }
 
+        /// <summary>
+        /// Returns information about how to download a user generated content based on a UGC ID, App ID, and Steam ID.
+        /// </summary>
+        /// <param name="ugcId"></param>
+        /// <param name="appId"></param>
+        /// <param name="steamId"></param>
+        /// <returns></returns>
         public async Task<UGCFileDetailsModel> GetUGCFileDetailsAsync(long ugcId, int appId, long? steamId = null)
         {
             Debug.Assert(appId > 0);

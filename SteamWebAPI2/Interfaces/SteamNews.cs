@@ -14,6 +14,14 @@ namespace SteamWebAPI2.Interfaces
         {
         }
 
+        /// <summary>
+        /// Returns the news related to a specific app. This is similar to subscribing to various Valve RSS feeds.
+        /// </summary>
+        /// <param name="appId"></param>
+        /// <param name="maxLength"></param>
+        /// <param name="endDate"></param>
+        /// <param name="count"></param>
+        /// <returns></returns>
         public async Task<SteamNewsResultModel> GetNewsForAppAsync(int appId, int? maxLength = null, DateTime? endDate = null, int? count = null)
         {
             long? endDateUnixTimeStamp = null;

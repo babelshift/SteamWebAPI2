@@ -28,6 +28,9 @@ namespace SteamWebAPI2.Models.SteamPlayer
 
         [JsonProperty("success")]
         public bool Success { get; set; }
+
+        [JsonProperty("error")]
+        public string ErrorMessage { get; set; }
     }
 
     internal class PlayerAchievementResultContainer

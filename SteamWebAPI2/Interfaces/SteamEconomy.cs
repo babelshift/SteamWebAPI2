@@ -13,7 +13,14 @@ namespace SteamWebAPI2.Interfaces
             : base(steamWebApiKey, "ISteamEconomy")
         {
         }
-
+        
+        /// <summary>
+        /// Returns some economic meta data regarding item qualities, levels, rarities, and more.
+        /// </summary>
+        /// <param name="appId"></param>
+        /// <param name="classIds"></param>
+        /// <param name="language"></param>
+        /// <returns></returns>
         public async Task<AssetClassInfoResultModel> GetAssetClassInfoAsync(int appId, IReadOnlyList<long> classIds, string language = "en_us")
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
@@ -34,6 +41,13 @@ namespace SteamWebAPI2.Interfaces
             return assetClassInfoResultModel;
         }
 
+        /// <summary>
+        /// Returns economic asset prices.
+        /// </summary>
+        /// <param name="appId"></param>
+        /// <param name="currency"></param>
+        /// <param name="language"></param>
+        /// <returns></returns>
         public async Task<AssetPriceResultModel> GetAssetPricesAsync(int appId, string currency = "", string language = "en_us")
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
