@@ -43,6 +43,20 @@ namespace SteamWebAPI2.Interfaces
             }
         }
 
+        public async Task<List<PlayerSummaryModel>> GetPlayerSummariesAsync(List<long> steamIds)
+        {
+            // convert steam ids to a csv for the api
+            var steamIdsCsv = string.Join(",", steamIds.Select(x => x.ToString()).ToArray());
+            var parameters = new List<SteamWebRequestParameter>();
+            parameters.AddIfHasValue(steamIdsCsv, "steamids");
+
+            var playerSummaries = await CallMethodAsync<PlayerSummaryResultContainer>("GetPlayerSummaries", 2, parameters);
+            if (playerSummaries.Result.Players != null && playerSummaries.Result.Players.Count > 0)
+                return playerSummaries.Result.Players.Select(player => AutoMapperConfiguration.Mapper.Map<PlayerSummary, PlayerSummaryModel>(player)).ToList();
+
+            return null;
+        }
+
         /// <summary>
         /// Returns a collection of a specific Steam User's friends list.
         /// </summary>

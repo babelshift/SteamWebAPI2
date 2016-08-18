@@ -12,6 +12,10 @@ namespace SteamWebAPI2.Interfaces
             : base(steamWebApiKey, "ISteamWebAPIUtil")
         { }
 
+        /// <summary>
+        /// Returns the Steam Servers' known dates and times.
+        /// </summary>
+        /// <returns></returns>
         public async Task<SteamServerInfoModel> GetServerInfoAsync()
         {
             var steamServerInfo = await CallMethodAsync<SteamServerInfo>("GetServerInfo", 1);
@@ -21,6 +25,10 @@ namespace SteamWebAPI2.Interfaces
             return steamServerInfoModel;
         }
 
+        /// <summary>
+        /// Returns a collection of data related to all available supported Steam Web API endpoints.
+        /// </summary>
+        /// <returns></returns>
         public async Task<IReadOnlyCollection<SteamInterfaceModel>> GetSupportedAPIListAsync()
         {
             var steamApiListContainer = await CallMethodAsync<SteamApiListContainer>("GetSupportedAPIList", 1);
