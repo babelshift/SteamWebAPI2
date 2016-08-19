@@ -13,6 +13,9 @@
     <releaseNotes>See release notes at Project URL.</releaseNotes>
     <copyright>Copyright 2015</copyright>
     <tags>steam webapi json community</tags>
+    <dependencies>
+      <dependency id="AutoMapper" version="4.2.1" />
+    </dependencies>
   </metadata>
   <files>
     <file src="..\bin\Release\net451\SteamWebAPI2.pdb" target="lib\net451\SteamWebAPI2.pdb"/>
@@ -23,7 +26,4 @@
 	
     <file src="..\bin\Release\net46\SteamWebAPI2.pdb" target="lib\net46\SteamWebAPI2.pdb"/>
   </files>
-  <dependencies>
-    <dependency id="AutoMapper" version="4.2.1" />
-  </dependencies>
 </package>
