@@ -23,4 +23,7 @@
 	
     <file src="..\bin\Release\net46\SteamWebAPI2.pdb" target="lib\net46\SteamWebAPI2.pdb"/>
   </files>
+  <dependencies>
+    <dependency id="AutoMapper" version="4.2.1" />
+  </dependencies>
 </package>
