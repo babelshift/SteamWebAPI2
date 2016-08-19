@@ -14,7 +14,7 @@
     <copyright>Copyright 2015</copyright>
     <tags>steam webapi json community</tags>
     <dependencies>
-      <dependency id="AutoMapper" version="4.2.1" />
+      <dependency id="AutoMapper" version="[4.2.1]" />
     </dependencies>
   </metadata>
   <files>
