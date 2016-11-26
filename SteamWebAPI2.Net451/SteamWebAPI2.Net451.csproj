@@ -132,6 +132,9 @@
     <Compile Include="..\SteamWebAPI2\Interfaces\ISteamUser.cs">
       <Link>Interfaces\ISteamUser.cs</Link>
     </Compile>
+    <Compile Include="..\SteamWebAPI2\Interfaces\ISteamUserAuth.cs">
+      <Link>Interfaces\ISteamUserAuth.cs</Link>
+    </Compile>
     <Compile Include="..\SteamWebAPI2\Interfaces\ISteamUserStats.cs">
       <Link>Interfaces\ISteamUserStats.cs</Link>
     </Compile>
@@ -161,6 +164,9 @@
     </Compile>
     <Compile Include="..\SteamWebAPI2\Interfaces\SteamUser.cs">
       <Link>Interfaces\SteamUser.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Interfaces\SteamUserAuth.cs">
+      <Link>Interfaces\SteamUserAuth.cs</Link>
     </Compile>
     <Compile Include="..\SteamWebAPI2\Interfaces\SteamUserStats.cs">
       <Link>Interfaces\SteamUserStats.cs</Link>

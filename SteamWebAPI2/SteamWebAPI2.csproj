@@ -84,6 +84,7 @@
     <Compile Include="Interfaces\ISteamRemoteStorage.cs" />
     <Compile Include="Interfaces\ISteamStore.cs" />
     <Compile Include="Interfaces\ISteamUser.cs" />
+    <Compile Include="Interfaces\ISteamUserAuth.cs" />
     <Compile Include="Interfaces\ISteamUserStats.cs" />
     <Compile Include="Interfaces\ISteamWebAPIUtil.cs" />
     <Compile Include="Interfaces\ITFItems.cs" />
@@ -94,6 +95,7 @@
     <Compile Include="Interfaces\SteamNews.cs" />
     <Compile Include="Interfaces\SteamStore.cs" />
     <Compile Include="Interfaces\SteamUser.cs" />
+    <Compile Include="Interfaces\SteamUserAuth.cs" />
     <Compile Include="Interfaces\SteamUserStats.cs" />
     <Compile Include="Interfaces\SteamWebAPIUtil.cs" />
     <Compile Include="Models\CSGO\ServerStatusResultContainer.cs" />
