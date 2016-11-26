@@ -49,7 +49,7 @@ namespace SteamWebAPI2.Models.SteamCommunity
         public string CustomURL { get; set; }
 
         [DataMember(Name = "inGameServerIP", Order = 13)]
-        public object InGameServerIP { get; set; }
+        public string InGameServerIP { get; set; }
 
         [DataMember(Name = "inGameInfo", Order = 14)]
         public ProfileInGameInfo InGameInfo { get; set; }
