@@ -217,6 +217,13 @@ namespace SteamWebAPI2
                     x.CreateMap<FeaturedWin, StoreFeaturedWinModel>();
                     x.CreateMap<LargeCapsule, StoreLargeCapsuleModel>();
 
+                    x.CreateMap<ProfileInGameInfo, InGameInfoModel>()
+                        .ForMember(dest => dest.GameIcon, opts => opts.MapFrom(source => source.GameIcon))
+                        .ForMember(dest => dest.GameLink, opts => opts.MapFrom(source => source.GameLink))
+                        .ForMember(dest => dest.GameLogo, opts => opts.MapFrom(source => source.GameLogo))
+                        .ForMember(dest => dest.GameLogoSmall, opts => opts.MapFrom(source => source.GameLogoSmall))
+                        .ForMember(dest => dest.GameName, opts => opts.MapFrom(source => source.GameName));
+
                     x.CreateMap<ProfileMostPlayedGame, SteamCommunityProfileMostPlayedGameModel>()
                         .ForMember(dest => dest.Link, opts => opts.MapFrom(source => new Uri(source.GameLink)))
                         .ForMember(dest => dest.Icon, opts => opts.MapFrom(source => new Uri(source.GameIcon)))
@@ -245,7 +252,9 @@ namespace SteamWebAPI2
                         .ForMember(dest => dest.Summary, opts => opts.MapFrom(source => source.Summary))
                         .ForMember(dest => dest.TradeBanState, opts => opts.MapFrom(source => source.TradeBanState))
                         .ForMember(dest => dest.IsVacBanned, opts => opts.MapFrom(source => source.VacBanned == 1 ? true : false))
-                        .ForMember(dest => dest.VisibilityState, opts => opts.MapFrom(source => source.VisibilityState));
+                        .ForMember(dest => dest.VisibilityState, opts => opts.MapFrom(source => source.VisibilityState))
+                        .ForMember(dest => dest.InGameServerIP, opts => opts.MapFrom(source => source.InGameServerIP))
+                        .ForMember(dest => dest.InGameInfo, opts => opts.MapFrom(source => source.InGameInfo));
                 });
             }
 
