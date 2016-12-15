@@ -14,7 +14,7 @@ namespace SteamWebAPI2.Models.DOTA2
         public int TeamId { get; set; }
 
         [JsonProperty(PropertyName = "team_logo")]
-        public long TeamLogo { get; set; }
+        public ulong TeamLogo { get; set; }
 
         public bool Complete { get; set; }
     }
@@ -47,7 +47,7 @@ namespace SteamWebAPI2.Models.DOTA2
         public int TeamId { get; set; }
 
         [JsonProperty(PropertyName = "team_logo")]
-        public long TeamLogo { get; set; }
+        public ulong TeamLogo { get; set; }
 
         public bool Complete { get; set; }
     }
