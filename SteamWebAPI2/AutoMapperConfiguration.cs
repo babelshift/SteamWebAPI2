@@ -37,7 +37,28 @@ namespace SteamWebAPI2
                     x.CreateMap<Hero, HeroModel>();
                     x.CreateMap<GameItem, GameItemModel>();
 
-                    x.CreateMap<SchemaResult, SchemaModel>();
+                    x.CreateMap<SchemaResult, Steam.Models.TF2.SchemaModel>();
+                    x.CreateMap<SchemaQualities, Steam.Models.TF2.SchemaQualitiesModel>();
+                    x.CreateMap<SchemaOriginName, Steam.Models.TF2.SchemaOriginNameModel>();
+                    x.CreateMap<SchemaItem, Steam.Models.TF2.SchemaItemModel>();
+                    x.CreateMap<SchemaCapabilities, Steam.Models.TF2.SchemaCapabilitiesModel>();
+                    x.CreateMap<SchemaStyle, Steam.Models.TF2.SchemaStyleModel>();
+                    x.CreateMap<SchemaAdditionalHiddenBodygroups, Steam.Models.TF2.SchemaAdditionalHiddenBodygroupsModel>();
+                    x.CreateMap<SchemaItemAttribute, Steam.Models.TF2.SchemaItemAttributeModel>();
+                    x.CreateMap<SchemaPerClassLoadoutSlots, Steam.Models.TF2.SchemaPerClassLoadoutSlotsModel>();
+                    x.CreateMap<SchemaTool, Steam.Models.TF2.SchemaToolModel>();
+                    x.CreateMap<SchemaUsageCapabilities, Steam.Models.TF2.SchemaUsageCapabilitiesModel>();
+                    x.CreateMap<SchemaAttribute, Steam.Models.TF2.SchemaAttributeModel>();
+                    x.CreateMap<SchemaItemSet, Steam.Models.TF2.SchemaItemSetModel>();
+                    x.CreateMap<SchemaItemSetAttribute, Steam.Models.TF2.SchemaItemSetAttributeModel>();
+                    x.CreateMap<SchemaAttributeControlledAttachedParticle, Steam.Models.TF2.SchemaAttributeControlledAttachedParticleModel>();
+                    x.CreateMap<SchemaItemLevel, Steam.Models.TF2.SchemaItemLevelModel>();
+                    x.CreateMap<SchemaLevel, Steam.Models.TF2.SchemaLevelModel>();
+                    x.CreateMap<SchemaKillEaterScoreType, Steam.Models.TF2.SchemaKillEaterScoreTypeModel>();
+                    x.CreateMap<SchemaStringLookup, Steam.Models.TF2.SchemaStringLookupModel>();
+                    x.CreateMap<SchemaString, Steam.Models.TF2.SchemaStringModel>();
+
+                    x.CreateMap<SchemaResult, Steam.Models.DOTA2.SchemaModel>();
                     //x.CreateMap<SchemaAdditionalHiddenBodygroups, SchemaAdditionalHiddenBodygroupsModel>();
                     //x.CreateMap<SchemaAttributeControlledAttachedParticle, SchemaAttributeControlledAttachedParticleModel>();
                     //x.CreateMap<SchemaAttribute, SchemaAttributeModel>();

@@ -1,5 +1,4 @@
-﻿using Steam.Models.DOTA2;
-using Steam.Models.GameEconomy;
+﻿using Steam.Models.GameEconomy;
 using SteamWebAPI2.Models.GameEconomy;
 using System;
 using System.Collections.Generic;
@@ -41,21 +40,21 @@ namespace SteamWebAPI2.Interfaces
 
             this.appId = (int)appId;
 
-            validSchemaAppIds.Add(440);
-            validSchemaAppIds.Add(570);
-            validSchemaAppIds.Add(620);
-            validSchemaAppIds.Add(841);
-            validSchemaAppIds.Add(730);
+            validSchemaAppIds.Add((int)EconItemsAppId.TeamFortress2);
+            validSchemaAppIds.Add((int)EconItemsAppId.Dota2);
+            validSchemaAppIds.Add((int)EconItemsAppId.Portal2);
+            validSchemaAppIds.Add((int)EconItemsAppId.Portal2_Beta);
+            validSchemaAppIds.Add((int)EconItemsAppId.CounterStrikeGO);
 
-            validSchemaUrlAppIds.Add(440);
-            validSchemaUrlAppIds.Add(570);
-            validSchemaUrlAppIds.Add(730);
+            validSchemaUrlAppIds.Add((int)EconItemsAppId.TeamFortress2);
+            validSchemaUrlAppIds.Add((int)EconItemsAppId.Dota2);
+            validSchemaUrlAppIds.Add((int)EconItemsAppId.CounterStrikeGO);
 
-            validStoreMetaDataAppIds.Add(440);
-            validStoreMetaDataAppIds.Add(570);
-            validSchemaUrlAppIds.Add(730);
+            validStoreMetaDataAppIds.Add((int)EconItemsAppId.TeamFortress2);
+            validStoreMetaDataAppIds.Add((int)EconItemsAppId.Dota2);
+            validStoreMetaDataAppIds.Add((int)EconItemsAppId.CounterStrikeGO);
 
-            validStoreStatusAppIds.Add(440);
+            validStoreStatusAppIds.Add((int)EconItemsAppId.TeamFortress2);
         }
 
         /// <summary>
@@ -81,7 +80,7 @@ namespace SteamWebAPI2.Interfaces
         /// </summary>
         /// <param name="language"></param>
         /// <returns></returns>
-        public async Task<SchemaModel> GetSchemaAsync(string language = "en_us")
+        public async Task<Steam.Models.DOTA2.SchemaModel> GetSchemaAsync(string language = "en_us")
         {
             if (!validSchemaAppIds.Contains(appId))
             {
@@ -94,7 +93,30 @@ namespace SteamWebAPI2.Interfaces
 
             var schemaResult = await CallMethodAsync<SchemaResultContainer>("GetSchema", 1, parameters);
 
-            var schemaModel = AutoMapperConfiguration.Mapper.Map<SchemaResult, SchemaModel>(schemaResult.Result);
+            var schemaModel = AutoMapperConfiguration.Mapper.Map<SchemaResult, Steam.Models.DOTA2.SchemaModel>(schemaResult.Result);
+
+            return schemaModel;
+        }
+
+        /// <summary>
+        /// Returns the economy / item schema for a specific App ID.
+        /// </summary>
+        /// <param name="language"></param>
+        /// <returns></returns>
+        public async Task<Steam.Models.TF2.SchemaModel> GetSchemaForTF2Async(string language = "en_us")
+        {
+            if(this.appId != (int)EconItemsAppId.TeamFortress2)
+            {
+                throw new InvalidOperationException(String.Format("AppId {0} is not valid for the GetSchemaTF2 method.", appId));
+            }
+
+            List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
+
+            parameters.AddIfHasValue(language, "language");
+
+            var schemaResult = await CallMethodAsync<SchemaResultContainer>("GetSchema", 1, parameters);
+
+            var schemaModel = AutoMapperConfiguration.Mapper.Map<SchemaResult, Steam.Models.TF2.SchemaModel>(schemaResult.Result);
 
             return schemaModel;
         }
