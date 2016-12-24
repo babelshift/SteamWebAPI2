@@ -18,6 +18,7 @@ using SteamWebAPI2.Models.SteamPlayer;
 using SteamWebAPI2.Models.SteamStore;
 using SteamWebAPI2.Models.TF2;
 using System;
+using SteamWebAPI2.Utilities;
 
 namespace SteamWebAPI2
 {
@@ -276,6 +277,24 @@ namespace SteamWebAPI2
                         .ForMember(dest => dest.VisibilityState, opts => opts.MapFrom(source => source.VisibilityState))
                         .ForMember(dest => dest.InGameServerIP, opts => opts.MapFrom(source => source.InGameServerIP))
                         .ForMember(dest => dest.InGameInfo, opts => opts.MapFrom(source => source.InGameInfo));
+
+                    x.CreateMap<Models.SteamEconomy.TradeStatus, Steam.Models.SteamEconomy.TradeStatus>();
+                    x.CreateMap<Models.SteamEconomy.TradeOfferState, Steam.Models.SteamEconomy.TradeOfferState>();
+                    x.CreateMap<Models.SteamEconomy.TradeOfferConfirmationMethod, Steam.Models.SteamEconomy.TradeOfferConfirmationMethod>();
+                    x.CreateMap<TradeAsset, TradeAssetModel>();
+                    x.CreateMap<TradedAsset, TradedAssetModel>();
+                    x.CreateMap<TradedCurrency, TradedCurrencyModel>();
+                    x.CreateMap<Trade, TradeModel>()
+                        .ForMember(dest => dest.TimeTradeStarted, opts => opts.MapFrom(source => source.TimeTradeStarted.ToDateTime()))
+                        .ForMember(dest => dest.TimeEscrowEnds, opts => opts.MapFrom(source => source.TimeEscrowEnds.ToDateTime()));
+                    x.CreateMap<TradeOffer, TradeOfferModel>()
+                        .ForMember(dest => dest.TimeCreated, opts => opts.MapFrom(source => source.TimeCreated.ToDateTime()))
+                        .ForMember(dest => dest.TimeEscrowEnds, opts => opts.MapFrom(source => source.TimeEscrowEnds.ToDateTime()))
+                        .ForMember(dest => dest.TimeExpiration, opts => opts.MapFrom(source => source.TimeExpiration.ToDateTime()))
+                        .ForMember(dest => dest.TimeUpdated, opts => opts.MapFrom(source => source.TimeUpdated.ToDateTime()));
+                    x.CreateMap<TradeHistoryResult, TradeHistoryModel>();
+                    x.CreateMap<TradeOfferResult, TradeOfferResultModel>();
+                    x.CreateMap<TradeOffersResult, TradeOffersResultModel>();
                 });
             }
 

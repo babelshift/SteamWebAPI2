@@ -39,8 +39,8 @@
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Steam.Models, Version=1.0.0.48, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Steam.Models.1.0.0.48\lib\net451\Steam.Models.dll</HintPath>
+    <Reference Include="Steam.Models, Version=1.0.0.52, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Steam.Models.1.0.0.52\lib\net451\Steam.Models.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -87,6 +87,9 @@
     <Compile Include="..\SteamWebAPI2\Interfaces\EconItems.cs">
       <Link>Interfaces\EconItems.cs</Link>
     </Compile>
+    <Compile Include="..\SteamWebAPI2\Interfaces\EconService.cs">
+      <Link>Interfaces\EconService.cs</Link>
+    </Compile>
     <Compile Include="..\SteamWebAPI2\Interfaces\GCVersion.cs">
       <Link>Interfaces\GCVersion.cs</Link>
     </Compile>
@@ -107,6 +110,9 @@
     </Compile>
     <Compile Include="..\SteamWebAPI2\Interfaces\IEconItems.cs">
       <Link>Interfaces\IEconItems.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Interfaces\IEconService.cs">
+      <Link>Interfaces\IEconService.cs</Link>
     </Compile>
     <Compile Include="..\SteamWebAPI2\Interfaces\IGCVersion.cs">
       <Link>Interfaces\IGCVersion.cs</Link>
@@ -284,6 +290,24 @@
     </Compile>
     <Compile Include="..\SteamWebAPI2\Models\SteamEconomy\AssetPriceResultContainer.cs">
       <Link>Models\SteamEconomy\AssetPriceResultContainer.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Models\SteamEconomy\CancelTradeOfferResultContainer.cs">
+      <Link>Models\SteamEconomy\CancelTradeOfferResultContainer.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Models\SteamEconomy\DeclineTradeOfferResultContainer.cs">
+      <Link>Models\SteamEconomy\DeclineTradeOfferResultContainer.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Models\SteamEconomy\TradeHistoryResultContainer.cs">
+      <Link>Models\SteamEconomy\TradeHistoryResultContainer.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Models\SteamEconomy\TradeOffer.cs">
+      <Link>Models\SteamEconomy\TradeOffer.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Models\SteamEconomy\TradeOfferResultContainer.cs">
+      <Link>Models\SteamEconomy\TradeOfferResultContainer.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Models\SteamEconomy\TradeOffersResultContainer.cs">
+      <Link>Models\SteamEconomy\TradeOffersResultContainer.cs</Link>
     </Compile>
     <Compile Include="..\SteamWebAPI2\Models\SteamId.cs">
       <Link>Models\SteamId.cs</Link>

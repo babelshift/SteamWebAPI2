@@ -38,8 +38,8 @@
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Steam.Models, Version=1.0.0.48, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Steam.Models.1.0.0.48\lib\net46\Steam.Models.dll</HintPath>
+    <Reference Include="Steam.Models, Version=1.0.0.52, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Steam.Models.1.0.0.52\lib\net46\Steam.Models.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -68,6 +68,7 @@
     <Compile Include="Interfaces\DOTA2Fantasy.cs" />
     <Compile Include="Interfaces\DOTA2Match.cs" />
     <Compile Include="Interfaces\DOTA2Ticket.cs" />
+    <Compile Include="Interfaces\EconService.cs" />
     <Compile Include="Interfaces\GCVersion.cs" />
     <Compile Include="Interfaces\EconItems.cs" />
     <Compile Include="Interfaces\ICSGOServers.cs" />
@@ -76,6 +77,7 @@
     <Compile Include="Interfaces\IDOTA2Match.cs" />
     <Compile Include="Interfaces\IDOTA2Ticket.cs" />
     <Compile Include="Interfaces\IEconItems.cs" />
+    <Compile Include="Interfaces\IEconService.cs" />
     <Compile Include="Interfaces\IGCVersion.cs" />
     <Compile Include="Interfaces\IPlayerService.cs" />
     <Compile Include="Interfaces\ISteamApps.cs" />
@@ -134,6 +136,12 @@
     <Compile Include="Models\SteamCommunity\UserGroupListResultContainer.cs" />
     <Compile Include="Models\SteamEconomy\AssetClassInfoResultContainer.cs" />
     <Compile Include="Models\SteamEconomy\AssetPriceResultContainer.cs" />
+    <Compile Include="Models\SteamEconomy\CancelTradeOfferResultContainer.cs" />
+    <Compile Include="Models\SteamEconomy\DeclineTradeOfferResultContainer.cs" />
+    <Compile Include="Models\SteamEconomy\TradeHistoryResultContainer.cs" />
+    <Compile Include="Models\SteamEconomy\TradeOffer.cs" />
+    <Compile Include="Models\SteamEconomy\TradeOfferResultContainer.cs" />
+    <Compile Include="Models\SteamEconomy\TradeOffersResultContainer.cs" />
     <Compile Include="Models\SteamId.cs" />
     <Compile Include="Models\SteamInterface.cs" />
     <Compile Include="Models\SteamNewsResultContainer.cs" />
