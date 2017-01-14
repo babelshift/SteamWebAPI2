@@ -36,8 +36,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Steam.Models, Version=1.0.0.52, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Steam.Models.1.0.0.52\lib\net46\Steam.Models.dll</HintPath>
+    <Reference Include="Steam.Models, Version=1.0.0.53, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Steam.Models.1.0.0.53\lib\net46\Steam.Models.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
