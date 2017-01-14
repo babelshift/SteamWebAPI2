@@ -69,6 +69,7 @@
     <Compile Include="Interfaces\DOTA2Match.cs" />
     <Compile Include="Interfaces\DOTA2Ticket.cs" />
     <Compile Include="Interfaces\EconService.cs" />
+    <Compile Include="Interfaces\GameServersService.cs" />
     <Compile Include="Interfaces\GCVersion.cs" />
     <Compile Include="Interfaces\EconItems.cs" />
     <Compile Include="Interfaces\ICSGOServers.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="Interfaces\IDOTA2Ticket.cs" />
     <Compile Include="Interfaces\IEconItems.cs" />
     <Compile Include="Interfaces\IEconService.cs" />
+    <Compile Include="Interfaces\IGameServersService.cs" />
     <Compile Include="Interfaces\IGCVersion.cs" />
     <Compile Include="Interfaces\IPlayerService.cs" />
     <Compile Include="Interfaces\ISteamApps.cs" />

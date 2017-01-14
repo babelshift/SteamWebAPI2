@@ -34,7 +34,7 @@ namespace SteamWebAPI2.Interfaces
                 parameters.AddIfHasValue(classIds[i], String.Format("classid{0}", i));
             }
 
-            var assetClassInfoResult = await CallMethodAsync<AssetClassInfoResultContainer>("GetAssetClassInfo", 1, parameters);
+            var assetClassInfoResult = await GetAsync<AssetClassInfoResultContainer>("GetAssetClassInfo", 1, parameters);
 
             var assetClassInfoResultModel = AutoMapperConfiguration.Mapper.Map<AssetClassInfoResult, AssetClassInfoResultModel>(assetClassInfoResult.Result);
 
@@ -56,7 +56,7 @@ namespace SteamWebAPI2.Interfaces
             parameters.AddIfHasValue(currency, "currency");
             parameters.AddIfHasValue(language, "language");
 
-            var assetPriceResult = await CallMethodAsync<AssetPriceResultContainer>("GetAssetPrices", 1, parameters);
+            var assetPriceResult = await GetAsync<AssetPriceResultContainer>("GetAssetPrices", 1, parameters);
 
             var assetPriceResultModel = AutoMapperConfiguration.Mapper.Map<AssetPriceResult, AssetPriceResultModel>(assetPriceResult.Result);
 

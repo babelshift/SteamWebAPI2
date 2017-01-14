@@ -68,7 +68,7 @@ namespace SteamWebAPI2.Interfaces
 
             parameters.AddIfHasValue(steamId, "steamid");
 
-            var econItemsResult = await CallMethodAsync<EconItemResultContainer>("GetPlayerItems", 1, parameters);
+            var econItemsResult = await GetAsync<EconItemResultContainer>("GetPlayerItems", 1, parameters);
 
             var econItemResultModel = AutoMapperConfiguration.Mapper.Map<EconItemResult, EconItemResultModel>(econItemsResult.Result);
 
@@ -91,7 +91,7 @@ namespace SteamWebAPI2.Interfaces
 
             parameters.AddIfHasValue(language, "language");
 
-            var schemaResult = await CallMethodAsync<SchemaResultContainer>("GetSchema", 1, parameters);
+            var schemaResult = await GetAsync<SchemaResultContainer>("GetSchema", 1, parameters);
 
             var schemaModel = AutoMapperConfiguration.Mapper.Map<SchemaResult, Steam.Models.DOTA2.SchemaModel>(schemaResult.Result);
 
@@ -114,7 +114,7 @@ namespace SteamWebAPI2.Interfaces
 
             parameters.AddIfHasValue(language, "language");
 
-            var schemaResult = await CallMethodAsync<SchemaResultContainer>("GetSchema", 1, parameters);
+            var schemaResult = await GetAsync<SchemaResultContainer>("GetSchema", 1, parameters);
 
             var schemaModel = AutoMapperConfiguration.Mapper.Map<SchemaResult, Steam.Models.TF2.SchemaModel>(schemaResult.Result);
 
@@ -132,7 +132,7 @@ namespace SteamWebAPI2.Interfaces
                 throw new InvalidOperationException(String.Format("AppId {0} is not valid for the GetSchemaUrl method.", appId));
             }
 
-            var schemaUrlResult = await CallMethodAsync<SchemaUrlResultContainer>("GetSchemaURL", 1);
+            var schemaUrlResult = await GetAsync<SchemaUrlResultContainer>("GetSchemaURL", 1);
 
             return schemaUrlResult.Result.ItemsGameUrl;
         }
@@ -153,7 +153,7 @@ namespace SteamWebAPI2.Interfaces
 
             parameters.AddIfHasValue(language, "language");
 
-            var storeMetaDataResult = await CallMethodAsync<StoreMetaDataResultContainer>("GetStoreMetaData", 1, parameters);
+            var storeMetaDataResult = await GetAsync<StoreMetaDataResultContainer>("GetStoreMetaData", 1, parameters);
 
             var storeMetaDataModel = AutoMapperConfiguration.Mapper.Map<StoreMetaDataResult, StoreMetaDataModel>(storeMetaDataResult.Result);
 
@@ -171,7 +171,7 @@ namespace SteamWebAPI2.Interfaces
                 throw new InvalidOperationException(String.Format("AppId {0} is not valid for the GetStoreStatus method.", appId));
             }
 
-            var storeStatusResult = await CallMethodAsync<StoreStatusResultContainer>("GetStoreStatus", 1);
+            var storeStatusResult = await GetAsync<StoreStatusResultContainer>("GetStoreStatus", 1);
 
             return storeStatusResult.Result.StoreStatus;
         }

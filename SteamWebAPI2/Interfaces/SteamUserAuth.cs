@@ -22,7 +22,7 @@ namespace SteamWebAPI2.Interfaces
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
             parameters.AddIfHasValue(appId, "appid");
             parameters.AddIfHasValue(ticket, "ticket");
-            var playingSharedGameResult = await CallMethodAsync<dynamic>("AuthenticateUserTicket", 1, parameters);
+            var playingSharedGameResult = await GetAsync<dynamic>("AuthenticateUserTicket", 1, parameters);
             return playingSharedGameResult;
         }
     }

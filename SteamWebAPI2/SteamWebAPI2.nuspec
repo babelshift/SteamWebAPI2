@@ -11,7 +11,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
     <releaseNotes>See release notes at Project URL.</releaseNotes>
-    <copyright>Copyright 2015</copyright>
+    <copyright>Copyright 2017</copyright>
     <tags>steam webapi json community</tags>
     <dependencies>
       <dependency id="AutoMapper" version="[4.2.1]" />

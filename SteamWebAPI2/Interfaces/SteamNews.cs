@@ -38,7 +38,7 @@ namespace SteamWebAPI2.Interfaces
             parameters.AddIfHasValue(endDateUnixTimeStamp, "enddate");
             parameters.AddIfHasValue(count, "count");
 
-            var appNews = await CallMethodAsync<SteamNewsResultContainer>("GetNewsForApp", 2, parameters);
+            var appNews = await GetAsync<SteamNewsResultContainer>("GetNewsForApp", 2, parameters);
 
             var appNewsModel = AutoMapperConfiguration.Mapper.Map<SteamNewsResult, SteamNewsResultModel>(appNews.Result);
 

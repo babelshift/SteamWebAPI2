@@ -33,7 +33,7 @@ namespace SteamWebAPI2.Interfaces
 
             parameters.AddIfHasValue(language, "language");
 
-            var gameItems = await CallMethodAsync<GameItemResultContainer>("GetGameItems", 1, parameters);
+            var gameItems = await GetAsync<GameItemResultContainer>("GetGameItems", 1, parameters);
 
             var gameItemModels = AutoMapperConfiguration.Mapper.Map<IList<GameItem>, IReadOnlyCollection<GameItemModel>>(gameItems.Result.Items);
 
@@ -55,7 +55,7 @@ namespace SteamWebAPI2.Interfaces
             parameters.AddIfHasValue(language, "language");
             parameters.AddIfHasValue(itemizedOnlyValue, "itemizedonly");
 
-            var heroes = await CallMethodAsync<HeroResultContainer>("GetHeroes", 1, parameters);
+            var heroes = await GetAsync<HeroResultContainer>("GetHeroes", 1, parameters);
 
             var heroModels = AutoMapperConfiguration.Mapper.Map<IList<Hero>, IReadOnlyCollection<HeroModel>>(heroes.Result.Heroes);
 
@@ -80,7 +80,7 @@ namespace SteamWebAPI2.Interfaces
             parameters.AddIfHasValue(iconName, "iconname");
             parameters.AddIfHasValue(iconType, "icontype");
 
-            var itemIconPath = await CallMethodAsync<ItemIconPathResultContainer>("GetItemIconPath", 1, parameters);
+            var itemIconPath = await GetAsync<ItemIconPathResultContainer>("GetItemIconPath", 1, parameters);
             return itemIconPath.Result.Path;
         }
 
@@ -95,7 +95,7 @@ namespace SteamWebAPI2.Interfaces
 
             parameters.AddIfHasValue(language, "language");
 
-            var raritiesContainer = await CallMethodAsync<RarityResultContainer>("GetRarities", 1, parameters);
+            var raritiesContainer = await GetAsync<RarityResultContainer>("GetRarities", 1, parameters);
 
             var rarityModels = raritiesContainer.Result.Rarities.Select(x => new RarityModel()
             {
@@ -121,7 +121,7 @@ namespace SteamWebAPI2.Interfaces
 
             parameters.AddIfHasValue(leagueId, "leagueid");
 
-            var raritiesContainer = await CallMethodAsync<PrizePoolResultContainer>("GetTournamentPrizePool", 1, parameters);
+            var raritiesContainer = await GetAsync<PrizePoolResultContainer>("GetTournamentPrizePool", 1, parameters);
             return raritiesContainer.Result.PrizePool;
         }
     }

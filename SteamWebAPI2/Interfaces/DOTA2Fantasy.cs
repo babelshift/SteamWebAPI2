@@ -23,7 +23,7 @@ namespace SteamWebAPI2.Interfaces
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
             parameters.Add(new SteamWebRequestParameter("accountid", steamId.ToString()));
 
-            var playerOfficialInfo = await CallMethodAsync<PlayerOfficialInfoResultContainer>("GetPlayerOfficialInfo", 1, parameters);
+            var playerOfficialInfo = await GetAsync<PlayerOfficialInfoResultContainer>("GetPlayerOfficialInfo", 1, parameters);
 
             var playerOfficialInfoModel = new PlayerOfficialInfoModel()
             {
@@ -43,7 +43,7 @@ namespace SteamWebAPI2.Interfaces
         /// <returns></returns>
         public async Task<ProPlayerDetailModel> GetProPlayerList()
         {
-            var proPlayerList = await CallMethodAsync<ProPlayerListResultContainer>("GetProPlayerList", 1);
+            var proPlayerList = await GetAsync<ProPlayerListResultContainer>("GetProPlayerList", 1);
 
             var proPlayerDetailModel = AutoMapperConfiguration.Mapper.Map<ProPlayerListResult, ProPlayerDetailModel>(proPlayerList.Result);
 

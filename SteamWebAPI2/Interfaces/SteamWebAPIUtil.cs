@@ -18,7 +18,7 @@ namespace SteamWebAPI2.Interfaces
         /// <returns></returns>
         public async Task<SteamServerInfoModel> GetServerInfoAsync()
         {
-            var steamServerInfo = await CallMethodAsync<SteamServerInfo>("GetServerInfo", 1);
+            var steamServerInfo = await GetAsync<SteamServerInfo>("GetServerInfo", 1);
 
             var steamServerInfoModel = AutoMapperConfiguration.Mapper.Map<SteamServerInfo, SteamServerInfoModel>(steamServerInfo);
 
@@ -31,7 +31,7 @@ namespace SteamWebAPI2.Interfaces
         /// <returns></returns>
         public async Task<IReadOnlyCollection<SteamInterfaceModel>> GetSupportedAPIListAsync()
         {
-            var steamApiListContainer = await CallMethodAsync<SteamApiListContainer>("GetSupportedAPIList", 1);
+            var steamApiListContainer = await GetAsync<SteamApiListContainer>("GetSupportedAPIList", 1);
 
             var steamApiListModel = AutoMapperConfiguration.Mapper.Map<IList<SteamInterface>, IList<SteamInterfaceModel>>(steamApiListContainer.Result.Interfaces);
 

@@ -52,7 +52,7 @@ namespace SteamWebAPI2.Interfaces
                 throw new InvalidOperationException(String.Format("AppId {0} is not valid for the GetClientVersion method.", appId));
             }
 
-            var clientVersion = await CallMethodAsync<GameClientResultContainer>("GetClientVersion", 1);
+            var clientVersion = await GetAsync<GameClientResultContainer>("GetClientVersion", 1);
 
             var clientVersionModel = AutoMapperConfiguration.Mapper.Map<GameClientResult, GameClientResultModel>(clientVersion.Result);
 
@@ -70,7 +70,7 @@ namespace SteamWebAPI2.Interfaces
                 throw new InvalidOperationException(String.Format("AppId {0} is not valid for the GetServerVersion method.", appId));
             }
 
-            var serverVersion = await CallMethodAsync<GameClientResultContainer>("GetServerVersion", 1);
+            var serverVersion = await GetAsync<GameClientResultContainer>("GetServerVersion", 1);
 
             var serverVersionModel = AutoMapperConfiguration.Mapper.Map<GameClientResult, GameClientResultModel>(serverVersion.Result);
 

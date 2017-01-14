@@ -19,7 +19,7 @@ namespace SteamWebAPI2.Interfaces
         /// <returns></returns>
         public async Task<IReadOnlyCollection<GoldenWrenchModel>> GetGoldenWrenchesAsync()
         {
-            var goldenWrenchesResult = await CallMethodAsync<GoldenWrenchResultContainer>("GetGoldenWrenches", 2);
+            var goldenWrenchesResult = await GetAsync<GoldenWrenchResultContainer>("GetGoldenWrenches", 2);
 
             var goldenWrenchModels = AutoMapperConfiguration.Mapper.Map<IList<GoldenWrench>, IList<GoldenWrenchModel>>(goldenWrenchesResult.Result.GoldenWrenches);
 

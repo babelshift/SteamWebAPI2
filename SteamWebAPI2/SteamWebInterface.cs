@@ -59,19 +59,35 @@ namespace SteamWebAPI2
         }
 
         /// <summary>
-        /// Calls a specific method on whatever interface this class represents. For example "IsPlayingSharedGame" is a method on the "PlayerService" web interface.
+        /// Calls a specific GET method on whatever interface this class represents. For example "IsPlayingSharedGame" is a method on the "PlayerService" web interface.
         /// </summary>
         /// <typeparam name="T">The type to parse the JSON response into and return</typeparam>
         /// <param name="methodName">The method name to call</param>
         /// <param name="version">The version of the method to call</param>
         /// <param name="parameters">An optional list of parameters to include with the call</param>
         /// <returns></returns>
-        internal async Task<T> CallMethodAsync<T>(string methodName, int version, IList<SteamWebRequestParameter> parameters = null)
+        internal async Task<T> GetAsync<T>(string methodName, int version, IList<SteamWebRequestParameter> parameters = null)
         {
             Debug.Assert(!String.IsNullOrEmpty(methodName));
             Debug.Assert(version > 0);
 
-            return await steamWebRequest.SendWebRequestAsync<T>(interfaceName, methodName, version, parameters);
+            return await steamWebRequest.GetAsync<T>(interfaceName, methodName, version, parameters);
+        }
+
+        /// <summary>
+        /// Calls a specific POST method on whatever interface this class represents. For example "IsPlayingSharedGame" is a method on the "PlayerService" web interface.
+        /// </summary>
+        /// <typeparam name="T">The type to parse the JSON response into and return</typeparam>
+        /// <param name="methodName">The method name to call</param>
+        /// <param name="version">The version of the method to call</param>
+        /// <param name="parameters">An optional list of parameters to include with the call</param>
+        /// <returns></returns>
+        internal async Task<T> PostAsync<T>(string methodName, int version, IList<SteamWebRequestParameter> parameters = null)
+        {
+            Debug.Assert(!String.IsNullOrEmpty(methodName));
+            Debug.Assert(version > 0);
+
+            return await steamWebRequest.PostAsync<T>(interfaceName, methodName, version, parameters);
         }
     }
 }

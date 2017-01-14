@@ -30,7 +30,7 @@ namespace SteamWebAPI2.Interfaces
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
             parameters.AddIfHasValue(steamId, "steamids");
 
-            var playerSummary = await CallMethodAsync<PlayerSummaryResultContainer>("GetPlayerSummaries", 2, parameters);
+            var playerSummary = await GetAsync<PlayerSummaryResultContainer>("GetPlayerSummaries", 2, parameters);
 
             if (playerSummary.Result.Players != null && playerSummary.Result.Players.Count > 0)
             {
@@ -50,7 +50,7 @@ namespace SteamWebAPI2.Interfaces
             var parameters = new List<SteamWebRequestParameter>();
             parameters.AddIfHasValue(steamIdsCsv, "steamids");
 
-            var playerSummaries = await CallMethodAsync<PlayerSummaryResultContainer>("GetPlayerSummaries", 2, parameters);
+            var playerSummaries = await GetAsync<PlayerSummaryResultContainer>("GetPlayerSummaries", 2, parameters);
             if (playerSummaries.Result.Players != null && playerSummaries.Result.Players.Count > 0)
                 return playerSummaries.Result.Players.Select(player => AutoMapperConfiguration.Mapper.Map<PlayerSummary, PlayerSummaryModel>(player)).ToList();
 
@@ -69,7 +69,7 @@ namespace SteamWebAPI2.Interfaces
             parameters.AddIfHasValue(steamId, "steamid");
             parameters.AddIfHasValue(relationship, "relationship");
 
-            var friendsListResult = await CallMethodAsync<FriendsListResultContainer>("GetFriendList", 1, parameters);
+            var friendsListResult = await GetAsync<FriendsListResultContainer>("GetFriendList", 1, parameters);
 
             var friendsListModel = AutoMapperConfiguration.Mapper.Map<IList<Friend>, IList<FriendModel>>(friendsListResult.Result.Friends);
 
@@ -100,7 +100,7 @@ namespace SteamWebAPI2.Interfaces
 
             parameters.AddIfHasValue(steamIdsParamValue, "steamids");
 
-            var playerBansContainer = await CallMethodAsync<PlayerBansContainer>("GetPlayerBans", 1, parameters);
+            var playerBansContainer = await GetAsync<PlayerBansContainer>("GetPlayerBans", 1, parameters);
             var playerBansModel = AutoMapperConfiguration.Mapper.Map<IList<PlayerBans>, IList<PlayerBansModel>>(playerBansContainer.PlayerBans);
             return new ReadOnlyCollection<PlayerBansModel>(playerBansModel);
         }
@@ -116,7 +116,7 @@ namespace SteamWebAPI2.Interfaces
 
             parameters.AddIfHasValue(steamId, "steamid");
 
-            var userGroupResultContainer = await CallMethodAsync<UserGroupListResultContainer>("GetUserGroupList", 1, parameters);
+            var userGroupResultContainer = await GetAsync<UserGroupListResultContainer>("GetUserGroupList", 1, parameters);
 
             return userGroupResultContainer.Result.Groups
                 .Select(x => x.Gid)
@@ -137,7 +137,7 @@ namespace SteamWebAPI2.Interfaces
             parameters.AddIfHasValue(vanityUrl, "vanityurl");
             parameters.AddIfHasValue(urlType, "url_type");
 
-            var vanityUrlResultContainer = await CallMethodAsync<ResolveVanityUrlResultContainer>("ResolveVanityURL", 1, parameters);
+            var vanityUrlResultContainer = await GetAsync<ResolveVanityUrlResultContainer>("ResolveVanityURL", 1, parameters);
 
             if(vanityUrlResultContainer.Result.Success == 42)
             {

@@ -24,7 +24,7 @@ namespace SteamWebAPI2.Interfaces
         /// <returns></returns>
         public async Task<ServerStatusModel> GetGameServerStatusAsync()
         {
-            var gameServerStatus = await CallMethodAsync<ServerStatusResultContainer>("GetGameServersStatus", 1);
+            var gameServerStatus = await GetAsync<ServerStatusResultContainer>("GetGameServersStatus", 1);
 
             var gameServerStatusModel = AutoMapperConfiguration.Mapper.Map<ServerStatusResult, ServerStatusModel>(gameServerStatus.Result);
 

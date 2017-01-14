@@ -39,7 +39,7 @@ namespace SteamWebAPI2.Interfaces
 
             try
             {
-                var ugcFileDetails = await CallMethodAsync<UGCFileDetailsResultContainer>("GetUGCFileDetails", 1, parameters);
+                var ugcFileDetails = await GetAsync<UGCFileDetailsResultContainer>("GetUGCFileDetails", 1, parameters);
 
                 var ugcFileDetailsModel = AutoMapperConfiguration.Mapper.Map<UGCFileDetails, UGCFileDetailsModel>(ugcFileDetails.Result);
 

@@ -90,6 +90,9 @@
     <Compile Include="..\SteamWebAPI2\Interfaces\EconService.cs">
       <Link>Interfaces\EconService.cs</Link>
     </Compile>
+    <Compile Include="..\SteamWebAPI2\Interfaces\GameServersService.cs">
+      <Link>Interfaces\GameServersService.cs</Link>
+    </Compile>
     <Compile Include="..\SteamWebAPI2\Interfaces\GCVersion.cs">
       <Link>Interfaces\GCVersion.cs</Link>
     </Compile>
@@ -113,6 +116,9 @@
     </Compile>
     <Compile Include="..\SteamWebAPI2\Interfaces\IEconService.cs">
       <Link>Interfaces\IEconService.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Interfaces\IGameServersService.cs">
+      <Link>Interfaces\IGameServersService.cs</Link>
     </Compile>
     <Compile Include="..\SteamWebAPI2\Interfaces\IGCVersion.cs">
       <Link>Interfaces\IGCVersion.cs</Link>
