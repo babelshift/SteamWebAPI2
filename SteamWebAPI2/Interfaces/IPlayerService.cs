@@ -6,16 +6,16 @@ namespace SteamWebAPI2.Interfaces
 {
     public interface IPlayerService
     {
-        Task<BadgesResultModel> GetBadgesAsync(long steamId);
+        Task<BadgesResultModel> GetBadgesAsync(ulong steamId);
 
-        Task<IReadOnlyCollection<BadgeQuestModel>> GetCommunityBadgeProgressAsync(long steamId, int? badgeId = default(int?));
+        Task<IReadOnlyCollection<BadgeQuestModel>> GetCommunityBadgeProgressAsync(ulong steamId, uint? badgeId = default(uint?));
 
-        Task<OwnedGamesResultModel> GetOwnedGamesAsync(long steamId, bool? includeAppInfo = default(bool?), bool? includeFreeGames = default(bool?), IReadOnlyCollection<int> appIdsToFilter = null);
+        Task<OwnedGamesResultModel> GetOwnedGamesAsync(ulong steamId, bool? includeAppInfo = default(bool?), bool? includeFreeGames = default(bool?), IReadOnlyCollection<uint> appIdsToFilter = null);
 
-        Task<RecentlyPlayedGamesResultModel> GetRecentlyPlayedGamesAsync(long steamId);
+        Task<RecentlyPlayedGamesResultModel> GetRecentlyPlayedGamesAsync(ulong steamId);
 
-        Task<int> GetSteamLevelAsync(long steamId);
+        Task<int> GetSteamLevelAsync(ulong steamId);
 
-        Task<string> IsPlayingSharedGameAsync(long steamId, int appId);
+        Task<string> IsPlayingSharedGameAsync(ulong steamId, uint appId);
     }
 }

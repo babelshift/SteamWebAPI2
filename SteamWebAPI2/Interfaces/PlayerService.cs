@@ -9,11 +9,19 @@ using SteamWebAPI2.Utilities;
 
 namespace SteamWebAPI2.Interfaces
 {
-    public class PlayerService : SteamWebInterface, IPlayerService
+    public class PlayerService : IPlayerService
     {
-        public PlayerService(string steamWebApiKey)
-            : base(steamWebApiKey, "IPlayerService")
+        private ISteamWebInterface steamWebInterface;
+
+        /// <summary>
+        /// Default constructor established the Steam Web API key and initializes for subsequent method calls
+        /// </summary>
+        /// <param name="steamWebApiKey"></param>
+        public PlayerService(string steamWebApiKey, ISteamWebInterface steamWebInterface = null)
         {
+            this.steamWebInterface = steamWebInterface == null
+                ? new SteamWebInterface(steamWebApiKey, "IPlayerService")
+                : steamWebInterface;
         }
 
         /// <summary>
@@ -22,12 +30,20 @@ namespace SteamWebAPI2.Interfaces
         /// <param name="steamId"></param>
         /// <param name="appId"></param>
         /// <returns></returns>
-        public async Task<string> IsPlayingSharedGameAsync(long steamId, int appId)
+        public async Task<string> IsPlayingSharedGameAsync(ulong steamId, uint appId)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
+
             parameters.AddIfHasValue(steamId, "steamid");
             parameters.AddIfHasValue(appId, "appid_playing");
-            var playingSharedGameResult = await GetAsync<PlayingSharedGameResultContainer>("IsPlayingSharedGame", 1, parameters);
+
+            var playingSharedGameResult = await steamWebInterface.GetAsync<PlayingSharedGameResultContainer>("IsPlayingSharedGame", 1, parameters);
+
+            if (playingSharedGameResult == null || playingSharedGameResult.Result == null)
+            {
+                return String.Empty;
+            }
+
             return playingSharedGameResult.Result.LenderSteamId;
         }
 
@@ -37,13 +53,20 @@ namespace SteamWebAPI2.Interfaces
         /// <param name="steamId"></param>
         /// <param name="badgeId"></param>
         /// <returns></returns>
-        public async Task<IReadOnlyCollection<BadgeQuestModel>> GetCommunityBadgeProgressAsync(long steamId, int? badgeId = null)
+        public async Task<IReadOnlyCollection<BadgeQuestModel>> GetCommunityBadgeProgressAsync(ulong steamId, uint? badgeId = null)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
             parameters.AddIfHasValue(steamId, "steamid");
             parameters.AddIfHasValue(badgeId, "badgeid");
-            var badgeProgressResult = await GetAsync<CommunityBadgeProgressResultContainer>("GetCommunityBadgeProgress", 1, parameters);
+            var badgeProgressResult = await steamWebInterface.GetAsync<CommunityBadgeProgressResultContainer>("GetCommunityBadgeProgress", 1, parameters);
+
+            if(badgeProgressResult == null || badgeProgressResult.Result == null)
+            {
+                return new List<BadgeQuestModel>().AsReadOnly();
+            }
+
             var badgeProgressModels = AutoMapperConfiguration.Mapper.Map<IList<BadgeQuest>, IList<BadgeQuestModel>>(badgeProgressResult.Result.Quests);
+
             return new ReadOnlyCollection<BadgeQuestModel>(badgeProgressModels);
         }
 
@@ -52,12 +75,19 @@ namespace SteamWebAPI2.Interfaces
         /// </summary>
         /// <param name="steamId"></param>
         /// <returns></returns>
-        public async Task<BadgesResultModel> GetBadgesAsync(long steamId)
+        public async Task<BadgesResultModel> GetBadgesAsync(ulong steamId)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
             parameters.AddIfHasValue(steamId, "steamid");
-            var badgesResult = await GetAsync<BadgesResultContainer>("GetBadges", 1, parameters);
+            var badgesResult = await steamWebInterface.GetAsync<BadgesResultContainer>("GetBadges", 1, parameters);
+
+            if(badgesResult == null)
+            {
+                return new BadgesResultModel();
+            }
+
             var badgesResultModel = AutoMapperConfiguration.Mapper.Map<BadgesResult, BadgesResultModel>(badgesResult.Result);
+
             return badgesResultModel;
         }
 
@@ -66,11 +96,11 @@ namespace SteamWebAPI2.Interfaces
         /// </summary>
         /// <param name="steamId"></param>
         /// <returns></returns>
-        public async Task<int> GetSteamLevelAsync(long steamId)
+        public async Task<int> GetSteamLevelAsync(ulong steamId)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
             parameters.AddIfHasValue(steamId, "steamid");
-            var steamLevelResult = await GetAsync<SteamLevelResultContainer>("GetSteamLevel", 1, parameters);
+            var steamLevelResult = await steamWebInterface.GetAsync<SteamLevelResultContainer>("GetSteamLevel", 1, parameters);
             return steamLevelResult.Result.PlayerLevel;
         }
 
@@ -82,7 +112,7 @@ namespace SteamWebAPI2.Interfaces
         /// <param name="includeFreeGames"></param>
         /// <param name="appIdsToFilter"></param>
         /// <returns></returns>
-        public async Task<OwnedGamesResultModel> GetOwnedGamesAsync(long steamId, bool? includeAppInfo = null, bool? includeFreeGames = null, IReadOnlyCollection<int> appIdsToFilter = null)
+        public async Task<OwnedGamesResultModel> GetOwnedGamesAsync(ulong steamId, bool? includeAppInfo = null, bool? includeFreeGames = null, IReadOnlyCollection<uint> appIdsToFilter = null)
         {
             int? includeAppInfoBit = 0;
             if (includeAppInfo.HasValue) { includeAppInfoBit = includeAppInfo.Value ? 1 : 0; }
@@ -101,7 +131,7 @@ namespace SteamWebAPI2.Interfaces
                 parameters.AddIfHasValue(appIdsDelimited, "appids_filter");
             }
 
-            var ownedGamesResult = await GetAsync<OwnedGamesResultContainer>("GetOwnedGames", 1, parameters);
+            var ownedGamesResult = await steamWebInterface.GetAsync<OwnedGamesResultContainer>("GetOwnedGames", 1, parameters);
 
             // for some reason, some games have trailing spaces in the result
             if (ownedGamesResult.Result != null && ownedGamesResult.Result.OwnedGames != null)
@@ -125,11 +155,11 @@ namespace SteamWebAPI2.Interfaces
         /// </summary>
         /// <param name="steamId"></param>
         /// <returns></returns>
-        public async Task<RecentlyPlayedGamesResultModel> GetRecentlyPlayedGamesAsync(long steamId)
+        public async Task<RecentlyPlayedGamesResultModel> GetRecentlyPlayedGamesAsync(ulong steamId)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
             parameters.AddIfHasValue(steamId, "steamid");
-            var recentlyPlayedGamesResult = await GetAsync<RecentlyPlayedGameResultContainer>("GetRecentlyPlayedGames", 1, parameters);
+            var recentlyPlayedGamesResult = await steamWebInterface.GetAsync<RecentlyPlayedGameResultContainer>("GetRecentlyPlayedGames", 1, parameters);
 
             var recentlyPlayedGamesResultModel = AutoMapperConfiguration.Mapper.Map<RecentlyPlayedGameResult, RecentlyPlayedGamesResultModel>(recentlyPlayedGamesResult.Result);
 

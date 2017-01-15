@@ -19,7 +19,7 @@ namespace SteamWebAPI2.Interfaces
         Portal2_Beta = 841
     }
 
-    public class EconItems : SteamWebInterface, IEconItems
+    public class EconItems : IEconItems
     {
         private int appId;
 
@@ -30,13 +30,22 @@ namespace SteamWebAPI2.Interfaces
         private List<int> validStoreMetaDataAppIds = new List<int>();
         private List<int> validStoreStatusAppIds = new List<int>();
 
-        public EconItems(string steamWebApiKey, EconItemsAppId appId)
-            : base(steamWebApiKey, "IEconItems_" + (int)appId)
+        private ISteamWebInterface steamWebInterface;
+
+        /// <summary>
+        /// Default constructor established the Steam Web API key and initializes for subsequent method calls
+        /// </summary>
+        /// <param name="steamWebApiKey"></param>
+        public EconItems(string steamWebApiKey, EconItemsAppId appId, ISteamWebInterface steamWebInterface = null)
         {
             if (appId <= 0)
             {
                 throw new ArgumentOutOfRangeException("appId");
             }
+
+            this.steamWebInterface = steamWebInterface == null
+                ? new SteamWebInterface(steamWebApiKey, "IEconItems_" + (int)appId)
+                : steamWebInterface;
 
             this.appId = (int)appId;
 
@@ -68,7 +77,7 @@ namespace SteamWebAPI2.Interfaces
 
             parameters.AddIfHasValue(steamId, "steamid");
 
-            var econItemsResult = await GetAsync<EconItemResultContainer>("GetPlayerItems", 1, parameters);
+            var econItemsResult = await steamWebInterface.GetAsync<EconItemResultContainer>("GetPlayerItems", 1, parameters);
 
             var econItemResultModel = AutoMapperConfiguration.Mapper.Map<EconItemResult, EconItemResultModel>(econItemsResult.Result);
 
@@ -91,7 +100,7 @@ namespace SteamWebAPI2.Interfaces
 
             parameters.AddIfHasValue(language, "language");
 
-            var schemaResult = await GetAsync<SchemaResultContainer>("GetSchema", 1, parameters);
+            var schemaResult = await steamWebInterface.GetAsync<SchemaResultContainer>("GetSchema", 1, parameters);
 
             var schemaModel = AutoMapperConfiguration.Mapper.Map<SchemaResult, Steam.Models.DOTA2.SchemaModel>(schemaResult.Result);
 
@@ -114,7 +123,7 @@ namespace SteamWebAPI2.Interfaces
 
             parameters.AddIfHasValue(language, "language");
 
-            var schemaResult = await GetAsync<SchemaResultContainer>("GetSchema", 1, parameters);
+            var schemaResult = await steamWebInterface.GetAsync<SchemaResultContainer>("GetSchema", 1, parameters);
 
             var schemaModel = AutoMapperConfiguration.Mapper.Map<SchemaResult, Steam.Models.TF2.SchemaModel>(schemaResult.Result);
 
@@ -132,7 +141,7 @@ namespace SteamWebAPI2.Interfaces
                 throw new InvalidOperationException(String.Format("AppId {0} is not valid for the GetSchemaUrl method.", appId));
             }
 
-            var schemaUrlResult = await GetAsync<SchemaUrlResultContainer>("GetSchemaURL", 1);
+            var schemaUrlResult = await steamWebInterface.GetAsync<SchemaUrlResultContainer>("GetSchemaURL", 1);
 
             return schemaUrlResult.Result.ItemsGameUrl;
         }
@@ -153,7 +162,7 @@ namespace SteamWebAPI2.Interfaces
 
             parameters.AddIfHasValue(language, "language");
 
-            var storeMetaDataResult = await GetAsync<StoreMetaDataResultContainer>("GetStoreMetaData", 1, parameters);
+            var storeMetaDataResult = await steamWebInterface.GetAsync<StoreMetaDataResultContainer>("GetStoreMetaData", 1, parameters);
 
             var storeMetaDataModel = AutoMapperConfiguration.Mapper.Map<StoreMetaDataResult, StoreMetaDataModel>(storeMetaDataResult.Result);
 
@@ -171,7 +180,7 @@ namespace SteamWebAPI2.Interfaces
                 throw new InvalidOperationException(String.Format("AppId {0} is not valid for the GetStoreStatus method.", appId));
             }
 
-            var storeStatusResult = await GetAsync<StoreStatusResultContainer>("GetStoreStatus", 1);
+            var storeStatusResult = await steamWebInterface.GetAsync<StoreStatusResultContainer>("GetStoreStatus", 1);
 
             return storeStatusResult.Result.StoreStatus;
         }

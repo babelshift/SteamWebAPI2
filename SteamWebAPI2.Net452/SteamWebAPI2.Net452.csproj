@@ -367,17 +367,17 @@
     <Compile Include="..\SteamWebAPI2\SteamStoreRequest.cs">
       <Link>SteamStoreRequest.cs</Link>
     </Compile>
-    <Compile Include="..\SteamWebAPI2\SteamWebInterface.cs">
-      <Link>SteamWebInterface.cs</Link>
-    </Compile>
-    <Compile Include="..\SteamWebAPI2\SteamWebRequest.cs">
-      <Link>SteamWebRequest.cs</Link>
-    </Compile>
-    <Compile Include="..\SteamWebAPI2\SteamWebRequestParameter.cs">
-      <Link>SteamWebRequestParameter.cs</Link>
-    </Compile>
     <Compile Include="..\SteamWebAPI2\Utilities\DateTimeExtensions.cs">
       <Link>Utilities\DateTimeExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Utilities\ISteamWebHttpClient.cs">
+      <Link>Utilities\ISteamWebHttpClient.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Utilities\ISteamWebInterface.cs">
+      <Link>Utilities\ISteamWebInterface.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Utilities\ISteamWebRequest.cs">
+      <Link>Utilities\ISteamWebRequest.cs</Link>
     </Compile>
     <Compile Include="..\SteamWebAPI2\Utilities\JsonConverters\AssetClassInfoJsonConverter.cs">
       <Link>Utilities\JsonConverters\AssetClassInfoJsonConverter.cs</Link>
@@ -396,6 +396,18 @@
     </Compile>
     <Compile Include="..\SteamWebAPI2\Utilities\JsonConverters\UnixTimeJsonConverter.cs">
       <Link>Utilities\JsonConverters\UnixTimeJsonConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Utilities\SteamWebHttpClient.cs">
+      <Link>Utilities\SteamWebHttpClient.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Utilities\SteamWebInterface.cs">
+      <Link>Utilities\SteamWebInterface.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Utilities\SteamWebRequest.cs">
+      <Link>Utilities\SteamWebRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Utilities\SteamWebRequestParameter.cs">
+      <Link>Utilities\SteamWebRequestParameter.cs</Link>
     </Compile>
     <Compile Include="..\SteamWebAPI2\Utilities\SteamWebRequestParameterExtensions.cs">
       <Link>Utilities\SteamWebRequestParameterExtensions.cs</Link>

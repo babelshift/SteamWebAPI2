@@ -1,12 +1,12 @@
 ﻿using System;
 
-namespace SteamWebAPI2
+namespace SteamWebAPI2.Utilities
 {
     /// <summary>
     /// Represents a single parameter to be included in a web API request. Each parameter must have a name and a value, both of which will be serialized to
     /// a URL parameter.
     /// </summary>
-    internal class SteamWebRequestParameter
+    public class SteamWebRequestParameter
     {
         /// <summary>
         /// Name of the parameter (such as "key" in "key=123456" parameter)

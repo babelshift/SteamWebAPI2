@@ -14,11 +14,20 @@ using System.Runtime.Serialization;
 
 namespace SteamWebAPI2.Interfaces
 {
-    public class SteamUser : SteamWebInterface, ISteamUser
+    public class SteamUser : ISteamUser
     {
-        public SteamUser(string steamWebApiKey)
-            : base(steamWebApiKey, "ISteamUser")
-        { }
+        private ISteamWebInterface steamWebInterface;
+
+        /// <summary>
+        /// Default constructor established the Steam Web API key and initializes for subsequent method calls
+        /// </summary>
+        /// <param name="steamWebApiKey"></param>
+        public SteamUser(string steamWebApiKey, ISteamWebInterface steamWebInterface = null)
+        {
+            this.steamWebInterface = steamWebInterface == null
+                ? new SteamWebInterface(steamWebApiKey, "ISteamUser")
+                : steamWebInterface;
+        }
 
         /// <summary>
         /// Returns a summary of some player and Steam User information such as their Steam Profile data.
@@ -30,7 +39,7 @@ namespace SteamWebAPI2.Interfaces
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
             parameters.AddIfHasValue(steamId, "steamids");
 
-            var playerSummary = await GetAsync<PlayerSummaryResultContainer>("GetPlayerSummaries", 2, parameters);
+            var playerSummary = await steamWebInterface.GetAsync<PlayerSummaryResultContainer>("GetPlayerSummaries", 2, parameters);
 
             if (playerSummary.Result.Players != null && playerSummary.Result.Players.Count > 0)
             {
@@ -50,7 +59,7 @@ namespace SteamWebAPI2.Interfaces
             var parameters = new List<SteamWebRequestParameter>();
             parameters.AddIfHasValue(steamIdsCsv, "steamids");
 
-            var playerSummaries = await GetAsync<PlayerSummaryResultContainer>("GetPlayerSummaries", 2, parameters);
+            var playerSummaries = await steamWebInterface.GetAsync<PlayerSummaryResultContainer>("GetPlayerSummaries", 2, parameters);
             if (playerSummaries.Result.Players != null && playerSummaries.Result.Players.Count > 0)
                 return playerSummaries.Result.Players.Select(player => AutoMapperConfiguration.Mapper.Map<PlayerSummary, PlayerSummaryModel>(player)).ToList();
 
@@ -69,7 +78,7 @@ namespace SteamWebAPI2.Interfaces
             parameters.AddIfHasValue(steamId, "steamid");
             parameters.AddIfHasValue(relationship, "relationship");
 
-            var friendsListResult = await GetAsync<FriendsListResultContainer>("GetFriendList", 1, parameters);
+            var friendsListResult = await steamWebInterface.GetAsync<FriendsListResultContainer>("GetFriendList", 1, parameters);
 
             var friendsListModel = AutoMapperConfiguration.Mapper.Map<IList<Friend>, IList<FriendModel>>(friendsListResult.Result.Friends);
 
@@ -100,7 +109,7 @@ namespace SteamWebAPI2.Interfaces
 
             parameters.AddIfHasValue(steamIdsParamValue, "steamids");
 
-            var playerBansContainer = await GetAsync<PlayerBansContainer>("GetPlayerBans", 1, parameters);
+            var playerBansContainer = await steamWebInterface.GetAsync<PlayerBansContainer>("GetPlayerBans", 1, parameters);
             var playerBansModel = AutoMapperConfiguration.Mapper.Map<IList<PlayerBans>, IList<PlayerBansModel>>(playerBansContainer.PlayerBans);
             return new ReadOnlyCollection<PlayerBansModel>(playerBansModel);
         }
@@ -116,7 +125,7 @@ namespace SteamWebAPI2.Interfaces
 
             parameters.AddIfHasValue(steamId, "steamid");
 
-            var userGroupResultContainer = await GetAsync<UserGroupListResultContainer>("GetUserGroupList", 1, parameters);
+            var userGroupResultContainer = await steamWebInterface.GetAsync<UserGroupListResultContainer>("GetUserGroupList", 1, parameters);
 
             return userGroupResultContainer.Result.Groups
                 .Select(x => x.Gid)
@@ -137,7 +146,7 @@ namespace SteamWebAPI2.Interfaces
             parameters.AddIfHasValue(vanityUrl, "vanityurl");
             parameters.AddIfHasValue(urlType, "url_type");
 
-            var vanityUrlResultContainer = await GetAsync<ResolveVanityUrlResultContainer>("ResolveVanityURL", 1, parameters);
+            var vanityUrlResultContainer = await steamWebInterface.GetAsync<ResolveVanityUrlResultContainer>("ResolveVanityURL", 1, parameters);
 
             if(vanityUrlResultContainer.Result.Success == 42)
             {

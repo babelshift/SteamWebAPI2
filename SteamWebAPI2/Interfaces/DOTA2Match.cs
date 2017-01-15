@@ -9,11 +9,19 @@ using SteamWebAPI2.Utilities;
 
 namespace SteamWebAPI2.Interfaces
 {
-    public class DOTA2Match : SteamWebInterface, IDOTA2Match
+    public class DOTA2Match : IDOTA2Match
     {
-        public DOTA2Match(string steamWebApiKey)
-            : base(steamWebApiKey, "IDOTA2Match_570")
+        private ISteamWebInterface steamWebInterface;
+
+        /// <summary>
+        /// Default constructor established the Steam Web API key and initializes for subsequent method calls
+        /// </summary>
+        /// <param name="steamWebApiKey"></param>
+        public DOTA2Match(string steamWebApiKey, ISteamWebInterface steamWebInterface = null)
         {
+            this.steamWebInterface = steamWebInterface == null
+                ? new SteamWebInterface(steamWebApiKey, "IDOTA2Match_570")
+                : steamWebInterface;
         }
 
         /// <summary>
@@ -27,7 +35,7 @@ namespace SteamWebAPI2.Interfaces
             
             parameters.AddIfHasValue(language, "language");
 
-            var leagueListing = await GetAsync<LeagueResultContainer>("GetLeagueListing", 1, parameters);
+            var leagueListing = await steamWebInterface.GetAsync<LeagueResultContainer>("GetLeagueListing", 1, parameters);
 
             var leagueModels = leagueListing.Result.Leagues.Select(x => new LeagueModel()
             {
@@ -54,7 +62,7 @@ namespace SteamWebAPI2.Interfaces
             parameters.AddIfHasValue(leagueId, "league_id");
             parameters.AddIfHasValue(matchId, "match_id");
 
-            var liveLeagueGames = await GetAsync<LiveLeagueGameResultContainer>("GetLiveLeagueGames", 1);
+            var liveLeagueGames = await steamWebInterface.GetAsync<LiveLeagueGameResultContainer>("GetLiveLeagueGames", 1);
 
             var liveLeagueGamesModel = AutoMapperConfiguration.Mapper.Map<IList<LiveLeagueGame>, IList<LiveLeagueGameModel>>(liveLeagueGames.Result.Games);
 
@@ -72,7 +80,7 @@ namespace SteamWebAPI2.Interfaces
 
             parameters.AddIfHasValue(matchId, "match_id");
 
-            var matchDetail = await GetAsync<MatchDetailResultContainer>("GetMatchDetails", 1, parameters);
+            var matchDetail = await steamWebInterface.GetAsync<MatchDetailResultContainer>("GetMatchDetails", 1, parameters);
 
             var matchDetailModel = AutoMapperConfiguration.Mapper.Map<MatchDetailResult, MatchDetailModel>(matchDetail.Result);
 
@@ -108,7 +116,7 @@ namespace SteamWebAPI2.Interfaces
             parameters.AddIfHasValue(matchesRequested, "matches_requested");
             parameters.AddIfHasValue(tournamentGamesOnly, "tournament_games_only");
 
-            var matchHistory = await GetAsync<MatchHistoryResultContainer>("GetMatchHistory", 1, parameters);
+            var matchHistory = await steamWebInterface.GetAsync<MatchHistoryResultContainer>("GetMatchHistory", 1, parameters);
 
             var matchHistoryModel = AutoMapperConfiguration.Mapper.Map<MatchHistoryResult, MatchHistoryModel>(matchHistory.Result);
 
@@ -128,7 +136,7 @@ namespace SteamWebAPI2.Interfaces
             parameters.AddIfHasValue(startAtMatchSequenceNumber, "start_at_match_seq_num");
             parameters.AddIfHasValue(matchesRequested, "matches_requested");
 
-            var matchHistory = await GetAsync<MatchHistoryBySequenceNumberResultContainer>("GetMatchHistoryBySequenceNum", 1, parameters);
+            var matchHistory = await steamWebInterface.GetAsync<MatchHistoryBySequenceNumberResultContainer>("GetMatchHistoryBySequenceNum", 1, parameters);
 
             var matchHistoryModel = AutoMapperConfiguration.Mapper.Map<MatchHistoryBySequenceNumberResult, MatchHistoryModel>(matchHistory.Result);
             
@@ -148,7 +156,7 @@ namespace SteamWebAPI2.Interfaces
             parameters.AddIfHasValue(startAtTeamId, "start_at_team_id");
             parameters.AddIfHasValue(teamsRequested, "teams_requested");
 
-            var teamInfos = await GetAsync<TeamInfoResultContainer>("GetTeamInfoByTeamID", 1, parameters);
+            var teamInfos = await steamWebInterface.GetAsync<TeamInfoResultContainer>("GetTeamInfoByTeamID", 1, parameters);
 
             var teamInfoModels = AutoMapperConfiguration.Mapper.Map<IList<TeamInfo>, IList<TeamInfoModel>>(teamInfos.Result.Teams);
 

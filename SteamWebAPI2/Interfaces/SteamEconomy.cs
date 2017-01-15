@@ -7,13 +7,21 @@ using SteamWebAPI2.Utilities;
 
 namespace SteamWebAPI2.Interfaces
 {
-    public class SteamEconomy : SteamWebInterface, ISteamEconomy
+    public class SteamEconomy : ISteamEconomy
     {
-        public SteamEconomy(string steamWebApiKey)
-            : base(steamWebApiKey, "ISteamEconomy")
+        private ISteamWebInterface steamWebInterface;
+
+        /// <summary>
+        /// Default constructor established the Steam Web API key and initializes for subsequent method calls
+        /// </summary>
+        /// <param name="steamWebApiKey"></param>
+        public SteamEconomy(string steamWebApiKey, ISteamWebInterface steamWebInterface = null)
         {
+            this.steamWebInterface = steamWebInterface == null
+                ? new SteamWebInterface(steamWebApiKey, "ISteamEconomy")
+                : steamWebInterface;
         }
-        
+
         /// <summary>
         /// Returns some economic meta data regarding item qualities, levels, rarities, and more.
         /// </summary>
@@ -34,7 +42,7 @@ namespace SteamWebAPI2.Interfaces
                 parameters.AddIfHasValue(classIds[i], String.Format("classid{0}", i));
             }
 
-            var assetClassInfoResult = await GetAsync<AssetClassInfoResultContainer>("GetAssetClassInfo", 1, parameters);
+            var assetClassInfoResult = await steamWebInterface.GetAsync<AssetClassInfoResultContainer>("GetAssetClassInfo", 1, parameters);
 
             var assetClassInfoResultModel = AutoMapperConfiguration.Mapper.Map<AssetClassInfoResult, AssetClassInfoResultModel>(assetClassInfoResult.Result);
 
@@ -56,7 +64,7 @@ namespace SteamWebAPI2.Interfaces
             parameters.AddIfHasValue(currency, "currency");
             parameters.AddIfHasValue(language, "language");
 
-            var assetPriceResult = await GetAsync<AssetPriceResultContainer>("GetAssetPrices", 1, parameters);
+            var assetPriceResult = await steamWebInterface.GetAsync<AssetPriceResultContainer>("GetAssetPrices", 1, parameters);
 
             var assetPriceResultModel = AutoMapperConfiguration.Mapper.Map<AssetPriceResult, AssetPriceResultModel>(assetPriceResult.Result);
 

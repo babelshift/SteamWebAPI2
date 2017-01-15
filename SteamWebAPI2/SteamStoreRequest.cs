@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using SteamWebAPI2.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

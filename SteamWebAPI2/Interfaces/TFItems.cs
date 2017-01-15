@@ -1,16 +1,25 @@
 ﻿using Steam.Models.TF2;
 using SteamWebAPI2.Models.TF2;
+using SteamWebAPI2.Utilities;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
 namespace SteamWebAPI2.Interfaces
 {
-    public class TFItems : SteamWebInterface, ITFItems
+    public class TFItems : ITFItems
     {
-        public TFItems(string steamWebApiKey)
-            : base(steamWebApiKey, "ITFItems_440")
+        private ISteamWebInterface steamWebInterface;
+
+        /// <summary>
+        /// Default constructor established the Steam Web API key and initializes for subsequent method calls
+        /// </summary>
+        /// <param name="steamWebApiKey"></param>
+        public TFItems(string steamWebApiKey, ISteamWebInterface steamWebInterface = null)
         {
+            this.steamWebInterface = steamWebInterface == null
+                ? new SteamWebInterface(steamWebApiKey, "ITFItems_440")
+                : steamWebInterface;
         }
 
         /// <summary>
@@ -19,7 +28,7 @@ namespace SteamWebAPI2.Interfaces
         /// <returns></returns>
         public async Task<IReadOnlyCollection<GoldenWrenchModel>> GetGoldenWrenchesAsync()
         {
-            var goldenWrenchesResult = await GetAsync<GoldenWrenchResultContainer>("GetGoldenWrenches", 2);
+            var goldenWrenchesResult = await steamWebInterface.GetAsync<GoldenWrenchResultContainer>("GetGoldenWrenches", 2);
 
             var goldenWrenchModels = AutoMapperConfiguration.Mapper.Map<IList<GoldenWrench>, IList<GoldenWrenchModel>>(goldenWrenchesResult.Result.GoldenWrenches);
 

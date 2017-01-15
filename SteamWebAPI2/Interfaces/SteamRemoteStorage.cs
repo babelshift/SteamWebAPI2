@@ -8,11 +8,19 @@ using System.Threading.Tasks;
 
 namespace SteamWebAPI2.Interfaces
 {
-    public class SteamRemoteStorage : SteamWebInterface, ISteamRemoteStorage
+    public class SteamRemoteStorage : ISteamRemoteStorage
     {
-        public SteamRemoteStorage(string steamWebApiKey)
-            : base(steamWebApiKey, "ISteamRemoteStorage")
+        private ISteamWebInterface steamWebInterface;
+
+        /// <summary>
+        /// Default constructor established the Steam Web API key and initializes for subsequent method calls
+        /// </summary>
+        /// <param name="steamWebApiKey"></param>
+        public SteamRemoteStorage(string steamWebApiKey, ISteamWebInterface steamWebInterface = null)
         {
+            this.steamWebInterface = steamWebInterface == null
+                ? new SteamWebInterface(steamWebApiKey, "ISteamRemoteStorage")
+                : steamWebInterface;
         }
 
         /// <summary>
@@ -39,7 +47,7 @@ namespace SteamWebAPI2.Interfaces
 
             try
             {
-                var ugcFileDetails = await GetAsync<UGCFileDetailsResultContainer>("GetUGCFileDetails", 1, parameters);
+                var ugcFileDetails = await steamWebInterface.GetAsync<UGCFileDetailsResultContainer>("GetUGCFileDetails", 1, parameters);
 
                 var ugcFileDetailsModel = AutoMapperConfiguration.Mapper.Map<UGCFileDetails, UGCFileDetailsModel>(ugcFileDetails.Result);
 

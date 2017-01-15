@@ -162,17 +162,21 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SteamStoreInterface.cs" />
     <Compile Include="SteamStoreRequest.cs" />
-    <Compile Include="SteamWebInterface.cs" />
-    <Compile Include="SteamWebRequest.cs" />
-    <Compile Include="SteamWebRequestParameter.cs" />
+    <Compile Include="Utilities\ISteamWebInterface.cs" />
+    <Compile Include="Utilities\ISteamWebRequest.cs" />
+    <Compile Include="Utilities\SteamWebInterface.cs" />
+    <Compile Include="Utilities\SteamWebRequest.cs" />
+    <Compile Include="Utilities\SteamWebRequestParameter.cs" />
     <Compile Include="Interfaces\TFItems.cs" />
     <Compile Include="Utilities\DateTimeExtensions.cs" />
+    <Compile Include="Utilities\ISteamWebHttpClient.cs" />
     <Compile Include="Utilities\JsonConverters\AssetClassInfoJsonConverter.cs" />
     <Compile Include="Utilities\JsonConverters\CSGODataCenterJsonConverter.cs" />
     <Compile Include="Utilities\JsonConverters\GlobalStatJsonConverter.cs" />
     <Compile Include="Utilities\JsonConverters\StoreAppDetailsContainerJsonConverter.cs" />
     <Compile Include="Utilities\JsonConverters\TeamInfoJsonConverter.cs" />
     <Compile Include="Utilities\JsonConverters\UnixTimeJsonConverter.cs" />
+    <Compile Include="Utilities\SteamWebHttpClient.cs" />
     <Compile Include="Utilities\SteamWebRequestParameterExtensions.cs" />
   </ItemGroup>
   <ItemGroup>

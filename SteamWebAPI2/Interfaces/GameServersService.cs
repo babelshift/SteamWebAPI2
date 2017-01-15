@@ -7,19 +7,24 @@ using SteamWebAPI2.Utilities;
 
 namespace SteamWebAPI2.Interfaces
 {
-    public class GameServersService : SteamWebInterface, IGameServersService
+    public class GameServersService : IGameServersService
     {
+        private ISteamWebInterface steamWebInterface;
+
         /// <summary>
         /// Default constructor established the Steam Web API key and initializes for subsequent method calls
         /// </summary>
         /// <param name="steamWebApiKey"></param>
-        public GameServersService(string steamWebApiKey)
-            : base(steamWebApiKey, "IGameServersService")
-        { }
+        public GameServersService(string steamWebApiKey, ISteamWebInterface steamWebInterface = null)
+        {
+            this.steamWebInterface = steamWebInterface == null
+                ? new SteamWebInterface(steamWebApiKey, "IGameServersService")
+                : steamWebInterface;
+        }
 
         public async Task<dynamic> GetAccountListAsync()
         {
-            var accountList = await GetAsync<dynamic>("GetAccountList", 1);
+            var accountList = await steamWebInterface.GetAsync<dynamic>("GetAccountList", 1);
             return accountList;
         }
 
@@ -28,7 +33,7 @@ namespace SteamWebAPI2.Interfaces
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
             parameters.AddIfHasValue(appId, "appid");
             parameters.AddIfHasValue(memo, "memo");
-            var accountList = await PostAsync<dynamic>("CreateAccount", 1, parameters);
+            var accountList = await steamWebInterface.PostAsync<dynamic>("CreateAccount", 1, parameters);
             return accountList;
         }
 
@@ -37,7 +42,7 @@ namespace SteamWebAPI2.Interfaces
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
             parameters.AddIfHasValue(steamId, "steamid");
             parameters.AddIfHasValue(memo, "memo");
-            var accountList = await PostAsync<dynamic>("SetMemo", 1, parameters);
+            var accountList = await steamWebInterface.PostAsync<dynamic>("SetMemo", 1, parameters);
             return accountList;
         }
 
@@ -45,7 +50,7 @@ namespace SteamWebAPI2.Interfaces
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
             parameters.AddIfHasValue(steamId, "steamid");
-            var accountList = await PostAsync<dynamic>("ResetLoginToken", 1, parameters);
+            var accountList = await steamWebInterface.PostAsync<dynamic>("ResetLoginToken", 1, parameters);
             return accountList;
         }
 
@@ -53,7 +58,7 @@ namespace SteamWebAPI2.Interfaces
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
             parameters.AddIfHasValue(steamId, "steamid");
-            var accountList = await PostAsync<dynamic>("DeleteAccount", 1, parameters);
+            var accountList = await steamWebInterface.PostAsync<dynamic>("DeleteAccount", 1, parameters);
             return accountList;
         }
 
@@ -61,7 +66,7 @@ namespace SteamWebAPI2.Interfaces
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
             parameters.AddIfHasValue(steamId, "steamid");
-            var accountList = await GetAsync<dynamic>("GetAccountPublicInfo", 1, parameters);
+            var accountList = await steamWebInterface.GetAsync<dynamic>("GetAccountPublicInfo", 1, parameters);
             return accountList;
         }
 
@@ -69,7 +74,7 @@ namespace SteamWebAPI2.Interfaces
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
             parameters.AddIfHasValue(loginToken, "login_token");
-            var accountList = await GetAsync<dynamic>("QueryLoginToken", 1, parameters);
+            var accountList = await steamWebInterface.GetAsync<dynamic>("QueryLoginToken", 1, parameters);
             return accountList;
         }
 
@@ -77,7 +82,7 @@ namespace SteamWebAPI2.Interfaces
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
             parameters.AddIfHasValue(serverIPs, "server_ips");
-            var accountList = await GetAsync<dynamic>("GetServerSteamIDsByIP", 1, parameters);
+            var accountList = await steamWebInterface.GetAsync<dynamic>("GetServerSteamIDsByIP", 1, parameters);
             return accountList;
         }
 
@@ -85,7 +90,7 @@ namespace SteamWebAPI2.Interfaces
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
             parameters.AddIfHasValue(steamIds, "server_steamids");
-            var accountList = await GetAsync<dynamic>("GetServerIPsBySteamID", 1, parameters);
+            var accountList = await steamWebInterface.GetAsync<dynamic>("GetServerIPsBySteamID", 1, parameters);
             return accountList;
         }
     }

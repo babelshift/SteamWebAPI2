@@ -4,11 +4,19 @@ using System.Threading.Tasks;
 
 namespace SteamWebAPI2.Interfaces
 {
-    public class SteamUserAuth : SteamWebInterface, ISteamUserAuth
+    public class SteamUserAuth : ISteamUserAuth
     {
-        public SteamUserAuth(string steamWebApiKey)
-            : base(steamWebApiKey, "ISteamUserAuth")
+        private ISteamWebInterface steamWebInterface;
+
+        /// <summary>
+        /// Default constructor established the Steam Web API key and initializes for subsequent method calls
+        /// </summary>
+        /// <param name="steamWebApiKey"></param>
+        public SteamUserAuth(string steamWebApiKey, ISteamWebInterface steamWebInterface = null)
         {
+            this.steamWebInterface = steamWebInterface == null
+                ? new SteamWebInterface(steamWebApiKey, "ISteamUserAuth")
+                : steamWebInterface;
         }
 
         /// <summary>
@@ -22,7 +30,7 @@ namespace SteamWebAPI2.Interfaces
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
             parameters.AddIfHasValue(appId, "appid");
             parameters.AddIfHasValue(ticket, "ticket");
-            var playingSharedGameResult = await GetAsync<dynamic>("AuthenticateUserTicket", 1, parameters);
+            var playingSharedGameResult = await steamWebInterface.GetAsync<dynamic>("AuthenticateUserTicket", 1, parameters);
             return playingSharedGameResult;
         }
     }

@@ -8,11 +8,19 @@ using SteamWebAPI2.Models.SteamEconomy;
 
 namespace SteamWebAPI2.Interfaces
 {
-    public class EconService : SteamWebInterface, IEconService
+    public class EconService : IEconService
     {
-        public EconService(string steamWebApiKey)
-            : base(steamWebApiKey, "IEconService")
+        private ISteamWebInterface steamWebInterface;
+
+        /// <summary>
+        /// Default constructor established the Steam Web API key and initializes for subsequent method calls
+        /// </summary>
+        /// <param name="steamWebApiKey"></param>
+        public EconService(string steamWebApiKey, ISteamWebInterface steamWebInterface = null)
         {
+            this.steamWebInterface = steamWebInterface == null
+                ? new SteamWebInterface(steamWebApiKey, "IEconService")
+                : steamWebInterface;
         }
 
         /// <summary>
@@ -40,7 +48,7 @@ namespace SteamWebAPI2.Interfaces
             parameters.AddIfHasValue(includeFailed, "include_failed");
             parameters.AddIfHasValue(includeTotal, "inclue_total");
 
-            var tradeHistoryResult = await GetAsync<TradeHistoryResultContainer>("GetTradeHistory", 1, parameters);
+            var tradeHistoryResult = await steamWebInterface.GetAsync<TradeHistoryResultContainer>("GetTradeHistory", 1, parameters);
 
             var tradeHistoryModel = AutoMapperConfiguration.Mapper.Map<TradeHistoryResult, Steam.Models.SteamEconomy.TradeHistoryModel>(tradeHistoryResult.Result);
 
@@ -73,7 +81,7 @@ namespace SteamWebAPI2.Interfaces
             parameters.AddIfHasValue(historicalOnly, "historicalOnly");
             parameters.AddIfHasValue(timeHistoricalCutoff, "time_historical_cutoff");
 
-            var tradeOffersResult = await GetAsync<TradeOffersResultContainer>("GetTradeOffers", 1, parameters);
+            var tradeOffersResult = await steamWebInterface.GetAsync<TradeOffersResultContainer>("GetTradeOffers", 1, parameters);
 
             var tradeOffersModel = AutoMapperConfiguration.Mapper.Map<TradeOffersResult, Steam.Models.SteamEconomy.TradeOffersResultModel>(tradeOffersResult.Result);
 
@@ -93,7 +101,7 @@ namespace SteamWebAPI2.Interfaces
             parameters.AddIfHasValue(tradeOfferId, "tradeOfferId");
             parameters.AddIfHasValue(language, "language");
 
-            var tradeOfferResult = await GetAsync<TradeOfferResultContainer>("GetTradeOffer", 1, parameters);
+            var tradeOfferResult = await steamWebInterface.GetAsync<TradeOfferResultContainer>("GetTradeOffer", 1, parameters);
 
             var tradeOfferModel = AutoMapperConfiguration.Mapper.Map<TradeOfferResult, Steam.Models.SteamEconomy.TradeOfferResultModel>(tradeOfferResult.Result);
 

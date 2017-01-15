@@ -7,11 +7,19 @@ using System.Threading.Tasks;
 
 namespace SteamWebAPI2.Interfaces
 {
-    public class SteamNews : SteamWebInterface, ISteamNews
+    public class SteamNews : ISteamNews
     {
-        public SteamNews(string steamWebApiKey)
-            : base(steamWebApiKey, "ISteamNews")
+        private ISteamWebInterface steamWebInterface;
+
+        /// <summary>
+        /// Default constructor established the Steam Web API key and initializes for subsequent method calls
+        /// </summary>
+        /// <param name="steamWebApiKey"></param>
+        public SteamNews(string steamWebApiKey, ISteamWebInterface steamWebInterface = null)
         {
+            this.steamWebInterface = steamWebInterface == null
+                ? new SteamWebInterface(steamWebApiKey, "ISteamNews")
+                : steamWebInterface;
         }
 
         /// <summary>
@@ -38,7 +46,7 @@ namespace SteamWebAPI2.Interfaces
             parameters.AddIfHasValue(endDateUnixTimeStamp, "enddate");
             parameters.AddIfHasValue(count, "count");
 
-            var appNews = await GetAsync<SteamNewsResultContainer>("GetNewsForApp", 2, parameters);
+            var appNews = await steamWebInterface.GetAsync<SteamNewsResultContainer>("GetNewsForApp", 2, parameters);
 
             var appNewsModel = AutoMapperConfiguration.Mapper.Map<SteamNewsResult, SteamNewsResultModel>(appNews.Result);
 

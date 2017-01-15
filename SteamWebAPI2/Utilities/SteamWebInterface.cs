@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
-namespace SteamWebAPI2
+namespace SteamWebAPI2.Utilities
 {
     /// <summary>
     /// Represents a single "interface" that is exposed as part of the Valve Steam Web API. For example, an interface would be: "IDOTA2Match_570" which contains
     /// methods "GetLeagueListing", "GetMatchDetails", and more. A web interface can be thought of as a class which contains methods to perform GET and POST requests against.
     /// </summary>
-    public abstract class SteamWebInterface
+    internal sealed class SteamWebInterface : ISteamWebInterface
     {
         private const string steamWebApiBaseUrl = "https://api.steampowered.com/";
-        private readonly SteamWebRequest steamWebRequest;
+        private readonly ISteamWebRequest steamWebRequest;
         private readonly string interfaceName;
 
         /// <summary>
@@ -21,7 +21,7 @@ namespace SteamWebAPI2
         /// <param name="steamWebApiKey">Steam Web API key (secret to each developer)</param>
         /// <param name="interfaceName">Name for this web interface (such as "IDOTA2Match_570). Must match the Steam Web API interface name exactly as this value
         /// is used to construct the URL to perform the GET or POST.</param>
-        public SteamWebInterface(string steamWebApiKey, string interfaceName)
+        public SteamWebInterface(string steamWebApiKey, string interfaceName, ISteamWebRequest steamWebRequest = null)
         {
             if (String.IsNullOrEmpty(steamWebApiKey))
             {
@@ -31,11 +31,14 @@ namespace SteamWebAPI2
             Debug.Assert(!String.IsNullOrEmpty(interfaceName));
 
             this.interfaceName = interfaceName;
-            this.steamWebRequest = new SteamWebRequest(steamWebApiBaseUrl, steamWebApiKey);
+
+            this.steamWebRequest = steamWebRequest == null
+                ? new SteamWebRequest(steamWebApiBaseUrl, steamWebApiKey)
+                : steamWebRequest;
 
             AutoMapperConfiguration.Initialize();
         }
-        
+
         /// <summary>
         /// Default constructor requires a Steam Web API key (secret to each developer) and the name for this web interface (such as "IDOTA2Match_570).
         /// </summary>
@@ -43,7 +46,7 @@ namespace SteamWebAPI2
         /// <param name="steamWebApiKey">Steam Web API key (secret to each developer)</param>
         /// <param name="interfaceName">Name for this web interface (such as "IDOTA2Match_570). Must match the Steam Web API interface name exactly as this value
         /// is used to construct the URL to perform the GET or POST.</param>
-        public SteamWebInterface(string steamWebApiBaseUrl, string steamWebApiKey, string interfaceName)
+        public SteamWebInterface(string steamWebApiBaseUrl, string steamWebApiKey, string interfaceName, ISteamWebRequest steamWebRequest = null)
         {
             if (String.IsNullOrEmpty(steamWebApiKey))
             {
@@ -53,7 +56,10 @@ namespace SteamWebAPI2
             Debug.Assert(!String.IsNullOrEmpty(interfaceName));
 
             this.interfaceName = interfaceName;
-            this.steamWebRequest = new SteamWebRequest(steamWebApiBaseUrl, steamWebApiKey);
+
+            this.steamWebRequest = steamWebRequest == null
+                ? new SteamWebRequest(steamWebApiBaseUrl, steamWebApiKey)
+                : steamWebRequest;
 
             AutoMapperConfiguration.Initialize();
         }
@@ -66,7 +72,7 @@ namespace SteamWebAPI2
         /// <param name="version">The version of the method to call</param>
         /// <param name="parameters">An optional list of parameters to include with the call</param>
         /// <returns></returns>
-        internal async Task<T> GetAsync<T>(string methodName, int version, IList<SteamWebRequestParameter> parameters = null)
+        public async Task<T> GetAsync<T>(string methodName, int version, IList<SteamWebRequestParameter> parameters = null)
         {
             Debug.Assert(!String.IsNullOrEmpty(methodName));
             Debug.Assert(version > 0);
@@ -82,7 +88,7 @@ namespace SteamWebAPI2
         /// <param name="version">The version of the method to call</param>
         /// <param name="parameters">An optional list of parameters to include with the call</param>
         /// <returns></returns>
-        internal async Task<T> PostAsync<T>(string methodName, int version, IList<SteamWebRequestParameter> parameters = null)
+        public async Task<T> PostAsync<T>(string methodName, int version, IList<SteamWebRequestParameter> parameters = null)
         {
             Debug.Assert(!String.IsNullOrEmpty(methodName));
             Debug.Assert(version > 0);

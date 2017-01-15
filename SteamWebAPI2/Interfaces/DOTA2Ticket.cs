@@ -1,12 +1,21 @@
-﻿using System;
+﻿using SteamWebAPI2.Utilities;
+using System;
 
 namespace SteamWebAPI2.Interfaces
 {
-    public class DOTA2Ticket : SteamWebInterface, IDOTA2Ticket
+    public class DOTA2Ticket : IDOTA2Ticket
     {
-        public DOTA2Ticket(string steamWebApiKey)
-            : base(steamWebApiKey, "IDOTA2Ticket_570")
+        private ISteamWebInterface steamWebInterface;
+
+        /// <summary>
+        /// Default constructor established the Steam Web API key and initializes for subsequent method calls
+        /// </summary>
+        /// <param name="steamWebApiKey"></param>
+        public DOTA2Ticket(string steamWebApiKey, ISteamWebInterface steamWebInterface = null)
         {
+            this.steamWebInterface = steamWebInterface == null
+                ? new SteamWebInterface(steamWebApiKey, "IDOTA2Ticket_570")
+                : steamWebInterface;
         }
     }
 }
