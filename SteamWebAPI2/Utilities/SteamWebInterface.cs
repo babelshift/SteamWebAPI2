@@ -23,12 +23,12 @@ namespace SteamWebAPI2.Utilities
         /// is used to construct the URL to perform the GET or POST.</param>
         public SteamWebInterface(string steamWebApiKey, string interfaceName, ISteamWebRequest steamWebRequest = null)
         {
-            if (String.IsNullOrEmpty(steamWebApiKey))
+            if (String.IsNullOrWhiteSpace(steamWebApiKey))
             {
                 throw new ArgumentNullException("steamWebApiKey");
             }
 
-            Debug.Assert(!String.IsNullOrEmpty(interfaceName));
+            Debug.Assert(!String.IsNullOrWhiteSpace(interfaceName));
 
             this.interfaceName = interfaceName;
 
@@ -48,12 +48,12 @@ namespace SteamWebAPI2.Utilities
         /// is used to construct the URL to perform the GET or POST.</param>
         public SteamWebInterface(string steamWebApiBaseUrl, string steamWebApiKey, string interfaceName, ISteamWebRequest steamWebRequest = null)
         {
-            if (String.IsNullOrEmpty(steamWebApiKey))
+            if (String.IsNullOrWhiteSpace(steamWebApiKey))
             {
                 throw new ArgumentNullException("steamWebApiKey");
             }
 
-            Debug.Assert(!String.IsNullOrEmpty(interfaceName));
+            Debug.Assert(!String.IsNullOrWhiteSpace(interfaceName));
 
             this.interfaceName = interfaceName;
 
@@ -74,7 +74,7 @@ namespace SteamWebAPI2.Utilities
         /// <returns></returns>
         public async Task<T> GetAsync<T>(string methodName, int version, IList<SteamWebRequestParameter> parameters = null)
         {
-            Debug.Assert(!String.IsNullOrEmpty(methodName));
+            Debug.Assert(!String.IsNullOrWhiteSpace(methodName));
             Debug.Assert(version > 0);
 
             return await steamWebRequest.GetAsync<T>(interfaceName, methodName, version, parameters);
@@ -90,7 +90,7 @@ namespace SteamWebAPI2.Utilities
         /// <returns></returns>
         public async Task<T> PostAsync<T>(string methodName, int version, IList<SteamWebRequestParameter> parameters = null)
         {
-            Debug.Assert(!String.IsNullOrEmpty(methodName));
+            Debug.Assert(!String.IsNullOrWhiteSpace(methodName));
             Debug.Assert(version > 0);
 
             return await steamWebRequest.PostAsync<T>(interfaceName, methodName, version, parameters);
