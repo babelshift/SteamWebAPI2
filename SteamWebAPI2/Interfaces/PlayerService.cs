@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using SteamWebAPI2.Utilities;
+using SteamWebAPI2.Exceptions;
 
 namespace SteamWebAPI2.Interfaces
 {
@@ -30,7 +31,7 @@ namespace SteamWebAPI2.Interfaces
         /// <param name="steamId"></param>
         /// <param name="appId"></param>
         /// <returns></returns>
-        public async Task<string> IsPlayingSharedGameAsync(ulong steamId, uint appId)
+        public async Task<ulong?> IsPlayingSharedGameAsync(ulong steamId, uint appId)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
@@ -41,7 +42,7 @@ namespace SteamWebAPI2.Interfaces
 
             if (playingSharedGameResult == null || playingSharedGameResult.Result == null)
             {
-                return String.Empty;
+                return null;
             }
 
             return playingSharedGameResult.Result.LenderSteamId;
@@ -62,7 +63,7 @@ namespace SteamWebAPI2.Interfaces
 
             if(badgeProgressResult == null || badgeProgressResult.Result == null)
             {
-                return new List<BadgeQuestModel>().AsReadOnly();
+                return null;
             }
 
             var badgeProgressModels = AutoMapperConfiguration.Mapper.Map<IList<BadgeQuest>, IList<BadgeQuestModel>>(badgeProgressResult.Result.Quests);
@@ -81,9 +82,9 @@ namespace SteamWebAPI2.Interfaces
             parameters.AddIfHasValue(steamId, "steamid");
             var badgesResult = await steamWebInterface.GetAsync<BadgesResultContainer>("GetBadges", 1, parameters);
 
-            if(badgesResult == null)
+            if(badgesResult == null || badgesResult.Result == null)
             {
-                return new BadgesResultModel();
+                return null;
             }
 
             var badgesResultModel = AutoMapperConfiguration.Mapper.Map<BadgesResult, BadgesResultModel>(badgesResult.Result);
@@ -96,11 +97,17 @@ namespace SteamWebAPI2.Interfaces
         /// </summary>
         /// <param name="steamId"></param>
         /// <returns></returns>
-        public async Task<int> GetSteamLevelAsync(ulong steamId)
+        public async Task<uint?> GetSteamLevelAsync(ulong steamId)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
             parameters.AddIfHasValue(steamId, "steamid");
             var steamLevelResult = await steamWebInterface.GetAsync<SteamLevelResultContainer>("GetSteamLevel", 1, parameters);
+
+            if (steamLevelResult == null || steamLevelResult.Result == null)
+            {
+                return null;
+            }
+
             return steamLevelResult.Result.PlayerLevel;
         }
 
@@ -133,12 +140,17 @@ namespace SteamWebAPI2.Interfaces
 
             var ownedGamesResult = await steamWebInterface.GetAsync<OwnedGamesResultContainer>("GetOwnedGames", 1, parameters);
 
+            if(ownedGamesResult == null || ownedGamesResult.Result == null)
+            {
+                return null;
+            }
+
             // for some reason, some games have trailing spaces in the result
-            if (ownedGamesResult.Result != null && ownedGamesResult.Result.OwnedGames != null)
+            if (ownedGamesResult.Result.OwnedGames != null)
             {
                 foreach (var ownedGame in ownedGamesResult.Result.OwnedGames)
                 {
-                    if (!String.IsNullOrEmpty(ownedGame.Name))
+                    if (!String.IsNullOrWhiteSpace(ownedGame.Name))
                     {
                         ownedGame.Name = ownedGame.Name.Trim();
                     }
@@ -160,6 +172,11 @@ namespace SteamWebAPI2.Interfaces
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
             parameters.AddIfHasValue(steamId, "steamid");
             var recentlyPlayedGamesResult = await steamWebInterface.GetAsync<RecentlyPlayedGameResultContainer>("GetRecentlyPlayedGames", 1, parameters);
+
+            if (recentlyPlayedGamesResult == null || recentlyPlayedGamesResult.Result == null)
+            {
+                return null;
+            }
 
             var recentlyPlayedGamesResultModel = AutoMapperConfiguration.Mapper.Map<RecentlyPlayedGameResult, RecentlyPlayedGamesResultModel>(recentlyPlayedGamesResult.Result);
 

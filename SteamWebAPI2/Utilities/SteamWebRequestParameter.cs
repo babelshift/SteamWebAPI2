@@ -25,7 +25,7 @@ namespace SteamWebAPI2.Utilities
         /// <param name="value">Value to give this parameter</param>
         public SteamWebRequestParameter(string name, string value)
         {
-            if (String.IsNullOrEmpty(name))
+            if (String.IsNullOrWhiteSpace(name))
             {
                 throw new ArgumentNullException("name");
             }

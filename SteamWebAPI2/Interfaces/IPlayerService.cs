@@ -14,8 +14,8 @@ namespace SteamWebAPI2.Interfaces
 
         Task<RecentlyPlayedGamesResultModel> GetRecentlyPlayedGamesAsync(ulong steamId);
 
-        Task<int> GetSteamLevelAsync(ulong steamId);
+        Task<uint?> GetSteamLevelAsync(ulong steamId);
 
-        Task<string> IsPlayingSharedGameAsync(ulong steamId, uint appId);
+        Task<ulong?> IsPlayingSharedGameAsync(ulong steamId, uint appId);
     }
 }
