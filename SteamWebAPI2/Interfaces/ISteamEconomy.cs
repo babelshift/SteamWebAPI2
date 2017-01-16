@@ -6,8 +6,8 @@ namespace SteamWebAPI2.Interfaces
 {
     public interface ISteamEconomy
     {
-        Task<AssetClassInfoResultModel> GetAssetClassInfoAsync(int appId, IReadOnlyList<long> classIds, string language);
+        Task<AssetClassInfoResultModel> GetAssetClassInfoAsync(uint appId, IReadOnlyList<ulong> classIds, string language);
 
-        Task<AssetPriceResultModel> GetAssetPricesAsync(int appId, string currency, string language);
+        Task<AssetPriceResultModel> GetAssetPricesAsync(uint appId, string currency, string language);
     }
 }

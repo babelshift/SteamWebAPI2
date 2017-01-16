@@ -8,6 +8,6 @@ namespace SteamWebAPI2.Interfaces
     {
         Task<IReadOnlyCollection<SteamAppModel>> GetAppListAsync();
 
-        Task<SteamAppUpToDateCheckModel> UpToDateCheckAsync(int appId, int version);
+        Task<SteamAppUpToDateCheckModel> UpToDateCheckAsync(uint appId, uint version);
     }
 }

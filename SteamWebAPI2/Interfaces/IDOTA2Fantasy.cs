@@ -5,7 +5,7 @@ namespace SteamWebAPI2.Interfaces
 {
     public interface IDOTA2Fantasy
     {
-        Task<PlayerOfficialInfoModel> GetPlayerOfficialInfo(long steamId);
+        Task<PlayerOfficialInfoModel> GetPlayerOfficialInfo(ulong steamId);
 
         Task<ProPlayerDetailModel> GetProPlayerList();
     }

@@ -30,7 +30,7 @@ namespace SteamWebAPI2.Interfaces
         /// <param name="appId"></param>
         /// <param name="steamId"></param>
         /// <returns></returns>
-        public async Task<UGCFileDetailsModel> GetUGCFileDetailsAsync(long ugcId, int appId, long? steamId = null)
+        public async Task<UGCFileDetailsModel> GetUGCFileDetailsAsync(ulong ugcId, uint appId, ulong? steamId = null)
         {
             Debug.Assert(appId > 0);
 

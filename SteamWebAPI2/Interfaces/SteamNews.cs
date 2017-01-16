@@ -30,7 +30,7 @@ namespace SteamWebAPI2.Interfaces
         /// <param name="endDate"></param>
         /// <param name="count"></param>
         /// <returns></returns>
-        public async Task<SteamNewsResultModel> GetNewsForAppAsync(int appId, int? maxLength = null, DateTime? endDate = null, int? count = null)
+        public async Task<SteamNewsResultModel> GetNewsForAppAsync(uint appId, uint? maxLength = null, DateTime? endDate = null, uint? count = null)
         {
             long? endDateUnixTimeStamp = null;
 

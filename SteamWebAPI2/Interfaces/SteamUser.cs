@@ -52,7 +52,7 @@ namespace SteamWebAPI2.Interfaces
             }
         }
 
-        public async Task<List<PlayerSummaryModel>> GetPlayerSummariesAsync(List<ulong> steamIds)
+        public async Task<List<PlayerSummaryModel>> GetPlayerSummariesAsync(IReadOnlyCollection<ulong> steamIds)
         {
             // convert steam ids to a csv for the api
             var steamIdsCsv = string.Join(",", steamIds.Select(x => x.ToString()).ToArray());

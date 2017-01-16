@@ -39,7 +39,7 @@ namespace SteamWebAPI2.Interfaces
         /// <param name="appId"></param>
         /// <param name="version"></param>
         /// <returns></returns>
-        public async Task<SteamAppUpToDateCheckModel> UpToDateCheckAsync(int appId, int version)
+        public async Task<SteamAppUpToDateCheckModel> UpToDateCheckAsync(uint appId, uint version)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 

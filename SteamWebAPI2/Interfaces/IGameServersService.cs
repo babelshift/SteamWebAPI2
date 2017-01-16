@@ -21,6 +21,6 @@ namespace SteamWebAPI2.Interfaces
 
         Task<dynamic> GetServerSteamIDsByIP(IReadOnlyCollection<string> serverIPs);
 
-        Task<dynamic> GetServerIPsBySteamID(IReadOnlyCollection<long> steamIds);
+        Task<dynamic> GetServerIPsBySteamID(IReadOnlyCollection<ulong> steamIds);
     }
 }

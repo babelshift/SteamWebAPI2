@@ -9,16 +9,16 @@ namespace SteamWebAPI2.Interfaces
 {
     public interface ISteamUserStats
     {
-        Task<IReadOnlyCollection<GlobalAchievementPercentageModel>> GetGlobalAchievementPercentagesForAppAsync(int appId);
+        Task<IReadOnlyCollection<GlobalAchievementPercentageModel>> GetGlobalAchievementPercentagesForAppAsync(uint appId);
 
-        Task<IReadOnlyCollection<GlobalStatModel>> GetGlobalStatsForGameAsync(int appId, IReadOnlyList<string> statNames, DateTime? startDate = default(DateTime?), DateTime? endDate = default(DateTime?));
+        Task<IReadOnlyCollection<GlobalStatModel>> GetGlobalStatsForGameAsync(uint appId, IReadOnlyList<string> statNames, DateTime? startDate = null, DateTime? endDate = null);
 
-        Task<uint> GetNumberOfCurrentPlayersForGameAsync(int appId);
+        Task<uint> GetNumberOfCurrentPlayersForGameAsync(uint appId);
 
-        Task<PlayerAchievementResultModel> GetPlayerAchievementsAsync(int appId, long steamId, string language = "");
+        Task<PlayerAchievementResultModel> GetPlayerAchievementsAsync(uint appId, ulong steamId, string language = "");
 
-        Task<SchemaForGameResultModel> GetSchemaForGameAsync(int appId, string language = "");
+        Task<SchemaForGameResultModel> GetSchemaForGameAsync(uint appId, string language = "");
 
-        Task<UserStatsForGameResultModel> GetUserStatsForGameAsync(long steamId, int appId);
+        Task<UserStatsForGameResultModel> GetUserStatsForGameAsync(ulong steamId, uint appId);
     }
 }

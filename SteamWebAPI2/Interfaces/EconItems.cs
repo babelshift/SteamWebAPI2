@@ -21,15 +21,15 @@ namespace SteamWebAPI2.Interfaces
 
     public class EconItems : IEconItems
     {
-        private int appId;
+        private uint appId;
 
         // The API only exposes certain methods for certain App Ids in the EconItems interface
         // I'm hard coding the values for now until I come up with a better, more dynamic solution
-        private List<int> validSchemaAppIds = new List<int>();
+        private List<uint> validSchemaAppIds = new List<uint>();
 
-        private List<int> validSchemaUrlAppIds = new List<int>();
-        private List<int> validStoreMetaDataAppIds = new List<int>();
-        private List<int> validStoreStatusAppIds = new List<int>();
+        private List<uint> validSchemaUrlAppIds = new List<uint>();
+        private List<uint> validStoreMetaDataAppIds = new List<uint>();
+        private List<uint> validStoreStatusAppIds = new List<uint>();
 
         private ISteamWebInterface steamWebInterface;
 
@@ -45,26 +45,26 @@ namespace SteamWebAPI2.Interfaces
             }
 
             this.steamWebInterface = steamWebInterface == null
-                ? new SteamWebInterface(steamWebApiKey, "IEconItems_" + (int)appId)
+                ? new SteamWebInterface(steamWebApiKey, "IEconItems_" + (uint)appId)
                 : steamWebInterface;
 
-            this.appId = (int)appId;
+            this.appId = (uint)appId;
 
-            validSchemaAppIds.Add((int)EconItemsAppId.TeamFortress2);
-            validSchemaAppIds.Add((int)EconItemsAppId.Dota2);
-            validSchemaAppIds.Add((int)EconItemsAppId.Portal2);
-            validSchemaAppIds.Add((int)EconItemsAppId.Portal2_Beta);
-            validSchemaAppIds.Add((int)EconItemsAppId.CounterStrikeGO);
+            validSchemaAppIds.Add((uint)EconItemsAppId.TeamFortress2);
+            validSchemaAppIds.Add((uint)EconItemsAppId.Dota2);
+            validSchemaAppIds.Add((uint)EconItemsAppId.Portal2);
+            validSchemaAppIds.Add((uint)EconItemsAppId.Portal2_Beta);
+            validSchemaAppIds.Add((uint)EconItemsAppId.CounterStrikeGO);
 
-            validSchemaUrlAppIds.Add((int)EconItemsAppId.TeamFortress2);
-            validSchemaUrlAppIds.Add((int)EconItemsAppId.Dota2);
-            validSchemaUrlAppIds.Add((int)EconItemsAppId.CounterStrikeGO);
+            validSchemaUrlAppIds.Add((uint)EconItemsAppId.TeamFortress2);
+            validSchemaUrlAppIds.Add((uint)EconItemsAppId.Dota2);
+            validSchemaUrlAppIds.Add((uint)EconItemsAppId.CounterStrikeGO);
 
-            validStoreMetaDataAppIds.Add((int)EconItemsAppId.TeamFortress2);
-            validStoreMetaDataAppIds.Add((int)EconItemsAppId.Dota2);
-            validStoreMetaDataAppIds.Add((int)EconItemsAppId.CounterStrikeGO);
+            validStoreMetaDataAppIds.Add((uint)EconItemsAppId.TeamFortress2);
+            validStoreMetaDataAppIds.Add((uint)EconItemsAppId.Dota2);
+            validStoreMetaDataAppIds.Add((uint)EconItemsAppId.CounterStrikeGO);
 
-            validStoreStatusAppIds.Add((int)EconItemsAppId.TeamFortress2);
+            validStoreStatusAppIds.Add((uint)EconItemsAppId.TeamFortress2);
         }
 
         /// <summary>

@@ -14,11 +14,11 @@ namespace SteamWebAPI2.Interfaces
 
         Task<PlayerSummaryModel> GetPlayerSummaryAsync(ulong steamId);
 
-        Task<List<PlayerSummaryModel>> GetPlayerSummariesAsync(List<ulong> steamIds);
+        Task<List<PlayerSummaryModel>> GetPlayerSummariesAsync(IReadOnlyCollection<ulong> steamIds);
 
         Task<IReadOnlyCollection<ulong>> GetUserGroupsAsync(ulong steamId);
 
-        Task<ulong> ResolveVanityUrlAsync(string vanityUrl, int? urlType = default(int?));
+        Task<ulong> ResolveVanityUrlAsync(string vanityUrl, int? urlType = null);
 
         Task<SteamCommunityProfileModel> GetCommunityProfileAsync(ulong steamId);
     }

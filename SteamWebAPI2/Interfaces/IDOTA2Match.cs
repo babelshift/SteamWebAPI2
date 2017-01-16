@@ -8,14 +8,14 @@ namespace SteamWebAPI2.Interfaces
     {
         Task<IReadOnlyCollection<LeagueModel>> GetLeagueListingAsync(string language);
 
-        Task<IReadOnlyCollection<LiveLeagueGameModel>> GetLiveLeagueGamesAsync(int? leagueId = default(int?), long? matchId = default(long?));
+        Task<IReadOnlyCollection<LiveLeagueGameModel>> GetLiveLeagueGamesAsync(uint? leagueId = null, ulong? matchId = null);
 
-        Task<MatchDetailModel> GetMatchDetailsAsync(long matchId);
+        Task<MatchDetailModel> GetMatchDetailsAsync(ulong matchId);
 
-        Task<MatchHistoryModel> GetMatchHistoryAsync(int? heroId = default(int?), int? gameMode = default(int?), int? skill = default(int?), string minPlayers = "", string accountId = "", string leagueId = "", long? startAtMatchId = default(long?), string matchesRequested = "", string tournamentGamesOnly = "");
+        Task<MatchHistoryModel> GetMatchHistoryAsync(uint? heroId = null, uint? gameMode = null, uint? skill = null, uint? minPlayers = null, ulong? accountId = null, uint? leagueId = null, ulong? startAtMatchId = null, string matchesRequested = "", string tournamentGamesOnly = "");
 
-        Task<IReadOnlyCollection<MatchHistoryMatchModel>> GetMatchHistoryBySequenceNumberAsync(long? startAtMatchSequenceNumber = default(long?), int? matchesRequested = default(int?));
+        Task<IReadOnlyCollection<MatchHistoryMatchModel>> GetMatchHistoryBySequenceNumberAsync(ulong? startAtMatchSequenceNumber = null, uint? matchesRequested = null);
 
-        Task<IReadOnlyCollection<TeamInfoModel>> GetTeamInfoByTeamIdAsync(long? startAtTeamId = default(long?), int? teamsRequested = default(int?));
+        Task<IReadOnlyCollection<TeamInfoModel>> GetTeamInfoByTeamIdAsync(long? startAtTeamId = default(long?), uint? teamsRequested = null);
     }
 }

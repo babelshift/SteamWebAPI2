@@ -83,7 +83,7 @@ namespace SteamWebAPI2.Interfaces
             return accountList;
         }
 
-        public async Task<dynamic> GetServerIPsBySteamID(IReadOnlyCollection<long> steamIds)
+        public async Task<dynamic> GetServerIPsBySteamID(IReadOnlyCollection<ulong> steamIds)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
             parameters.AddIfHasValue(steamIds, "server_steamids");

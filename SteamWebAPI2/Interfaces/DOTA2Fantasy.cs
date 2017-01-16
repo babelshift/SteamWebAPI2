@@ -26,7 +26,7 @@ namespace SteamWebAPI2.Interfaces
         /// </summary>
         /// <param name="steamId"></param>
         /// <returns></returns>
-        public async Task<PlayerOfficialInfoModel> GetPlayerOfficialInfo(long steamId)
+        public async Task<PlayerOfficialInfoModel> GetPlayerOfficialInfo(ulong steamId)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
             parameters.Add(new SteamWebRequestParameter("accountid", steamId.ToString()));
