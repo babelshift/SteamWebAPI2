@@ -6,7 +6,7 @@ namespace SteamWebAPI2.Models.SteamCommunity
     internal class BadgeQuest
     {
         [JsonProperty("questid")]
-        public int QuestId { get; set; }
+        public uint QuestId { get; set; }
 
         [JsonProperty("completed")]
         public bool Completed { get; set; }

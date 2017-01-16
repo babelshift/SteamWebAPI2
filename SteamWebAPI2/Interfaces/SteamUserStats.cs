@@ -90,7 +90,7 @@ namespace SteamWebAPI2.Interfaces
         /// </summary>
         /// <param name="appId"></param>
         /// <returns></returns>
-        public async Task<int> GetNumberOfCurrentPlayersForGameAsync(int appId)
+        public async Task<uint> GetNumberOfCurrentPlayersForGameAsync(int appId)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
             parameters.AddIfHasValue(appId, "appid");

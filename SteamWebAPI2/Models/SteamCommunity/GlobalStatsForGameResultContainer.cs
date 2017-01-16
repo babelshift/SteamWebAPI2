@@ -7,7 +7,7 @@ namespace SteamWebAPI2.Models.SteamCommunity
     internal class GlobalStat
     {
         public string Name { get; set; }
-        public int Total { get; set; }
+        public uint Total { get; set; }
     }
 
     internal class GlobalStatsForGameResult

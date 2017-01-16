@@ -1,9 +1,5 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SteamWebAPI2.Models.SteamEconomy
 {
@@ -11,6 +7,7 @@ namespace SteamWebAPI2.Models.SteamEconomy
     {
         [JsonProperty("offer")]
         public TradeOffer TradeOffer { get; set; }
+
         [JsonProperty("descriptions")]
         public IList<string> Descriptions { get; set; }
     }

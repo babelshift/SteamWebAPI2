@@ -49,7 +49,7 @@ namespace SteamWebAPI2.Models.SteamEconomy
 
     internal class AssetClassAppData
     {
-        public string DefIndex { get; set; }
+        public uint DefIndex { get; set; }
 
         public string Quality { get; set; }
 
@@ -57,7 +57,7 @@ namespace SteamWebAPI2.Models.SteamEconomy
 
         public IList<AssetClassAppDataFilter> FilterData { get; set; }
 
-        public IList<long> PlayerClassIds { get; set; }
+        public IList<ulong> PlayerClassIds { get; set; }
 
         public string HighlightColor { get; set; }
     }
@@ -104,7 +104,7 @@ namespace SteamWebAPI2.Models.SteamEconomy
 
         public AssetClassAppData AppData { get; set; }
 
-        public long ClassId { get; set; }
+        public ulong ClassId { get; set; }
     }
 
     internal class AssetClassInfoResult

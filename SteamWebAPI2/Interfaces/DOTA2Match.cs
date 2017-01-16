@@ -1,11 +1,10 @@
 ﻿using Steam.Models.DOTA2;
 using SteamWebAPI2.Models.DOTA2;
-using System;
+using SteamWebAPI2.Utilities;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Threading.Tasks;
 using System.Linq;
-using SteamWebAPI2.Utilities;
+using System.Threading.Tasks;
 
 namespace SteamWebAPI2.Interfaces
 {
@@ -32,7 +31,7 @@ namespace SteamWebAPI2.Interfaces
         public async Task<IReadOnlyCollection<LeagueModel>> GetLeagueListingAsync(string language = "en_us")
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
-            
+
             parameters.AddIfHasValue(language, "language");
 
             var leagueListing = await steamWebInterface.GetAsync<LeagueResultContainer>("GetLeagueListing", 1, parameters);
@@ -139,7 +138,7 @@ namespace SteamWebAPI2.Interfaces
             var matchHistory = await steamWebInterface.GetAsync<MatchHistoryBySequenceNumberResultContainer>("GetMatchHistoryBySequenceNum", 1, parameters);
 
             var matchHistoryModel = AutoMapperConfiguration.Mapper.Map<MatchHistoryBySequenceNumberResult, MatchHistoryModel>(matchHistory.Result);
-            
+
             return matchHistoryModel.Matches;
         }
 

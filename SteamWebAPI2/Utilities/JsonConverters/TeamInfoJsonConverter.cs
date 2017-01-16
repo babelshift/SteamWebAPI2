@@ -29,31 +29,39 @@ namespace SteamWebAPI2.Utilities.JsonConverters
             {
                 TeamInfo teamInfo = new TeamInfo();
 
-                List<int> playerAccountIds = new List<int>();
-                List<int> leagueIds = new List<int>();
+                List<uint> playerAccountIds = new List<uint>();
+                List<uint> leagueIds = new List<uint>();
 
                 foreach (var teamProperty in team.Children<JProperty>())
                 {
                     string value = teamProperty.Value.ToString();
 
-                    if (teamProperty.Name == "team_id") { teamInfo.TeamId = Int32.Parse(value); }
+                    long longValue = 0;
+                    uint uintValue = 0;
+                    ulong ulongValue = 0;
+
+                    uint.TryParse(value, out uintValue);
+                    ulong.TryParse(value, out ulongValue);
+                    long.TryParse(value, out longValue);
+
+                    if (teamProperty.Name == "team_id") { teamInfo.TeamId = uintValue; }
                     if (teamProperty.Name == "name") { teamInfo.Name = value; }
                     if (teamProperty.Name == "tag") { teamInfo.Tag = value; }
-                    if (teamProperty.Name == "time_created") { teamInfo.TimeCreated = Int64.Parse(value); }
+                    if (teamProperty.Name == "time_created") { teamInfo.TimeCreated = longValue; }
                     if (teamProperty.Name == "rating") { teamInfo.Rating = value; }
-                    if (teamProperty.Name == "logo") { teamInfo.Logo = Int64.Parse(value); }
-                    if (teamProperty.Name == "logo_sponsor") { teamInfo.LogoSponsor = Int64.Parse(value); }
+                    if (teamProperty.Name == "logo") { teamInfo.Logo = ulongValue; }
+                    if (teamProperty.Name == "logo_sponsor") { teamInfo.LogoSponsor = ulongValue; }
                     if (teamProperty.Name == "country_code") { teamInfo.CountryCode = value; }
                     if (teamProperty.Name == "url") { teamInfo.Url = value; }
-                    if (teamProperty.Name == "games_played_with_current_roster") { teamInfo.GamesPlayedWithCurrentRoster = Int32.Parse(value); }
-                    if (teamProperty.Name == "admin_account_id") { teamInfo.AdminAccountId = UInt32.Parse(value); }
+                    if (teamProperty.Name == "games_played_with_current_roster") { teamInfo.GamesPlayedWithCurrentRoster = uintValue; }
+                    if (teamProperty.Name == "admin_account_id") { teamInfo.AdminAccountId = uintValue; }
                     if (teamProperty.Name.StartsWith("player_"))
                     {
-                        playerAccountIds.Add(Int32.Parse(value.ToString()));
+                        playerAccountIds.Add(uintValue);
                     }
                     if (teamProperty.Name.StartsWith("league_id_"))
                     {
-                        leagueIds.Add(Int32.Parse(value.ToString()));
+                        leagueIds.Add(uintValue);
                     }
                 }
 

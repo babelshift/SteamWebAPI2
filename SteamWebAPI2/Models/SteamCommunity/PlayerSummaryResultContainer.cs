@@ -17,7 +17,7 @@ namespace SteamWebAPI2.Models.SteamCommunity
         /// Unique Steam ID of the player. Resolve this using ResolveVanityUrl interface method.
         /// </summary>
         [JsonProperty(PropertyName = "steamid")]
-        public string SteamId { get; set; }
+        public ulong SteamId { get; set; }
 
         /// <summary>
         /// Determines the visibility of the user's profile (public, private, friends)
@@ -29,7 +29,7 @@ namespace SteamWebAPI2.Models.SteamCommunity
         /// If set to 1, the user has configured his profile.
         /// </summary>
         [JsonProperty(PropertyName = "profilestate")]
-        public int ProfileState { get; set; }
+        public uint ProfileState { get; set; }
 
         /// <summary>
         /// User's current nick name (displayed in profile and friends list)
@@ -117,7 +117,7 @@ namespace SteamWebAPI2.Models.SteamCommunity
         /// The player's selected city. This seems to refer to a database city id, so I'm not sure how to make use of this field.
         /// </summary>
         [JsonProperty(PropertyName = "loccityid")]
-        public int CityCode { get; set; }
+        public uint CityCode { get; set; }
 
         /// <summary>
         /// The name of the game that a player is currently playing

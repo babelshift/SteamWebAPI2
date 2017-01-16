@@ -10,7 +10,7 @@ namespace SteamWebAPI2.Utilities.JsonConverters
     /// <summary>
     /// Handles manual deserialization of the response from ISteamEconomy/GetAssetClassInfo.
     /// I could not rely on automatic deserialization with property attribute decorators because the JSON structure of the response is completely awful.
-    /// Instead of using JSON arrays, the JSON response contains multiple dynamically build objects with varying numbers of properties whose values correspond to
+    /// Instead of using JSON arrays, the JSON response contains multiple dynamically built objects with varying numbers of properties whose values correspond to
     /// what appear to be arrays indices. The response appears to be a conversion from Valve Data Format (VDF) to JSON.
     /// So to clean this up, I manually deserialize into objects that aren't awful.
     ///
@@ -67,6 +67,9 @@ namespace SteamWebAPI2.Utilities.JsonConverters
                         string name = assetClassProperty.Name;
                         string value = assetClassProperty.Value.ToString();
 
+                        ulong ulongValue = 0;
+                        ulong.TryParse(value, out ulongValue);
+
                         if (name == "icon_url") { assetClassInfo.IconUrl = value; }
                         if (name == "icon_url_large") { assetClassInfo.IconUrlLarge = value; }
                         if (name == "icon_drag_url") { assetClassInfo.IconDragUrl = value; }
@@ -82,7 +85,7 @@ namespace SteamWebAPI2.Utilities.JsonConverters
                         if (name == "market_tradable_restriction") { assetClassInfo.MarketTradableRestriction = value; }
                         if (name == "market_marketable_restriction") { assetClassInfo.MarketMarketableRestriction = value; }
                         if (name == "fraudwarnings") { assetClassInfo.FraudWarnings = value; }
-                        if (name == "classid") { assetClassInfo.ClassId = long.Parse(value); }
+                        if (name == "classid") { assetClassInfo.ClassId = ulongValue; }
 
                         #region Parse Descriptions Objects
 
@@ -177,7 +180,10 @@ namespace SteamWebAPI2.Utilities.JsonConverters
 
                             foreach (var assetClassAppDataProperty in assetClassProperty.Value.Children<JProperty>())
                             {
-                                if (assetClassAppDataProperty.Name == "def_index") { appData.DefIndex = assetClassAppDataProperty.Value.ToString(); }
+                                uint uintValue = 0;
+                                uint.TryParse(assetClassAppDataProperty.Value.ToString(), out uintValue);
+
+                                if (assetClassAppDataProperty.Name == "def_index") { appData.DefIndex = uintValue; }
                                 if (assetClassAppDataProperty.Name == "quality") { appData.Quality = assetClassAppDataProperty.Value.ToString(); }
                                 if (assetClassAppDataProperty.Name == "slot") { appData.Slot = assetClassAppDataProperty.Value.ToString(); }
                                 if (assetClassAppDataProperty.Name == "highlight_color") { appData.HighlightColor = assetClassAppDataProperty.Value.ToString(); }
@@ -213,11 +219,12 @@ namespace SteamWebAPI2.Utilities.JsonConverters
 
                                 if (assetClassAppDataProperty.Name == "player_class_ids")
                                 {
-                                    List<long> playerClassIds = new List<long>();
+                                    List<ulong> playerClassIds = new List<ulong>();
 
                                     foreach (var assetClassAppDataPlayerClassIdProperty in assetClassAppDataProperty.Value.Children<JProperty>())
                                     {
-                                        playerClassIds.Add(long.Parse(assetClassAppDataPlayerClassIdProperty.Value.ToString()));
+                                        ulong.TryParse(assetClassAppDataPlayerClassIdProperty.Value.ToString(), out ulongValue);
+                                        playerClassIds.Add(ulongValue);
                                     }
 
                                     appData.PlayerClassIds = playerClassIds;

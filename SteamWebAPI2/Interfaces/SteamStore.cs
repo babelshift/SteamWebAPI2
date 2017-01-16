@@ -1,11 +1,8 @@
 ﻿using Steam.Models.SteamStore;
 using SteamWebAPI2.Models.SteamStore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SteamWebAPI2.Utilities;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SteamWebAPI2.Interfaces
 {

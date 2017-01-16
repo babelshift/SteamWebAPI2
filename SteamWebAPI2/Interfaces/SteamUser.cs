@@ -1,16 +1,16 @@
 ﻿using Steam.Models.SteamCommunity;
+using SteamWebAPI2.Exceptions;
 using SteamWebAPI2.Models.SteamCommunity;
 using SteamWebAPI2.Models.SteamPlayer;
+using SteamWebAPI2.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Threading.Tasks;
-using System.Linq;
-using SteamWebAPI2.Exceptions;
-using SteamWebAPI2.Utilities;
-using System.Net.Http;
 using System.IO;
+using System.Linq;
+using System.Net.Http;
 using System.Runtime.Serialization;
+using System.Threading.Tasks;
 
 namespace SteamWebAPI2.Interfaces
 {
@@ -34,7 +34,7 @@ namespace SteamWebAPI2.Interfaces
         /// </summary>
         /// <param name="steamId"></param>
         /// <returns></returns>
-        public async Task<PlayerSummaryModel> GetPlayerSummaryAsync(long steamId)
+        public async Task<PlayerSummaryModel> GetPlayerSummaryAsync(ulong steamId)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
             parameters.AddIfHasValue(steamId, "steamids");
@@ -52,7 +52,7 @@ namespace SteamWebAPI2.Interfaces
             }
         }
 
-        public async Task<List<PlayerSummaryModel>> GetPlayerSummariesAsync(List<long> steamIds)
+        public async Task<List<PlayerSummaryModel>> GetPlayerSummariesAsync(List<ulong> steamIds)
         {
             // convert steam ids to a csv for the api
             var steamIdsCsv = string.Join(",", steamIds.Select(x => x.ToString()).ToArray());
@@ -72,7 +72,7 @@ namespace SteamWebAPI2.Interfaces
         /// <param name="steamId"></param>
         /// <param name="relationship"></param>
         /// <returns></returns>
-        public async Task<IReadOnlyCollection<FriendModel>> GetFriendsListAsync(long steamId, string relationship = "")
+        public async Task<IReadOnlyCollection<FriendModel>> GetFriendsListAsync(ulong steamId, string relationship = "")
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
             parameters.AddIfHasValue(steamId, "steamid");
@@ -90,9 +90,9 @@ namespace SteamWebAPI2.Interfaces
         /// </summary>
         /// <param name="steamId"></param>
         /// <returns></returns>
-        public async Task<IReadOnlyCollection<PlayerBansModel>> GetPlayerBansAsync(long steamId)
+        public async Task<IReadOnlyCollection<PlayerBansModel>> GetPlayerBansAsync(ulong steamId)
         {
-            var result = await GetPlayerBansAsync(new List<long>() { steamId });
+            var result = await GetPlayerBansAsync(new List<ulong>() { steamId });
             return result;
         }
 
@@ -101,7 +101,7 @@ namespace SteamWebAPI2.Interfaces
         /// </summary>
         /// <param name="steamIds"></param>
         /// <returns></returns>
-        public async Task<IReadOnlyCollection<PlayerBansModel>> GetPlayerBansAsync(IReadOnlyCollection<long> steamIds)
+        public async Task<IReadOnlyCollection<PlayerBansModel>> GetPlayerBansAsync(IReadOnlyCollection<ulong> steamIds)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
@@ -119,7 +119,7 @@ namespace SteamWebAPI2.Interfaces
         /// </summary>
         /// <param name="steamId"></param>
         /// <returns></returns>
-        public async Task<IReadOnlyCollection<long>> GetUserGroupsAsync(long steamId)
+        public async Task<IReadOnlyCollection<ulong>> GetUserGroupsAsync(ulong steamId)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
@@ -148,7 +148,7 @@ namespace SteamWebAPI2.Interfaces
 
             var vanityUrlResultContainer = await steamWebInterface.GetAsync<ResolveVanityUrlResultContainer>("ResolveVanityURL", 1, parameters);
 
-            if(vanityUrlResultContainer.Result.Success == 42)
+            if (vanityUrlResultContainer.Result.Success == 42)
             {
                 throw new VanityUrlNotResolvedException(ErrorMessages.VanityUrlNotResolved);
             }
@@ -161,7 +161,7 @@ namespace SteamWebAPI2.Interfaces
         /// </summary>
         /// <param name="steamId"></param>
         /// <returns></returns>
-        public async Task<SteamCommunityProfileModel> GetCommunityProfileAsync(long steamId)
+        public async Task<SteamCommunityProfileModel> GetCommunityProfileAsync(ulong steamId)
         {
             HttpClient httpClient = new HttpClient();
             string xml = await httpClient.GetStringAsync(String.Format("http://steamcommunity.com/profiles/{0}?xml=1", steamId));

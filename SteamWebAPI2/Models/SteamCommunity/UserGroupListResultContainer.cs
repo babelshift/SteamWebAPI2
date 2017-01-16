@@ -6,7 +6,7 @@ namespace SteamWebAPI2.Models.SteamCommunity
     internal class UserGroupGid
     {
         [JsonProperty("gid")]
-        public long Gid { get; set; }
+        public ulong Gid { get; set; }
     }
 
     internal class UserGroupListResult

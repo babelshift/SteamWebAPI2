@@ -14,10 +14,10 @@ namespace SteamWebAPI2.Models.DOTA2
         public string CountryCode { get; set; }
 
         [JsonProperty(PropertyName = "fantasy_role")]
-        public int FantasyRole { get; set; }
+        public uint FantasyRole { get; set; }
 
         [JsonProperty(PropertyName = "team_id")]
-        public int TeamId { get; set; }
+        public uint TeamId { get; set; }
 
         [JsonProperty(PropertyName = "team_name")]
         public string TeamName { get; set; }
@@ -33,7 +33,7 @@ namespace SteamWebAPI2.Models.DOTA2
 
     internal class ProPlayerLeaderboard
     {
-        public int Division { get; set; }
+        public uint Division { get; set; }
 
         [JsonProperty(PropertyName = "account_ids")]
         public IList<uint> AccountIds { get; set; }

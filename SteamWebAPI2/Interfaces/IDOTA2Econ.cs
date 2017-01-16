@@ -14,6 +14,6 @@ namespace SteamWebAPI2.Interfaces
 
         Task<IReadOnlyCollection<RarityModel>> GetRaritiesAsync(string language = "");
 
-        Task<int> GetTournamentPrizePoolAsync(int? leagueId = null);
+        Task<uint> GetTournamentPrizePoolAsync(uint? leagueId = null);
     }
 }

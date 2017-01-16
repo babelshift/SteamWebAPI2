@@ -30,7 +30,7 @@ namespace SteamWebAPI2.Models.SteamStore
         public string PercentSavingsText { get; set; }
 
         [JsonProperty("percent_savings")]
-        public int PercentSavings { get; set; }
+        public uint PercentSavings { get; set; }
 
         [JsonProperty("option_text")]
         public string OptionText { get; set; }
@@ -45,7 +45,7 @@ namespace SteamWebAPI2.Models.SteamStore
         public bool IsFreeLicense { get; set; }
 
         [JsonProperty("price_in_cents_with_discount")]
-        public int PriceInCentsWithDiscount { get; set; }
+        public uint PriceInCentsWithDiscount { get; set; }
     }
 
     internal class PackageGroup
@@ -90,7 +90,7 @@ namespace SteamWebAPI2.Models.SteamStore
     internal class Metacritic
     {
         [JsonProperty("score")]
-        public int Score { get; set; }
+        public uint Score { get; set; }
 
         [JsonProperty("url")]
         public string Url { get; set; }
@@ -99,7 +99,7 @@ namespace SteamWebAPI2.Models.SteamStore
     internal class Category
     {
         [JsonProperty("id")]
-        public int Id { get; set; }
+        public uint Id { get; set; }
 
         [JsonProperty("description")]
         public string Description { get; set; }
@@ -108,7 +108,7 @@ namespace SteamWebAPI2.Models.SteamStore
     internal class Genre
     {
         [JsonProperty("id")]
-        public string Id { get; set; }
+        public uint Id { get; set; }
 
         [JsonProperty("description")]
         public string Description { get; set; }
@@ -117,7 +117,7 @@ namespace SteamWebAPI2.Models.SteamStore
     internal class Screenshot
     {
         [JsonProperty("id")]
-        public int Id { get; set; }
+        public uint Id { get; set; }
 
         [JsonProperty("path_thumbnail")]
         public string PathThumbnail { get; set; }
@@ -138,7 +138,7 @@ namespace SteamWebAPI2.Models.SteamStore
     internal class Movie
     {
         [JsonProperty("id")]
-        public int Id { get; set; }
+        public uint Id { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }
@@ -156,7 +156,7 @@ namespace SteamWebAPI2.Models.SteamStore
     internal class Recommendations
     {
         [JsonProperty("total")]
-        public int Total { get; set; }
+        public uint Total { get; set; }
     }
 
     internal class ReleaseDate
@@ -186,16 +186,16 @@ namespace SteamWebAPI2.Models.SteamStore
         public string Name { get; set; }
 
         [JsonProperty("steam_appid")]
-        public int SteamAppid { get; set; }
+        public uint SteamAppid { get; set; }
 
         [JsonProperty("required_age")]
-        public int RequiredAge { get; set; }
+        public uint RequiredAge { get; set; }
 
         [JsonProperty("is_free")]
         public bool IsFree { get; set; }
 
         [JsonProperty("dlc")]
-        public int[] Dlc { get; set; }
+        public uint[] Dlc { get; set; }
 
         [JsonProperty("detailed_description")]
         public string DetailedDescription { get; set; }

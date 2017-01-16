@@ -1,9 +1,9 @@
 ﻿using Steam.Models.SteamEconomy;
 using SteamWebAPI2.Models.SteamEconomy;
+using SteamWebAPI2.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using SteamWebAPI2.Utilities;
 
 namespace SteamWebAPI2.Interfaces
 {

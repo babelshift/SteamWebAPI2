@@ -6,7 +6,7 @@
         public string TeamName { get; set; }
         public string TeamTag { get; set; }
         public string Sponsor { get; set; }
-        public int FantasyRole { get; set; }
+        public uint FantasyRole { get; set; }
     }
 
     internal class PlayerOfficialInfoResultContainer

@@ -21,7 +21,7 @@ namespace SteamWebAPI2.Models.GameEconomy
     internal class StoreCarouselData
     {
         [JsonProperty("max_display_banners")]
-        public int MaxDisplayBanners { get; set; }
+        public uint MaxDisplayBanners { get; set; }
 
         [JsonProperty("banners")]
         public IList<StoreBanner> Banners { get; set; }
@@ -33,7 +33,7 @@ namespace SteamWebAPI2.Models.GameEconomy
         public string Name { get; set; }
 
         [JsonProperty("id")]
-        public string Id { get; set; }
+        public uint Id { get; set; }
     }
 
     internal class StoreTab
@@ -42,10 +42,10 @@ namespace SteamWebAPI2.Models.GameEconomy
         public string Label { get; set; }
 
         [JsonProperty("id")]
-        public string Id { get; set; }
+        public uint Id { get; set; }
 
         [JsonProperty("parent_id")]
-        public object ParentId { get; set; }
+        public uint ParentId { get; set; }
 
         [JsonProperty("use_large_cells")]
         public bool UseLargeCells { get; set; }
@@ -60,7 +60,7 @@ namespace SteamWebAPI2.Models.GameEconomy
         public bool Home { get; set; }
 
         [JsonProperty("dropdown_prefab_id")]
-        public long? DropdownPrefabId { get; set; }
+        public ulong? DropdownPrefabId { get; set; }
 
         [JsonProperty("parent_name")]
         public string ParentName { get; set; }
@@ -69,7 +69,7 @@ namespace SteamWebAPI2.Models.GameEconomy
     internal class StoreFilterAllElement
     {
         [JsonProperty("id")]
-        public int Id { get; set; }
+        public ulong Id { get; set; }
 
         [JsonProperty("localized_text")]
         public string LocalizedText { get; set; }
@@ -77,20 +77,20 @@ namespace SteamWebAPI2.Models.GameEconomy
 
     internal class StoreFilterElement
     {
+        [JsonProperty("id")]
+        public ulong Id { get; set; }
+
         [JsonProperty("name")]
         public string Name { get; set; }
 
         [JsonProperty("localized_text")]
         public string LocalizedText { get; set; }
-
-        [JsonProperty("id")]
-        public int Id { get; set; }
     }
 
     internal class StoreFilter
     {
         [JsonProperty("id")]
-        public int Id { get; set; }
+        public uint Id { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }
@@ -105,13 +105,13 @@ namespace SteamWebAPI2.Models.GameEconomy
         public IList<StoreFilterElement> Elements { get; set; }
 
         [JsonProperty("count")]
-        public int Count { get; set; }
+        public uint Count { get; set; }
     }
 
     internal class StoreSorter
     {
         [JsonProperty("id")]
-        public object Id { get; set; }
+        public ulong Id { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }
@@ -132,13 +132,13 @@ namespace SteamWebAPI2.Models.GameEconomy
     internal class StoreSorterId
     {
         [JsonProperty("id")]
-        public long Id { get; set; }
+        public ulong Id { get; set; }
     }
 
     internal class StoreSortingPrefab
     {
         [JsonProperty("id")]
-        public long Id { get; set; }
+        public ulong Id { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }
@@ -162,7 +162,7 @@ namespace SteamWebAPI2.Models.GameEconomy
     internal class StoreDropdown
     {
         [JsonProperty("id")]
-        public long Id { get; set; }
+        public ulong Id { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }
@@ -180,7 +180,7 @@ namespace SteamWebAPI2.Models.GameEconomy
     internal class StoreConfig
     {
         [JsonProperty("dropdown_id")]
-        public object DropdownId { get; set; }
+        public ulong DropdownId { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }
@@ -189,13 +189,13 @@ namespace SteamWebAPI2.Models.GameEconomy
         public bool Enabled { get; set; }
 
         [JsonProperty("default_selection_id")]
-        public object DefaultSelectionId { get; set; }
+        public uint DefaultSelectionId { get; set; }
     }
 
     internal class StorePrefab
     {
         [JsonProperty("id")]
-        public object Id { get; set; }
+        public ulong Id { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }
@@ -216,7 +216,7 @@ namespace SteamWebAPI2.Models.GameEconomy
     internal class StorePlayerClassData
     {
         [JsonProperty("id")]
-        public int Id { get; set; }
+        public uint Id { get; set; }
 
         [JsonProperty("base_name")]
         public string BaseName { get; set; }
@@ -228,16 +228,16 @@ namespace SteamWebAPI2.Models.GameEconomy
     internal class StorePopularItem
     {
         [JsonProperty("def_index")]
-        public int DefIndex { get; set; }
+        public uint DefIndex { get; set; }
 
         [JsonProperty("order")]
-        public int Order { get; set; }
+        public uint Order { get; set; }
     }
 
     internal class StoreHomePageData
     {
         [JsonProperty("home_category_id")]
-        public int HomeCategoryId { get; set; }
+        public uint HomeCategoryId { get; set; }
 
         [JsonProperty("popular_items")]
         public IList<StorePopularItem> PopularItems { get; set; }

@@ -1,5 +1,4 @@
 ﻿using SteamWebAPI2.Utilities;
-using System;
 
 namespace SteamWebAPI2.Interfaces
 {

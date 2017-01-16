@@ -6,20 +6,20 @@ namespace SteamWebAPI2.Interfaces
 {
     public interface ISteamUser
     {
-        Task<IReadOnlyCollection<FriendModel>> GetFriendsListAsync(long steamId, string relationship = "");
+        Task<IReadOnlyCollection<FriendModel>> GetFriendsListAsync(ulong steamId, string relationship = "");
 
-        Task<IReadOnlyCollection<PlayerBansModel>> GetPlayerBansAsync(long steamId);
+        Task<IReadOnlyCollection<PlayerBansModel>> GetPlayerBansAsync(ulong steamId);
 
-        Task<IReadOnlyCollection<PlayerBansModel>> GetPlayerBansAsync(IReadOnlyCollection<long> steamIds);
+        Task<IReadOnlyCollection<PlayerBansModel>> GetPlayerBansAsync(IReadOnlyCollection<ulong> steamIds);
 
-        Task<PlayerSummaryModel> GetPlayerSummaryAsync(long steamId);
+        Task<PlayerSummaryModel> GetPlayerSummaryAsync(ulong steamId);
 
-        Task<List<PlayerSummaryModel>> GetPlayerSummariesAsync(List<long> steamIds);
+        Task<List<PlayerSummaryModel>> GetPlayerSummariesAsync(List<ulong> steamIds);
 
-        Task<IReadOnlyCollection<long>> GetUserGroupsAsync(long steamId);
+        Task<IReadOnlyCollection<ulong>> GetUserGroupsAsync(ulong steamId);
 
         Task<ulong> ResolveVanityUrlAsync(string vanityUrl, int? urlType = default(int?));
 
-        Task<SteamCommunityProfileModel> GetCommunityProfileAsync(long steamId);
+        Task<SteamCommunityProfileModel> GetCommunityProfileAsync(ulong steamId);
     }
 }

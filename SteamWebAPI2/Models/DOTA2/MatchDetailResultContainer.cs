@@ -5,9 +5,9 @@ namespace SteamWebAPI2.Models.DOTA2
 {
     internal class MatchPlayerAbilityUpgrade
     {
-        public int Ability { get; set; }
-        public int Time { get; set; }
-        public int Level { get; set; }
+        public uint Ability { get; set; }
+        public uint Time { get; set; }
+        public uint Level { get; set; }
     }
 
     internal class MatchPlayer
@@ -16,62 +16,62 @@ namespace SteamWebAPI2.Models.DOTA2
         public uint AccountId { get; set; }
 
         [JsonProperty(PropertyName = "player_slot")]
-        public int PlayerSlot { get; set; }
+        public uint PlayerSlot { get; set; }
 
         [JsonProperty(PropertyName = "hero_id")]
-        public int HeroId { get; set; }
+        public uint HeroId { get; set; }
 
         [JsonProperty(PropertyName = "item_0")]
-        public int Item0 { get; set; }
+        public uint Item0 { get; set; }
 
         [JsonProperty(PropertyName = "item_1")]
-        public int Item1 { get; set; }
+        public uint Item1 { get; set; }
 
         [JsonProperty(PropertyName = "item_2")]
-        public int Item2 { get; set; }
+        public uint Item2 { get; set; }
 
         [JsonProperty(PropertyName = "item_3")]
-        public int Item3 { get; set; }
+        public uint Item3 { get; set; }
 
         [JsonProperty(PropertyName = "item_4")]
-        public int Item4 { get; set; }
+        public uint Item4 { get; set; }
 
         [JsonProperty(PropertyName = "item_5")]
-        public int Item5 { get; set; }
+        public uint Item5 { get; set; }
 
-        public int Kills { get; set; }
-        public int Deaths { get; set; }
-        public int Assists { get; set; }
+        public uint Kills { get; set; }
+        public uint Deaths { get; set; }
+        public uint Assists { get; set; }
 
         [JsonProperty(PropertyName = "leaver_status")]
-        public int LeaverStatus { get; set; }
+        public uint LeaverStatus { get; set; }
 
-        public int Gold { get; set; }
+        public uint Gold { get; set; }
 
         [JsonProperty(PropertyName = "last_hits")]
-        public int LastHits { get; set; }
+        public uint LastHits { get; set; }
 
-        public int Denies { get; set; }
+        public uint Denies { get; set; }
 
         [JsonProperty(PropertyName = "gold_per_min")]
-        public int GoldPerMinute { get; set; }
+        public uint GoldPerMinute { get; set; }
 
         [JsonProperty(PropertyName = "xp_per_min")]
-        public int ExperiencePerMinute { get; set; }
+        public uint ExperiencePerMinute { get; set; }
 
         [JsonProperty(PropertyName = "gold_spent")]
-        public int GoldSpent { get; set; }
+        public uint GoldSpent { get; set; }
 
         [JsonProperty(PropertyName = "hero_damage")]
-        public int HeroDamage { get; set; }
+        public uint HeroDamage { get; set; }
 
         [JsonProperty(PropertyName = "tower_damage")]
-        public int TowerDamage { get; set; }
+        public uint TowerDamage { get; set; }
 
         [JsonProperty(PropertyName = "hero_healing")]
-        public int HeroHealing { get; set; }
+        public uint HeroHealing { get; set; }
 
-        public int Level { get; set; }
+        public uint Level { get; set; }
 
         [JsonProperty(PropertyName = "ability_upgrades")]
         public IList<MatchPlayerAbilityUpgrade> AbilityUpgrades { get; set; }
@@ -83,10 +83,10 @@ namespace SteamWebAPI2.Models.DOTA2
         public bool IsPick { get; set; }
 
         [JsonProperty(PropertyName = "hero_id")]
-        public int HeroId { get; set; }
+        public uint HeroId { get; set; }
 
-        public int Team { get; set; }
-        public int Order { get; set; }
+        public uint Team { get; set; }
+        public uint Order { get; set; }
     }
 
     internal class MatchDetailResult
@@ -96,83 +96,83 @@ namespace SteamWebAPI2.Models.DOTA2
         [JsonProperty(PropertyName = "radiant_win")]
         public bool RadiantWin { get; set; }
 
-        public int Duration { get; set; }
+        public uint Duration { get; set; }
 
         [JsonProperty(PropertyName = "start_time")]
-        public int StartTime { get; set; }
+        public uint StartTime { get; set; }
 
         [JsonProperty(PropertyName = "match_id")]
-        public long MatchId { get; set; }
+        public ulong MatchId { get; set; }
 
         [JsonProperty(PropertyName = "match_seq_num")]
-        public int MatchSequenceNumber { get; set; }
+        public uint MatchSequenceNumber { get; set; }
 
         [JsonProperty(PropertyName = "tower_status_radiant")]
-        public int TowerStatusRadiant { get; set; }
+        public uint TowerStatusRadiant { get; set; }
 
         [JsonProperty(PropertyName = "tower_status_dire")]
-        public int TowerStatusDire { get; set; }
+        public uint TowerStatusDire { get; set; }
 
         [JsonProperty(PropertyName = "barracks_status_radiant")]
-        public int BarracksStatusRadiant { get; set; }
+        public uint BarracksStatusRadiant { get; set; }
 
         [JsonProperty(PropertyName = "barracks_status_dire")]
-        public int BarracksStatusDire { get; set; }
+        public uint BarracksStatusDire { get; set; }
 
-        public int Cluster { get; set; }
+        public uint Cluster { get; set; }
 
         [JsonProperty(PropertyName = "first_blood_time")]
-        public int FirstBloodTime { get; set; }
+        public uint FirstBloodTime { get; set; }
 
         [JsonProperty(PropertyName = "lobby_type")]
-        public int LobbyType { get; set; }
+        public uint LobbyType { get; set; }
 
         [JsonProperty(PropertyName = "human_players")]
-        public int HumanPlayers { get; set; }
+        public uint HumanPlayers { get; set; }
 
         [JsonProperty(PropertyName = "league_id")]
-        public int LeagueId { get; set; }
+        public uint LeagueId { get; set; }
 
         [JsonProperty(PropertyName = "positive_votes")]
-        public int PositiveVotes { get; set; }
+        public uint PositiveVotes { get; set; }
 
         [JsonProperty(PropertyName = "negative_votes")]
-        public int NegativeVotes { get; set; }
+        public uint NegativeVotes { get; set; }
 
         [JsonProperty(PropertyName = "game_mode")]
-        public int GameMode { get; set; }
+        public uint GameMode { get; set; }
 
-        public int Engine { get; set; }
+        public uint Engine { get; set; }
 
         [JsonProperty(PropertyName = "radiant_team_id")]
-        public int RadiantTeamId { get; set; }
+        public uint RadiantTeamId { get; set; }
 
         [JsonProperty(PropertyName = "radiant_name")]
         public string RadiantName { get; set; }
 
         [JsonProperty(PropertyName = "radiant_logo")]
-        public long RadiantLogo { get; set; }
+        public ulong RadiantLogo { get; set; }
 
         [JsonProperty(PropertyName = "radiant_team_complete")]
-        public int RadiantTeamComplete { get; set; }
+        public uint RadiantTeamComplete { get; set; }
 
         [JsonProperty(PropertyName = "dire_team_id")]
-        public int DireTeamId { get; set; }
+        public uint DireTeamId { get; set; }
 
         [JsonProperty(PropertyName = "dire_name")]
         public string DireName { get; set; }
 
         [JsonProperty(PropertyName = "dire_logo")]
-        public long DireLogo { get; set; }
+        public ulong DireLogo { get; set; }
 
         [JsonProperty(PropertyName = "dire_team_complete")]
-        public int DireTeamComplete { get; set; }
+        public uint DireTeamComplete { get; set; }
 
         [JsonProperty(PropertyName = "radiant_captain")]
-        public int RadiantCaptain { get; set; }
+        public uint RadiantCaptain { get; set; }
 
         [JsonProperty(PropertyName = "dire_captain")]
-        public int DireCaptain { get; set; }
+        public uint DireCaptain { get; set; }
 
         [JsonProperty(PropertyName = "picks_bans")]
         public IList<MatchPickBan> PicksAndBans { get; set; }

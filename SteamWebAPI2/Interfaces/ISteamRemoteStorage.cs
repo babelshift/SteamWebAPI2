@@ -1,6 +1,5 @@
-﻿using System.Threading.Tasks;
-using SteamWebAPI2.Models;
-using Steam.Models;
+﻿using Steam.Models;
+using System.Threading.Tasks;
 
 namespace SteamWebAPI2.Interfaces
 {

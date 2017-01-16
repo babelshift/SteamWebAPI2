@@ -17,8 +17,8 @@ using SteamWebAPI2.Models.SteamEconomy;
 using SteamWebAPI2.Models.SteamPlayer;
 using SteamWebAPI2.Models.SteamStore;
 using SteamWebAPI2.Models.TF2;
-using System;
 using SteamWebAPI2.Utilities;
+using System;
 
 namespace SteamWebAPI2
 {

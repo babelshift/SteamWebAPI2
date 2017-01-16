@@ -8,23 +8,23 @@ namespace SteamWebAPI2.Models.DOTA2
     internal class MatchHistoryMatch
     {
         [JsonProperty(PropertyName = "match_id")]
-        public long MatchId { get; set; }
+        public ulong MatchId { get; set; }
 
         [JsonProperty(PropertyName = "match_seq_num")]
-        public int MatchSequenceNumber { get; set; }
+        public uint MatchSequenceNumber { get; set; }
 
         [JsonProperty(PropertyName = "start_time")]
         [JsonConverter(typeof(UnixTimeJsonConverter))]
         public DateTime StartTime { get; set; }
 
         [JsonProperty(PropertyName = "lobby_type")]
-        public int LobbyType { get; set; }
+        public uint LobbyType { get; set; }
 
         [JsonProperty(PropertyName = "radiant_team_id")]
-        public int RadiantTeamId { get; set; }
+        public uint RadiantTeamId { get; set; }
 
         [JsonProperty(PropertyName = "dire_team_id")]
-        public int DireTeamId { get; set; }
+        public uint DireTeamId { get; set; }
 
         public List<MatchHistoryPlayer> Players { get; set; }
     }
@@ -35,24 +35,24 @@ namespace SteamWebAPI2.Models.DOTA2
         public uint AccountId { get; set; }
 
         [JsonProperty(PropertyName = "player_slot")]
-        public int PlayerSlot { get; set; }
+        public uint PlayerSlot { get; set; }
 
         [JsonProperty(PropertyName = "hero_id")]
-        public int HeroId { get; set; }
+        public uint HeroId { get; set; }
     }
 
     internal class MatchHistoryResult
     {
-        public int Status { get; set; }
+        public uint Status { get; set; }
 
         [JsonProperty(PropertyName = "num_results")]
-        public int NumResults { get; set; }
+        public uint NumResults { get; set; }
 
         [JsonProperty(PropertyName = "total_results")]
-        public int TotalResults { get; set; }
+        public uint TotalResults { get; set; }
 
         [JsonProperty(PropertyName = "results_remaining")]
-        public int ResultsRemaining { get; set; }
+        public uint ResultsRemaining { get; set; }
 
         public IList<MatchHistoryMatch> Matches { get; set; }
     }

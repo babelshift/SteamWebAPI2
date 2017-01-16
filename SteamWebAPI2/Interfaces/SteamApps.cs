@@ -1,9 +1,9 @@
 ﻿using Steam.Models;
 using SteamWebAPI2.Models;
+using SteamWebAPI2.Utilities;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using SteamWebAPI2.Utilities;
 
 namespace SteamWebAPI2.Interfaces
 {
