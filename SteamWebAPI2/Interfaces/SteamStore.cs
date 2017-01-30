@@ -22,9 +22,11 @@ namespace SteamWebAPI2.Interfaces
 
             parameters.AddIfHasValue(appId, "appids");
 
-            var appDetails = await CallMethodAsync<AppDetailsContainer>("appdetails", parameters);
+			// Edit by Jir : Was mapping to AppDetailsContainer previously; correct one should be Data instead.			 
+			var appDetails = await CallMethodAsync<Data>("appdetails", parameters);
 
-            var appDetailsModel = AutoMapperConfiguration.Mapper.Map<Data, StoreAppDetailsDataModel>(appDetails.Data);
+            var appDetailsModel = AutoMapperConfiguration.Mapper.Map<Data, StoreAppDetailsDataModel>(appDetails);
+
 
             return appDetailsModel;
         }
