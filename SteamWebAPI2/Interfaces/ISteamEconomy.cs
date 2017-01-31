@@ -1,13 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using Steam.Models.SteamEconomy;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using SteamWebAPI2.Models.SteamEconomy;
-using Steam.Models.SteamEconomy;
 
 namespace SteamWebAPI2.Interfaces
 {
     public interface ISteamEconomy
     {
-        Task<AssetClassInfoResultModel> GetAssetClassInfoAsync(int appId, IReadOnlyList<long> classIds, string language);
-        Task<AssetPriceResultModel> GetAssetPricesAsync(int appId, string currency, string language);
+        Task<AssetClassInfoResultModel> GetAssetClassInfoAsync(uint appId, IReadOnlyList<ulong> classIds, string language);
+
+        Task<AssetPriceResultModel> GetAssetPricesAsync(uint appId, string currency, string language);
     }
 }

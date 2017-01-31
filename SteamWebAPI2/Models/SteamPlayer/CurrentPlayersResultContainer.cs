@@ -5,7 +5,7 @@ namespace SteamWebAPI2.Models.SteamPlayer
     internal class CurrentPlayersResult
     {
         [JsonProperty("player_count")]
-        public int PlayerCount { get; set; }
+        public uint PlayerCount { get; set; }
 
         [JsonProperty("result")]
         public int Result { get; set; }

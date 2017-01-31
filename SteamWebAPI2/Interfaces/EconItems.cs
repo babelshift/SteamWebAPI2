@@ -1,9 +1,9 @@
 ﻿using Steam.Models.GameEconomy;
 using SteamWebAPI2.Models.GameEconomy;
+using SteamWebAPI2.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using SteamWebAPI2.Utilities;
 
 namespace SteamWebAPI2.Interfaces
 {
@@ -21,14 +21,15 @@ namespace SteamWebAPI2.Interfaces
 
     public class EconItems : IEconItems
     {
-        private int appId;
+        private uint appId;
 
         // The API only exposes certain methods for certain App Ids in the EconItems interface
         // I'm hard coding the values for now until I come up with a better, more dynamic solution
-        private List<int> validSchemaAppIds = new List<int>();
-        private List<int> validSchemaUrlAppIds = new List<int>();
-        private List<int> validStoreMetaDataAppIds = new List<int>();
-        private List<int> validStoreStatusAppIds = new List<int>();
+        private List<uint> validSchemaAppIds = new List<uint>();
+
+        private List<uint> validSchemaUrlAppIds = new List<uint>();
+        private List<uint> validStoreMetaDataAppIds = new List<uint>();
+        private List<uint> validStoreStatusAppIds = new List<uint>();
 
         private ISteamWebInterface steamWebInterface;
 
@@ -44,26 +45,26 @@ namespace SteamWebAPI2.Interfaces
             }
 
             this.steamWebInterface = steamWebInterface == null
-                ? new SteamWebInterface(steamWebApiKey, "IEconItems_" + (int)appId)
+                ? new SteamWebInterface(steamWebApiKey, "IEconItems_" + (uint)appId)
                 : steamWebInterface;
 
-            this.appId = (int)appId;
+            this.appId = (uint)appId;
 
-            validSchemaAppIds.Add((int)EconItemsAppId.TeamFortress2);
-            validSchemaAppIds.Add((int)EconItemsAppId.Dota2);
-            validSchemaAppIds.Add((int)EconItemsAppId.Portal2);
-            validSchemaAppIds.Add((int)EconItemsAppId.Portal2_Beta);
-            validSchemaAppIds.Add((int)EconItemsAppId.CounterStrikeGO);
+            validSchemaAppIds.Add((uint)EconItemsAppId.TeamFortress2);
+            validSchemaAppIds.Add((uint)EconItemsAppId.Dota2);
+            validSchemaAppIds.Add((uint)EconItemsAppId.Portal2);
+            validSchemaAppIds.Add((uint)EconItemsAppId.Portal2_Beta);
+            validSchemaAppIds.Add((uint)EconItemsAppId.CounterStrikeGO);
 
-            validSchemaUrlAppIds.Add((int)EconItemsAppId.TeamFortress2);
-            validSchemaUrlAppIds.Add((int)EconItemsAppId.Dota2);
-            validSchemaUrlAppIds.Add((int)EconItemsAppId.CounterStrikeGO);
+            validSchemaUrlAppIds.Add((uint)EconItemsAppId.TeamFortress2);
+            validSchemaUrlAppIds.Add((uint)EconItemsAppId.Dota2);
+            validSchemaUrlAppIds.Add((uint)EconItemsAppId.CounterStrikeGO);
 
-            validStoreMetaDataAppIds.Add((int)EconItemsAppId.TeamFortress2);
-            validStoreMetaDataAppIds.Add((int)EconItemsAppId.Dota2);
-            validStoreMetaDataAppIds.Add((int)EconItemsAppId.CounterStrikeGO);
+            validStoreMetaDataAppIds.Add((uint)EconItemsAppId.TeamFortress2);
+            validStoreMetaDataAppIds.Add((uint)EconItemsAppId.Dota2);
+            validStoreMetaDataAppIds.Add((uint)EconItemsAppId.CounterStrikeGO);
 
-            validStoreStatusAppIds.Add((int)EconItemsAppId.TeamFortress2);
+            validStoreStatusAppIds.Add((uint)EconItemsAppId.TeamFortress2);
         }
 
         /// <summary>
@@ -71,7 +72,7 @@ namespace SteamWebAPI2.Interfaces
         /// </summary>
         /// <param name="steamId"></param>
         /// <returns></returns>
-        public async Task<EconItemResultModel> GetPlayerItemsAsync(long steamId)
+        public async Task<EconItemResultModel> GetPlayerItemsAsync(ulong steamId)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
@@ -114,7 +115,7 @@ namespace SteamWebAPI2.Interfaces
         /// <returns></returns>
         public async Task<Steam.Models.TF2.SchemaModel> GetSchemaForTF2Async(string language = "en_us")
         {
-            if(this.appId != (int)EconItemsAppId.TeamFortress2)
+            if (this.appId != (int)EconItemsAppId.TeamFortress2)
             {
                 throw new InvalidOperationException(String.Format("AppId {0} is not valid for the GetSchemaTF2 method.", appId));
             }
@@ -173,7 +174,7 @@ namespace SteamWebAPI2.Interfaces
         /// Returns a status indicator of the current status of a specific App ID.
         /// </summary>
         /// <returns></returns>
-        public async Task<int> GetStoreStatusAsync()
+        public async Task<uint> GetStoreStatusAsync()
         {
             if (!validStoreStatusAppIds.Contains(appId))
             {

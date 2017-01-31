@@ -1,9 +1,9 @@
 ﻿using Steam.Models.SteamEconomy;
 using SteamWebAPI2.Models.SteamEconomy;
+using SteamWebAPI2.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using SteamWebAPI2.Utilities;
 
 namespace SteamWebAPI2.Interfaces
 {
@@ -29,7 +29,7 @@ namespace SteamWebAPI2.Interfaces
         /// <param name="classIds"></param>
         /// <param name="language"></param>
         /// <returns></returns>
-        public async Task<AssetClassInfoResultModel> GetAssetClassInfoAsync(int appId, IReadOnlyList<long> classIds, string language = "en_us")
+        public async Task<AssetClassInfoResultModel> GetAssetClassInfoAsync(uint appId, IReadOnlyList<ulong> classIds, string language = "en_us")
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
@@ -56,7 +56,7 @@ namespace SteamWebAPI2.Interfaces
         /// <param name="currency"></param>
         /// <param name="language"></param>
         /// <returns></returns>
-        public async Task<AssetPriceResultModel> GetAssetPricesAsync(int appId, string currency = "", string language = "en_us")
+        public async Task<AssetPriceResultModel> GetAssetPricesAsync(uint appId, string currency = "", string language = "en_us")
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 

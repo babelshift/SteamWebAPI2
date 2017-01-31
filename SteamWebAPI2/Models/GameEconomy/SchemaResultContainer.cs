@@ -9,100 +9,100 @@ namespace SteamWebAPI2.Models.GameEconomy
         /// Normal item rarity: https://wiki.teamfortress.com/wiki/Normal
         /// </summary>
         [JsonProperty("Normal")]
-        public int Normal { get; set; }
+        public uint Normal { get; set; }
 
         /// <summary>
         /// Genuine item rarity: https://wiki.teamfortress.com/wiki/Genuine
         /// </summary>
         [JsonProperty("rarity1")]
-        public int Rarity1 { get; set; }
+        public uint Rarity1 { get; set; }
 
         /// <summary>
         /// Unused
         /// </summary>
         [JsonProperty("rarity2")]
-        public int Rarity2 { get; set; }
+        public uint Rarity2 { get; set; }
 
         /// <summary>
         /// Vintage item rarity: https://wiki.teamfortress.com/wiki/Vintage
         /// </summary>
         [JsonProperty("vintage")]
-        public int Vintage { get; set; }
+        public uint Vintage { get; set; }
 
         /// <summary>
         /// Unused
         /// </summary>
         [JsonProperty("rarity3")]
-        public int Rarity3 { get; set; }
+        public uint Rarity3 { get; set; }
 
         /// <summary>
         /// Unusual item rarity: https://wiki.teamfortress.com/wiki/Unusual
         /// </summary>
         [JsonProperty("rarity4")]
-        public int Rarity4 { get; set; }
+        public uint Rarity4 { get; set; }
 
         /// <summary>
         /// Unique item rarity: https://wiki.teamfortress.com/wiki/Unique
         /// </summary>
         [JsonProperty("Unique")]
-        public int Unique { get; set; }
+        public uint Unique { get; set; }
 
         /// <summary>
         /// Community item: https://wiki.teamfortress.com/wiki/Community_(quality)
         /// </summary>
         [JsonProperty("community")]
-        public int Community { get; set; }
+        public uint Community { get; set; }
 
         /// <summary>
         /// Developer owned item: https://wiki.teamfortress.com/wiki/Valve_(quality)
         /// </summary>
         [JsonProperty("developer")]
-        public int Developer { get; set; }
+        public uint Developer { get; set; }
 
         /// <summary>
         /// Self made item: https://wiki.teamfortress.com/wiki/Self-Made
         /// </summary>
         [JsonProperty("selfmade")]
-        public int SelfMade { get; set; }
+        public uint SelfMade { get; set; }
 
         /// <summary>
         /// Unused
         /// </summary>
         [JsonProperty("customized")]
-        public int Customized { get; set; }
+        public uint Customized { get; set; }
 
         /// <summary>
         /// Strange item: https://wiki.teamfortress.com/wiki/Strange
         /// </summary>
         [JsonProperty("strange")]
-        public int Strange { get; set; }
+        public uint Strange { get; set; }
 
         /// <summary>
         /// Unused
         /// </summary>
         [JsonProperty("completed")]
-        public int Completed { get; set; }
+        public uint Completed { get; set; }
 
         /// <summary>
         /// Haunted item: https://wiki.teamfortress.com/wiki/Haunted
         /// </summary>
         [JsonProperty("haunted")]
-        public int Haunted { get; set; }
+        public uint Haunted { get; set; }
 
         /// <summary>
         /// Collector's item: https://wiki.teamfortress.com/wiki/Collector%27s
         /// </summary>
         [JsonProperty("collectors")]
-        public int Collectors { get; set; }
+        public uint Collectors { get; set; }
 
         [JsonProperty("paintkitweapon")]
-        public int PaintKitWeapon { get; set; }
+        public uint PaintKitWeapon { get; set; }
     }
 
     internal class SchemaOriginName
     {
         [JsonProperty("origin")]
-        public int Origin { get; set; }
+        public uint Origin { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }
@@ -174,13 +174,13 @@ namespace SteamWebAPI2.Models.GameEconomy
     internal class SchemaAdditionalHiddenBodygroups
     {
         [JsonProperty("hat")]
-        public int Hat { get; set; }
+        public uint Hat { get; set; }
 
         [JsonProperty("headphones")]
-        public int Headphones { get; set; }
+        public uint Headphones { get; set; }
 
         [JsonProperty("head")]
-        public int? Head { get; set; }
+        public uint? Head { get; set; }
     }
 
     internal class SchemaStyle
@@ -282,7 +282,7 @@ namespace SteamWebAPI2.Models.GameEconomy
     internal class SchemaItem
     {
         [JsonProperty("defindex")]
-        public int DefIndex { get; set; }
+        public uint DefIndex { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }
@@ -312,13 +312,13 @@ namespace SteamWebAPI2.Models.GameEconomy
         public string ModelPlayer { get; set; }
 
         [JsonProperty("item_quality")]
-        public int ItemQuality { get; set; }
+        public uint ItemQuality { get; set; }
 
         [JsonProperty("min_ilevel")]
-        public int MinIlevel { get; set; }
+        public uint MinIlevel { get; set; }
 
         [JsonProperty("max_ilevel")]
-        public int MaxIlevel { get; set; }
+        public uint MaxIlevel { get; set; }
 
         [JsonProperty("image_url")]
         public string ImageUrl { get; set; }
@@ -366,7 +366,7 @@ namespace SteamWebAPI2.Models.GameEconomy
         public string Name { get; set; }
 
         [JsonProperty("defindex")]
-        public int Defindex { get; set; }
+        public uint Defindex { get; set; }
 
         [JsonProperty("attribute_class")]
         public string AttributeClass { get; set; }
@@ -423,7 +423,7 @@ namespace SteamWebAPI2.Models.GameEconomy
         public string System { get; set; }
 
         [JsonProperty("id")]
-        public int Id { get; set; }
+        public uint Id { get; set; }
 
         [JsonProperty("attach_to_rootbone")]
         public bool AttachToRootbone { get; set; }
@@ -438,10 +438,10 @@ namespace SteamWebAPI2.Models.GameEconomy
     internal class SchemaLevel
     {
         [JsonProperty("level")]
-        public int Level { get; set; }
+        public uint Level { get; set; }
 
         [JsonProperty("required_score")]
-        public int RequiredScore { get; set; }
+        public uint RequiredScore { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }
@@ -459,7 +459,7 @@ namespace SteamWebAPI2.Models.GameEconomy
     internal class SchemaKillEaterScoreType
     {
         [JsonProperty("type")]
-        public int Type { get; set; }
+        public uint Type { get; set; }
 
         [JsonProperty("type_name")]
         public string TypeName { get; set; }
@@ -471,7 +471,7 @@ namespace SteamWebAPI2.Models.GameEconomy
     internal class SchemaString
     {
         [JsonProperty("index")]
-        public int Index { get; set; }
+        public uint Index { get; set; }
 
         [JsonProperty("string")]
         public string String { get; set; }
@@ -489,7 +489,7 @@ namespace SteamWebAPI2.Models.GameEconomy
     internal class SchemaResult
     {
         [JsonProperty("status")]
-        public int Status { get; set; }
+        public uint Status { get; set; }
 
         [JsonProperty("items_game_url")]
         public string ItemsGameUrl { get; set; }

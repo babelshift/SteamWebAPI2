@@ -1,11 +1,10 @@
 ﻿using Steam.Models.DOTA2;
 using SteamWebAPI2.Models.DOTA2;
-using System;
+using SteamWebAPI2.Utilities;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Threading.Tasks;
 using System.Linq;
-using SteamWebAPI2.Utilities;
+using System.Threading.Tasks;
 
 namespace SteamWebAPI2.Interfaces
 {
@@ -32,7 +31,7 @@ namespace SteamWebAPI2.Interfaces
         public async Task<IReadOnlyCollection<LeagueModel>> GetLeagueListingAsync(string language = "en_us")
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
-            
+
             parameters.AddIfHasValue(language, "language");
 
             var leagueListing = await steamWebInterface.GetAsync<LeagueResultContainer>("GetLeagueListing", 1, parameters);
@@ -55,7 +54,7 @@ namespace SteamWebAPI2.Interfaces
         /// <param name="leagueId"></param>
         /// <param name="matchId"></param>
         /// <returns></returns>
-        public async Task<IReadOnlyCollection<LiveLeagueGameModel>> GetLiveLeagueGamesAsync(int? leagueId = null, long? matchId = null)
+        public async Task<IReadOnlyCollection<LiveLeagueGameModel>> GetLiveLeagueGamesAsync(uint? leagueId = null, ulong? matchId = null)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
@@ -74,7 +73,7 @@ namespace SteamWebAPI2.Interfaces
         /// </summary>
         /// <param name="matchId"></param>
         /// <returns></returns>
-        public async Task<MatchDetailModel> GetMatchDetailsAsync(long matchId)
+        public async Task<MatchDetailModel> GetMatchDetailsAsync(ulong matchId)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
@@ -100,8 +99,8 @@ namespace SteamWebAPI2.Interfaces
         /// <param name="matchesRequested"></param>
         /// <param name="tournamentGamesOnly"></param>
         /// <returns></returns>
-        public async Task<MatchHistoryModel> GetMatchHistoryAsync(int? heroId = null, int? gameMode = null, int? skill = null,
-            string minPlayers = "", string accountId = "", string leagueId = "", long? startAtMatchId = null,
+        public async Task<MatchHistoryModel> GetMatchHistoryAsync(uint? heroId = null, uint? gameMode = null, uint? skill = null,
+            uint? minPlayers = null, ulong? accountId = null, uint? leagueId = null, ulong? startAtMatchId = null,
             string matchesRequested = "", string tournamentGamesOnly = "")
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
@@ -129,7 +128,7 @@ namespace SteamWebAPI2.Interfaces
         /// <param name="startAtMatchSequenceNumber"></param>
         /// <param name="matchesRequested"></param>
         /// <returns></returns>
-        public async Task<IReadOnlyCollection<MatchHistoryMatchModel>> GetMatchHistoryBySequenceNumberAsync(long? startAtMatchSequenceNumber = null, int? matchesRequested = null)
+        public async Task<IReadOnlyCollection<MatchHistoryMatchModel>> GetMatchHistoryBySequenceNumberAsync(ulong? startAtMatchSequenceNumber = null, uint? matchesRequested = null)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
@@ -139,7 +138,7 @@ namespace SteamWebAPI2.Interfaces
             var matchHistory = await steamWebInterface.GetAsync<MatchHistoryBySequenceNumberResultContainer>("GetMatchHistoryBySequenceNum", 1, parameters);
 
             var matchHistoryModel = AutoMapperConfiguration.Mapper.Map<MatchHistoryBySequenceNumberResult, MatchHistoryModel>(matchHistory.Result);
-            
+
             return matchHistoryModel.Matches;
         }
 
@@ -149,7 +148,7 @@ namespace SteamWebAPI2.Interfaces
         /// <param name="startAtTeamId"></param>
         /// <param name="teamsRequested"></param>
         /// <returns></returns>
-        public async Task<IReadOnlyCollection<TeamInfoModel>> GetTeamInfoByTeamIdAsync(long? startAtTeamId = null, int? teamsRequested = null)
+        public async Task<IReadOnlyCollection<TeamInfoModel>> GetTeamInfoByTeamIdAsync(long? startAtTeamId = null, uint? teamsRequested = null)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 

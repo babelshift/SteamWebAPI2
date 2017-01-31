@@ -1,10 +1,10 @@
 ﻿using Steam.Models.DOTA2;
 using SteamWebAPI2.Models.DOTA2;
+using SteamWebAPI2.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using SteamWebAPI2.Utilities;
 
 namespace SteamWebAPI2.Interfaces
 {
@@ -119,7 +119,7 @@ namespace SteamWebAPI2.Interfaces
         /// </summary>
         /// <param name="leagueId"></param>
         /// <returns></returns>
-        public async Task<int> GetTournamentPrizePoolAsync(int? leagueId = null)
+        public async Task<uint> GetTournamentPrizePoolAsync(uint? leagueId = null)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 

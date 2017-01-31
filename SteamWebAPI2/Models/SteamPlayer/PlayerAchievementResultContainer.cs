@@ -9,7 +9,7 @@ namespace SteamWebAPI2.Models.SteamPlayer
         public string APIName { get; set; }
 
         [JsonProperty("achieved")]
-        public int Achieved { get; set; }
+        public uint Achieved { get; set; }
 
         public string Name { get; set; }
         public string Description { get; set; }
@@ -18,7 +18,7 @@ namespace SteamWebAPI2.Models.SteamPlayer
     internal class PlayerAchievementResult
     {
         [JsonProperty("steamID")]
-        public string SteamId { get; set; }
+        public ulong SteamId { get; set; }
 
         [JsonProperty("gameName")]
         public string GameName { get; set; }

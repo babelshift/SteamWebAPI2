@@ -6,85 +6,85 @@ namespace SteamWebAPI2.Models.SteamEconomy
     internal class AssetPrices
     {
         [JsonProperty("USD")]
-        public int USD { get; set; }
+        public uint USD { get; set; }
 
         [JsonProperty("GBP")]
-        public int GBP { get; set; }
+        public uint GBP { get; set; }
 
         [JsonProperty("EUR")]
-        public int EUR { get; set; }
+        public uint EUR { get; set; }
 
         [JsonProperty("RUB")]
-        public int RUB { get; set; }
+        public uint RUB { get; set; }
 
         [JsonProperty("BRL")]
-        public int BRL { get; set; }
+        public uint BRL { get; set; }
 
         [JsonProperty("JPY")]
-        public int JPY { get; set; }
+        public uint JPY { get; set; }
 
         [JsonProperty("NOK")]
-        public int NOK { get; set; }
+        public uint NOK { get; set; }
 
         [JsonProperty("IDR")]
-        public int IDR { get; set; }
+        public uint IDR { get; set; }
 
         [JsonProperty("MYR")]
-        public int MYR { get; set; }
+        public uint MYR { get; set; }
 
         [JsonProperty("PHP")]
-        public int PHP { get; set; }
+        public uint PHP { get; set; }
 
         [JsonProperty("SGD")]
-        public int SGD { get; set; }
+        public uint SGD { get; set; }
 
         [JsonProperty("THB")]
-        public int THB { get; set; }
+        public uint THB { get; set; }
 
         [JsonProperty("VND")]
-        public int VND { get; set; }
+        public uint VND { get; set; }
 
         [JsonProperty("KRW")]
-        public int KRW { get; set; }
+        public uint KRW { get; set; }
 
         [JsonProperty("TRY")]
-        public int TRY { get; set; }
+        public uint TRY { get; set; }
 
         [JsonProperty("UAH")]
-        public int UAH { get; set; }
+        public uint UAH { get; set; }
 
         [JsonProperty("MXN")]
-        public int MXN { get; set; }
+        public uint MXN { get; set; }
 
         [JsonProperty("CAD")]
-        public int CAD { get; set; }
+        public uint CAD { get; set; }
 
         [JsonProperty("AUD")]
-        public int AUD { get; set; }
+        public uint AUD { get; set; }
 
         [JsonProperty("NZD")]
-        public int NZD { get; set; }
+        public uint NZD { get; set; }
 
         [JsonProperty("CNY")]
-        public int CNY { get; set; }
+        public uint CNY { get; set; }
 
         [JsonProperty("TWD")]
-        public int TWD { get; set; }
+        public uint TWD { get; set; }
 
         [JsonProperty("HKD")]
-        public int HKD { get; set; }
+        public uint HKD { get; set; }
 
         [JsonProperty("INR")]
-        public int INR { get; set; }
+        public uint INR { get; set; }
 
         [JsonProperty("AED")]
-        public int AED { get; set; }
+        public uint AED { get; set; }
 
         [JsonProperty("SAR")]
-        public int SAR { get; set; }
+        public uint SAR { get; set; }
 
         [JsonProperty("ZAR")]
-        public int ZAR { get; set; }
+        public uint ZAR { get; set; }
     }
 
     internal class AssetClass
@@ -111,7 +111,7 @@ namespace SteamWebAPI2.Models.SteamEconomy
         public IList<AssetClass> Class { get; set; }
 
         [JsonProperty("classid")]
-        public string Classid { get; set; }
+        public ulong ClassId { get; set; }
 
         [JsonProperty("tags")]
         public IList<string> Tags { get; set; }
@@ -153,31 +153,31 @@ namespace SteamWebAPI2.Models.SteamEconomy
     internal class AssetTagIds
     {
         [JsonProperty("0")]
-        public long Tag0 { get; set; }
+        public ulong Tag0 { get; set; }
 
         [JsonProperty("1")]
-        public long Tag1 { get; set; }
+        public ulong Tag1 { get; set; }
 
         [JsonProperty("2")]
-        public long Tag2 { get; set; }
+        public ulong Tag2 { get; set; }
 
         [JsonProperty("3")]
-        public long Tag3 { get; set; }
+        public ulong Tag3 { get; set; }
 
         [JsonProperty("4")]
-        public long Tag4 { get; set; }
+        public ulong Tag4 { get; set; }
 
         [JsonProperty("5")]
-        public long Tag5 { get; set; }
+        public ulong Tag5 { get; set; }
 
         [JsonProperty("6")]
-        public long Tag6 { get; set; }
+        public ulong Tag6 { get; set; }
 
         [JsonProperty("7")]
-        public long Tag7 { get; set; }
+        public ulong Tag7 { get; set; }
 
         [JsonProperty("8")]
-        public long Tag8 { get; set; }
+        public ulong Tag8 { get; set; }
     }
 
     internal class AssetPriceResult

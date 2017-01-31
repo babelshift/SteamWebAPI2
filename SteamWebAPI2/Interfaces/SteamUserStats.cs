@@ -32,7 +32,7 @@ namespace SteamWebAPI2.Interfaces
         /// </summary>
         /// <param name="appId"></param>
         /// <returns></returns>
-        public async Task<IReadOnlyCollection<GlobalAchievementPercentageModel>> GetGlobalAchievementPercentagesForAppAsync(int appId)
+        public async Task<IReadOnlyCollection<GlobalAchievementPercentageModel>> GetGlobalAchievementPercentagesForAppAsync(uint appId)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
             parameters.AddIfHasValue(appId, "gameid");
@@ -52,7 +52,7 @@ namespace SteamWebAPI2.Interfaces
         /// <param name="startDate"></param>
         /// <param name="endDate"></param>
         /// <returns></returns>
-        public async Task<IReadOnlyCollection<GlobalStatModel>> GetGlobalStatsForGameAsync(int appId, IReadOnlyList<string> statNames, DateTime? startDate = null, DateTime? endDate = null)
+        public async Task<IReadOnlyCollection<GlobalStatModel>> GetGlobalStatsForGameAsync(uint appId, IReadOnlyList<string> statNames, DateTime? startDate = null, DateTime? endDate = null)
         {
             long? startDateUnixTimeStamp = null;
             long? endDateUnixTimeStamp = null;
@@ -90,7 +90,7 @@ namespace SteamWebAPI2.Interfaces
         /// </summary>
         /// <param name="appId"></param>
         /// <returns></returns>
-        public async Task<int> GetNumberOfCurrentPlayersForGameAsync(int appId)
+        public async Task<uint> GetNumberOfCurrentPlayersForGameAsync(uint appId)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
             parameters.AddIfHasValue(appId, "appid");
@@ -107,7 +107,7 @@ namespace SteamWebAPI2.Interfaces
         /// <param name="steamId"></param>
         /// <param name="language"></param>
         /// <returns></returns>
-        public async Task<PlayerAchievementResultModel> GetPlayerAchievementsAsync(int appId, long steamId, string language = "en_us")
+        public async Task<PlayerAchievementResultModel> GetPlayerAchievementsAsync(uint appId, ulong steamId, string language = "en_us")
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
             parameters.AddIfHasValue(appId, "appid");
@@ -127,7 +127,7 @@ namespace SteamWebAPI2.Interfaces
         /// <param name="appId"></param>
         /// <param name="language"></param>
         /// <returns></returns>
-        public async Task<SchemaForGameResultModel> GetSchemaForGameAsync(int appId, string language = "")
+        public async Task<SchemaForGameResultModel> GetSchemaForGameAsync(uint appId, string language = "")
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
             parameters.AddIfHasValue(appId, "appid");
@@ -146,7 +146,7 @@ namespace SteamWebAPI2.Interfaces
         /// <param name="steamId"></param>
         /// <param name="appId"></param>
         /// <returns></returns>
-        public async Task<UserStatsForGameResultModel> GetUserStatsForGameAsync(long steamId, int appId)
+        public async Task<UserStatsForGameResultModel> GetUserStatsForGameAsync(ulong steamId, uint appId)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
             parameters.AddIfHasValue(steamId, "steamid");

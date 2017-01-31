@@ -35,7 +35,10 @@ namespace SteamWebAPI2.Utilities.JsonConverters
                 {
                     string value = globalStatDetailsProperty.Value.ToString();
 
-                    if (globalStatDetailsProperty.Name == "total") { globalStat.Total = Int32.Parse(value); }
+                    uint uintValue = 0;
+                    uint.TryParse(value, out uintValue);
+
+                    if (globalStatDetailsProperty.Name == "total") { globalStat.Total = uintValue; }
                 }
 
                 globalStats.Add(globalStat);

@@ -10,10 +10,10 @@ namespace SteamWebAPI2.Models.GameEconomy
 
     internal class EconItemResult
     {
-        public int Status { get; set; }
+        public uint Status { get; set; }
 
         [JsonProperty(PropertyName = "num_backpack_slots")]
-        public int NumBackpackSlots { get; set; }
+        public uint NumBackpackSlots { get; set; }
 
         public IList<EconItem> Items { get; set; }
     }
@@ -21,20 +21,20 @@ namespace SteamWebAPI2.Models.GameEconomy
     internal class EconItemEquipped
     {
         [JsonProperty(PropertyName = "class")]
-        public int ClassId { get; set; }
+        public uint ClassId { get; set; }
 
-        public int Slot { get; set; }
+        public uint Slot { get; set; }
     }
 
     internal class EconItemAttributeAccountInfo
     {
-        public long SteamId { get; set; }
+        public ulong SteamId { get; set; }
         public string PersonaName { get; set; }
     }
 
     internal class EconItemAttribute
     {
-        public int DefIndex { get; set; }
+        public uint DefIndex { get; set; }
         public object Value { get; set; }
 
         [JsonProperty(PropertyName = "float_value")]
@@ -46,19 +46,19 @@ namespace SteamWebAPI2.Models.GameEconomy
 
     internal class EconItem
     {
-        public long Id { get; set; }
+        public ulong Id { get; set; }
 
         [JsonProperty(PropertyName = "original_id")]
-        public long OriginalId { get; set; }
+        public ulong OriginalId { get; set; }
 
-        public int DefIndex { get; set; }
-        public int Level { get; set; }
-        public int Quality { get; set; }
-        public long Inventory { get; set; }
-        public int Quantity { get; set; }
-        public int Origin { get; set; }
+        public uint DefIndex { get; set; }
+        public uint Level { get; set; }
+        public uint Quality { get; set; }
+        public ulong Inventory { get; set; }
+        public uint Quantity { get; set; }
+        public uint Origin { get; set; }
         public IList<EconItemEquipped> Equipped { get; set; }
-        public int Style { get; set; }
+        public uint Style { get; set; }
         public IList<EconItemAttribute> Attributes { get; set; }
 
         [JsonProperty(PropertyName = "flag_cannot_trade")]

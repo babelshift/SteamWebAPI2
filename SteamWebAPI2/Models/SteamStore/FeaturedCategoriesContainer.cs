@@ -5,10 +5,10 @@ namespace SteamWebAPI2.Models.SteamStore
     internal class Item
     {
         [JsonProperty("id")]
-        public int Id { get; set; }
+        public uint Id { get; set; }
 
         [JsonProperty("type")]
-        public int Type { get; set; }
+        public uint Type { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }
@@ -17,13 +17,13 @@ namespace SteamWebAPI2.Models.SteamStore
         public bool Discounted { get; set; }
 
         [JsonProperty("discount_percent")]
-        public int DiscountPercent { get; set; }
+        public uint DiscountPercent { get; set; }
 
         [JsonProperty("original_price")]
-        public int? OriginalPrice { get; set; }
+        public uint? OriginalPrice { get; set; }
 
         [JsonProperty("final_price")]
-        public int FinalPrice { get; set; }
+        public uint FinalPrice { get; set; }
 
         [JsonProperty("currency")]
         public string Currency { get; set; }

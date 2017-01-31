@@ -8,7 +8,7 @@ namespace SteamWebAPI2.Models.SteamCommunity
     internal class Friend
     {
         [JsonProperty("steamid")]
-        public string SteamId { get; set; }
+        public ulong SteamId { get; set; }
 
         [JsonProperty("relationship")]
         public string Relationship { get; set; }

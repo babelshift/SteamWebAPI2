@@ -51,3 +51,6 @@ var playerSummary = await steamInterface.GetPlayerSummaryAsync(<steamIdHere>);
 // see FriendListResultContainer.cs for response documentation
 var friendsList = await steamInterface.GetFriendsListAsync(<steamIdHere>);
 ```
+
+## Changes from 2.0 to 3.0
+In versions previous to 3.0, numerical types were treated as short, int, and long. This caused problems when interacting with the Steam Web API because Valve accepts and returns unsigned numerical types. Instead of constantly reacting to overflows when a specific endpoint would return something outside the bounds of a 32-bit int, I decided to switch all numerical types to their unsigned counterparts.

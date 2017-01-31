@@ -16,13 +16,13 @@ namespace SteamWebAPI2.Interfaces
 
     public class GCVersion : IGCVersion
     {
-        private int appId;
+        private uint appId;
 
         // The API only exposes certain methods for certain App Ids in the EconItems interface
         // I'm hard coding the values for now until I come up with a better, more dynamic solution
-        private List<int> validClientVersionAppIds = new List<int>();
+        private List<uint> validClientVersionAppIds = new List<uint>();
 
-        private List<int> validServerVersionAppIds = new List<int>();
+        private List<uint> validServerVersionAppIds = new List<uint>();
 
         private ISteamWebInterface steamWebInterface;
 
@@ -33,7 +33,7 @@ namespace SteamWebAPI2.Interfaces
         public GCVersion(string steamWebApiKey, GCVersionAppId appId, ISteamWebInterface steamWebInterface = null)
         {
             this.steamWebInterface = steamWebInterface == null
-                ? new SteamWebInterface(steamWebApiKey, "IGCVersion_" + (int)appId)
+                ? new SteamWebInterface(steamWebApiKey, "IGCVersion_" + (uint)appId)
                 : steamWebInterface;
 
             if (appId <= 0)
@@ -41,7 +41,7 @@ namespace SteamWebAPI2.Interfaces
                 throw new ArgumentOutOfRangeException("appId");
             }
 
-            this.appId = (int)appId;
+            this.appId = (uint)appId;
 
             validClientVersionAppIds.Add(440);
             validClientVersionAppIds.Add(570);

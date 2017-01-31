@@ -5,16 +5,22 @@ using System.Threading.Tasks;
 
 namespace SteamWebAPI2.Utilities
 {
+    /// <summary>
+    /// Wraps HttpClient for convenience and testability. Note that newlines and tabs are stripped from responses.
+    /// </summary>
     internal class SteamWebHttpClient : ISteamWebHttpClient
     {
         /// <summary>
         /// Performs an HTTP GET with the passed URL command.
         /// </summary>
-        /// <param name="command"></param>
-        /// <returns></returns>
+        /// <param name="command">URL command for GET operation</param>
+        /// <returns>String response such as JSON or XML</returns>
         public async Task<string> GetStringAsync(string command)
         {
-            Debug.Assert(!String.IsNullOrWhiteSpace(command));
+            if (String.IsNullOrWhiteSpace(command))
+            {
+                return String.Empty;
+            }
 
             HttpClient httpClient = new HttpClient();
             string responseContent = await httpClient.GetStringAsync(command);
@@ -24,11 +30,14 @@ namespace SteamWebAPI2.Utilities
         /// <summary>
         /// Performs an HTTP POST with the passed URL command.
         /// </summary>
-        /// <param name="command"></param>
-        /// <returns></returns>
+        /// <param name="command">URL command for POST operation</param>
+        /// <returns>String response such as JSON or XML</returns>
         public async Task<string> PostAsync(string command)
         {
-            Debug.Assert(!String.IsNullOrWhiteSpace(command));
+            if(String.IsNullOrWhiteSpace(command))
+            {
+                return String.Empty;
+            }
 
             HttpClient httpClient = new HttpClient();
 

@@ -1,11 +1,8 @@
 ﻿using Steam.Models.SteamStore;
 using SteamWebAPI2.Models.SteamStore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SteamWebAPI2.Utilities;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SteamWebAPI2.Interfaces
 {
@@ -16,7 +13,7 @@ namespace SteamWebAPI2.Interfaces
         /// </summary>
         /// <param name="appId"></param>
         /// <returns></returns>
-        public async Task<StoreAppDetailsDataModel> GetStoreAppDetailsAsync(int appId)
+        public async Task<StoreAppDetailsDataModel> GetStoreAppDetailsAsync(uint appId)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 

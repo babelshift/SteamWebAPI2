@@ -6,13 +6,13 @@ namespace SteamWebAPI2.Models.SteamPlayer
     internal class OwnedGame
     {
         [JsonProperty("appid")]
-        public int AppId { get; set; }
+        public uint AppId { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }
 
         [JsonProperty("playtime_forever")]
-        public int PlaytimeForever { get; set; }
+        public uint PlaytimeForever { get; set; }
 
         [JsonProperty("img_icon_url")]
         public string ImgIconUrl { get; set; }
@@ -24,13 +24,13 @@ namespace SteamWebAPI2.Models.SteamPlayer
         public bool HasCommunityVisibleStats { get; set; }
 
         [JsonProperty("playtime_2weeks")]
-        public int? Playtime2weeks { get; set; }
+        public uint? Playtime2weeks { get; set; }
     }
 
     internal class OwnedGamesResult
     {
         [JsonProperty("game_count")]
-        public int GameCount { get; set; }
+        public uint GameCount { get; set; }
 
         [JsonProperty("games")]
         public IList<OwnedGame> OwnedGames { get; set; }

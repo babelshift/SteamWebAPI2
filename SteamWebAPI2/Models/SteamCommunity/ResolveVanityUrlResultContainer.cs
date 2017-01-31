@@ -8,7 +8,7 @@ namespace SteamWebAPI2.Models.SteamCommunity
         public ulong SteamId { get; set; }
 
         [JsonProperty("success")]
-        public int Success { get; set; }
+        public uint Success { get; set; }
 
         [JsonProperty("message")]
         public string Message { get; set; }

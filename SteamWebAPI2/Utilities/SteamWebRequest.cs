@@ -26,7 +26,9 @@ namespace SteamWebAPI2.Utilities
         /// <summary>
         /// Every web request requires a secret Steam Web API key
         /// </summary>
-        /// <param name="steamWebApiKey"></param>
+        /// <param name="steamWebApiBaseUrl">Base URL for the API (such as http://api.steampowered.com)</param>
+        /// <param name="steamWebApiKey">Secret Steam Web API key provided at the Valve developer website</param>
+        /// <param name="httpClient">Optional custom http client implementation for dependency injection</param>
         public SteamWebRequest(string steamWebApiBaseUrl, string steamWebApiKey, ISteamWebHttpClient httpClient = null)
         {
             this.httpClient = httpClient == null ? new SteamWebHttpClient() : httpClient;
@@ -45,6 +47,15 @@ namespace SteamWebAPI2.Utilities
             this.steamWebApiKey = steamWebApiKey;
         }
 
+        /// <summary>
+        /// Performs a GET request to the provided interface, method, and version with the passed parameters
+        /// </summary>
+        /// <typeparam name="T">Type to deserialize response</typeparam>
+        /// <param name="interfaceName">Name of web API interface to call</param>
+        /// <param name="methodName">Name of web API method to call</param>
+        /// <param name="methodVersion">Name of web API method version</param>
+        /// <param name="parameters">List of parameters to append to the web API call</param>
+        /// <returns>Deserialized object from JSON response</returns>
         public async Task<T> GetAsync<T>(string interfaceName, string methodName, int methodVersion, IList<SteamWebRequestParameter> parameters = null)
         {
             Debug.Assert(!String.IsNullOrWhiteSpace(interfaceName));
@@ -54,6 +65,15 @@ namespace SteamWebAPI2.Utilities
             return await SendWebRequestAsync<T>(HttpMethod.GET, interfaceName, methodName, methodVersion, parameters);
         }
 
+        /// <summary>
+        /// Performs a POST request to the provided interface, method, and version with the passed parameters
+        /// </summary>
+        /// <typeparam name="T">Type to deserialize response</typeparam>
+        /// <param name="interfaceName">Name of web API interface to call</param>
+        /// <param name="methodName">Name of web API method to call</param>
+        /// <param name="methodVersion">Name of web API method version</param>
+        /// <param name="parameters">List of parameters to append to the web API call</param>
+        /// <returns>Deserialized object from JSON response</returns>
         public async Task<T> PostAsync<T>(string interfaceName, string methodName, int methodVersion, IList<SteamWebRequestParameter> parameters = null)
         {
             Debug.Assert(!String.IsNullOrWhiteSpace(interfaceName));
@@ -67,6 +87,7 @@ namespace SteamWebAPI2.Utilities
         /// Returns an object of type T created from the deserialization of the JSON response to the passed interface/method/version with the included parameters.
         /// </summary>
         /// <typeparam name="T">Type to deserialize into</typeparam>
+        /// <param name="httpMethod">Determines GET or POST request</param>
         /// <param name="interfaceName">Name of web API interface to call</param>
         /// <param name="methodName">Name of web API method to call</param>
         /// <param name="methodVersion">Name of web API method version</param>

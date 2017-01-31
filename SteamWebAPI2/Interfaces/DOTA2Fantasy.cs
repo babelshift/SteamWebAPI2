@@ -1,10 +1,8 @@
 ﻿using Steam.Models.DOTA2;
 using SteamWebAPI2.Models.DOTA2;
+using SteamWebAPI2.Utilities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Linq;
-using System.Collections.ObjectModel;
-using SteamWebAPI2.Utilities;
 
 namespace SteamWebAPI2.Interfaces
 {
@@ -28,7 +26,7 @@ namespace SteamWebAPI2.Interfaces
         /// </summary>
         /// <param name="steamId"></param>
         /// <returns></returns>
-        public async Task<PlayerOfficialInfoModel> GetPlayerOfficialInfo(long steamId)
+        public async Task<PlayerOfficialInfoModel> GetPlayerOfficialInfo(ulong steamId)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
             parameters.Add(new SteamWebRequestParameter("accountid", steamId.ToString()));

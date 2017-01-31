@@ -1,12 +1,11 @@
 ﻿using Steam.Models.SteamCommunity;
 using SteamWebAPI2.Models.SteamCommunity;
 using SteamWebAPI2.Models.SteamPlayer;
+using SteamWebAPI2.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using SteamWebAPI2.Utilities;
-using SteamWebAPI2.Exceptions;
 
 namespace SteamWebAPI2.Interfaces
 {
@@ -61,7 +60,7 @@ namespace SteamWebAPI2.Interfaces
             parameters.AddIfHasValue(badgeId, "badgeid");
             var badgeProgressResult = await steamWebInterface.GetAsync<CommunityBadgeProgressResultContainer>("GetCommunityBadgeProgress", 1, parameters);
 
-            if(badgeProgressResult == null || badgeProgressResult.Result == null)
+            if (badgeProgressResult == null || badgeProgressResult.Result == null)
             {
                 return null;
             }
@@ -82,7 +81,7 @@ namespace SteamWebAPI2.Interfaces
             parameters.AddIfHasValue(steamId, "steamid");
             var badgesResult = await steamWebInterface.GetAsync<BadgesResultContainer>("GetBadges", 1, parameters);
 
-            if(badgesResult == null || badgesResult.Result == null)
+            if (badgesResult == null || badgesResult.Result == null)
             {
                 return null;
             }
@@ -140,7 +139,7 @@ namespace SteamWebAPI2.Interfaces
 
             var ownedGamesResult = await steamWebInterface.GetAsync<OwnedGamesResultContainer>("GetOwnedGames", 1, parameters);
 
-            if(ownedGamesResult == null || ownedGamesResult.Result == null)
+            if (ownedGamesResult == null || ownedGamesResult.Result == null)
             {
                 return null;
             }
@@ -158,7 +157,7 @@ namespace SteamWebAPI2.Interfaces
             }
 
             var ownedGamesResultModel = AutoMapperConfiguration.Mapper.Map<OwnedGamesResult, OwnedGamesResultModel>(ownedGamesResult.Result);
-            
+
             return ownedGamesResultModel;
         }
 

@@ -6,22 +6,22 @@ namespace SteamWebAPI2.Models.SteamCommunity
     internal class Badge
     {
         [JsonProperty("badgeid")]
-        public int BadgeId { get; set; }
+        public uint BadgeId { get; set; }
 
         [JsonProperty("level")]
-        public int Level { get; set; }
+        public uint Level { get; set; }
 
         [JsonProperty("completion_time")]
-        public int CompletionTime { get; set; }
+        public uint CompletionTime { get; set; }
 
         [JsonProperty("xp")]
-        public int Xp { get; set; }
+        public uint Xp { get; set; }
 
         [JsonProperty("scarcity")]
-        public int Scarcity { get; set; }
+        public uint Scarcity { get; set; }
 
         [JsonProperty("appid")]
-        public int? AppId { get; set; }
+        public uint? AppId { get; set; }
 
         [JsonProperty("communityitemid")]
         public string CommunityItemId { get; set; }
@@ -36,16 +36,16 @@ namespace SteamWebAPI2.Models.SteamCommunity
         public IList<Badge> Badges { get; set; }
 
         [JsonProperty("player_xp")]
-        public int PlayerXp { get; set; }
+        public uint PlayerXp { get; set; }
 
         [JsonProperty("player_level")]
-        public int PlayerLevel { get; set; }
+        public uint PlayerLevel { get; set; }
 
         [JsonProperty("player_xp_needed_to_level_up")]
-        public int PlayerXpNeededToLevelUp { get; set; }
+        public uint PlayerXpNeededToLevelUp { get; set; }
 
         [JsonProperty("player_xp_needed_current_level")]
-        public int PlayerXpNeededCurrentLevel { get; set; }
+        public uint PlayerXpNeededCurrentLevel { get; set; }
     }
 
     internal class BadgesResultContainer

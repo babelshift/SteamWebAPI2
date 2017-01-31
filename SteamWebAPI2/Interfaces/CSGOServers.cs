@@ -1,8 +1,7 @@
 ﻿using Steam.Models.CSGO;
 using SteamWebAPI2.Models.CSGO;
-using System.Threading.Tasks;
-using System.Linq;
 using SteamWebAPI2.Utilities;
+using System.Threading.Tasks;
 
 namespace SteamWebAPI2.Interfaces
 {
@@ -19,8 +18,8 @@ namespace SteamWebAPI2.Interfaces
         /// <param name="steamWebApiKey"></param>
         public CSGOServers(string steamWebApiKey, ISteamWebInterface steamWebInterface = null)
         {
-            this.steamWebInterface = steamWebInterface == null 
-                ? new SteamWebInterface(steamWebApiKey, "ICSGOServers_730") 
+            this.steamWebInterface = steamWebInterface == null
+                ? new SteamWebInterface(steamWebApiKey, "ICSGOServers_730")
                 : steamWebInterface;
         }
 

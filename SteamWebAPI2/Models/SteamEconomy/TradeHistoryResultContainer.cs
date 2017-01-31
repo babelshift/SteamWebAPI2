@@ -1,9 +1,5 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SteamWebAPI2.Models.SteamEconomy
 {
@@ -49,20 +45,28 @@ namespace SteamWebAPI2.Models.SteamEconomy
     {
         [JsonProperty("appid")]
         public uint AppId { get; set; }
+
         [JsonProperty("contextid")]
         public uint ContextId { get; set; }
+
         [JsonProperty("currencyid")]
         public uint CurrencyId { get; set; }
+
         [JsonProperty("amount")]
         public uint AmountTraded { get; set; }
+
         [JsonProperty("classid")]
         public uint ClassId { get; set; }
+
         [JsonProperty("new_currencyid")]
         public ulong CurrencyIdAfterTrade { get; set; }
+
         [JsonProperty("new_contextid")]
         public uint ContextIdAfterTrade { get; set; }
+
         [JsonProperty("rollback_new_currencyid")]
         public ulong CurrencyIdAfterRollback { get; set; }
+
         [JsonProperty("rollback_new_contextid")]
         public uint ContextIdAfterRollback { get; set; }
     }
@@ -71,41 +75,58 @@ namespace SteamWebAPI2.Models.SteamEconomy
     {
         [JsonProperty("appid")]
         public uint AppId { get; set; }
+
         [JsonProperty("contextid")]
         public uint ContextId { get; set; }
+
         [JsonProperty("assetid")]
         public ulong AssetId { get; set; }
+
         [JsonProperty("currencyid")]
         public ulong CurrencyId { get; set; }
+
         [JsonProperty("classid")]
         public uint ClassId { get; set; }
+
         [JsonProperty("instanceid")]
         public uint InstanceId { get; set; }
+
         [JsonProperty("amount")]
         public uint AmountOffered { get; set; }
+
         [JsonProperty("missing")]
         public bool IsMissing { get; set; }
     }
+
     internal class TradedAsset
     {
         [JsonProperty("appid")]
         public uint AppId { get; set; }
+
         [JsonProperty("contextid")]
         public uint ContextId { get; set; }
+
         [JsonProperty("assetid")]
         public ulong AssetId { get; set; }
+
         [JsonProperty("amount")]
         public uint AmountTraded { get; set; }
+
         [JsonProperty("classid")]
         public uint ClassId { get; set; }
+
         [JsonProperty("instanceid")]
         public uint InstanceId { get; set; }
+
         [JsonProperty("new_assetid")]
         public ulong AssetIdAfterTrade { get; set; }
+
         [JsonProperty("new_contextid")]
         public ulong ContextIdAfterTrade { get; set; }
+
         [JsonProperty("rollback_new_assetid")]
         public ulong AssetIdAfterRollback { get; set; }
+
         [JsonProperty("rollback_new_contextid")]
         public ulong ContextIdAfterRollback { get; set; }
     }
@@ -114,20 +135,28 @@ namespace SteamWebAPI2.Models.SteamEconomy
     {
         [JsonProperty("tradeid")]
         public ulong TradeId { get; set; }
+
         [JsonProperty("steamid_other")]
         public ulong TradeParterSteamId { get; set; }
+
         [JsonProperty("time_init")]
         public long TimeTradeStarted { get; set; }
+
         [JsonProperty("time_escrow_end")]
         public long TimeEscrowEnds { get; set; }
+
         [JsonProperty("status")]
         public TradeStatus TradeStatus { get; set; }
+
         [JsonProperty("assets_received")]
         public IList<TradedAsset> AssetsReceived { get; set; }
+
         [JsonProperty("assets_given")]
         public IList<TradedAsset> AssetsGiven { get; set; }
+
         [JsonProperty("currency_received")]
         public IList<TradedCurrency> CurrencyReceived { get; set; }
+
         [JsonProperty("currency_given")]
         public IList<TradedCurrency> CurrencyGiven { get; set; }
     }
@@ -136,10 +165,13 @@ namespace SteamWebAPI2.Models.SteamEconomy
     {
         [JsonProperty("total_trades")]
         public uint TotalTradeCount { get; set; }
+
         [JsonProperty("more")]
         public bool AreMoreAvailable { get; set; }
+
         [JsonProperty("trades")]
         public IList<Trade> Trades { get; set; }
+
         [JsonProperty("descriptions")]
         public IList<string> Descriptions { get; set; }
     }
