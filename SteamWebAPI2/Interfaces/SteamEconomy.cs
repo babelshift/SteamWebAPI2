@@ -44,7 +44,9 @@ namespace SteamWebAPI2.Interfaces
 
             var steamWebResponse = await steamWebInterface.GetAsync<AssetClassInfoResultContainer>("GetAssetClassInfo", 1, parameters);
 
-            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<ISteamWebResponse<AssetClassInfoResultContainer>, ISteamWebResponse<AssetClassInfoResultModel>>(steamWebResponse);
+            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+                ISteamWebResponse<AssetClassInfoResultContainer>,
+                ISteamWebResponse<AssetClassInfoResultModel>>(steamWebResponse);
 
             return steamWebResponseModel;
         }
@@ -66,7 +68,9 @@ namespace SteamWebAPI2.Interfaces
 
             var steamWebResponse = await steamWebInterface.GetAsync<AssetPriceResultContainer>("GetAssetPrices", 1, parameters);
 
-            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<ISteamWebResponse<AssetPriceResultContainer>, ISteamWebResponse<AssetPriceResultModel>>(steamWebResponse);
+            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+                ISteamWebResponse<AssetPriceResultContainer>, 
+                ISteamWebResponse<AssetPriceResultModel>>(steamWebResponse);
 
             return steamWebResponseModel;
         }

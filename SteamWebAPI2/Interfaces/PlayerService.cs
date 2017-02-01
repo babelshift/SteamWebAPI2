@@ -94,7 +94,9 @@ namespace SteamWebAPI2.Interfaces
                 return null;
             }
 
-            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<ISteamWebResponse<BadgesResultContainer>, ISteamWebResponse<BadgesResultModel>>(steamWebResponse);
+            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+                ISteamWebResponse<BadgesResultContainer>, 
+                ISteamWebResponse<BadgesResultModel>>(steamWebResponse);
 
             return steamWebResponseModel;
         }
@@ -115,7 +117,9 @@ namespace SteamWebAPI2.Interfaces
                 return null;
             }
 
-            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<ISteamWebResponse<SteamLevelResultContainer>, ISteamWebResponse<uint?>>(steamWebResponse);
+            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+                ISteamWebResponse<SteamLevelResultContainer>, 
+                ISteamWebResponse<uint?>>(steamWebResponse);
 
             return steamWebResponseModel;
         }
@@ -169,7 +173,9 @@ namespace SteamWebAPI2.Interfaces
                 }
             }
 
-            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<ISteamWebResponse<OwnedGamesResultContainer>, ISteamWebResponse<OwnedGamesResultModel>>(steamWebResponse);
+            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+                ISteamWebResponse<OwnedGamesResultContainer>, 
+                ISteamWebResponse<OwnedGamesResultModel>>(steamWebResponse);
 
             return steamWebResponseModel;
         }

@@ -47,7 +47,9 @@ namespace SteamWebAPI2.Interfaces
 
             var steamWebResponse = await steamWebInterface.GetAsync<TradeHistoryResultContainer>("GetTradeHistory", 1, parameters);
 
-            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<ISteamWebResponse<TradeHistoryResultContainer>, ISteamWebResponse<Steam.Models.SteamEconomy.TradeHistoryModel>>(steamWebResponse);
+            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+                ISteamWebResponse<TradeHistoryResultContainer>, 
+                ISteamWebResponse<Steam.Models.SteamEconomy.TradeHistoryModel>>(steamWebResponse);
 
             return steamWebResponseModel;
         }
@@ -80,7 +82,9 @@ namespace SteamWebAPI2.Interfaces
 
             var steamWebResponse = await steamWebInterface.GetAsync<TradeOffersResultContainer>("GetTradeOffers", 1, parameters);
 
-            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<ISteamWebResponse<TradeOffersResultContainer>, ISteamWebResponse<Steam.Models.SteamEconomy.TradeOffersResultModel>>(steamWebResponse);
+            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+                ISteamWebResponse<TradeOffersResultContainer>, 
+                ISteamWebResponse<Steam.Models.SteamEconomy.TradeOffersResultModel>>(steamWebResponse);
 
             return steamWebResponseModel;
         }
@@ -100,7 +104,9 @@ namespace SteamWebAPI2.Interfaces
 
             var steamWebResponse = await steamWebInterface.GetAsync<TradeOfferResultContainer>("GetTradeOffer", 1, parameters);
 
-            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<ISteamWebResponse<TradeOfferResultContainer>, ISteamWebResponse<Steam.Models.SteamEconomy.TradeOfferResultModel>>(steamWebResponse);
+            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+                ISteamWebResponse<TradeOfferResultContainer>, 
+                ISteamWebResponse<Steam.Models.SteamEconomy.TradeOfferResultModel>>(steamWebResponse);
 
             return steamWebResponseModel;
         }

@@ -32,29 +32,85 @@ namespace SteamWebAPI2
 
         public static IMapper Mapper { get { return mapper; } }
 
+        private static SteamWebResponse<TDestination> ConstructSteamWebResponse<TSource, TDestination>(ISteamWebResponse<TSource> response)
+        {
+            var newResponse = new SteamWebResponse<TDestination>();
+            newResponse.ContentLength = response.ContentLength;
+            newResponse.ContentType = response.ContentType;
+            newResponse.ContentTypeCharSet = response.ContentTypeCharSet;
+            newResponse.Expires = response.Expires;
+            newResponse.LastModified = response.LastModified;
+            newResponse.Data = Mapper.Map<TSource, TDestination>(response.Data);
+            return newResponse;
+        }
+
+        private static void CreateSteamWebResponseMap<TSource, TDestination>(IMapperConfiguration config)
+        {
+            config.CreateMap<ISteamWebResponse<TSource>, ISteamWebResponse<TDestination>>()
+                .ConstructUsing(src => ConstructSteamWebResponse<TSource, TDestination>(src));
+        }
+
         public static void Initialize()
         {
             if (config == null)
             {
                 config = new MapperConfiguration(x =>
                 {
-                    x.CreateMap<ISteamWebResponse<ServerStatusResultContainer>, ISteamWebResponse<ServerStatusModel>>();
-                    x.CreateMap<ISteamWebResponse<GameItemResultContainer>, ISteamWebResponse<IReadOnlyCollection<GameItemModel>>>();
-                    x.CreateMap<ISteamWebResponse<HeroResultContainer>, ISteamWebResponse<IReadOnlyCollection<HeroModel>>>();
-                    x.CreateMap<ISteamWebResponse<ItemIconPathResultContainer>, ISteamWebResponse<string>>();
-                    x.CreateMap<ISteamWebResponse<RarityResultContainer>, ISteamWebResponse<IReadOnlyCollection<RarityModel>>>();
-                    x.CreateMap<ISteamWebResponse<ItemIconPathResultContainer>, ISteamWebResponse<string>>();
-                    x.CreateMap<ISteamWebResponse<ItemIconPathResultContainer>, ISteamWebResponse<string>>();
-                    x.CreateMap<ISteamWebResponse<ItemIconPathResultContainer>, ISteamWebResponse<string>>();
-                    x.CreateMap<ISteamWebResponse<ItemIconPathResultContainer>, ISteamWebResponse<string>>();
-                    x.CreateMap<ISteamWebResponse<ItemIconPathResultContainer>, ISteamWebResponse<string>>();
-                    x.CreateMap<ISteamWebResponse<ItemIconPathResultContainer>, ISteamWebResponse<string>>();
-                    x.CreateMap<ISteamWebResponse<ItemIconPathResultContainer>, ISteamWebResponse<string>>();
+                    CreateSteamWebResponseMap<ServerStatusResultContainer, ServerStatusModel>(x);
+                    CreateSteamWebResponseMap<GameItemResultContainer, IReadOnlyCollection<GameItemModel>>(x);
+                    CreateSteamWebResponseMap<HeroResultContainer, IReadOnlyCollection<HeroModel>>(x);
+                    CreateSteamWebResponseMap<ItemIconPathResultContainer, string>(x);
+                    CreateSteamWebResponseMap<RarityResultContainer, IReadOnlyCollection<RarityModel>>(x);
+                    CreateSteamWebResponseMap<PrizePoolResultContainer, uint>(x);
+                    CreateSteamWebResponseMap<PlayerOfficialInfoResultContainer, PlayerOfficialInfoModel>(x);
+                    CreateSteamWebResponseMap<ProPlayerListResultContainer, ProPlayerDetailModel>(x);
+                    CreateSteamWebResponseMap<LeagueResultContainer, IReadOnlyCollection<LeagueModel>>(x);
+                    CreateSteamWebResponseMap<LiveLeagueGameResultContainer, IReadOnlyCollection<LiveLeagueGameModel>>(x);
+                    CreateSteamWebResponseMap<MatchDetailResultContainer, MatchDetailModel>(x);
+                    CreateSteamWebResponseMap<MatchHistoryResultContainer, MatchHistoryModel>(x);
+                    CreateSteamWebResponseMap<MatchHistoryBySequenceNumberResultContainer, IReadOnlyCollection<MatchHistoryMatchModel>>(x);
+                    CreateSteamWebResponseMap<TeamInfoResultContainer, IReadOnlyCollection<TeamInfoModel>>(x);
+                    CreateSteamWebResponseMap<EconItemResultContainer, IReadOnlyCollection<EconItemResultModel>>(x);
+                    CreateSteamWebResponseMap<SchemaResultContainer, IReadOnlyCollection<Steam.Models.DOTA2.SchemaModel>>(x);
+                    CreateSteamWebResponseMap<SchemaUrlResultContainer, IReadOnlyCollection<string>>(x);
+                    CreateSteamWebResponseMap<StoreMetaDataResultContainer, IReadOnlyCollection<StoreMetaDataModel>>(x);
+                    CreateSteamWebResponseMap<StoreStatusResultContainer, IReadOnlyCollection<uint>>(x);
+                    CreateSteamWebResponseMap<TradeHistoryResultContainer, Steam.Models.SteamEconomy.TradeHistoryModel>(x);
+                    CreateSteamWebResponseMap<TradeOffersResultContainer, Steam.Models.SteamEconomy.TradeOffersResultModel>(x);
+                    CreateSteamWebResponseMap<TradeOfferResultContainer, Steam.Models.SteamEconomy.TradeOfferResultModel>(x);
+                    CreateSteamWebResponseMap<GameClientResultContainer, GameClientResultModel>(x);
+                    CreateSteamWebResponseMap<PlayingSharedGameResultContainer, ulong?>(x);
+                    CreateSteamWebResponseMap<CommunityBadgeProgressResultContainer, IReadOnlyCollection<BadgeQuestModel>>(x);
+                    CreateSteamWebResponseMap<BadgesResultContainer, BadgesResultModel>(x);
+                    CreateSteamWebResponseMap<SteamLevelResultContainer, uint?>(x);
+                    CreateSteamWebResponseMap<OwnedGamesResultContainer, OwnedGamesResultContainer>(x);
+                    CreateSteamWebResponseMap<RecentlyPlayedGameResultContainer, RecentlyPlayedGamesResultModel>(x);
+                    CreateSteamWebResponseMap<SteamAppListResultContainer, IReadOnlyCollection<SteamAppModel>>(x);
+                    CreateSteamWebResponseMap<SteamAppUpToDateCheckResultContainer, SteamAppUpToDateCheckModel>(x);
+                    CreateSteamWebResponseMap<AssetClassInfoResultContainer, AssetClassInfoResultModel>(x);
+                    CreateSteamWebResponseMap<AssetPriceResultContainer, AssetPriceResultModel>(x);
+                    CreateSteamWebResponseMap<SteamNewsResultContainer, SteamNewsResultModel>(x);
+                    CreateSteamWebResponseMap<UGCFileDetailsResultContainer, UGCFileDetailsModel>(x);
+                    CreateSteamWebResponseMap<PlayerSummaryResultContainer, PlayerSummaryModel>(x);
+                    CreateSteamWebResponseMap<PlayerSummaryResultContainer, IReadOnlyCollection<PlayerSummaryModel>>(x);
+                    CreateSteamWebResponseMap<FriendsListResultContainer, IReadOnlyCollection<FriendModel>>(x);
+                    CreateSteamWebResponseMap<PlayerBansContainer, IReadOnlyCollection<PlayerBansModel>>(x);
+                    CreateSteamWebResponseMap<UserGroupListResultContainer, IReadOnlyCollection<ulong>>(x);
+                    CreateSteamWebResponseMap<ResolveVanityUrlResultContainer, ulong>(x);
+                    CreateSteamWebResponseMap<GlobalAchievementPercentagesResultContainer, IReadOnlyCollection<GlobalAchievementPercentageModel>>(x);
+                    CreateSteamWebResponseMap<GlobalStatsForGameResultContainer, IReadOnlyCollection<GlobalStatModel>>(x);
+                    CreateSteamWebResponseMap<CurrentPlayersResultContainer, uint>(x);
+                    CreateSteamWebResponseMap<PlayerAchievementResultContainer, PlayerAchievementResultModel>(x);
+                    CreateSteamWebResponseMap<SchemaForGameResultContainer, SchemaForGameResultModel>(x);
+                    CreateSteamWebResponseMap<UserStatsForGameResultContainer, UserStatsForGameResultModel>(x);
+                    CreateSteamWebResponseMap<SteamServerInfo, SteamServerInfoModel>(x);
+                    CreateSteamWebResponseMap<SteamApiListContainer, IReadOnlyCollection<SteamInterfaceModel>>(x);
+                    CreateSteamWebResponseMap<GoldenWrenchResultContainer, IReadOnlyCollection<GoldenWrenchModel>>(x);
 
                     #region Endpoint: DOTA2Econ
 
                     x.CreateMap<Hero, HeroModel>();
-                    x.CreateMap<HeroResultContainer, IReadOnlyCollection<HeroModel>>().ConstructUsing(
+                    x.CreateMap<HeroResultContainer, IReadOnlyCollection<HeroModel>>().ConvertUsing(
                         src => Mapper.Map<IList<Hero>, IReadOnlyCollection<HeroModel>>(src.Result.Heroes)
                     );
 

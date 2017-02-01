@@ -44,7 +44,9 @@ namespace SteamWebAPI2.Interfaces
             {
                 var steamWebResponse = await steamWebInterface.GetAsync<UGCFileDetailsResultContainer>("GetUGCFileDetails", 1, parameters);
 
-                var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<ISteamWebResponse<UGCFileDetailsResultContainer>, ISteamWebResponse<UGCFileDetailsModel>>(steamWebResponse);
+                var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+                    ISteamWebResponse<UGCFileDetailsResultContainer>, 
+                    ISteamWebResponse<UGCFileDetailsModel>>(steamWebResponse);
 
                 return steamWebResponseModel;
             }
