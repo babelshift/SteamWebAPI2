@@ -31,17 +31,17 @@ namespace SteamWebAPI2.Interfaces
         /// </summary>
         /// <param name="language"></param>
         /// <returns></returns>
-        public async Task<IReadOnlyCollection<GameItemModel>> GetGameItemsAsync(string language = "en_us")
+        public async Task<ISteamWebResponse<IReadOnlyCollection<GameItemModel>>> GetGameItemsAsync(string language = "en_us")
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
             parameters.AddIfHasValue(language, "language");
 
-            var gameItems = await steamWebInterface.GetAsync<GameItemResultContainer>("GetGameItems", 1, parameters);
+            var steamWebResponse = await steamWebInterface.GetAsync<GameItemResultContainer>("GetGameItems", 1, parameters);
 
-            var gameItemModels = AutoMapperConfiguration.Mapper.Map<IList<GameItem>, IReadOnlyCollection<GameItemModel>>(gameItems.Result.Items);
+            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<ISteamWebResponse<GameItemResultContainer>, ISteamWebResponse<IReadOnlyCollection<GameItemModel>>>(steamWebResponse);
 
-            return gameItemModels;
+            return steamWebResponseModel;
         }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace SteamWebAPI2.Interfaces
         /// <param name="language"></param>
         /// <param name="itemizedOnly"></param>
         /// <returns></returns>
-        public async Task<IReadOnlyCollection<HeroModel>> GetHeroesAsync(string language = "en_us", bool itemizedOnly = false)
+        public async Task<ISteamWebResponse<IReadOnlyCollection<HeroModel>>> GetHeroesAsync(string language = "en_us", bool itemizedOnly = false)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
@@ -59,11 +59,11 @@ namespace SteamWebAPI2.Interfaces
             parameters.AddIfHasValue(language, "language");
             parameters.AddIfHasValue(itemizedOnlyValue, "itemizedonly");
 
-            var heroes = await steamWebInterface.GetAsync<HeroResultContainer>("GetHeroes", 1, parameters);
+            var steamWebResponse = await steamWebInterface.GetAsync<HeroResultContainer>("GetHeroes", 1, parameters);
 
-            var heroModels = AutoMapperConfiguration.Mapper.Map<IList<Hero>, IReadOnlyCollection<HeroModel>>(heroes.Result.Heroes);
+            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<ISteamWebResponse<HeroResultContainer>, ISteamWebResponse<IReadOnlyCollection<HeroModel>>>(steamWebResponse);
 
-            return heroModels;
+            return steamWebResponseModel;
         }
 
         /// <summary>
@@ -72,7 +72,7 @@ namespace SteamWebAPI2.Interfaces
         /// <param name="iconName"></param>
         /// <param name="iconType"></param>
         /// <returns></returns>
-        public async Task<string> GetItemIconPathAsync(string iconName, string iconType = "")
+        public async Task<ISteamWebResponse<string>> GetItemIconPathAsync(string iconName, string iconType = "")
         {
             if (String.IsNullOrEmpty(iconName))
             {
@@ -84,8 +84,11 @@ namespace SteamWebAPI2.Interfaces
             parameters.AddIfHasValue(iconName, "iconname");
             parameters.AddIfHasValue(iconType, "icontype");
 
-            var itemIconPath = await steamWebInterface.GetAsync<ItemIconPathResultContainer>("GetItemIconPath", 1, parameters);
-            return itemIconPath.Result.Path;
+            var steamWebResponse = await steamWebInterface.GetAsync<ItemIconPathResultContainer>("GetItemIconPath", 1, parameters);
+
+            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<ISteamWebResponse<ItemIconPathResultContainer>, ISteamWebResponse<string>>(steamWebResponse);
+
+            return steamWebResponseModel;
         }
 
         /// <summary>
@@ -93,25 +96,17 @@ namespace SteamWebAPI2.Interfaces
         /// </summary>
         /// <param name="language"></param>
         /// <returns></returns>
-        public async Task<IReadOnlyCollection<RarityModel>> GetRaritiesAsync(string language = "en_us")
+        public async Task<ISteamWebResponse<IReadOnlyCollection<RarityModel>>> GetRaritiesAsync(string language = "en_us")
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
             parameters.AddIfHasValue(language, "language");
 
-            var raritiesContainer = await steamWebInterface.GetAsync<RarityResultContainer>("GetRarities", 1, parameters);
+            var steamWebResponse = await steamWebInterface.GetAsync<RarityResultContainer>("GetRarities", 1, parameters);
 
-            var rarityModels = raritiesContainer.Result.Rarities.Select(x => new RarityModel()
-            {
-                Id = x.Id,
-                Name = x.Name,
-                Color = x.Color,
-                Order = x.Order
-            })
-            .ToList()
-            .AsReadOnly();
+            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<ISteamWebResponse<RarityResultContainer>, ISteamWebResponse<IReadOnlyCollection<RarityModel>>>(steamWebResponse);
 
-            return rarityModels;
+            return steamWebResponseModel;
         }
 
         /// <summary>
@@ -119,14 +114,17 @@ namespace SteamWebAPI2.Interfaces
         /// </summary>
         /// <param name="leagueId"></param>
         /// <returns></returns>
-        public async Task<uint> GetTournamentPrizePoolAsync(uint? leagueId = null)
+        public async Task<ISteamWebResponse<uint>> GetTournamentPrizePoolAsync(uint? leagueId = null)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
             parameters.AddIfHasValue(leagueId, "leagueid");
 
-            var raritiesContainer = await steamWebInterface.GetAsync<PrizePoolResultContainer>("GetTournamentPrizePool", 1, parameters);
-            return raritiesContainer.Result.PrizePool;
+            var steamWebResponse = await steamWebInterface.GetAsync<PrizePoolResultContainer>("GetTournamentPrizePool", 1, parameters);
+
+            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<ISteamWebResponse<PrizePoolResultContainer>, ISteamWebResponse<uint>>(steamWebResponse);
+
+            return steamWebResponseModel;
         }
     }
 }

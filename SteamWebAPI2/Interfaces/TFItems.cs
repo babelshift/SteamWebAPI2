@@ -26,13 +26,15 @@ namespace SteamWebAPI2.Interfaces
         /// Returns a collection of golden wrench and their collection details.
         /// </summary>
         /// <returns></returns>
-        public async Task<IReadOnlyCollection<GoldenWrenchModel>> GetGoldenWrenchesAsync()
+        public async Task<ISteamWebResponse<IReadOnlyCollection<GoldenWrenchModel>>> GetGoldenWrenchesAsync()
         {
-            var goldenWrenchesResult = await steamWebInterface.GetAsync<GoldenWrenchResultContainer>("GetGoldenWrenches", 2);
+            var steamWebResponse = await steamWebInterface.GetAsync<GoldenWrenchResultContainer>("GetGoldenWrenches", 2);
 
-            var goldenWrenchModels = AutoMapperConfiguration.Mapper.Map<IList<GoldenWrench>, IList<GoldenWrenchModel>>(goldenWrenchesResult.Result.GoldenWrenches);
+            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+                ISteamWebResponse<GoldenWrenchResultContainer>, 
+                ISteamWebResponse<IReadOnlyCollection<GoldenWrenchModel>>>(steamWebResponse);
 
-            return new ReadOnlyCollection<GoldenWrenchModel>(goldenWrenchModels);
+            return steamWebResponseModel;
         }
     }
 }

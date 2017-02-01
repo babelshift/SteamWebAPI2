@@ -8,10 +8,10 @@ namespace SteamWebAPI2.Models
         public bool Success { get; set; }
 
         [JsonProperty("deploy_version")]
-        public int DeployVersion { get; set; }
+        public uint DeployVersion { get; set; }
 
         [JsonProperty("active_version")]
-        public int ActiveVersion { get; set; }
+        public uint ActiveVersion { get; set; }
     }
 
     internal class GameClientResultContainer

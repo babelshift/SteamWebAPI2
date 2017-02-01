@@ -1,7 +1,10 @@
 ﻿using Newtonsoft.Json;
+using SteamWebAPI2.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace SteamWebAPI2.Utilities
@@ -56,7 +59,7 @@ namespace SteamWebAPI2.Utilities
         /// <param name="methodVersion">Name of web API method version</param>
         /// <param name="parameters">List of parameters to append to the web API call</param>
         /// <returns>Deserialized object from JSON response</returns>
-        public async Task<T> GetAsync<T>(string interfaceName, string methodName, int methodVersion, IList<SteamWebRequestParameter> parameters = null)
+        public async Task<ISteamWebResponse<T>> GetAsync<T>(string interfaceName, string methodName, int methodVersion, IList<SteamWebRequestParameter> parameters = null)
         {
             Debug.Assert(!String.IsNullOrWhiteSpace(interfaceName));
             Debug.Assert(!String.IsNullOrWhiteSpace(methodName));
@@ -74,7 +77,7 @@ namespace SteamWebAPI2.Utilities
         /// <param name="methodVersion">Name of web API method version</param>
         /// <param name="parameters">List of parameters to append to the web API call</param>
         /// <returns>Deserialized object from JSON response</returns>
-        public async Task<T> PostAsync<T>(string interfaceName, string methodName, int methodVersion, IList<SteamWebRequestParameter> parameters = null)
+        public async Task<ISteamWebResponse<T>> PostAsync<T>(string interfaceName, string methodName, int methodVersion, IList<SteamWebRequestParameter> parameters = null)
         {
             Debug.Assert(!String.IsNullOrWhiteSpace(interfaceName));
             Debug.Assert(!String.IsNullOrWhiteSpace(methodName));
@@ -93,7 +96,7 @@ namespace SteamWebAPI2.Utilities
         /// <param name="methodVersion">Name of web API method version</param>
         /// <param name="parameters">List of parameters to append to the web API call</param>
         /// <returns>Deserialized object from JSON response</returns>
-        private async Task<T> SendWebRequestAsync<T>(HttpMethod httpMethod, string interfaceName, string methodName, int methodVersion, IList<SteamWebRequestParameter> parameters = null)
+        private async Task<ISteamWebResponse<T>> SendWebRequestAsync<T>(HttpMethod httpMethod, string interfaceName, string methodName, int methodVersion, IList<SteamWebRequestParameter> parameters = null)
         {
             Debug.Assert(!String.IsNullOrWhiteSpace(interfaceName));
             Debug.Assert(!String.IsNullOrWhiteSpace(methodName));
@@ -108,20 +111,36 @@ namespace SteamWebAPI2.Utilities
 
             string command = BuildRequestCommand(interfaceName, methodName, methodVersion, parameters);
 
-            string response = String.Empty;
+            HttpResponseMessage httpResponse = null;
 
             if (httpMethod == HttpMethod.GET)
             {
-                response = await httpClient.GetStringAsync(command).ConfigureAwait(false);
+                httpResponse = await httpClient.GetAsync(command).ConfigureAwait(false);
             }
             else if (httpMethod == HttpMethod.POST)
             {
-                response = await httpClient.PostAsync(command).ConfigureAwait(false);
+                httpResponse = await httpClient.PostAsync(command).ConfigureAwait(false);
             }
 
-            var deserializedResult = JsonConvert.DeserializeObject<T>(response);
+            // extract http headers that we care about
+            SteamWebResponse<T> steamWebResponse = new SteamWebResponse<T>()
+            {
+                ContentLength = httpResponse.Content.Headers.ContentLength,
+                ContentType = httpResponse.Content.Headers.ContentType.MediaType,
+                ContentTypeCharSet = httpResponse.Content.Headers.ContentType.CharSet,
+                Expires = httpResponse.Content.Headers.Expires,
+                LastModified = httpResponse.Content.Headers.LastModified,
+            };
 
-            return deserializedResult;
+            // deserialize the content if we have any as indicated by the response code
+            if (httpResponse.StatusCode != HttpStatusCode.NoContent)
+            {
+                string responseContent = await httpResponse.Content.ReadAsStringAsync();
+                responseContent = CleanupResponseString(responseContent);
+                steamWebResponse.Data = JsonConvert.DeserializeObject<T>(responseContent);
+            }
+
+            return steamWebResponse;
         }
 
         /// <summary>
@@ -154,6 +173,24 @@ namespace SteamWebAPI2.Utilities
             }
 
             return commandUrl;
+        }
+
+        /// <summary>
+        /// Sends a http request to the command URL and returns the string response.
+        /// </summary>
+        /// <param name="stringToClean">Command URL to send</param>
+        /// <returns>String containing the http endpoint response contents</returns>
+        private static string CleanupResponseString(string stringToClean)
+        {
+            if (String.IsNullOrWhiteSpace(stringToClean))
+            {
+                return String.Empty;
+            }
+
+            stringToClean = stringToClean.Replace("\n", "");
+            stringToClean = stringToClean.Replace("\t", "");
+
+            return stringToClean;
         }
     }
 }

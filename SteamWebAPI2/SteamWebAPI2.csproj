@@ -178,6 +178,8 @@
     <Compile Include="Utilities\JsonConverters\UnixTimeJsonConverter.cs" />
     <Compile Include="Utilities\SteamWebHttpClient.cs" />
     <Compile Include="Utilities\SteamWebRequestParameterExtensions.cs" />
+    <Compile Include="Utilities\ISteamWebResponse.cs" />
+    <Compile Include="Utilities\SteamWebResponse.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ErrorMessages.resx">

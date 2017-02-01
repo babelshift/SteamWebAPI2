@@ -55,36 +55,36 @@ namespace SteamWebAPI2.Interfaces
         /// Returns the most recent client version number based on a specific App ID.
         /// </summary>
         /// <returns></returns>
-        public async Task<GameClientResultModel> GetClientVersionAsync()
+        public async Task<ISteamWebResponse<GameClientResultModel>> GetClientVersionAsync()
         {
             if (!validClientVersionAppIds.Contains(appId))
             {
                 throw new InvalidOperationException(String.Format("AppId {0} is not valid for the GetClientVersion method.", appId));
             }
 
-            var clientVersion = await steamWebInterface.GetAsync<GameClientResultContainer>("GetClientVersion", 1);
+            var steamWebResponse = await steamWebInterface.GetAsync<GameClientResultContainer>("GetClientVersion", 1);
 
-            var clientVersionModel = AutoMapperConfiguration.Mapper.Map<GameClientResult, GameClientResultModel>(clientVersion.Result);
+            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<ISteamWebResponse<GameClientResultContainer>, ISteamWebResponse<GameClientResultModel>>(steamWebResponse);
 
-            return clientVersionModel;
+            return steamWebResponseModel;
         }
 
         /// <summary>
         /// Returns the most recent server version number based on a specific App ID.
         /// </summary>
         /// <returns></returns>
-        public async Task<GameClientResultModel> GetServerVersionAsync()
+        public async Task<ISteamWebResponse<GameClientResultModel>> GetServerVersionAsync()
         {
             if (!validServerVersionAppIds.Contains(appId))
             {
                 throw new InvalidOperationException(String.Format("AppId {0} is not valid for the GetServerVersion method.", appId));
             }
 
-            var serverVersion = await steamWebInterface.GetAsync<GameClientResultContainer>("GetServerVersion", 1);
+            var steamWebResponse = await steamWebInterface.GetAsync<GameClientResultContainer>("GetServerVersion", 1);
 
-            var serverVersionModel = AutoMapperConfiguration.Mapper.Map<GameClientResult, GameClientResultModel>(serverVersion.Result);
+            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<ISteamWebResponse<GameClientResultContainer>, ISteamWebResponse<GameClientResultModel>>(steamWebResponse);
 
-            return serverVersionModel;
+            return steamWebResponseModel;
         }
     }
 }

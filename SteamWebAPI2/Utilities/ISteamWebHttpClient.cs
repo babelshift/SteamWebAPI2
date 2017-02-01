@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace SteamWebAPI2.Utilities
 {
@@ -9,13 +10,13 @@ namespace SteamWebAPI2.Utilities
         /// </summary>
         /// <param name="command">URL command for GET operation</param>
         /// <returns>String response such as JSON or XML</returns>
-        Task<string> GetStringAsync(string uri);
+        Task<HttpResponseMessage> GetAsync(string uri);
 
         /// <summary>
         /// Performs an HTTP POST with the passed URL command.
         /// </summary>
         /// <param name="command">URL command for POST operation</param>
         /// <returns>String response such as JSON or XML</returns>
-        Task<string> PostAsync(string uri);
+        Task<HttpResponseMessage> PostAsync(string uri);
     }
 }

@@ -29,7 +29,7 @@ namespace SteamWebAPI2.Interfaces
         /// <param name="classIds"></param>
         /// <param name="language"></param>
         /// <returns></returns>
-        public async Task<AssetClassInfoResultModel> GetAssetClassInfoAsync(uint appId, IReadOnlyList<ulong> classIds, string language = "en_us")
+        public async Task<ISteamWebResponse<AssetClassInfoResultModel>> GetAssetClassInfoAsync(uint appId, IReadOnlyList<ulong> classIds, string language = "en_us")
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
@@ -42,11 +42,11 @@ namespace SteamWebAPI2.Interfaces
                 parameters.AddIfHasValue(classIds[i], String.Format("classid{0}", i));
             }
 
-            var assetClassInfoResult = await steamWebInterface.GetAsync<AssetClassInfoResultContainer>("GetAssetClassInfo", 1, parameters);
+            var steamWebResponse = await steamWebInterface.GetAsync<AssetClassInfoResultContainer>("GetAssetClassInfo", 1, parameters);
 
-            var assetClassInfoResultModel = AutoMapperConfiguration.Mapper.Map<AssetClassInfoResult, AssetClassInfoResultModel>(assetClassInfoResult.Result);
+            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<ISteamWebResponse<AssetClassInfoResultContainer>, ISteamWebResponse<AssetClassInfoResultModel>>(steamWebResponse);
 
-            return assetClassInfoResultModel;
+            return steamWebResponseModel;
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace SteamWebAPI2.Interfaces
         /// <param name="currency"></param>
         /// <param name="language"></param>
         /// <returns></returns>
-        public async Task<AssetPriceResultModel> GetAssetPricesAsync(uint appId, string currency = "", string language = "en_us")
+        public async Task<ISteamWebResponse<AssetPriceResultModel>> GetAssetPricesAsync(uint appId, string currency = "", string language = "en_us")
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
@@ -64,11 +64,11 @@ namespace SteamWebAPI2.Interfaces
             parameters.AddIfHasValue(currency, "currency");
             parameters.AddIfHasValue(language, "language");
 
-            var assetPriceResult = await steamWebInterface.GetAsync<AssetPriceResultContainer>("GetAssetPrices", 1, parameters);
+            var steamWebResponse = await steamWebInterface.GetAsync<AssetPriceResultContainer>("GetAssetPrices", 1, parameters);
 
-            var assetPriceResultModel = AutoMapperConfiguration.Mapper.Map<AssetPriceResult, AssetPriceResultModel>(assetPriceResult.Result);
+            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<ISteamWebResponse<AssetPriceResultContainer>, ISteamWebResponse<AssetPriceResultModel>>(steamWebResponse);
 
-            return assetPriceResultModel;
+            return steamWebResponseModel;
         }
     }
 }

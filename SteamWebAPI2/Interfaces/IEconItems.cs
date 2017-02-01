@@ -1,19 +1,20 @@
 ﻿using Steam.Models.DOTA2;
 using Steam.Models.GameEconomy;
+using SteamWebAPI2.Utilities;
 using System.Threading.Tasks;
 
 namespace SteamWebAPI2.Interfaces
 {
     public interface IEconItems
     {
-        Task<EconItemResultModel> GetPlayerItemsAsync(ulong steamId);
+        Task<ISteamWebResponse<EconItemResultModel>> GetPlayerItemsAsync(ulong steamId);
 
-        Task<SchemaModel> GetSchemaAsync(string language = "");
+        Task<ISteamWebResponse<SchemaModel>> GetSchemaAsync(string language = "");
 
-        Task<string> GetSchemaUrlAsync();
+        Task<ISteamWebResponse<string>> GetSchemaUrlAsync();
 
-        Task<StoreMetaDataModel> GetStoreMetaDataAsync(string language = "");
+        Task<ISteamWebResponse<StoreMetaDataModel>> GetStoreMetaDataAsync(string language = "");
 
-        Task<uint> GetStoreStatusAsync();
+        Task<ISteamWebResponse<uint>> GetStoreStatusAsync();
     }
 }

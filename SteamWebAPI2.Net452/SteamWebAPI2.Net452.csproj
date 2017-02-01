@@ -379,6 +379,9 @@
     <Compile Include="..\SteamWebAPI2\Utilities\ISteamWebRequest.cs">
       <Link>Utilities\ISteamWebRequest.cs</Link>
     </Compile>
+    <Compile Include="..\SteamWebAPI2\Utilities\ISteamWebResponse.cs">
+      <Link>Utilities\ISteamWebResponse.cs</Link>
+    </Compile>
     <Compile Include="..\SteamWebAPI2\Utilities\JsonConverters\AssetClassInfoJsonConverter.cs">
       <Link>Utilities\JsonConverters\AssetClassInfoJsonConverter.cs</Link>
     </Compile>
@@ -411,6 +414,9 @@
     </Compile>
     <Compile Include="..\SteamWebAPI2\Utilities\SteamWebRequestParameterExtensions.cs">
       <Link>Utilities\SteamWebRequestParameterExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Utilities\SteamWebResponse.cs">
+      <Link>Utilities\SteamWebResponse.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

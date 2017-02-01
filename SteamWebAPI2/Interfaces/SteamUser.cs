@@ -34,36 +34,52 @@ namespace SteamWebAPI2.Interfaces
         /// </summary>
         /// <param name="steamId"></param>
         /// <returns></returns>
-        public async Task<PlayerSummaryModel> GetPlayerSummaryAsync(ulong steamId)
+        public async Task<ISteamWebResponse<PlayerSummaryModel>> GetPlayerSummaryAsync(ulong steamId)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
             parameters.AddIfHasValue(steamId, "steamids");
 
-            var playerSummary = await steamWebInterface.GetAsync<PlayerSummaryResultContainer>("GetPlayerSummaries", 2, parameters);
+            var steamWebResponse = await steamWebInterface.GetAsync<PlayerSummaryResultContainer>("GetPlayerSummaries", 2, parameters);
 
-            if (playerSummary.Result.Players != null && playerSummary.Result.Players.Count > 0)
-            {
-                var playerSummaryModel = AutoMapperConfiguration.Mapper.Map<PlayerSummary, PlayerSummaryModel>(playerSummary.Result.Players[0]);
-                return playerSummaryModel;
-            }
-            else
+            if (steamWebResponse == null
+                || steamWebResponse.Data == null
+                || steamWebResponse.Data.Result == null
+                || steamWebResponse.Data.Result.Players == null
+                || steamWebResponse.Data.Result.Players.Count == 0)
             {
                 return null;
             }
+
+            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+                ISteamWebResponse<PlayerSummaryResultContainer>,
+                ISteamWebResponse<PlayerSummaryModel>>(steamWebResponse);
+
+            return steamWebResponseModel;
         }
 
-        public async Task<List<PlayerSummaryModel>> GetPlayerSummariesAsync(IReadOnlyCollection<ulong> steamIds)
+        public async Task<ISteamWebResponse<IReadOnlyCollection<PlayerSummaryModel>>> GetPlayerSummariesAsync(IReadOnlyCollection<ulong> steamIds)
         {
             // convert steam ids to a csv for the api
             var steamIdsCsv = string.Join(",", steamIds.Select(x => x.ToString()).ToArray());
             var parameters = new List<SteamWebRequestParameter>();
             parameters.AddIfHasValue(steamIdsCsv, "steamids");
 
-            var playerSummaries = await steamWebInterface.GetAsync<PlayerSummaryResultContainer>("GetPlayerSummaries", 2, parameters);
-            if (playerSummaries.Result.Players != null && playerSummaries.Result.Players.Count > 0)
-                return playerSummaries.Result.Players.Select(player => AutoMapperConfiguration.Mapper.Map<PlayerSummary, PlayerSummaryModel>(player)).ToList();
+            var steamWebResponse = await steamWebInterface.GetAsync<PlayerSummaryResultContainer>("GetPlayerSummaries", 2, parameters);
 
-            return null;
+            if (steamWebResponse == null
+                || steamWebResponse.Data == null
+                || steamWebResponse.Data.Result == null
+                || steamWebResponse.Data.Result.Players == null
+                || steamWebResponse.Data.Result.Players.Count == 0)
+            {
+                return null;
+            }
+
+            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+                ISteamWebResponse<PlayerSummaryResultContainer>,
+                ISteamWebResponse<IReadOnlyCollection<PlayerSummaryModel>>>(steamWebResponse);
+
+            return steamWebResponseModel;
         }
 
         /// <summary>
@@ -72,17 +88,17 @@ namespace SteamWebAPI2.Interfaces
         /// <param name="steamId"></param>
         /// <param name="relationship"></param>
         /// <returns></returns>
-        public async Task<IReadOnlyCollection<FriendModel>> GetFriendsListAsync(ulong steamId, string relationship = "")
+        public async Task<ISteamWebResponse<IReadOnlyCollection<FriendModel>>> GetFriendsListAsync(ulong steamId, string relationship = "")
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
             parameters.AddIfHasValue(steamId, "steamid");
             parameters.AddIfHasValue(relationship, "relationship");
 
-            var friendsListResult = await steamWebInterface.GetAsync<FriendsListResultContainer>("GetFriendList", 1, parameters);
+            var steamWebResponse = await steamWebInterface.GetAsync<FriendsListResultContainer>("GetFriendList", 1, parameters);
 
-            var friendsListModel = AutoMapperConfiguration.Mapper.Map<IList<Friend>, IList<FriendModel>>(friendsListResult.Result.Friends);
+            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<ISteamWebResponse<FriendsListResultContainer>, ISteamWebResponse<IReadOnlyCollection<FriendModel>>>(steamWebResponse);
 
-            return new ReadOnlyCollection<FriendModel>(friendsListModel);
+            return steamWebResponseModel;
         }
 
         /// <summary>
@@ -90,7 +106,7 @@ namespace SteamWebAPI2.Interfaces
         /// </summary>
         /// <param name="steamId"></param>
         /// <returns></returns>
-        public async Task<IReadOnlyCollection<PlayerBansModel>> GetPlayerBansAsync(ulong steamId)
+        public async Task<ISteamWebResponse<IReadOnlyCollection<PlayerBansModel>>> GetPlayerBansAsync(ulong steamId)
         {
             var result = await GetPlayerBansAsync(new List<ulong>() { steamId });
             return result;
@@ -101,7 +117,7 @@ namespace SteamWebAPI2.Interfaces
         /// </summary>
         /// <param name="steamIds"></param>
         /// <returns></returns>
-        public async Task<IReadOnlyCollection<PlayerBansModel>> GetPlayerBansAsync(IReadOnlyCollection<ulong> steamIds)
+        public async Task<ISteamWebResponse<IReadOnlyCollection<PlayerBansModel>>> GetPlayerBansAsync(IReadOnlyCollection<ulong> steamIds)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
@@ -109,9 +125,13 @@ namespace SteamWebAPI2.Interfaces
 
             parameters.AddIfHasValue(steamIdsParamValue, "steamids");
 
-            var playerBansContainer = await steamWebInterface.GetAsync<PlayerBansContainer>("GetPlayerBans", 1, parameters);
-            var playerBansModel = AutoMapperConfiguration.Mapper.Map<IList<PlayerBans>, IList<PlayerBansModel>>(playerBansContainer.PlayerBans);
-            return new ReadOnlyCollection<PlayerBansModel>(playerBansModel);
+            var steamWebResponse = await steamWebInterface.GetAsync<PlayerBansContainer>("GetPlayerBans", 1, parameters);
+
+            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+                ISteamWebResponse<PlayerBansContainer>, 
+                ISteamWebResponse<IReadOnlyCollection<PlayerBansModel>>>(steamWebResponse);
+
+            return steamWebResponseModel;
         }
 
         /// <summary>
@@ -119,18 +139,19 @@ namespace SteamWebAPI2.Interfaces
         /// </summary>
         /// <param name="steamId"></param>
         /// <returns></returns>
-        public async Task<IReadOnlyCollection<ulong>> GetUserGroupsAsync(ulong steamId)
+        public async Task<ISteamWebResponse<IReadOnlyCollection<ulong>>> GetUserGroupsAsync(ulong steamId)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
             parameters.AddIfHasValue(steamId, "steamid");
 
-            var userGroupResultContainer = await steamWebInterface.GetAsync<UserGroupListResultContainer>("GetUserGroupList", 1, parameters);
+            var steamWebResponse = await steamWebInterface.GetAsync<UserGroupListResultContainer>("GetUserGroupList", 1, parameters);
 
-            return userGroupResultContainer.Result.Groups
-                .Select(x => x.Gid)
-                .ToList()
-                .AsReadOnly();
+            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+                ISteamWebResponse<UserGroupListResultContainer>,
+                ISteamWebResponse<IReadOnlyCollection<ulong>>>(steamWebResponse);
+
+            return steamWebResponseModel;
         }
 
         /// <summary>
@@ -139,21 +160,25 @@ namespace SteamWebAPI2.Interfaces
         /// <param name="vanityUrl"></param>
         /// <param name="urlType"></param>
         /// <returns></returns>
-        public async Task<ulong> ResolveVanityUrlAsync(string vanityUrl, int? urlType = null)
+        public async Task<ISteamWebResponse<ulong>> ResolveVanityUrlAsync(string vanityUrl, int? urlType = null)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
             parameters.AddIfHasValue(vanityUrl, "vanityurl");
             parameters.AddIfHasValue(urlType, "url_type");
 
-            var vanityUrlResultContainer = await steamWebInterface.GetAsync<ResolveVanityUrlResultContainer>("ResolveVanityURL", 1, parameters);
+            var steamWebResponse = await steamWebInterface.GetAsync<ResolveVanityUrlResultContainer>("ResolveVanityURL", 1, parameters);
 
-            if (vanityUrlResultContainer.Result.Success == 42)
+            if (steamWebResponse.Data.Result.Success == 42)
             {
                 throw new VanityUrlNotResolvedException(ErrorMessages.VanityUrlNotResolved);
             }
+            
+            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+                ISteamWebResponse<ResolveVanityUrlResultContainer>,
+                ISteamWebResponse<ulong>>(steamWebResponse);
 
-            return vanityUrlResultContainer.Result.SteamId;
+            return steamWebResponseModel;
         }
 
         /// <summary>

@@ -1,4 +1,5 @@
 ﻿using Steam.Models.SteamCommunity;
+using SteamWebAPI2.Utilities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -6,19 +7,19 @@ namespace SteamWebAPI2.Interfaces
 {
     public interface ISteamUser
     {
-        Task<IReadOnlyCollection<FriendModel>> GetFriendsListAsync(ulong steamId, string relationship = "");
+        Task<ISteamWebResponse<IReadOnlyCollection<FriendModel>>> GetFriendsListAsync(ulong steamId, string relationship = "");
 
-        Task<IReadOnlyCollection<PlayerBansModel>> GetPlayerBansAsync(ulong steamId);
+        Task<ISteamWebResponse<IReadOnlyCollection<PlayerBansModel>>> GetPlayerBansAsync(ulong steamId);
 
-        Task<IReadOnlyCollection<PlayerBansModel>> GetPlayerBansAsync(IReadOnlyCollection<ulong> steamIds);
+        Task<ISteamWebResponse<IReadOnlyCollection<PlayerBansModel>>> GetPlayerBansAsync(IReadOnlyCollection<ulong> steamIds);
 
-        Task<PlayerSummaryModel> GetPlayerSummaryAsync(ulong steamId);
+        Task<ISteamWebResponse<PlayerSummaryModel>> GetPlayerSummaryAsync(ulong steamId);
 
-        Task<List<PlayerSummaryModel>> GetPlayerSummariesAsync(IReadOnlyCollection<ulong> steamIds);
+        Task<ISteamWebResponse<IReadOnlyCollection<PlayerSummaryModel>>> GetPlayerSummariesAsync(IReadOnlyCollection<ulong> steamIds);
 
-        Task<IReadOnlyCollection<ulong>> GetUserGroupsAsync(ulong steamId);
+        Task<ISteamWebResponse<IReadOnlyCollection<ulong>>> GetUserGroupsAsync(ulong steamId);
 
-        Task<ulong> ResolveVanityUrlAsync(string vanityUrl, int? urlType = null);
+        Task<ISteamWebResponse<ulong>> ResolveVanityUrlAsync(string vanityUrl, int? urlType = null);
 
         Task<SteamCommunityProfileModel> GetCommunityProfileAsync(ulong steamId);
     }

@@ -411,7 +411,7 @@ namespace SteamWebAPI2.Models
             ulong steamId64 = 0;
 
             var steamId = await steamUser.ResolveVanityUrlAsync(value);
-            steamId64 = steamId;
+            steamId64 = steamId.Data;
 
             return steamId64;
         }
