@@ -28,24 +28,17 @@ namespace SteamWebAPI2.Interfaces
         /// </summary>
         /// <param name="language"></param>
         /// <returns></returns>
-        public async Task<IReadOnlyCollection<LeagueModel>> GetLeagueListingAsync(string language = "en_us")
+        public async Task<ISteamWebResponse<IReadOnlyCollection<LeagueModel>>> GetLeagueListingAsync(string language = "en_us")
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
             parameters.AddIfHasValue(language, "language");
 
-            var leagueListing = await steamWebInterface.GetAsync<LeagueResultContainer>("GetLeagueListing", 1, parameters);
+            var steamWebResponse = await steamWebInterface.GetAsync<LeagueResultContainer>("GetLeagueListing", 1, parameters);
 
-            var leagueModels = leagueListing.Result.Leagues.Select(x => new LeagueModel()
-            {
-                Description = x.Description,
-                ItemDef = x.ItemDef,
-                LeagueId = x.LeagueId,
-                Name = x.Name,
-                TournamentUrl = x.TournamentUrl
-            }).ToList().AsReadOnly();
+            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<ISteamWebResponse<LeagueResultContainer>, ISteamWebResponse<IReadOnlyCollection<LeagueModel>>>(steamWebResponse);
 
-            return leagueModels;
+            return steamWebResponseModel;
         }
 
         /// <summary>
@@ -54,18 +47,18 @@ namespace SteamWebAPI2.Interfaces
         /// <param name="leagueId"></param>
         /// <param name="matchId"></param>
         /// <returns></returns>
-        public async Task<IReadOnlyCollection<LiveLeagueGameModel>> GetLiveLeagueGamesAsync(uint? leagueId = null, ulong? matchId = null)
+        public async Task<ISteamWebResponse<IReadOnlyCollection<LiveLeagueGameModel>>> GetLiveLeagueGamesAsync(uint? leagueId = null, ulong? matchId = null)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
             parameters.AddIfHasValue(leagueId, "league_id");
             parameters.AddIfHasValue(matchId, "match_id");
 
-            var liveLeagueGames = await steamWebInterface.GetAsync<LiveLeagueGameResultContainer>("GetLiveLeagueGames", 1);
+            var steamWebResponse = await steamWebInterface.GetAsync<LiveLeagueGameResultContainer>("GetLiveLeagueGames", 1);
 
-            var liveLeagueGamesModel = AutoMapperConfiguration.Mapper.Map<IList<LiveLeagueGame>, IList<LiveLeagueGameModel>>(liveLeagueGames.Result.Games);
+            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<ISteamWebResponse<LiveLeagueGameResultContainer>, ISteamWebResponse<IReadOnlyCollection<LiveLeagueGameModel>>>(steamWebResponse);
 
-            return new ReadOnlyCollection<LiveLeagueGameModel>(liveLeagueGamesModel);
+            return steamWebResponseModel;
         }
 
         /// <summary>
@@ -73,17 +66,17 @@ namespace SteamWebAPI2.Interfaces
         /// </summary>
         /// <param name="matchId"></param>
         /// <returns></returns>
-        public async Task<MatchDetailModel> GetMatchDetailsAsync(ulong matchId)
+        public async Task<ISteamWebResponse<MatchDetailModel>> GetMatchDetailsAsync(ulong matchId)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
             parameters.AddIfHasValue(matchId, "match_id");
 
-            var matchDetail = await steamWebInterface.GetAsync<MatchDetailResultContainer>("GetMatchDetails", 1, parameters);
+            var steamWebResponse = await steamWebInterface.GetAsync<MatchDetailResultContainer>("GetMatchDetails", 1, parameters);
 
-            var matchDetailModel = AutoMapperConfiguration.Mapper.Map<MatchDetailResult, MatchDetailModel>(matchDetail.Result);
+            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<ISteamWebResponse<MatchDetailResultContainer>, ISteamWebResponse<MatchDetailModel>>(steamWebResponse);
 
-            return matchDetailModel;
+            return steamWebResponseModel;
         }
 
         /// <summary>
@@ -99,7 +92,7 @@ namespace SteamWebAPI2.Interfaces
         /// <param name="matchesRequested"></param>
         /// <param name="tournamentGamesOnly"></param>
         /// <returns></returns>
-        public async Task<MatchHistoryModel> GetMatchHistoryAsync(uint? heroId = null, uint? gameMode = null, uint? skill = null,
+        public async Task<ISteamWebResponse<MatchHistoryModel>> GetMatchHistoryAsync(uint? heroId = null, uint? gameMode = null, uint? skill = null,
             uint? minPlayers = null, ulong? accountId = null, uint? leagueId = null, ulong? startAtMatchId = null,
             string matchesRequested = "", string tournamentGamesOnly = "")
         {
@@ -115,11 +108,11 @@ namespace SteamWebAPI2.Interfaces
             parameters.AddIfHasValue(matchesRequested, "matches_requested");
             parameters.AddIfHasValue(tournamentGamesOnly, "tournament_games_only");
 
-            var matchHistory = await steamWebInterface.GetAsync<MatchHistoryResultContainer>("GetMatchHistory", 1, parameters);
+            var steamWebResponse = await steamWebInterface.GetAsync<MatchHistoryResultContainer>("GetMatchHistory", 1, parameters);
 
-            var matchHistoryModel = AutoMapperConfiguration.Mapper.Map<MatchHistoryResult, MatchHistoryModel>(matchHistory.Result);
+            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<ISteamWebResponse<MatchHistoryResultContainer>, ISteamWebResponse<MatchHistoryModel>>(steamWebResponse);
 
-            return matchHistoryModel;
+            return steamWebResponseModel;
         }
 
         /// <summary>
@@ -128,18 +121,20 @@ namespace SteamWebAPI2.Interfaces
         /// <param name="startAtMatchSequenceNumber"></param>
         /// <param name="matchesRequested"></param>
         /// <returns></returns>
-        public async Task<IReadOnlyCollection<MatchHistoryMatchModel>> GetMatchHistoryBySequenceNumberAsync(ulong? startAtMatchSequenceNumber = null, uint? matchesRequested = null)
+        public async Task<ISteamWebResponse<IReadOnlyCollection<MatchHistoryMatchModel>>> GetMatchHistoryBySequenceNumberAsync(ulong? startAtMatchSequenceNumber = null, uint? matchesRequested = null)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
             parameters.AddIfHasValue(startAtMatchSequenceNumber, "start_at_match_seq_num");
             parameters.AddIfHasValue(matchesRequested, "matches_requested");
 
-            var matchHistory = await steamWebInterface.GetAsync<MatchHistoryBySequenceNumberResultContainer>("GetMatchHistoryBySequenceNum", 1, parameters);
+            var steamWebResponse = await steamWebInterface.GetAsync<MatchHistoryBySequenceNumberResultContainer>("GetMatchHistoryBySequenceNum", 1, parameters);
 
-            var matchHistoryModel = AutoMapperConfiguration.Mapper.Map<MatchHistoryBySequenceNumberResult, MatchHistoryModel>(matchHistory.Result);
+            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+                ISteamWebResponse<MatchHistoryBySequenceNumberResultContainer>,
+                ISteamWebResponse<IReadOnlyCollection<MatchHistoryMatchModel>>>(steamWebResponse);
 
-            return matchHistoryModel.Matches;
+            return steamWebResponseModel;
         }
 
         /// <summary>
@@ -148,18 +143,18 @@ namespace SteamWebAPI2.Interfaces
         /// <param name="startAtTeamId"></param>
         /// <param name="teamsRequested"></param>
         /// <returns></returns>
-        public async Task<IReadOnlyCollection<TeamInfoModel>> GetTeamInfoByTeamIdAsync(long? startAtTeamId = null, uint? teamsRequested = null)
+        public async Task<ISteamWebResponse<IReadOnlyCollection<TeamInfoModel>>> GetTeamInfoByTeamIdAsync(long? startAtTeamId = null, uint? teamsRequested = null)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
             parameters.AddIfHasValue(startAtTeamId, "start_at_team_id");
             parameters.AddIfHasValue(teamsRequested, "teams_requested");
 
-            var teamInfos = await steamWebInterface.GetAsync<TeamInfoResultContainer>("GetTeamInfoByTeamID", 1, parameters);
+            var steamWebResponse = await steamWebInterface.GetAsync<TeamInfoResultContainer>("GetTeamInfoByTeamID", 1, parameters);
 
-            var teamInfoModels = AutoMapperConfiguration.Mapper.Map<IList<TeamInfo>, IList<TeamInfoModel>>(teamInfos.Result.Teams);
+            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<ISteamWebResponse<TeamInfoResultContainer>, ISteamWebResponse<IReadOnlyCollection<TeamInfoModel>>>(steamWebResponse);
 
-            return new ReadOnlyCollection<TeamInfoModel>(teamInfoModels);
+            return steamWebResponseModel;
         }
     }
 }

@@ -72,7 +72,7 @@ namespace SteamWebAPI2.Utilities
         /// <param name="version">The version of the method to call</param>
         /// <param name="parameters">An optional list of parameters to include with the call</param>
         /// <returns></returns>
-        public async Task<T> GetAsync<T>(string methodName, int version, IList<SteamWebRequestParameter> parameters = null)
+        public async Task<ISteamWebResponse<T>> GetAsync<T>(string methodName, int version, IList<SteamWebRequestParameter> parameters = null)
         {
             Debug.Assert(!String.IsNullOrWhiteSpace(methodName));
             Debug.Assert(version > 0);
@@ -88,7 +88,7 @@ namespace SteamWebAPI2.Utilities
         /// <param name="version">The version of the method to call</param>
         /// <param name="parameters">An optional list of parameters to include with the call</param>
         /// <returns></returns>
-        public async Task<T> PostAsync<T>(string methodName, int version, IList<SteamWebRequestParameter> parameters = null)
+        public async Task<ISteamWebResponse<T>> PostAsync<T>(string methodName, int version, IList<SteamWebRequestParameter> parameters = null)
         {
             Debug.Assert(!String.IsNullOrWhiteSpace(methodName));
             Debug.Assert(version > 0);

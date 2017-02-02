@@ -30,14 +30,9 @@ namespace SteamWebAPI2.Interfaces
         /// <param name="appId"></param>
         /// <param name="steamId"></param>
         /// <returns></returns>
-        public async Task<UGCFileDetailsModel> GetUGCFileDetailsAsync(ulong ugcId, uint appId, ulong? steamId = null)
+        public async Task<ISteamWebResponse<UGCFileDetailsModel>> GetUGCFileDetailsAsync(ulong ugcId, uint appId, ulong? steamId = null)
         {
             Debug.Assert(appId > 0);
-
-            if (ugcId <= 0)
-            {
-                return null;
-            }
 
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
@@ -47,11 +42,13 @@ namespace SteamWebAPI2.Interfaces
 
             try
             {
-                var ugcFileDetails = await steamWebInterface.GetAsync<UGCFileDetailsResultContainer>("GetUGCFileDetails", 1, parameters);
+                var steamWebResponse = await steamWebInterface.GetAsync<UGCFileDetailsResultContainer>("GetUGCFileDetails", 1, parameters);
 
-                var ugcFileDetailsModel = AutoMapperConfiguration.Mapper.Map<UGCFileDetails, UGCFileDetailsModel>(ugcFileDetails.Result);
+                var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+                    ISteamWebResponse<UGCFileDetailsResultContainer>, 
+                    ISteamWebResponse<UGCFileDetailsModel>>(steamWebResponse);
 
-                return ugcFileDetailsModel;
+                return steamWebResponseModel;
             }
             catch (HttpRequestException)
             {

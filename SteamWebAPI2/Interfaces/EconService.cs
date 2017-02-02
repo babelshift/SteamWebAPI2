@@ -32,7 +32,7 @@ namespace SteamWebAPI2.Interfaces
         /// <param name="includeFailed">If set, trades in status k_ETradeStatus_Failed, k_ETradeStatus_RollbackFailed, k_ETradeStatus_RollbackAbandoned, and k_ETradeStatus_EscrowRollback will be included</param>
         /// <param name="includeTotal">Unknown</param>
         /// <returns></returns>
-        public async Task<Steam.Models.SteamEconomy.TradeHistoryModel> GetTradeHistory(uint maxTrades, uint startAfterTime = 0, ulong startAfterTradeId = 0, bool navigatingBack = false, bool getDescriptions = false, string language = "", bool includeFailed = false, bool includeTotal = false)
+        public async Task<ISteamWebResponse<Steam.Models.SteamEconomy.TradeHistoryModel>> GetTradeHistoryAsync(uint maxTrades, uint startAfterTime = 0, ulong startAfterTradeId = 0, bool navigatingBack = false, bool getDescriptions = false, string language = "", bool includeFailed = false, bool includeTotal = false)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
@@ -45,11 +45,13 @@ namespace SteamWebAPI2.Interfaces
             parameters.AddIfHasValue(includeFailed, "include_failed");
             parameters.AddIfHasValue(includeTotal, "inclue_total");
 
-            var tradeHistoryResult = await steamWebInterface.GetAsync<TradeHistoryResultContainer>("GetTradeHistory", 1, parameters);
+            var steamWebResponse = await steamWebInterface.GetAsync<TradeHistoryResultContainer>("GetTradeHistory", 1, parameters);
 
-            var tradeHistoryModel = AutoMapperConfiguration.Mapper.Map<TradeHistoryResult, Steam.Models.SteamEconomy.TradeHistoryModel>(tradeHistoryResult.Result);
+            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+                ISteamWebResponse<TradeHistoryResultContainer>, 
+                ISteamWebResponse<Steam.Models.SteamEconomy.TradeHistoryModel>>(steamWebResponse);
 
-            return tradeHistoryModel;
+            return steamWebResponseModel;
         }
 
         /// <summary>
@@ -63,7 +65,7 @@ namespace SteamWebAPI2.Interfaces
         /// <param name="historicalOnly">Return trade offers that are not in an active state.</param>
         /// <param name="timeHistoricalCutoff">A unix time value. when active_only is set, inactive offers will be returned if their state was updated since this time. Useful to get delta updates on what has changed. WARNING: If not passed, this will default to the time your account last viewed the trade offers page. To avoid this behavior use a very low or very high date.</param>
         /// <returns></returns>
-        public async Task<Steam.Models.SteamEconomy.TradeOffersResultModel> GetTradeOffers(bool getSentOffers, bool getReceivedOffers, bool getDescriptions = false, string language = "", bool activeOnly = false, bool historicalOnly = false, uint timeHistoricalCutoff = 0)
+        public async Task<ISteamWebResponse<Steam.Models.SteamEconomy.TradeOffersResultModel>> GetTradeOffersAsync(bool getSentOffers, bool getReceivedOffers, bool getDescriptions = false, string language = "", bool activeOnly = false, bool historicalOnly = false, uint timeHistoricalCutoff = 0)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
@@ -78,11 +80,13 @@ namespace SteamWebAPI2.Interfaces
             parameters.AddIfHasValue(historicalOnly, "historicalOnly");
             parameters.AddIfHasValue(timeHistoricalCutoff, "time_historical_cutoff");
 
-            var tradeOffersResult = await steamWebInterface.GetAsync<TradeOffersResultContainer>("GetTradeOffers", 1, parameters);
+            var steamWebResponse = await steamWebInterface.GetAsync<TradeOffersResultContainer>("GetTradeOffers", 1, parameters);
 
-            var tradeOffersModel = AutoMapperConfiguration.Mapper.Map<TradeOffersResult, Steam.Models.SteamEconomy.TradeOffersResultModel>(tradeOffersResult.Result);
+            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+                ISteamWebResponse<TradeOffersResultContainer>, 
+                ISteamWebResponse<Steam.Models.SteamEconomy.TradeOffersResultModel>>(steamWebResponse);
 
-            return tradeOffersModel;
+            return steamWebResponseModel;
         }
 
         /// <summary>
@@ -91,18 +95,20 @@ namespace SteamWebAPI2.Interfaces
         /// <param name="tradeOfferId">The trade offer identifier</param>
         /// <param name="language">The language to use for item display information.</param>
         /// <returns></returns>
-        public async Task<Steam.Models.SteamEconomy.TradeOfferResultModel> GetTradeOffer(ulong tradeOfferId, string language = "")
+        public async Task<ISteamWebResponse<Steam.Models.SteamEconomy.TradeOfferResultModel>> GetTradeOfferAsync(ulong tradeOfferId, string language = "")
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
             parameters.AddIfHasValue(tradeOfferId, "tradeOfferId");
             parameters.AddIfHasValue(language, "language");
 
-            var tradeOfferResult = await steamWebInterface.GetAsync<TradeOfferResultContainer>("GetTradeOffer", 1, parameters);
+            var steamWebResponse = await steamWebInterface.GetAsync<TradeOfferResultContainer>("GetTradeOffer", 1, parameters);
 
-            var tradeOfferModel = AutoMapperConfiguration.Mapper.Map<TradeOfferResult, Steam.Models.SteamEconomy.TradeOfferResultModel>(tradeOfferResult.Result);
+            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+                ISteamWebResponse<TradeOfferResultContainer>, 
+                ISteamWebResponse<Steam.Models.SteamEconomy.TradeOfferResultModel>>(steamWebResponse);
 
-            return tradeOfferModel;
+            return steamWebResponseModel;
         }
     }
 }

@@ -31,16 +31,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AutoMapper, Version=4.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoMapper.4.2.1\lib\net45\AutoMapper.dll</HintPath>
+    <Reference Include="AutoMapper, Version=5.2.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.5.2.0\lib\net45\AutoMapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Steam.Models, Version=2.0.0.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Steam.Models.2.0.0.2\lib\net452\Steam.Models.dll</HintPath>
+    <Reference Include="Steam.Models, Version=2.0.0.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Steam.Models.2.0.0.3\lib\net452\Steam.Models.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -379,6 +379,9 @@
     <Compile Include="..\SteamWebAPI2\Utilities\ISteamWebRequest.cs">
       <Link>Utilities\ISteamWebRequest.cs</Link>
     </Compile>
+    <Compile Include="..\SteamWebAPI2\Utilities\ISteamWebResponse.cs">
+      <Link>Utilities\ISteamWebResponse.cs</Link>
+    </Compile>
     <Compile Include="..\SteamWebAPI2\Utilities\JsonConverters\AssetClassInfoJsonConverter.cs">
       <Link>Utilities\JsonConverters\AssetClassInfoJsonConverter.cs</Link>
     </Compile>
@@ -411,6 +414,9 @@
     </Compile>
     <Compile Include="..\SteamWebAPI2\Utilities\SteamWebRequestParameterExtensions.cs">
       <Link>Utilities\SteamWebRequestParameterExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\SteamWebAPI2\Utilities\SteamWebResponse.cs">
+      <Link>Utilities\SteamWebResponse.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

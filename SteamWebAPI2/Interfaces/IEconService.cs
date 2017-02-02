@@ -1,4 +1,5 @@
 ﻿using Steam.Models.SteamEconomy;
+using SteamWebAPI2.Utilities;
 using System.Threading.Tasks;
 
 namespace SteamWebAPI2.Interfaces
@@ -17,7 +18,7 @@ namespace SteamWebAPI2.Interfaces
         /// <param name="includeFailed">If set, trades in status k_ETradeStatus_Failed, k_ETradeStatus_RollbackFailed, k_ETradeStatus_RollbackAbandoned, and k_ETradeStatus_EscrowRollback will be included</param>
         /// <param name="includeTotal">Unknown</param>
         /// <returns></returns>
-        Task<TradeHistoryModel> GetTradeHistory(uint maxTrades, uint startAfterTime, ulong startAfterTradeId, bool navigatingBack, bool getDescriptions, string language, bool includeFailed, bool includeTotal);
+        Task<ISteamWebResponse<TradeHistoryModel>> GetTradeHistoryAsync(uint maxTrades, uint startAfterTime, ulong startAfterTradeId, bool navigatingBack, bool getDescriptions, string language, bool includeFailed, bool includeTotal);
 
         /// <summary>
         /// This API gets a list of trade offers (up to a maximum of 500 sent or 1000 received regardless of time_historical_cutoff) for the account associated with the WebAPI key. You cannot call this API for accounts other than your own.
@@ -30,7 +31,7 @@ namespace SteamWebAPI2.Interfaces
         /// <param name="historicalOnly">Return trade offers that are not in an active state.</param>
         /// <param name="timeHistoricalCutoff">A unix time value. when active_only is set, inactive offers will be returned if their state was updated since this time. Useful to get delta updates on what has changed. WARNING: If not passed, this will default to the time your account last viewed the trade offers page. To avoid this behavior use a very low or very high date.</param>
         /// <returns></returns>
-        Task<TradeOffersResultModel> GetTradeOffers(bool getSentOffers, bool getReceivedOffers, bool getDescriptions, string language, bool activeOnly, bool historicalOnly, uint timeHistoricalCutoff);
+        Task<ISteamWebResponse<TradeOffersResultModel>> GetTradeOffersAsync(bool getSentOffers, bool getReceivedOffers, bool getDescriptions, string language, bool activeOnly, bool historicalOnly, uint timeHistoricalCutoff);
 
         /// <summary>
         /// This API gets details about a single trade offer. The trade offer must have been sent to or from the account associated with the WebAPI key. You cannot call this API for accounts other than your own.
@@ -38,7 +39,7 @@ namespace SteamWebAPI2.Interfaces
         /// <param name="tradeOfferId">The trade offer identifier</param>
         /// <param name="language">The language to use for item display information.</param>
         /// <returns></returns>
-        Task<TradeOfferResultModel> GetTradeOffer(ulong tradeOfferId, string language);
+        Task<ISteamWebResponse<TradeOfferResultModel>> GetTradeOfferAsync(ulong tradeOfferId, string language);
 
         //Task GetTradeOffersSummary(ulong timeLastVisit);
         //Task DeclineTradeOffer(ulong tradeOfferId);

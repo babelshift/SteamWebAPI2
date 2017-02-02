@@ -30,7 +30,7 @@ namespace SteamWebAPI2.Interfaces
         /// <param name="endDate"></param>
         /// <param name="count"></param>
         /// <returns></returns>
-        public async Task<SteamNewsResultModel> GetNewsForAppAsync(uint appId, uint? maxLength = null, DateTime? endDate = null, uint? count = null)
+        public async Task<ISteamWebResponse<SteamNewsResultModel>> GetNewsForAppAsync(uint appId, uint? maxLength = null, DateTime? endDate = null, uint? count = null)
         {
             long? endDateUnixTimeStamp = null;
 
@@ -46,11 +46,13 @@ namespace SteamWebAPI2.Interfaces
             parameters.AddIfHasValue(endDateUnixTimeStamp, "enddate");
             parameters.AddIfHasValue(count, "count");
 
-            var appNews = await steamWebInterface.GetAsync<SteamNewsResultContainer>("GetNewsForApp", 2, parameters);
+            var steamWebResponse = await steamWebInterface.GetAsync<SteamNewsResultContainer>("GetNewsForApp", 2, parameters);
 
-            var appNewsModel = AutoMapperConfiguration.Mapper.Map<SteamNewsResult, SteamNewsResultModel>(appNews.Result);
+            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+                ISteamWebResponse<SteamNewsResultContainer>, 
+                ISteamWebResponse<SteamNewsResultModel>>(steamWebResponse);
 
-            return appNewsModel;
+            return steamWebResponseModel;
         }
     }
 }

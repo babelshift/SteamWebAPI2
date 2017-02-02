@@ -14,7 +14,7 @@ namespace SteamWebAPI2.Utilities
         /// <param name="methodVersion">Name of web API method version</param>
         /// <param name="parameters">List of parameters to append to the web API call</param>
         /// <returns>Deserialized object from JSON response</returns>
-        Task<T> GetAsync<T>(string interfaceName, string methodName, int methodVersion, IList<SteamWebRequestParameter> parameters = null);
+        Task<ISteamWebResponse<T>> GetAsync<T>(string interfaceName, string methodName, int methodVersion, IList<SteamWebRequestParameter> parameters = null);
 
         /// <summary>
         /// Performs a POST request to the provided interface, method, and version with the passed parameters
@@ -25,6 +25,6 @@ namespace SteamWebAPI2.Utilities
         /// <param name="methodVersion">Name of web API method version</param>
         /// <param name="parameters">List of parameters to append to the web API call</param>
         /// <returns>Deserialized object from JSON response</returns>
-        Task<T> PostAsync<T>(string interfaceName, string methodName, int methodVersion, IList<SteamWebRequestParameter> parameters = null);
+        Task<ISteamWebResponse<T>> PostAsync<T>(string interfaceName, string methodName, int methodVersion, IList<SteamWebRequestParameter> parameters = null);
     }
 }

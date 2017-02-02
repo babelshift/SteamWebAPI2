@@ -25,7 +25,7 @@ namespace SteamWebAPI2.Interfaces
         /// <param name="appId">App ID of the game to authenticate against</param>
         /// <param name="ticket">Ticket from GetAuthSessionTicket</param>
         /// <returns>Results of authentication request</returns>
-        public async Task<dynamic> AuthenticateUserTicket(uint appId, string ticket)
+        public async Task<ISteamWebResponse<dynamic>> AuthenticateUserTicket(uint appId, string ticket)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
             parameters.AddIfHasValue(appId, "appid");

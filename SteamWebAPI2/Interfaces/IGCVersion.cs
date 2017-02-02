@@ -1,12 +1,13 @@
 ﻿using Steam.Models;
+using SteamWebAPI2.Utilities;
 using System.Threading.Tasks;
 
 namespace SteamWebAPI2.Interfaces
 {
     public interface IGCVersion
     {
-        Task<GameClientResultModel> GetClientVersionAsync();
+        Task<ISteamWebResponse<GameClientResultModel>> GetClientVersionAsync();
 
-        Task<GameClientResultModel> GetServerVersionAsync();
+        Task<ISteamWebResponse<GameClientResultModel>> GetServerVersionAsync();
     }
 }

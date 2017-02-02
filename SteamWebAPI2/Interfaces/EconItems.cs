@@ -72,17 +72,17 @@ namespace SteamWebAPI2.Interfaces
         /// </summary>
         /// <param name="steamId"></param>
         /// <returns></returns>
-        public async Task<EconItemResultModel> GetPlayerItemsAsync(ulong steamId)
+        public async Task<ISteamWebResponse<EconItemResultModel>> GetPlayerItemsAsync(ulong steamId)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
             parameters.AddIfHasValue(steamId, "steamid");
 
-            var econItemsResult = await steamWebInterface.GetAsync<EconItemResultContainer>("GetPlayerItems", 1, parameters);
+            var steamWebResponse = await steamWebInterface.GetAsync<EconItemResultContainer>("GetPlayerItems", 1, parameters);
 
-            var econItemResultModel = AutoMapperConfiguration.Mapper.Map<EconItemResult, EconItemResultModel>(econItemsResult.Result);
+            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<ISteamWebResponse<EconItemResultContainer>, ISteamWebResponse<EconItemResultModel>>(steamWebResponse);
 
-            return econItemResultModel;
+            return steamWebResponseModel;
         }
 
         /// <summary>
@@ -90,7 +90,7 @@ namespace SteamWebAPI2.Interfaces
         /// </summary>
         /// <param name="language"></param>
         /// <returns></returns>
-        public async Task<Steam.Models.DOTA2.SchemaModel> GetSchemaAsync(string language = "en_us")
+        public async Task<ISteamWebResponse<Steam.Models.DOTA2.SchemaModel>> GetSchemaAsync(string language = "en_us")
         {
             if (!validSchemaAppIds.Contains(appId))
             {
@@ -101,19 +101,19 @@ namespace SteamWebAPI2.Interfaces
 
             parameters.AddIfHasValue(language, "language");
 
-            var schemaResult = await steamWebInterface.GetAsync<SchemaResultContainer>("GetSchema", 1, parameters);
+            var steamWebResponse = await steamWebInterface.GetAsync<SchemaResultContainer>("GetSchema", 1, parameters);
 
-            var schemaModel = AutoMapperConfiguration.Mapper.Map<SchemaResult, Steam.Models.DOTA2.SchemaModel>(schemaResult.Result);
+            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<ISteamWebResponse<SchemaResultContainer>, ISteamWebResponse<Steam.Models.DOTA2.SchemaModel>>(steamWebResponse);
 
-            return schemaModel;
+            return steamWebResponseModel;
         }
 
         /// <summary>
-        /// Returns the economy / item schema for a specific App ID.
+        /// Returns the economy / item schema for TF2 specifically.
         /// </summary>
         /// <param name="language"></param>
         /// <returns></returns>
-        public async Task<Steam.Models.TF2.SchemaModel> GetSchemaForTF2Async(string language = "en_us")
+        public async Task<ISteamWebResponse<Steam.Models.TF2.SchemaModel>> GetSchemaForTF2Async(string language = "en_us")
         {
             if (this.appId != (int)EconItemsAppId.TeamFortress2)
             {
@@ -124,27 +124,29 @@ namespace SteamWebAPI2.Interfaces
 
             parameters.AddIfHasValue(language, "language");
 
-            var schemaResult = await steamWebInterface.GetAsync<SchemaResultContainer>("GetSchema", 1, parameters);
+            var steamWebResponse = await steamWebInterface.GetAsync<SchemaResultContainer>("GetSchema", 1, parameters);
 
-            var schemaModel = AutoMapperConfiguration.Mapper.Map<SchemaResult, Steam.Models.TF2.SchemaModel>(schemaResult.Result);
+            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<ISteamWebResponse<SchemaResultContainer>, ISteamWebResponse<Steam.Models.TF2.SchemaModel>>(steamWebResponse);
 
-            return schemaModel;
+            return steamWebResponseModel;
         }
 
         /// <summary>
         /// Returns a URL which can be used to access the economy / item schema for a specific App ID.
         /// </summary>
         /// <returns></returns>
-        public async Task<string> GetSchemaUrlAsync()
+        public async Task<ISteamWebResponse<string>> GetSchemaUrlAsync()
         {
             if (!validSchemaUrlAppIds.Contains(appId))
             {
                 throw new InvalidOperationException(String.Format("AppId {0} is not valid for the GetSchemaUrl method.", appId));
             }
 
-            var schemaUrlResult = await steamWebInterface.GetAsync<SchemaUrlResultContainer>("GetSchemaURL", 1);
+            var steamWebResponse = await steamWebInterface.GetAsync<SchemaUrlResultContainer>("GetSchemaURL", 1);
 
-            return schemaUrlResult.Result.ItemsGameUrl;
+            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<ISteamWebResponse<SchemaUrlResultContainer>, ISteamWebResponse<string>>(steamWebResponse);
+
+            return steamWebResponseModel;
         }
 
         /// <summary>
@@ -152,7 +154,7 @@ namespace SteamWebAPI2.Interfaces
         /// </summary>
         /// <param name="language"></param>
         /// <returns></returns>
-        public async Task<StoreMetaDataModel> GetStoreMetaDataAsync(string language = "")
+        public async Task<ISteamWebResponse<StoreMetaDataModel>> GetStoreMetaDataAsync(string language = "")
         {
             if (!validStoreMetaDataAppIds.Contains(appId))
             {
@@ -163,27 +165,29 @@ namespace SteamWebAPI2.Interfaces
 
             parameters.AddIfHasValue(language, "language");
 
-            var storeMetaDataResult = await steamWebInterface.GetAsync<StoreMetaDataResultContainer>("GetStoreMetaData", 1, parameters);
+            var steamWebResponse = await steamWebInterface.GetAsync<StoreMetaDataResultContainer>("GetStoreMetaData", 1, parameters);
 
-            var storeMetaDataModel = AutoMapperConfiguration.Mapper.Map<StoreMetaDataResult, StoreMetaDataModel>(storeMetaDataResult.Result);
+            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<ISteamWebResponse<StoreMetaDataResultContainer>, ISteamWebResponse<StoreMetaDataModel>>(steamWebResponse);
 
-            return storeMetaDataModel;
+            return steamWebResponseModel;
         }
 
         /// <summary>
         /// Returns a status indicator of the current status of a specific App ID.
         /// </summary>
         /// <returns></returns>
-        public async Task<uint> GetStoreStatusAsync()
+        public async Task<ISteamWebResponse<uint>> GetStoreStatusAsync()
         {
             if (!validStoreStatusAppIds.Contains(appId))
             {
                 throw new InvalidOperationException(String.Format("AppId {0} is not valid for the GetStoreStatus method.", appId));
             }
 
-            var storeStatusResult = await steamWebInterface.GetAsync<StoreStatusResultContainer>("GetStoreStatus", 1);
+            var steamWebResponse = await steamWebInterface.GetAsync<StoreStatusResultContainer>("GetStoreStatus", 1);
 
-            return storeStatusResult.Result.StoreStatus;
+            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<ISteamWebResponse<StoreStatusResultContainer>, ISteamWebResponse<uint>>(steamWebResponse);
+
+            return steamWebResponseModel;
         }
     }
 }

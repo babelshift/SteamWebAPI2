@@ -26,11 +26,15 @@ namespace SteamWebAPI2.Interfaces
         /// Returns a list of all Steam Apps.
         /// </summary>
         /// <returns></returns>
-        public async Task<IReadOnlyCollection<SteamAppModel>> GetAppListAsync()
+        public async Task<ISteamWebResponse<IReadOnlyCollection<SteamAppModel>>> GetAppListAsync()
         {
-            var steamAppList = await steamWebInterface.GetAsync<SteamAppListResultContainer>("GetAppList", 2);
-            var steamAppModels = AutoMapperConfiguration.Mapper.Map<IList<SteamApp>, IList<SteamAppModel>>(steamAppList.Result.Apps);
-            return new ReadOnlyCollection<SteamAppModel>(steamAppModels);
+            var steamWebResponse = await steamWebInterface.GetAsync<SteamAppListResultContainer>("GetAppList", 2);
+
+            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+                ISteamWebResponse<SteamAppListResultContainer>,
+                ISteamWebResponse<IReadOnlyCollection<SteamAppModel>>>(steamWebResponse);
+
+            return steamWebResponseModel;
         }
 
         /// <summary>
@@ -39,16 +43,20 @@ namespace SteamWebAPI2.Interfaces
         /// <param name="appId"></param>
         /// <param name="version"></param>
         /// <returns></returns>
-        public async Task<SteamAppUpToDateCheckModel> UpToDateCheckAsync(uint appId, uint version)
+        public async Task<ISteamWebResponse<SteamAppUpToDateCheckModel>> UpToDateCheckAsync(uint appId, uint version)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
             parameters.AddIfHasValue(appId, "appid");
             parameters.AddIfHasValue(version, "version");
 
-            var upToDateCheckResult = await steamWebInterface.GetAsync<SteamAppUpToDateCheckResultContainer>("UpToDateCheck", 1, parameters);
-            var upToDateCheckModel = AutoMapperConfiguration.Mapper.Map<SteamAppUpToDateCheckResult, SteamAppUpToDateCheckModel>(upToDateCheckResult.Result);
-            return upToDateCheckModel;
+            var steamWebResponse = await steamWebInterface.GetAsync<SteamAppUpToDateCheckResultContainer>("UpToDateCheck", 1, parameters);
+
+            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+                ISteamWebResponse<SteamAppUpToDateCheckResultContainer>, 
+                ISteamWebResponse<SteamAppUpToDateCheckModel>>(steamWebResponse);
+
+            return steamWebResponseModel;
         }
     }
 }

@@ -32,16 +32,18 @@ namespace SteamWebAPI2.Interfaces
         /// </summary>
         /// <param name="appId"></param>
         /// <returns></returns>
-        public async Task<IReadOnlyCollection<GlobalAchievementPercentageModel>> GetGlobalAchievementPercentagesForAppAsync(uint appId)
+        public async Task<ISteamWebResponse<IReadOnlyCollection<GlobalAchievementPercentageModel>>> GetGlobalAchievementPercentagesForAppAsync(uint appId)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
             parameters.AddIfHasValue(appId, "gameid");
 
-            var achievementPercentagesResult = await steamWebInterface.GetAsync<GlobalAchievementPercentagesResultContainer>("GetGlobalAchievementPercentagesForApp", 2, parameters);
+            var steamWebResponse = await steamWebInterface.GetAsync<GlobalAchievementPercentagesResultContainer>("GetGlobalAchievementPercentagesForApp", 2, parameters);
 
-            var achievementPercentagesResultModel = AutoMapperConfiguration.Mapper.Map<IList<GlobalAchievementPercentage>, IList<GlobalAchievementPercentageModel>>(achievementPercentagesResult.Result.AchievementPercentages);
+            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+                ISteamWebResponse<GlobalAchievementPercentagesResultContainer>,
+                ISteamWebResponse<IReadOnlyCollection<GlobalAchievementPercentageModel>>>(steamWebResponse);
 
-            return new ReadOnlyCollection<GlobalAchievementPercentageModel>(achievementPercentagesResultModel);
+            return steamWebResponseModel;
         }
 
         /// <summary>
@@ -52,7 +54,7 @@ namespace SteamWebAPI2.Interfaces
         /// <param name="startDate"></param>
         /// <param name="endDate"></param>
         /// <returns></returns>
-        public async Task<IReadOnlyCollection<GlobalStatModel>> GetGlobalStatsForGameAsync(uint appId, IReadOnlyList<string> statNames, DateTime? startDate = null, DateTime? endDate = null)
+        public async Task<ISteamWebResponse<IReadOnlyCollection<GlobalStatModel>>> GetGlobalStatsForGameAsync(uint appId, IReadOnlyList<string> statNames, DateTime? startDate = null, DateTime? endDate = null)
         {
             long? startDateUnixTimeStamp = null;
             long? endDateUnixTimeStamp = null;
@@ -78,11 +80,13 @@ namespace SteamWebAPI2.Interfaces
                 parameters.AddIfHasValue(statNames[i], String.Format("name[{0}]", i));
             }
 
-            var globalStatsResult = await steamWebInterface.GetAsync<GlobalStatsForGameResultContainer>("GetGlobalStatsForGame", 1, parameters);
+            var steamWebResponse = await steamWebInterface.GetAsync<GlobalStatsForGameResultContainer>("GetGlobalStatsForGame", 1, parameters);
 
-            var globalStatsModel = AutoMapperConfiguration.Mapper.Map<IList<GlobalStat>, IList<GlobalStatModel>>(globalStatsResult.Result.GlobalStats);
+            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+                ISteamWebResponse<GlobalStatsForGameResultContainer>,
+                ISteamWebResponse<IReadOnlyCollection<GlobalStatModel>>>(steamWebResponse);
 
-            return new ReadOnlyCollection<GlobalStatModel>(globalStatsModel);
+            return steamWebResponseModel;
         }
 
         /// <summary>
@@ -90,14 +94,18 @@ namespace SteamWebAPI2.Interfaces
         /// </summary>
         /// <param name="appId"></param>
         /// <returns></returns>
-        public async Task<uint> GetNumberOfCurrentPlayersForGameAsync(uint appId)
+        public async Task<ISteamWebResponse<uint>> GetNumberOfCurrentPlayersForGameAsync(uint appId)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
             parameters.AddIfHasValue(appId, "appid");
 
-            var globalStatsResult = await steamWebInterface.GetAsync<CurrentPlayersResultContainer>("GetNumberOfCurrentPlayers", 1, parameters);
+            var steamWebResponse = await steamWebInterface.GetAsync<CurrentPlayersResultContainer>("GetNumberOfCurrentPlayers", 1, parameters);
 
-            return globalStatsResult.Result.PlayerCount;
+            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+                ISteamWebResponse<CurrentPlayersResultContainer>,
+                ISteamWebResponse<uint>>(steamWebResponse);
+
+            return steamWebResponseModel;
         }
 
         /// <summary>
@@ -107,18 +115,20 @@ namespace SteamWebAPI2.Interfaces
         /// <param name="steamId"></param>
         /// <param name="language"></param>
         /// <returns></returns>
-        public async Task<PlayerAchievementResultModel> GetPlayerAchievementsAsync(uint appId, ulong steamId, string language = "en_us")
+        public async Task<ISteamWebResponse<PlayerAchievementResultModel>> GetPlayerAchievementsAsync(uint appId, ulong steamId, string language = "en_us")
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
             parameters.AddIfHasValue(appId, "appid");
             parameters.AddIfHasValue(steamId, "steamid");
             parameters.AddIfHasValue(language, "l");
 
-            var playerStatsResult = await steamWebInterface.GetAsync<PlayerAchievementResultContainer>("GetPlayerAchievements", 1, parameters);
+            var steamWebResponse = await steamWebInterface.GetAsync<PlayerAchievementResultContainer>("GetPlayerAchievements", 1, parameters);
 
-            var playerStatsResultModel = AutoMapperConfiguration.Mapper.Map<PlayerAchievementResult, PlayerAchievementResultModel>(playerStatsResult.Result);
+            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+                ISteamWebResponse<PlayerAchievementResultContainer>,
+                ISteamWebResponse<PlayerAchievementResultModel>>(steamWebResponse);
 
-            return playerStatsResultModel;
+            return steamWebResponseModel;
         }
 
         /// <summary>
@@ -127,17 +137,19 @@ namespace SteamWebAPI2.Interfaces
         /// <param name="appId"></param>
         /// <param name="language"></param>
         /// <returns></returns>
-        public async Task<SchemaForGameResultModel> GetSchemaForGameAsync(uint appId, string language = "")
+        public async Task<ISteamWebResponse<SchemaForGameResultModel>> GetSchemaForGameAsync(uint appId, string language = "")
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
             parameters.AddIfHasValue(appId, "appid");
             parameters.AddIfHasValue(language, "l");
 
-            var schemaForGameResult = await steamWebInterface.GetAsync<SchemaForGameResultContainer>("GetSchemaForGame", 2, parameters);
+            var steamWebResponse = await steamWebInterface.GetAsync<SchemaForGameResultContainer>("GetSchemaForGame", 2, parameters);
 
-            var schemaForGameResultModel = AutoMapperConfiguration.Mapper.Map<SchemaForGameResult, SchemaForGameResultModel>(schemaForGameResult.Result);
+            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+                ISteamWebResponse<SchemaForGameResultContainer>,
+                ISteamWebResponse<SchemaForGameResultModel>>(steamWebResponse);
 
-            return schemaForGameResultModel;
+            return steamWebResponseModel;
         }
 
         /// <summary>
@@ -146,17 +158,19 @@ namespace SteamWebAPI2.Interfaces
         /// <param name="steamId"></param>
         /// <param name="appId"></param>
         /// <returns></returns>
-        public async Task<UserStatsForGameResultModel> GetUserStatsForGameAsync(ulong steamId, uint appId)
+        public async Task<ISteamWebResponse<UserStatsForGameResultModel>> GetUserStatsForGameAsync(ulong steamId, uint appId)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
             parameters.AddIfHasValue(steamId, "steamid");
             parameters.AddIfHasValue(appId, "appid");
 
-            var userStatsForGameResult = await steamWebInterface.GetAsync<UserStatsForGameResultContainer>("GetUserStatsForGame", 2, parameters);
+            var steamWebResponse = await steamWebInterface.GetAsync<UserStatsForGameResultContainer>("GetUserStatsForGame", 2, parameters);
 
-            var userStatsForGameResultModel = AutoMapperConfiguration.Mapper.Map<UserStatsForGameResult, UserStatsForGameResultModel>(userStatsForGameResult.Result);
+            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+                ISteamWebResponse<UserStatsForGameResultContainer>, 
+                ISteamWebResponse<UserStatsForGameResultModel>>(steamWebResponse);
 
-            return userStatsForGameResultModel;
+            return steamWebResponseModel;
         }
     }
 }

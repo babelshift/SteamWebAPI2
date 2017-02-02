@@ -26,11 +26,13 @@ namespace SteamWebAPI2.Interfaces
         /// Returns the Steam Servers' known dates and times.
         /// </summary>
         /// <returns></returns>
-        public async Task<SteamServerInfoModel> GetServerInfoAsync()
+        public async Task<ISteamWebResponse<SteamServerInfoModel>> GetServerInfoAsync()
         {
             var steamServerInfo = await steamWebInterface.GetAsync<SteamServerInfo>("GetServerInfo", 1);
 
-            var steamServerInfoModel = AutoMapperConfiguration.Mapper.Map<SteamServerInfo, SteamServerInfoModel>(steamServerInfo);
+            var steamServerInfoModel = AutoMapperConfiguration.Mapper.Map<
+                ISteamWebResponse<SteamServerInfo>, 
+                ISteamWebResponse<SteamServerInfoModel>>(steamServerInfo);
 
             return steamServerInfoModel;
         }
@@ -39,13 +41,15 @@ namespace SteamWebAPI2.Interfaces
         /// Returns a collection of data related to all available supported Steam Web API endpoints.
         /// </summary>
         /// <returns></returns>
-        public async Task<IReadOnlyCollection<SteamInterfaceModel>> GetSupportedAPIListAsync()
+        public async Task<ISteamWebResponse<IReadOnlyCollection<SteamInterfaceModel>>> GetSupportedAPIListAsync()
         {
-            var steamApiListContainer = await steamWebInterface.GetAsync<SteamApiListContainer>("GetSupportedAPIList", 1);
+            var steamWebResponse = await steamWebInterface.GetAsync<SteamApiListContainer>("GetSupportedAPIList", 1);
 
-            var steamApiListModel = AutoMapperConfiguration.Mapper.Map<IList<SteamInterface>, IList<SteamInterfaceModel>>(steamApiListContainer.Result.Interfaces);
+            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+                ISteamWebResponse<SteamApiListContainer>, 
+                ISteamWebResponse<IReadOnlyCollection<SteamInterfaceModel>>>(steamWebResponse);
 
-            return new ReadOnlyCollection<SteamInterfaceModel>(steamApiListModel);
+            return steamWebResponseModel;
         }
     }
 }

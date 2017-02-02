@@ -27,13 +27,13 @@ namespace SteamWebAPI2.Interfaces
         /// Maps to the Steam Web API interface/method of ICSGOServers_730/GetGameServersStatus/v1
         /// </summary>
         /// <returns></returns>
-        public async Task<ServerStatusModel> GetGameServerStatusAsync()
+        public async Task<ISteamWebResponse<ServerStatusModel>> GetGameServerStatusAsync()
         {
-            var gameServerStatus = await steamWebInterface.GetAsync<ServerStatusResultContainer>("GetGameServersStatus", 1);
+            var steamWebResponse = await steamWebInterface.GetAsync<ServerStatusResultContainer>("GetGameServersStatus", 1);
 
-            var gameServerStatusModel = AutoMapperConfiguration.Mapper.Map<ServerStatusResult, ServerStatusModel>(gameServerStatus.Result);
+            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<ISteamWebResponse<ServerStatusResultContainer>, ISteamWebResponse<ServerStatusModel>>(steamWebResponse);
 
-            return gameServerStatusModel;
+            return steamWebResponseModel;
         }
     }
 }

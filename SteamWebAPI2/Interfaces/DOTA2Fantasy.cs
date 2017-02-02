@@ -26,36 +26,29 @@ namespace SteamWebAPI2.Interfaces
         /// </summary>
         /// <param name="steamId"></param>
         /// <returns></returns>
-        public async Task<PlayerOfficialInfoModel> GetPlayerOfficialInfo(ulong steamId)
+        public async Task<ISteamWebResponse<PlayerOfficialInfoModel>> GetPlayerOfficialInfo(ulong steamId)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
             parameters.Add(new SteamWebRequestParameter("accountid", steamId.ToString()));
 
-            var playerOfficialInfo = await steamWebInterface.GetAsync<PlayerOfficialInfoResultContainer>("GetPlayerOfficialInfo", 1, parameters);
+            var steamWebResponse = await steamWebInterface.GetAsync<PlayerOfficialInfoResultContainer>("GetPlayerOfficialInfo", 1, parameters);
 
-            var playerOfficialInfoModel = new PlayerOfficialInfoModel()
-            {
-                Name = playerOfficialInfo.Result.Name,
-                FantasyRole = playerOfficialInfo.Result.FantasyRole,
-                Sponsor = playerOfficialInfo.Result.Sponsor,
-                TeamName = playerOfficialInfo.Result.TeamName,
-                TeamTag = playerOfficialInfo.Result.TeamTag
-            };
+            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<ISteamWebResponse<PlayerOfficialInfoResultContainer>, ISteamWebResponse<PlayerOfficialInfoModel>>(steamWebResponse);
 
-            return playerOfficialInfoModel;
+            return steamWebResponseModel;
         }
 
         /// <summary>
         /// Returns a collection of all professional players registered in professional Dota 2 leagues.
         /// </summary>
         /// <returns></returns>
-        public async Task<ProPlayerDetailModel> GetProPlayerList()
+        public async Task<ISteamWebResponse<ProPlayerDetailModel>> GetProPlayerList()
         {
-            var proPlayerList = await steamWebInterface.GetAsync<ProPlayerListResultContainer>("GetProPlayerList", 1);
+            var steamWebResponse = await steamWebInterface.GetAsync<ProPlayerListResult>("GetProPlayerList", 1);
 
-            var proPlayerDetailModel = AutoMapperConfiguration.Mapper.Map<ProPlayerListResult, ProPlayerDetailModel>(proPlayerList.Result);
+            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<ISteamWebResponse<ProPlayerListResult>, ISteamWebResponse<ProPlayerDetailModel>>(steamWebResponse);
 
-            return proPlayerDetailModel;
+            return steamWebResponseModel;
         }
     }
 }

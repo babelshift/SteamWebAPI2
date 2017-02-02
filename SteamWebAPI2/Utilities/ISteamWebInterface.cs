@@ -13,7 +13,7 @@ namespace SteamWebAPI2.Utilities
         /// <param name="version">The version of the method to call</param>
         /// <param name="parameters">An optional list of parameters to include with the call</param>
         /// <returns></returns>
-        Task<T> GetAsync<T>(string methodName, int version, IList<SteamWebRequestParameter> parameters = null);
+        Task<ISteamWebResponse<T>> GetAsync<T>(string methodName, int version, IList<SteamWebRequestParameter> parameters = null);
 
         /// <summary>
         /// Calls a specific POST method on whatever interface this class represents. For example "IsPlayingSharedGame" is a method on the "PlayerService" web interface.
@@ -23,6 +23,6 @@ namespace SteamWebAPI2.Utilities
         /// <param name="version">The version of the method to call</param>
         /// <param name="parameters">An optional list of parameters to include with the call</param>
         /// <returns></returns>
-        Task<T> PostAsync<T>(string methodName, int version, IList<SteamWebRequestParameter> parameters = null);
+        Task<ISteamWebResponse<T>> PostAsync<T>(string methodName, int version, IList<SteamWebRequestParameter> parameters = null);
     }
 }
