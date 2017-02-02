@@ -22,7 +22,7 @@ cache:
   - src\packages -> **\packages.config
   
 before_build:
-  - cmd: nuget restore
+  - cmd: nuget restore src\SteamWebAPI2.sln
   
 deploy:
   - provider: NuGet
