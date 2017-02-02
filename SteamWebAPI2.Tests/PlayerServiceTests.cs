@@ -37,11 +37,11 @@ namespace SteamWebAPI2.Tests
             var service = new PlayerService(String.Empty, mockSteamWebRequest.Object);
             var result = await service.IsPlayingSharedGameAsync(It.IsAny<ulong>(), It.IsAny<uint>());
 
-            Assert.IsTrue(!result.Data.HasValue);
+            Assert.IsNull(result);
         }
 
         [TestMethod]
-        public async Task PlayerService_IsPlayingSharedGameAsync_Return_Null_If_Web_Interface_Result_Is_Null()
+        public async Task PlayerService_IsPlayingSharedGameAsync_Return_Null_Data_If_Web_Interface_Result_Is_Null()
         {
             var mockSteamWebRequest = new Mock<ISteamWebInterface>();
 
@@ -57,7 +57,7 @@ namespace SteamWebAPI2.Tests
             var service = new PlayerService(String.Empty, mockSteamWebRequest.Object);
             var result = await service.IsPlayingSharedGameAsync(It.IsAny<ulong>(), It.IsAny<uint>());
 
-            Assert.IsTrue(!result.Data.HasValue);
+            Assert.IsNull(result.Data);
         }
 
         [TestMethod]
@@ -71,11 +71,11 @@ namespace SteamWebAPI2.Tests
             var service = new PlayerService(String.Empty, mockSteamWebRequest.Object);
             var result = await service.GetBadgesAsync(It.IsAny<ulong>());
 
-            Assert.IsNull(result.Data);
+            Assert.IsNull(result);
         }
 
         [TestMethod]
-        public async Task PlayerService_GetBadgesAsync_Return_Null_If_Web_Interface_Result_Is_Null()
+        public async Task PlayerService_GetBadgesAsync_Return_Null_Data_If_Web_Interface_Result_Is_Null()
         {
             var mockSteamWebRequest = new Mock<ISteamWebInterface>();
 
@@ -91,7 +91,7 @@ namespace SteamWebAPI2.Tests
             var service = new PlayerService(String.Empty, mockSteamWebRequest.Object);
             var result = await service.GetBadgesAsync(It.IsAny<ulong>());
 
-            Assert.IsNull(result);
+            Assert.IsNull(result.Data);
         }
 
         [TestMethod]
@@ -105,11 +105,11 @@ namespace SteamWebAPI2.Tests
             var service = new PlayerService(String.Empty, mockSteamWebRequest.Object);
             var result = await service.GetCommunityBadgeProgressAsync(It.IsAny<uint>(), It.IsAny<uint?>());
 
-            Assert.IsNull(result.Data);
+            Assert.IsNull(result);
         }
 
         [TestMethod]
-        public async Task PlayerService_GetCommunityBadgeProgressAsync_Return_Null_If_Web_Interface_Result_Is_Null()
+        public async Task PlayerService_GetCommunityBadgeProgressAsync_Return_Empty_Data_If_Web_Interface_Result_Is_Null()
         {
             var mockSteamWebRequest = new Mock<ISteamWebInterface>();
 
@@ -125,7 +125,7 @@ namespace SteamWebAPI2.Tests
             var service = new PlayerService(String.Empty, mockSteamWebRequest.Object);
             var result = await service.GetCommunityBadgeProgressAsync(It.IsAny<uint>(), It.IsAny<uint?>());
 
-            Assert.IsNull(result);
+            Assert.IsTrue(result.Data.Count == 0);
         }
 
         [TestMethod]
@@ -139,11 +139,11 @@ namespace SteamWebAPI2.Tests
             var service = new PlayerService(String.Empty, mockSteamWebRequest.Object);
             var result = await service.GetSteamLevelAsync(It.IsAny<uint>());
 
-            Assert.IsNull(result.Data);
+            Assert.IsNull(result);
         }
 
         [TestMethod]
-        public async Task PlayerService_GetSteamLevelAsync_Return_Null_If_Web_Interface_Result_Is_Null()
+        public async Task PlayerService_GetSteamLevelAsync_Return_Default_Data_If_Web_Interface_Result_Is_Null()
         {
             var mockSteamWebRequest = new Mock<ISteamWebInterface>();
 
@@ -157,9 +157,9 @@ namespace SteamWebAPI2.Tests
                 });
 
             var service = new PlayerService(String.Empty, mockSteamWebRequest.Object);
-            var result = await service.GetSteamLevelAsync(It.IsAny<uint>());
+            var result = await service.GetSteamLevelAsync(It.IsAny<ulong>());
 
-            Assert.IsNull(result);
+            Assert.IsNull(result.Data);
         }
 
         [TestMethod]
@@ -173,11 +173,11 @@ namespace SteamWebAPI2.Tests
             var service = new PlayerService(String.Empty, mockSteamWebRequest.Object);
             var result = await service.GetOwnedGamesAsync(It.IsAny<ulong>(), It.IsAny<bool?>(), It.IsAny<bool?>(), It.IsAny<IReadOnlyCollection<uint>>());
 
-            Assert.IsNull(result.Data);
+            Assert.IsNull(result);
         }
 
         [TestMethod]
-        public async Task PlayerService_GetOwnedGamesAsync_Return_Null_If_Web_Interface_Result_Is_Null()
+        public async Task PlayerService_GetOwnedGamesAsync_Return_Null_Data_If_Web_Interface_Result_Is_Null()
         {
             var mockSteamWebRequest = new Mock<ISteamWebInterface>();
 
@@ -193,7 +193,7 @@ namespace SteamWebAPI2.Tests
             var service = new PlayerService(String.Empty, mockSteamWebRequest.Object);
             var result = await service.GetOwnedGamesAsync(It.IsAny<ulong>(), It.IsAny<bool?>(), It.IsAny<bool?>(), It.IsAny<IReadOnlyCollection<uint>>());
 
-            Assert.IsNull(result);
+            Assert.IsNull(result.Data);
         }
 
         [TestMethod]
@@ -243,11 +243,11 @@ namespace SteamWebAPI2.Tests
             var service = new PlayerService(String.Empty, mockSteamWebRequest.Object);
             var result = await service.GetRecentlyPlayedGamesAsync(It.IsAny<ulong>());
 
-            Assert.IsNull(result.Data);
+            Assert.IsNull(result);
         }
 
         [TestMethod]
-        public async Task PlayerService_GetRecentlyPlayedGamesAsync_Return_Null_If_Web_Interface_Result_Is_Null()
+        public async Task PlayerService_GetRecentlyPlayedGamesAsync_Return_Null_Data_If_Web_Interface_Result_Is_Null()
         {
             var mockSteamWebRequest = new Mock<ISteamWebInterface>();
 
@@ -263,7 +263,7 @@ namespace SteamWebAPI2.Tests
             var service = new PlayerService(String.Empty, mockSteamWebRequest.Object);
             var result = await service.GetRecentlyPlayedGamesAsync(It.IsAny<ulong>());
 
-            Assert.IsNull(result);
+            Assert.IsNull(result.Data);
         }
     }
 }

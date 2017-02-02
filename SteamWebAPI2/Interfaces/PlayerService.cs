@@ -39,12 +39,14 @@ namespace SteamWebAPI2.Interfaces
 
             var steamWebResponse = await steamWebInterface.GetAsync<PlayingSharedGameResultContainer>("IsPlayingSharedGame", 1, parameters);
 
-            if (steamWebResponse == null || steamWebResponse.Data == null || steamWebResponse.Data.Result == null)
+            if (steamWebResponse == null)
             {
                 return null;
             }
 
-            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<ISteamWebResponse<PlayingSharedGameResultContainer>, ISteamWebResponse<ulong?>>(steamWebResponse);
+            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+                ISteamWebResponse<PlayingSharedGameResultContainer>, 
+                ISteamWebResponse<ulong?>>(steamWebResponse);
 
             return steamWebResponseModel;
         }
@@ -64,7 +66,7 @@ namespace SteamWebAPI2.Interfaces
 
             var steamWebResponse = await steamWebInterface.GetAsync<CommunityBadgeProgressResultContainer>("GetCommunityBadgeProgress", 1, parameters);
 
-            if (steamWebResponse == null || steamWebResponse.Data == null || steamWebResponse.Data.Result == null)
+            if (steamWebResponse == null)
             {
                 return null;
             }
@@ -89,13 +91,13 @@ namespace SteamWebAPI2.Interfaces
 
             var steamWebResponse = await steamWebInterface.GetAsync<BadgesResultContainer>("GetBadges", 1, parameters);
 
-            if (steamWebResponse == null || steamWebResponse.Data == null || steamWebResponse.Data.Result == null)
+            if (steamWebResponse == null)
             {
                 return null;
             }
 
             var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
-                ISteamWebResponse<BadgesResultContainer>, 
+                ISteamWebResponse<BadgesResultContainer>,
                 ISteamWebResponse<BadgesResultModel>>(steamWebResponse);
 
             return steamWebResponseModel;
@@ -112,13 +114,13 @@ namespace SteamWebAPI2.Interfaces
             parameters.AddIfHasValue(steamId, "steamid");
             var steamWebResponse = await steamWebInterface.GetAsync<SteamLevelResultContainer>("GetSteamLevel", 1, parameters);
 
-            if (steamWebResponse == null || steamWebResponse.Data == null || steamWebResponse.Data.Result == null)
+            if (steamWebResponse == null)
             {
                 return null;
             }
 
             var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
-                ISteamWebResponse<SteamLevelResultContainer>, 
+                ISteamWebResponse<SteamLevelResultContainer>,
                 ISteamWebResponse<uint?>>(steamWebResponse);
 
             return steamWebResponseModel;
@@ -156,13 +158,13 @@ namespace SteamWebAPI2.Interfaces
 
             var steamWebResponse = await steamWebInterface.GetAsync<OwnedGamesResultContainer>("GetOwnedGames", 1, parameters);
 
-            if (steamWebResponse == null || steamWebResponse.Data == null || steamWebResponse.Data.Result == null)
+            if (steamWebResponse == null)
             {
                 return null;
             }
 
             // for some reason, some games have trailing spaces in the result so let's get rid of them
-            if (steamWebResponse.Data.Result.OwnedGames != null)
+            if (steamWebResponse.Data != null && steamWebResponse.Data.Result != null && steamWebResponse.Data.Result.OwnedGames != null)
             {
                 foreach (var ownedGame in steamWebResponse.Data.Result.OwnedGames)
                 {
@@ -174,7 +176,7 @@ namespace SteamWebAPI2.Interfaces
             }
 
             var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
-                ISteamWebResponse<OwnedGamesResultContainer>, 
+                ISteamWebResponse<OwnedGamesResultContainer>,
                 ISteamWebResponse<OwnedGamesResultModel>>(steamWebResponse);
 
             return steamWebResponseModel;
@@ -192,13 +194,13 @@ namespace SteamWebAPI2.Interfaces
 
             var steamWebResponse = await steamWebInterface.GetAsync<RecentlyPlayedGameResultContainer>("GetRecentlyPlayedGames", 1, parameters);
 
-            if (steamWebResponse == null || steamWebResponse.Data == null || steamWebResponse.Data.Result == null)
+            if (steamWebResponse == null)
             {
                 return null;
             }
 
             var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
-                ISteamWebResponse<RecentlyPlayedGameResultContainer>, 
+                ISteamWebResponse<RecentlyPlayedGameResultContainer>,
                 ISteamWebResponse<RecentlyPlayedGamesResultModel>>(steamWebResponse);
 
             return steamWebResponseModel;

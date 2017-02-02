@@ -35,17 +35,28 @@ namespace SteamWebAPI2
 
         private static SteamWebResponse<TDestination> ConstructSteamWebResponse<TSource, TDestination>(ISteamWebResponse<TSource> response)
         {
+            if (response == null)
+            {
+                return null;
+            }
+
             var newResponse = new SteamWebResponse<TDestination>();
+
             newResponse.ContentLength = response.ContentLength;
             newResponse.ContentType = response.ContentType;
             newResponse.ContentTypeCharSet = response.ContentTypeCharSet;
             newResponse.Expires = response.Expires;
             newResponse.LastModified = response.LastModified;
-            newResponse.Data = Mapper.Map<TSource, TDestination>(response.Data);
+
+            if (response.Data != null)
+            {
+                newResponse.Data = Mapper.Map<TSource, TDestination>(response.Data);
+            }
+
             return newResponse;
         }
 
-        private static void CreateSteamWebResponseMap<TSource, TDestination>(IMapperConfiguration config)
+        private static void CreateSteamWebResponseMap<TSource, TDestination>(IMapperConfigurationExpression config)
         {
             config.CreateMap<ISteamWebResponse<TSource>, ISteamWebResponse<TDestination>>()
                 .ConstructUsing(src => ConstructSteamWebResponse<TSource, TDestination>(src));
@@ -53,7 +64,7 @@ namespace SteamWebAPI2
 
         public static void Initialize()
         {
-            if(isInitialized)
+            if (isInitialized)
             {
                 return;
             }
@@ -118,15 +129,15 @@ namespace SteamWebAPI2
 
                     x.CreateMap<Hero, HeroModel>();
                     x.CreateMap<HeroResultContainer, IReadOnlyCollection<HeroModel>>().ConvertUsing(
-                        src => Mapper.Map<IList<Hero>, IReadOnlyCollection<HeroModel>>(src.Result.Heroes)
+                        src => Mapper.Map<IList<Hero>, IReadOnlyCollection<HeroModel>>(src.Result != null ? src.Result.Heroes : null)
                     );
 
                     x.CreateMap<GameItem, GameItemModel>();
-                    x.CreateMap<GameItemResultContainer, IReadOnlyCollection<GameItemModel>>().ConstructUsing(
-                        src => Mapper.Map<IList<GameItem>, IReadOnlyCollection<GameItemModel>>(src.Result.Items)
+                    x.CreateMap<GameItemResultContainer, IReadOnlyCollection<GameItemModel>>().ConvertUsing(
+                        src => Mapper.Map<IList<GameItem>, IReadOnlyCollection<GameItemModel>>(src.Result != null ? src.Result.Items : null)
                     );
 
-                    x.CreateMap<ItemIconPathResultContainer, string>().ConstructUsing(src => src.Result.Path);
+                    x.CreateMap<ItemIconPathResultContainer, string>().ConvertUsing(src => src.Result != null ? src.Result.Path : null);
 
                     x.CreateMap<SchemaResult, Steam.Models.TF2.SchemaModel>();
                     x.CreateMap<SchemaQualities, Steam.Models.TF2.SchemaQualitiesModel>();
@@ -148,23 +159,26 @@ namespace SteamWebAPI2
                     x.CreateMap<SchemaKillEaterScoreType, Steam.Models.TF2.SchemaKillEaterScoreTypeModel>();
                     x.CreateMap<SchemaStringLookup, Steam.Models.TF2.SchemaStringLookupModel>();
                     x.CreateMap<SchemaString, Steam.Models.TF2.SchemaStringModel>();
-                    x.CreateMap<SchemaResultContainer, Steam.Models.TF2.SchemaModel>().ConstructUsing(
+                    x.CreateMap<SchemaResultContainer, Steam.Models.TF2.SchemaModel>().ConvertUsing(
                         src => Mapper.Map<SchemaResult, Steam.Models.TF2.SchemaModel>(src.Result)
+                    );
+                    x.CreateMap<SchemaResultContainer, Steam.Models.DOTA2.SchemaModel>().ConvertUsing(
+                        src => Mapper.Map<SchemaResult, Steam.Models.DOTA2.SchemaModel>(src.Result)
                     );
 
                     x.CreateMap<Rarity, RarityModel>();
-                    x.CreateMap<RarityResultContainer, IReadOnlyCollection<RarityModel>>().ConstructUsing(
-                        src => Mapper.Map<IList<Rarity>, IReadOnlyCollection<RarityModel>>(src.Result.Rarities)
+                    x.CreateMap<RarityResultContainer, IReadOnlyCollection<RarityModel>>().ConvertUsing(
+                        src => Mapper.Map<IList<Rarity>, IReadOnlyCollection<RarityModel>>(src.Result != null ? src.Result.Rarities : null)
                     );
 
-                    x.CreateMap<PrizePoolResultContainer, uint>().ConstructUsing(src => src.Result.PrizePool);
+                    x.CreateMap<PrizePoolResultContainer, uint>().ConvertUsing(src => src.Result != null ? src.Result.PrizePool : default(uint));
 
                     #endregion
 
                     #region Endpoint: DOTA2Fantasy
 
                     x.CreateMap<PlayerOfficialInfoResult, PlayerOfficialInfoModel>();
-                    x.CreateMap<PlayerOfficialInfoResultContainer, PlayerOfficialInfoModel>().ConstructUsing(
+                    x.CreateMap<PlayerOfficialInfoResultContainer, PlayerOfficialInfoModel>().ConvertUsing(
                         src => Mapper.Map<PlayerOfficialInfoResult, PlayerOfficialInfoModel>(src.Result)
                     );
 
@@ -176,9 +190,16 @@ namespace SteamWebAPI2
 
                     #region Endpoint: DOTA2Match
 
-                    x.CreateMap<League, LeagueModel>();
-                    x.CreateMap<LeagueResultContainer, IReadOnlyCollection<LeagueModel>>().ConstructUsing(
-                        src => Mapper.Map<IList<League>, IReadOnlyCollection<LeagueModel>>(src.Result.Leagues)
+                    x.CreateMap<League, LeagueModel>()
+                        .ForMember(dest => dest.ImageInventoryPath, opts => opts.Ignore())
+                        .ForMember(dest => dest.ImageBannerPath, opts => opts.Ignore())
+                        .ForMember(dest => dest.NameLocalized, opts => opts.Ignore())
+                        .ForMember(dest => dest.DescriptionLocalized, opts => opts.Ignore())
+                        .ForMember(dest => dest.TypeName, opts => opts.Ignore())
+                        .ForMember(dest => dest.Tier, opts => opts.Ignore())
+                        .ForMember(dest => dest.Location, opts => opts.Ignore());
+                    x.CreateMap<LeagueResultContainer, IReadOnlyCollection<LeagueModel>>().ConvertUsing(
+                        src => Mapper.Map<IList<League>, IReadOnlyCollection<LeagueModel>>(src.Result != null ? src.Result.Leagues : null)
                     );
 
                     x.CreateMap<LiveLeagueGame, LiveLeagueGameModel>();
@@ -192,8 +213,8 @@ namespace SteamWebAPI2
                     x.CreateMap<LiveLeagueGamePick, LiveLeagueGamePickModel>();
                     x.CreateMap<LiveLeagueGameTeamRadiantDetail, LiveLeagueGameTeamRadiantDetailModel>();
                     x.CreateMap<LiveLeagueGamePlayerDetail, LiveLeagueGamePlayerDetailModel>();
-                    x.CreateMap<LiveLeagueGameResultContainer, IReadOnlyCollection<LiveLeagueGameModel>>().ConstructUsing(
-                        src => Mapper.Map<IList<LiveLeagueGame>, IReadOnlyCollection<LiveLeagueGameModel>>(src.Result.Games)
+                    x.CreateMap<LiveLeagueGameResultContainer, IReadOnlyCollection<LiveLeagueGameModel>>().ConvertUsing(
+                        src => Mapper.Map<IList<LiveLeagueGame>, IReadOnlyCollection<LiveLeagueGameModel>>(src.Result != null ? src.Result.Games : null)
                     );
 
                     x.CreateMap<MatchDetailResult, MatchDetailModel>()
@@ -201,25 +222,28 @@ namespace SteamWebAPI2
                     x.CreateMap<MatchPlayer, MatchPlayerModel>();
                     x.CreateMap<MatchPlayerAbilityUpgrade, MatchPlayerAbilityUpgradeModel>();
                     x.CreateMap<MatchPickBan, MatchPickBanModel>();
-                    x.CreateMap<MatchDetailResultContainer, MatchDetailModel>().ConstructUsing(
+                    x.CreateMap<MatchDetailResultContainer, MatchDetailModel>().ConvertUsing(
                         src => Mapper.Map<MatchDetailResult, MatchDetailModel>(src.Result)
                     );
 
                     x.CreateMap<MatchHistoryMatch, MatchHistoryMatchModel>();
                     x.CreateMap<MatchHistoryPlayer, MatchHistoryPlayerModel>();
                     x.CreateMap<MatchHistoryResult, MatchHistoryModel>();
-                    x.CreateMap<MatchHistoryResultContainer, MatchHistoryModel>().ConstructUsing(
+                    x.CreateMap<MatchHistoryResultContainer, MatchHistoryModel>().ConvertUsing(
                         src => Mapper.Map<MatchHistoryResult, MatchHistoryModel>(src.Result)
                     );
 
-                    x.CreateMap<MatchHistoryBySequenceNumberResult, MatchHistoryModel>();
-                    x.CreateMap<MatchHistoryBySequenceNumberResultContainer, IReadOnlyCollection<MatchHistoryMatchModel>>().ConstructUsing(
-                        src => Mapper.Map<IList<MatchHistoryMatch>, IReadOnlyCollection<MatchHistoryMatchModel>>(src.Result.Matches)
+                    x.CreateMap<MatchHistoryBySequenceNumberResult, MatchHistoryModel>()
+                        .ForMember(dest => dest.NumResults, opts => opts.Ignore())
+                        .ForMember(dest => dest.TotalResults, opts => opts.Ignore())
+                        .ForMember(dest => dest.ResultsRemaining, opts => opts.Ignore());
+                    x.CreateMap<MatchHistoryBySequenceNumberResultContainer, IReadOnlyCollection<MatchHistoryMatchModel>>().ConvertUsing(
+                        src => Mapper.Map<IList<MatchHistoryMatch>, IReadOnlyCollection<MatchHistoryMatchModel>>(src.Result != null ? src.Result.Matches : null)
                     );
 
                     x.CreateMap<TeamInfo, TeamInfoModel>();
-                    x.CreateMap<TeamInfoResultContainer, IReadOnlyCollection<TeamInfoModel>>().ConstructUsing(
-                        src => Mapper.Map<IList<TeamInfo>, IReadOnlyCollection<TeamInfoModel>>(src.Result.Teams)
+                    x.CreateMap<TeamInfoResultContainer, IReadOnlyCollection<TeamInfoModel>>().ConvertUsing(
+                        src => Mapper.Map<IList<TeamInfo>, IReadOnlyCollection<TeamInfoModel>>(src.Result != null ? src.Result.Teams : null)
                     );
 
                     #endregion
@@ -243,13 +267,13 @@ namespace SteamWebAPI2
                     x.CreateMap<TradeHistoryResult, TradeHistoryModel>();
                     x.CreateMap<TradeOfferResult, TradeOfferResultModel>();
                     x.CreateMap<TradeOffersResult, TradeOffersResultModel>();
-                    x.CreateMap<TradeHistoryResultContainer, TradeHistoryModel>().ConstructUsing(
+                    x.CreateMap<TradeHistoryResultContainer, TradeHistoryModel>().ConvertUsing(
                         src => Mapper.Map<TradeHistoryResult, TradeHistoryModel>(src.Result)
                     );
-                    x.CreateMap<TradeOfferResultContainer, TradeOfferResultModel>().ConstructUsing(
+                    x.CreateMap<TradeOfferResultContainer, TradeOfferResultModel>().ConvertUsing(
                         src => Mapper.Map<TradeOfferResult, TradeOfferResultModel>(src.Result)
                     );
-                    x.CreateMap<TradeOffersResultContainer, TradeOffersResultModel>().ConstructUsing(
+                    x.CreateMap<TradeOffersResultContainer, TradeOffersResultModel>().ConvertUsing(
                         src => Mapper.Map<TradeOffersResult, TradeOffersResultModel>(src.Result)
                     );
 
@@ -258,7 +282,7 @@ namespace SteamWebAPI2
                     #region Endpoint: GCVersion
 
                     x.CreateMap<GameClientResult, GameClientResultModel>();
-                    x.CreateMap<GameClientResultContainer, GameClientResultModel>().ConstructUsing(
+                    x.CreateMap<GameClientResultContainer, GameClientResultModel>().ConvertUsing(
                         src => Mapper.Map<GameClientResult, GameClientResultModel>(src.Result)
                     );
 
@@ -266,30 +290,41 @@ namespace SteamWebAPI2
 
                     #region Endpoint: PlayerService
 
-                    x.CreateMap<PlayingSharedGameResultContainer, ulong?>().ConstructUsing(src => src.Result.LenderSteamId);
+                    x.CreateMap<PlayingSharedGameResultContainer, ulong?>()
+                        .ConvertUsing(src => src.Result != null ? src.Result.LenderSteamId : null);
 
-                    x.CreateMap<CommunityBadgeProgressResultContainer, IReadOnlyCollection<BadgeQuestModel>>().ConstructUsing(
-                        src => Mapper.Map<IList<BadgeQuest>, IReadOnlyCollection<BadgeQuestModel>>(src.Result.Quests)
+                    x.CreateMap<CommunityBadgeProgressResultContainer, IReadOnlyCollection<BadgeQuestModel>>().ConvertUsing(
+                        src => Mapper.Map<IList<BadgeQuest>, IReadOnlyCollection<BadgeQuestModel>>(src.Result != null ? src.Result.Quests : null)
                     );
 
                     x.CreateMap<Badge, BadgeModel>();
                     x.CreateMap<BadgeQuest, BadgeQuestModel>();
                     x.CreateMap<BadgesResult, BadgesResultModel>();
-                    x.CreateMap<BadgesResultContainer, BadgesResultModel>().ConstructUsing(
+                    x.CreateMap<BadgesResultContainer, BadgesResultModel>().ConvertUsing(
                         src => Mapper.Map<BadgesResult, BadgesResultModel>(src.Result)
                     );
 
-                    x.CreateMap<SteamLevelResultContainer, uint?>().ConstructUsing(src => src.Result.PlayerLevel);
+                    x.CreateMap<SteamLevelResultContainer, uint?>().ConvertUsing(src =>
+                    {
+                        if (src.Result == null)
+                        {
+                            return null;
+                        }
+                        else
+                        {
+                            return src.Result.PlayerLevel;
+                        }
+                    });
 
                     x.CreateMap<OwnedGame, OwnedGameModel>();
                     x.CreateMap<OwnedGamesResult, OwnedGamesResultModel>();
-                    x.CreateMap<OwnedGamesResultContainer, OwnedGamesResultModel>().ConstructUsing(
+                    x.CreateMap<OwnedGamesResultContainer, OwnedGamesResultModel>().ConvertUsing(
                         src => Mapper.Map<OwnedGamesResult, OwnedGamesResultModel>(src.Result)
                     );
 
                     x.CreateMap<RecentlyPlayedGame, RecentlyPlayedGameModel>();
                     x.CreateMap<RecentlyPlayedGameResult, RecentlyPlayedGamesResultModel>();
-                    x.CreateMap<RecentlyPlayedGameResultContainer, RecentlyPlayedGamesResultModel>().ConstructUsing(
+                    x.CreateMap<RecentlyPlayedGameResultContainer, RecentlyPlayedGamesResultModel>().ConvertUsing(
                         src => Mapper.Map<RecentlyPlayedGameResult, RecentlyPlayedGamesResultModel>(src.Result)
                     );
 
@@ -298,12 +333,12 @@ namespace SteamWebAPI2
                     #region Endpoint: SteamApps
 
                     x.CreateMap<SteamApp, SteamAppModel>();
-                    x.CreateMap<SteamAppListResultContainer, IReadOnlyCollection<SteamAppModel>>().ConstructUsing(
-                        src => Mapper.Map<IList<SteamApp>, IReadOnlyCollection<SteamAppModel>>(src.Result.Apps)
+                    x.CreateMap<SteamAppListResultContainer, IReadOnlyCollection<SteamAppModel>>().ConvertUsing(
+                        src => Mapper.Map<IList<SteamApp>, IReadOnlyCollection<SteamAppModel>>(src.Result != null ? src.Result.Apps : null)
                     );
 
                     x.CreateMap<SteamAppUpToDateCheckResult, SteamAppUpToDateCheckModel>();
-                    x.CreateMap<SteamAppUpToDateCheckResultContainer, SteamAppUpToDateCheckModel>().ConstructUsing(
+                    x.CreateMap<SteamAppUpToDateCheckResultContainer, SteamAppUpToDateCheckModel>().ConvertUsing(
                         src => Mapper.Map<SteamAppUpToDateCheckResult, SteamAppUpToDateCheckModel>(src.Result)
                     );
 
@@ -313,7 +348,7 @@ namespace SteamWebAPI2
 
                     x.CreateMap<NewsItem, NewsItemModel>();
                     x.CreateMap<SteamNewsResult, SteamNewsResultModel>();
-                    x.CreateMap<SteamNewsResultContainer, SteamNewsResultModel>().ConstructUsing(
+                    x.CreateMap<SteamNewsResultContainer, SteamNewsResultModel>().ConvertUsing(
                         src => Mapper.Map<SteamNewsResult, SteamNewsResultModel>(src.Result)
                     );
 
@@ -322,55 +357,58 @@ namespace SteamWebAPI2
                     #region Endpoint: SteamRemoteStorage
 
                     x.CreateMap<UGCFileDetails, UGCFileDetailsModel>();
+                    x.CreateMap<UGCFileDetailsResultContainer, UGCFileDetailsModel>().ConvertUsing(
+                        src => Mapper.Map<UGCFileDetails, UGCFileDetailsModel>(src.Result)
+                    );
 
                     #endregion
 
                     #region Endpoint: SteamUser
 
                     x.CreateMap<PlayerSummary, PlayerSummaryModel>();
-                    x.CreateMap<PlayerSummaryResultContainer, PlayerSummaryModel>().ConstructUsing(
-                        src => Mapper.Map<PlayerSummary, PlayerSummaryModel>(src.Result.Players[0])
+                    x.CreateMap<PlayerSummaryResultContainer, PlayerSummaryModel>().ConvertUsing(
+                        src => Mapper.Map<PlayerSummary, PlayerSummaryModel>(src.Result != null ? src.Result.Players[0] : null)
                     );
-                    x.CreateMap<PlayerSummaryResultContainer, IReadOnlyCollection<PlayerSummaryModel>>().ConstructUsing(
-                        src => Mapper.Map<IList<PlayerSummary>, IReadOnlyCollection<PlayerSummaryModel>>(src.Result.Players)
+                    x.CreateMap<PlayerSummaryResultContainer, IReadOnlyCollection<PlayerSummaryModel>>().ConvertUsing(
+                        src => Mapper.Map<IList<PlayerSummary>, IReadOnlyCollection<PlayerSummaryModel>>(src.Result != null ? src.Result.Players : null)
                     );
 
                     x.CreateMap<Friend, FriendModel>();
-                    x.CreateMap<FriendsListResultContainer, IReadOnlyCollection<FriendModel>>().ConstructUsing(
-                        src => Mapper.Map<IList<Friend>, IReadOnlyCollection<FriendModel>>(src.Result.Friends)
+                    x.CreateMap<FriendsListResultContainer, IReadOnlyCollection<FriendModel>>().ConvertUsing(
+                        src => Mapper.Map<IList<Friend>, IReadOnlyCollection<FriendModel>>(src.Result != null ? src.Result.Friends : null)
                     );
 
                     x.CreateMap<PlayerBans, PlayerBansModel>();
-                    x.CreateMap<PlayerBansContainer, IReadOnlyCollection<PlayerBansModel>>().ConstructUsing(
+                    x.CreateMap<PlayerBansContainer, IReadOnlyCollection<PlayerBansModel>>().ConvertUsing(
                         src => Mapper.Map<IList<PlayerBans>, IReadOnlyCollection<PlayerBansModel>>(src.PlayerBans)
                     );
 
-                    x.CreateMap<UserGroupGid, ulong>().ConstructUsing(src => src.Gid);
+                    x.CreateMap<UserGroupGid, ulong>().ConvertUsing(src => src.Gid);
 
-                    x.CreateMap<UserGroupListResultContainer, IReadOnlyCollection<ulong>>().ConstructUsing(
-                        src => Mapper.Map<IList<UserGroupGid>, IReadOnlyCollection<ulong>>(src.Result.Groups)
+                    x.CreateMap<UserGroupListResultContainer, IReadOnlyCollection<ulong>>().ConvertUsing(
+                        src => Mapper.Map<IList<UserGroupGid>, IReadOnlyCollection<ulong>>(src.Result != null ? src.Result.Groups : null)
                     );
 
-                    x.CreateMap<ResolveVanityUrlResultContainer, ulong>().ConstructUsing(src => src.Result.SteamId);
+                    x.CreateMap<ResolveVanityUrlResultContainer, ulong>().ConvertUsing(src => src.Result != null ? src.Result.SteamId : default(ulong));
 
                     #endregion
 
                     #region Endpoint: SteamUserStats
 
                     x.CreateMap<GlobalAchievementPercentage, GlobalAchievementPercentageModel>();
-                    x.CreateMap<GlobalAchievementPercentagesResultContainer, IReadOnlyCollection<GlobalAchievementPercentageModel>>().ConstructUsing(
-                        src => Mapper.Map<IList<GlobalAchievementPercentage>, IReadOnlyCollection<GlobalAchievementPercentageModel>>(src.Result.AchievementPercentages)
+                    x.CreateMap<GlobalAchievementPercentagesResultContainer, IReadOnlyCollection<GlobalAchievementPercentageModel>>().ConvertUsing(
+                        src => Mapper.Map<IList<GlobalAchievementPercentage>, IReadOnlyCollection<GlobalAchievementPercentageModel>>(src.Result != null ? src.Result.AchievementPercentages : null)
                     );
 
-                    x.CreateMap<GlobalStatsForGameResultContainer, IReadOnlyCollection<GlobalStatModel>>().ConstructUsing(
-                        src => Mapper.Map<IList<GlobalStat>, IReadOnlyCollection<GlobalStatModel>>(src.Result.GlobalStats)
+                    x.CreateMap<GlobalStatsForGameResultContainer, IReadOnlyCollection<GlobalStatModel>>().ConvertUsing(
+                        src => Mapper.Map<IList<GlobalStat>, IReadOnlyCollection<GlobalStatModel>>(src.Result != null ? src.Result.GlobalStats : null)
                     );
 
-                    x.CreateMap<CurrentPlayersResultContainer, uint>().ConstructUsing(src => src.Result.PlayerCount);
+                    x.CreateMap<CurrentPlayersResultContainer, uint>().ConvertUsing(src => src.Result != null ? src.Result.PlayerCount : default(uint));
 
                     x.CreateMap<PlayerAchievement, PlayerAchievementModel>();
                     x.CreateMap<PlayerAchievementResult, PlayerAchievementResultModel>();
-                    x.CreateMap<PlayerAchievementResultContainer, PlayerAchievementResultModel>().ConstructUsing(
+                    x.CreateMap<PlayerAchievementResultContainer, PlayerAchievementResultModel>().ConvertUsing(
                         src => Mapper.Map<PlayerAchievementResult, PlayerAchievementResultModel>(src.Result)
                     );
 
@@ -378,14 +416,14 @@ namespace SteamWebAPI2
                     x.CreateMap<SchemaGameAchievement, SchemaGameAchievementModel>();
                     x.CreateMap<SchemaGameStat, SchemaGameStatModel>();
                     x.CreateMap<SchemaForGameResult, SchemaForGameResultModel>();
-                    x.CreateMap<SchemaForGameResultContainer, SchemaForGameResultModel>().ConstructUsing(
+                    x.CreateMap<SchemaForGameResultContainer, SchemaForGameResultModel>().ConvertUsing(
                         src => Mapper.Map<SchemaForGameResult, SchemaForGameResultModel>(src.Result)
                     );
 
                     x.CreateMap<UserStatAchievement, UserStatAchievementModel>();
                     x.CreateMap<UserStat, UserStatModel>();
                     x.CreateMap<UserStatsForGameResult, UserStatsForGameResultModel>();
-                    x.CreateMap<UserStatsForGameResultContainer, UserStatsForGameResultModel>().ConstructUsing(
+                    x.CreateMap<UserStatsForGameResultContainer, UserStatsForGameResultModel>().ConvertUsing(
                         src => Mapper.Map<UserStatsForGameResult, UserStatsForGameResultModel>(src.Result)
                     );
 
@@ -398,8 +436,8 @@ namespace SteamWebAPI2
                     x.CreateMap<SteamInterface, SteamInterfaceModel>();
                     x.CreateMap<SteamMethod, SteamMethodModel>();
                     x.CreateMap<SteamParameter, SteamParameterModel>();
-                    x.CreateMap<SteamApiListContainer, IReadOnlyCollection<SteamInterfaceModel>>().ConstructUsing(
-                        src => Mapper.Map<IList<SteamInterface>, IReadOnlyCollection<SteamInterfaceModel>>(src.Result.Interfaces)
+                    x.CreateMap<SteamApiListContainer, IReadOnlyCollection<SteamInterfaceModel>>().ConvertUsing(
+                        src => Mapper.Map<IList<SteamInterface>, IReadOnlyCollection<SteamInterfaceModel>>(src.Result != null ? src.Result.Interfaces : null)
                     );
 
                     #endregion
@@ -407,8 +445,8 @@ namespace SteamWebAPI2
                     #region Endpoint: TFItems
 
                     x.CreateMap<GoldenWrench, GoldenWrenchModel>();
-                    x.CreateMap<GoldenWrenchResultContainer, IReadOnlyCollection<GoldenWrenchModel>>().ConstructUsing(
-                        src => Mapper.Map<IList<GoldenWrench>, IReadOnlyCollection<GoldenWrenchModel>>(src.Result.GoldenWrenches)
+                    x.CreateMap<GoldenWrenchResultContainer, IReadOnlyCollection<GoldenWrenchModel>>().ConvertUsing(
+                        src => Mapper.Map<IList<GoldenWrench>, IReadOnlyCollection<GoldenWrenchModel>>(src.Result != null ? src.Result.GoldenWrenches : null)
                     );
 
                     #endregion
@@ -423,7 +461,7 @@ namespace SteamWebAPI2
                     x.CreateMap<AssetClassMarketAction, AssetClassMarketActionModel>();
                     x.CreateMap<AssetClassTag, AssetClassTagModel>();
                     x.CreateMap<AssetClassInfoResult, AssetClassInfoResultModel>();
-                    x.CreateMap<AssetClassInfoResultContainer, AssetClassInfoResultModel>().ConstructUsing(
+                    x.CreateMap<AssetClassInfoResultContainer, AssetClassInfoResultModel>().ConvertUsing(
                         src => Mapper.Map<AssetClassInfoResult, AssetClassInfoResultModel>(src.Result)
                     );
 
@@ -433,13 +471,13 @@ namespace SteamWebAPI2
                     x.CreateMap<AssetTags, AssetTagsModel>();
                     x.CreateMap<AssetTagIds, AssetTagIdsModel>();
                     x.CreateMap<AssetPriceResult, AssetPriceResultModel>();
-                    x.CreateMap<AssetPriceResultContainer, AssetPriceResultModel>().ConstructUsing(
+                    x.CreateMap<AssetPriceResultContainer, AssetPriceResultModel>().ConvertUsing(
                         src => Mapper.Map<AssetPriceResult, AssetPriceResultModel>(src.Result)
                     );
 
                     #endregion
 
-                    x.CreateMap<SchemaUrlResultContainer, string>().ConstructUsing(src => src.Result.ItemsGameUrl);
+                    x.CreateMap<SchemaUrlResultContainer, string>().ConvertUsing(src => src.Result != null ? src.Result.ItemsGameUrl : null);
 
                     x.CreateMap<StoreBanner, StoreBannerModel>();
                     x.CreateMap<StoreCarouselData, StoreCarouselDataModel>();
@@ -460,18 +498,18 @@ namespace SteamWebAPI2
                     x.CreateMap<StoreTabChild, StoreTabChildModel>();
                     x.CreateMap<StoreTab, StoreTabModel>();
                     x.CreateMap<StoreSortingPrefab, StoreSortingPrefabModel>();
-                    x.CreateMap<StoreMetaDataResultContainer, StoreMetaDataModel>().ConstructUsing(
+                    x.CreateMap<StoreMetaDataResultContainer, StoreMetaDataModel>().ConvertUsing(
                         src => Mapper.Map<StoreMetaDataResult, StoreMetaDataModel>(src.Result)
                     );
 
-                    x.CreateMap<StoreStatusResultContainer, uint>().ConstructUsing(src => src.Result.StoreStatus);
+                    x.CreateMap<StoreStatusResultContainer, uint>().ConvertUsing(src => src.Result != null ? src.Result.StoreStatus : default(uint));
 
                     x.CreateMap<ServerStatusApp, ServerStatusAppModel>();
                     x.CreateMap<ServerStatusResult, ServerStatusModel>();
                     x.CreateMap<ServerStatusMatchmaking, ServerStatusMatchmakingModel>();
                     x.CreateMap<ServerStatusServices, ServerStatusServicesModel>();
                     x.CreateMap<ServerStatusDatacenter, ServerStatusDatacenterModel>();
-                    x.CreateMap<ServerStatusResultContainer, ServerStatusModel>().ConstructUsing(
+                    x.CreateMap<ServerStatusResultContainer, ServerStatusModel>().ConvertUsing(
                         src => Mapper.Map<ServerStatusResult, ServerStatusModel>(src.Result)
                     );
 
@@ -480,7 +518,7 @@ namespace SteamWebAPI2
                     x.CreateMap<EconItemAttributeAccountInfo, EconItemAttributeAccountInfoModel>();
                     x.CreateMap<EconItemEquipped, EconItemEquippedModel>();
                     x.CreateMap<EconItemResult, EconItemResultModel>();
-                    x.CreateMap<EconItemResultContainer, EconItemResultModel>().ConstructUsing(
+                    x.CreateMap<EconItemResultContainer, EconItemResultModel>().ConvertUsing(
                         src => Mapper.Map<EconItemResult, EconItemResultModel>(src.Result)
                     );
 
@@ -569,6 +607,10 @@ namespace SteamWebAPI2
             }
 
             isInitialized = true;
+
+#if DEBUG
+            config.AssertConfigurationIsValid();
+#endif
         }
 
         public static void Reset()
