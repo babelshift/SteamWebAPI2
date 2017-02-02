@@ -9,14 +9,15 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SteamWebAPI2</RootNamespace>
     <AssemblyName>SteamWebAPI2</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\bin\Debug\net46\</OutputPath>
+    <OutputPath>..\bin\Debug\net45\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -24,7 +25,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\bin\Release\net46\</OutputPath>
+    <OutputPath>..\bin\Release\net45\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -38,8 +39,8 @@
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Steam.Models, Version=2.0.0.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Steam.Models.2.0.0.3\lib\net46\Steam.Models.dll</HintPath>
+    <Reference Include="Steam.Models, Version=2.0.0.6, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Steam.Models.2.0.0.6\lib\net45\Steam.Models.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
