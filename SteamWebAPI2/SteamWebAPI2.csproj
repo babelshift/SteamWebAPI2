@@ -39,7 +39,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Steam.Models, Version=2.0.0.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\Projects\TestSteamWebAPI2\packages\Steam.Models.2.0.0.3\lib\net46\Steam.Models.dll</HintPath>
+      <HintPath>..\packages\Steam.Models.2.0.0.3\lib\net46\Steam.Models.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
