@@ -88,7 +88,7 @@ namespace SteamWebAPI2
                     CreateSteamWebResponseMap<MatchHistoryBySequenceNumberResultContainer, IReadOnlyCollection<MatchHistoryMatchModel>>(x);
                     CreateSteamWebResponseMap<TeamInfoResultContainer, IReadOnlyCollection<TeamInfoModel>>(x);
                     CreateSteamWebResponseMap<EconItemResultContainer, EconItemResultModel>(x);
-                    CreateSteamWebResponseMap<SchemaResultContainer, Steam.Models.DOTA2.SchemaModel>(x);
+                    //CreateSteamWebResponseMap<SchemaResultContainer, Steam.Models.DOTA2.SchemaModel>(x);
                     CreateSteamWebResponseMap<SchemaResultContainer, Steam.Models.TF2.SchemaModel>(x);
                     CreateSteamWebResponseMap<SchemaUrlResultContainer, string>(x);
                     CreateSteamWebResponseMap<StoreMetaDataResultContainer, StoreMetaDataModel>(x);
@@ -162,9 +162,21 @@ namespace SteamWebAPI2
                     x.CreateMap<SchemaResultContainer, Steam.Models.TF2.SchemaModel>().ConvertUsing(
                         src => Mapper.Map<SchemaResult, Steam.Models.TF2.SchemaModel>(src.Result)
                     );
-                    x.CreateMap<SchemaResultContainer, Steam.Models.DOTA2.SchemaModel>().ConvertUsing(
-                        src => Mapper.Map<SchemaResult, Steam.Models.DOTA2.SchemaModel>(src.Result)
-                    );
+
+                    // TODO: Rework the way Schema models are used for different games (TF2 / DOTA2)
+                    //x.CreateMap<SchemaQualities, Steam.Models.DOTA2.SchemaQualityModel>()
+                    //    .ForMember(dest => dest.Name, opts => opts.Ignore())
+                    //    .ForMember(dest => dest.Value, opts => opts.Ignore())
+                    //    .ForMember(dest => dest.HexColor, opts => opts.Ignore());
+                    //x.CreateMap<SchemaResult, Steam.Models.DOTA2.SchemaModel>()
+                    //    .ForMember(dest => dest.GameInfo, opts => opts.Ignore())
+                    //    .ForMember(dest => dest.Rarities, opts => opts.Ignore())
+                    //    .ForMember(dest => dest.Colors, opts => opts.Ignore())
+                    //    .ForMember(dest => dest.Prefabs, opts => opts.Ignore())
+                    //    .ForMember(dest => dest.ItemAutographs, opts => opts.Ignore());
+                    //x.CreateMap<SchemaResultContainer, Steam.Models.DOTA2.SchemaModel>().ConvertUsing(
+                    //    src => Mapper.Map<SchemaResult, Steam.Models.DOTA2.SchemaModel>(src.Result)
+                    //);
 
                     x.CreateMap<Rarity, RarityModel>();
                     x.CreateMap<RarityResultContainer, IReadOnlyCollection<RarityModel>>().ConvertUsing(
