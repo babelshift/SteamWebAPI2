@@ -46,10 +46,4 @@ namespace SteamWebAPI2.Models.DOTA2
 
         public IList<ProPlayerLeaderboard> Leaderboards { get; set; }
     }
-
-    internal class ProPlayerListResultContainer
-    {
-        [JsonProperty(PropertyName = "results")]
-        public ProPlayerListResult Result { get; set; }
-    }
 }

@@ -44,9 +44,9 @@ namespace SteamWebAPI2.Interfaces
         /// <returns></returns>
         public async Task<ISteamWebResponse<ProPlayerDetailModel>> GetProPlayerList()
         {
-            var steamWebResponse = await steamWebInterface.GetAsync<ProPlayerListResultContainer>("GetProPlayerList", 1);
+            var steamWebResponse = await steamWebInterface.GetAsync<ProPlayerListResult>("GetProPlayerList", 1);
 
-            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<ISteamWebResponse<ProPlayerListResultContainer>, ISteamWebResponse<ProPlayerDetailModel>>(steamWebResponse);
+            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<ISteamWebResponse<ProPlayerListResult>, ISteamWebResponse<ProPlayerDetailModel>>(steamWebResponse);
 
             return steamWebResponseModel;
         }

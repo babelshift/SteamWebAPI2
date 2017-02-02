@@ -27,6 +27,7 @@ namespace SteamWebAPI2
 {
     internal static class AutoMapperConfiguration
     {
+        private static bool isInitialized = false;
         private static MapperConfiguration config;
         private static IMapper mapper;
 
@@ -52,6 +53,11 @@ namespace SteamWebAPI2
 
         public static void Initialize()
         {
+            if(isInitialized)
+            {
+                return;
+            }
+
             if (config == null)
             {
                 config = new MapperConfiguration(x =>
@@ -63,18 +69,19 @@ namespace SteamWebAPI2
                     CreateSteamWebResponseMap<RarityResultContainer, IReadOnlyCollection<RarityModel>>(x);
                     CreateSteamWebResponseMap<PrizePoolResultContainer, uint>(x);
                     CreateSteamWebResponseMap<PlayerOfficialInfoResultContainer, PlayerOfficialInfoModel>(x);
-                    CreateSteamWebResponseMap<ProPlayerListResultContainer, ProPlayerDetailModel>(x);
+                    CreateSteamWebResponseMap<ProPlayerListResult, ProPlayerDetailModel>(x);
                     CreateSteamWebResponseMap<LeagueResultContainer, IReadOnlyCollection<LeagueModel>>(x);
                     CreateSteamWebResponseMap<LiveLeagueGameResultContainer, IReadOnlyCollection<LiveLeagueGameModel>>(x);
                     CreateSteamWebResponseMap<MatchDetailResultContainer, MatchDetailModel>(x);
                     CreateSteamWebResponseMap<MatchHistoryResultContainer, MatchHistoryModel>(x);
                     CreateSteamWebResponseMap<MatchHistoryBySequenceNumberResultContainer, IReadOnlyCollection<MatchHistoryMatchModel>>(x);
                     CreateSteamWebResponseMap<TeamInfoResultContainer, IReadOnlyCollection<TeamInfoModel>>(x);
-                    CreateSteamWebResponseMap<EconItemResultContainer, IReadOnlyCollection<EconItemResultModel>>(x);
-                    CreateSteamWebResponseMap<SchemaResultContainer, IReadOnlyCollection<Steam.Models.DOTA2.SchemaModel>>(x);
-                    CreateSteamWebResponseMap<SchemaUrlResultContainer, IReadOnlyCollection<string>>(x);
-                    CreateSteamWebResponseMap<StoreMetaDataResultContainer, IReadOnlyCollection<StoreMetaDataModel>>(x);
-                    CreateSteamWebResponseMap<StoreStatusResultContainer, IReadOnlyCollection<uint>>(x);
+                    CreateSteamWebResponseMap<EconItemResultContainer, EconItemResultModel>(x);
+                    CreateSteamWebResponseMap<SchemaResultContainer, Steam.Models.DOTA2.SchemaModel>(x);
+                    CreateSteamWebResponseMap<SchemaResultContainer, Steam.Models.TF2.SchemaModel>(x);
+                    CreateSteamWebResponseMap<SchemaUrlResultContainer, string>(x);
+                    CreateSteamWebResponseMap<StoreMetaDataResultContainer, StoreMetaDataModel>(x);
+                    CreateSteamWebResponseMap<StoreStatusResultContainer, uint>(x);
                     CreateSteamWebResponseMap<TradeHistoryResultContainer, Steam.Models.SteamEconomy.TradeHistoryModel>(x);
                     CreateSteamWebResponseMap<TradeOffersResultContainer, Steam.Models.SteamEconomy.TradeOffersResultModel>(x);
                     CreateSteamWebResponseMap<TradeOfferResultContainer, Steam.Models.SteamEconomy.TradeOfferResultModel>(x);
@@ -83,7 +90,7 @@ namespace SteamWebAPI2
                     CreateSteamWebResponseMap<CommunityBadgeProgressResultContainer, IReadOnlyCollection<BadgeQuestModel>>(x);
                     CreateSteamWebResponseMap<BadgesResultContainer, BadgesResultModel>(x);
                     CreateSteamWebResponseMap<SteamLevelResultContainer, uint?>(x);
-                    CreateSteamWebResponseMap<OwnedGamesResultContainer, OwnedGamesResultContainer>(x);
+                    CreateSteamWebResponseMap<OwnedGamesResultContainer, OwnedGamesResultModel>(x);
                     CreateSteamWebResponseMap<RecentlyPlayedGameResultContainer, RecentlyPlayedGamesResultModel>(x);
                     CreateSteamWebResponseMap<SteamAppListResultContainer, IReadOnlyCollection<SteamAppModel>>(x);
                     CreateSteamWebResponseMap<SteamAppUpToDateCheckResultContainer, SteamAppUpToDateCheckModel>(x);
@@ -162,16 +169,14 @@ namespace SteamWebAPI2
                     );
 
                     x.CreateMap<ProPlayerInfo, ProPlayerInfoModel>();
-                    x.CreateMap<ProPlayerLeaderboardModel, ProPlayerLeaderboard>();
+                    x.CreateMap<ProPlayerLeaderboard, ProPlayerLeaderboardModel>();
                     x.CreateMap<ProPlayerListResult, ProPlayerDetailModel>();
-                    x.CreateMap<ProPlayerListResultContainer, ProPlayerDetailModel>().ConstructUsing(
-                        src => Mapper.Map<ProPlayerListResult, ProPlayerDetailModel>(src.Result)
-                    );
 
                     #endregion
 
                     #region Endpoint: DOTA2Match
 
+                    x.CreateMap<League, LeagueModel>();
                     x.CreateMap<LeagueResultContainer, IReadOnlyCollection<LeagueModel>>().ConstructUsing(
                         src => Mapper.Map<IList<League>, IReadOnlyCollection<LeagueModel>>(src.Result.Leagues)
                     );
@@ -191,7 +196,8 @@ namespace SteamWebAPI2
                         src => Mapper.Map<IList<LiveLeagueGame>, IReadOnlyCollection<LiveLeagueGameModel>>(src.Result.Games)
                     );
 
-                    x.CreateMap<MatchDetailResult, MatchDetailModel>();
+                    x.CreateMap<MatchDetailResult, MatchDetailModel>()
+                        .ForMember(dest => dest.StartTime, opts => opts.MapFrom(src => src.StartTime.ToDateTime()));
                     x.CreateMap<MatchPlayer, MatchPlayerModel>();
                     x.CreateMap<MatchPlayerAbilityUpgrade, MatchPlayerAbilityUpgradeModel>();
                     x.CreateMap<MatchPickBan, MatchPickBanModel>();
@@ -401,8 +407,8 @@ namespace SteamWebAPI2
                     #region Endpoint: TFItems
 
                     x.CreateMap<GoldenWrench, GoldenWrenchModel>();
-                    x.CreateMap<GoldenWrenchResultContainer, GoldenWrenchModel>().ConstructUsing(
-                        src => Mapper.Map<GoldenWrenchResult, GoldenWrenchModel>(src.Result)
+                    x.CreateMap<GoldenWrenchResultContainer, IReadOnlyCollection<GoldenWrenchModel>>().ConstructUsing(
+                        src => Mapper.Map<IList<GoldenWrench>, IReadOnlyCollection<GoldenWrenchModel>>(src.Result.GoldenWrenches)
                     );
 
                     #endregion
@@ -416,6 +422,7 @@ namespace SteamWebAPI2
                     x.CreateMap<AssetClassInfo, AssetClassInfoModel>();
                     x.CreateMap<AssetClassMarketAction, AssetClassMarketActionModel>();
                     x.CreateMap<AssetClassTag, AssetClassTagModel>();
+                    x.CreateMap<AssetClassInfoResult, AssetClassInfoResultModel>();
                     x.CreateMap<AssetClassInfoResultContainer, AssetClassInfoResultModel>().ConstructUsing(
                         src => Mapper.Map<AssetClassInfoResult, AssetClassInfoResultModel>(src.Result)
                     );
@@ -425,6 +432,7 @@ namespace SteamWebAPI2
                     x.CreateMap<AssetClass, AssetClassModel>();
                     x.CreateMap<AssetTags, AssetTagsModel>();
                     x.CreateMap<AssetTagIds, AssetTagIdsModel>();
+                    x.CreateMap<AssetPriceResult, AssetPriceResultModel>();
                     x.CreateMap<AssetPriceResultContainer, AssetPriceResultModel>().ConstructUsing(
                         src => Mapper.Map<AssetPriceResult, AssetPriceResultModel>(src.Result)
                     );
@@ -443,6 +451,15 @@ namespace SteamWebAPI2
                     x.CreateMap<StoreFilter, StoreFilterModel>();
                     x.CreateMap<StoreHomePageData, StoreHomePageDataModel>();
                     x.CreateMap<StoreMetaDataResult, StoreMetaDataModel>();
+                    x.CreateMap<StorePlayerClassData, StorePlayerClassDataModel>();
+                    x.CreateMap<StorePopularItem, StorePopularItemModel>();
+                    x.CreateMap<StorePrefab, StorePrefabModel>();
+                    x.CreateMap<StoreSorterId, StoreSorterIdModel>();
+                    x.CreateMap<StoreSorter, StoreSorterModel>();
+                    x.CreateMap<StoreSorting, StoreSortingModel>();
+                    x.CreateMap<StoreTabChild, StoreTabChildModel>();
+                    x.CreateMap<StoreTab, StoreTabModel>();
+                    x.CreateMap<StoreSortingPrefab, StoreSortingPrefabModel>();
                     x.CreateMap<StoreMetaDataResultContainer, StoreMetaDataModel>().ConstructUsing(
                         src => Mapper.Map<StoreMetaDataResult, StoreMetaDataModel>(src.Result)
                     );
@@ -550,6 +567,8 @@ namespace SteamWebAPI2
             {
                 mapper = config.CreateMapper();
             }
+
+            isInitialized = true;
         }
 
         public static void Reset()

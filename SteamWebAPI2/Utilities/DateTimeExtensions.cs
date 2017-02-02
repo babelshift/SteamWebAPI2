@@ -16,7 +16,7 @@ namespace SteamWebAPI2.Utilities
         }
 
         /// <summary>
-        /// Converts a DateTiem to Unix time
+        /// Converts a DateTime to Unix time
         /// </summary>
         /// <param name="dateTime"></param>
         /// <returns></returns>

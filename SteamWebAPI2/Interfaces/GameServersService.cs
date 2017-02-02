@@ -21,7 +21,7 @@ namespace SteamWebAPI2.Interfaces
 
         public async Task<ISteamWebResponse<dynamic>> GetAccountListAsync()
         {
-            var steamWebResponse = await steamWebInterface.GetAsync<dynamic>("GetsteamWebResponse", 1);
+            var steamWebResponse = await steamWebInterface.GetAsync<dynamic>("GetAccountList", 1);
             return steamWebResponse;
         }
 
