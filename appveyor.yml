@@ -14,12 +14,12 @@ assembly_info:
 configuration: Release
 
 build:
-  project: SteamWebAPI2.sln
+  project: src\SteamWebAPI2.sln
   publish_nuget: true
   include_nuget_references: true
   
 cache:
-  - packages -> **\packages.config
+  - src\packages -> **\packages.config
   
 before_build:
   - cmd: nuget restore
@@ -30,14 +30,3 @@ deploy:
       secure: vIHuOdB4aYJEqNACb3jjCg3m/qZLqpwYlruu8J0BOiX81lRrmussVEUqiWRBTrRQ
     skip_symbols: false
     artifact: /.*\.nupkg/
-
-  - provider: GitHub
-    release: Release_$(appveyor_build_version)
-    auth_token:
-      secure: YgNJFFVi7XOW0w+JC+kk+Mnk649nsyfpW9Ssnj0wPNvPaiKW8fYlEXAvYPSmQjzm
-    artifact: /.*\.nupkg/
-    draft: false
-    prerelease: false
-    on:
-      branch: master
-      appveyor_repo_tag: true
