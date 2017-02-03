@@ -9,7 +9,7 @@ namespace SteamWebAPI2.Interfaces
     {
         Task<ISteamWebResponse<EconItemResultModel>> GetPlayerItemsAsync(ulong steamId);
 
-        Task<ISteamWebResponse<SchemaModel>> GetSchemaAsync(string language = "");
+        Task<ISteamWebResponse<Steam.Models.DOTA2.SchemaModel>> GetSchemaAsync(string language = "en_us");
 
         Task<ISteamWebResponse<string>> GetSchemaUrlAsync();
 
