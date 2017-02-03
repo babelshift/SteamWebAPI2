@@ -1,8 +1,11 @@
 # SteamWebAPI2
 [![Build status](https://ci.appveyor.com/api/projects/status/cga6ck03o286sq80?svg=true)](https://ci.appveyor.com/project/JustinSkiles/steamwebapi2)
 [![NuGet](https://img.shields.io/nuget/v/SteamWebAPI2.svg)](https://www.nuget.org/packages/SteamWebAPI2)
+[![MyGet CI](https://img.shields.io/myget/babelshift-ci/v/SteamWebAPI2.svg)](http://myget.org/gallery/babelshift)
 
 This is a .NET library that makes it easy to use the Steam Web API. It conveniently wraps around all of the JSON data and ugly API details with clean methods, structures and classes.
+
+Please refer [here](http://steamwebapi.azurewebsites.net/) for details regarding the Steam Web API, its endpoints, and how this library consumes them.
 
 ## About this Library
 This library was created to address the (at times) awful nature of the Steam Web API. Many of the exposed endpoints have little to no documentation on the parameters and absolutely no documentation on any of the responses. In addition, many of the endpoints do not follow any type of coding convention as it appears that different developers created different endpoints without collaborating with one another.
@@ -54,3 +57,6 @@ var friendsList = await steamInterface.GetFriendsListAsync(<steamIdHere>);
 
 ## Changes from 2.0 to 3.0
 In versions previous to 3.0, numerical types were treated as short, int, and long. This caused problems when interacting with the Steam Web API because Valve accepts and returns unsigned numerical types. Instead of constantly reacting to overflows when a specific endpoint would return something outside the bounds of a 32-bit int, I decided to switch all numerical types to their unsigned counterparts.
+
+## Changes from 3.0 to 4.0
+.NET Core is now supported.
