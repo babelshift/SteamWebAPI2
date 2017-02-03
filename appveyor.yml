@@ -18,6 +18,9 @@ test: off
 artifacts:  
   - path: .\artifacts\**\*.nupkg
     name: NuGet
+    
+cache:
+  - '%LOCALAPPDATA%\Microsoft\dotnet'
   
 deploy:
   - provider: NuGet
