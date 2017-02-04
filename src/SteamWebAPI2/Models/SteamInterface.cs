@@ -19,6 +19,7 @@ namespace SteamWebAPI2.Models
         public string Name { get; set; }
         public int Version { get; set; }
         public string HttpMethod { get; set; }
+        public string Description { get; set; }
         public IList<SteamParameter> Parameters { get; private set; }
 
         public SteamMethod()

@@ -1,5 +1,5 @@
 ﻿{
-  "version": "4.0.0",
+  "version": "4.0.1-ci-*",
   "authors": [ "Justin Skiles" ],
   "description": "This is a .NET library that makes it easy to use the Steam Web API. It conveniently wraps around all of the JSON data and ugly API details with clean methods, structures and classes.",
   "packOptions": {
@@ -29,6 +29,6 @@
   "dependencies": {
     "AutoMapper": "5.2.0",
     "Newtonsoft.Json": "9.0.1",
-    "Steam.Models": "3.0.0"
+    "Steam.Models": "3.0.1-ci-00024"
   }
 }
