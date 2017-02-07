@@ -59,4 +59,5 @@ var friendsList = await steamInterface.GetFriendsListAsync(<steamIdHere>);
 In versions previous to 3.0, numerical types were treated as short, int, and long. This caused problems when interacting with the Steam Web API because Valve accepts and returns unsigned numerical types. Instead of constantly reacting to overflows when a specific endpoint would return something outside the bounds of a 32-bit int, I decided to switch all numerical types to their unsigned counterparts.
 
 ## Changes from 3.0 to 4.0
-.NET Core is now supported.
+  * .NET Core is now supported.
+  * All endpoints now return ISteamWebResponse<T> where T is the response payload type. This allows more metadata to be returned with each end point such as HTTP headers and status messages in addition to the response payload.
