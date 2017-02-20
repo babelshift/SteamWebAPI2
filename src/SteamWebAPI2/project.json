@@ -29,6 +29,6 @@
   "dependencies": {
     "AutoMapper": "5.2.0",
     "Newtonsoft.Json": "9.0.1",
-    "Steam.Models": "3.0.1-ci-00029"
+    "Steam.Models": "3.0.1-ci-00030"
   }
 }

@@ -40,7 +40,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Steam.Models, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Steam.Models.3.0.1-ci-00029\lib\net45\Steam.Models.dll</HintPath>
+      <HintPath>..\packages\Steam.Models.3.0.1-ci-00030\lib\net45\Steam.Models.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />

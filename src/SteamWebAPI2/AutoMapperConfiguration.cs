@@ -619,8 +619,7 @@ namespace SteamWebAPI2
                         .ForMember(dest => dest.IsVacBanned, opts => opts.MapFrom(source => source.VacBanned == 1 ? true : false))
                         .ForMember(dest => dest.VisibilityState, opts => opts.MapFrom(source => source.VisibilityState))
                         .ForMember(dest => dest.InGameServerIP, opts => opts.MapFrom(source => source.InGameServerIP))
-                        .ForMember(dest => dest.InGameInfo, opts => opts.MapFrom(source => source.InGameInfo))
-                        .ForMember(dest => dest.Nickname, opts => opts.Ignore());
+                        .ForMember(dest => dest.InGameInfo, opts => opts.MapFrom(source => source.InGameInfo));
                 });
 
             }
