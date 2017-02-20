@@ -37,22 +37,39 @@ Gain a basic understanding of how Valve's Steam Web API is laid out: please see 
   1. Read the `About` section so you understand why this library exists
   2. Install the library from NuGet
   3. Instantiate an object from any class that inherits from `SteamWebInterface` for whatever endpoint you want to use
-    1. Requires a Steam Web API developer key (KEEP THIS SECRET)
+    1. Requires a Steam Web API developer key. [Get one here](https://steamcommunity.com/dev/apikey). **KEEP THIS SECRET**.
     2. Some endpoints require an AppId (such as 440 for Team Fortress 2)
   4. Call the method with your parameters that you want to use
 
+The library is structured to mirror the endpoint structure. For example, the "DOTA2Econ" class will expose methods to communicate with the "IDOTA2Econ" endpoints.
+
+Each method returns a SteamWebResponse object which contains the following:
+
+| Field              | Type            | Description                                        |
+|--------------------|-----------------|----------------------------------------------------|
+| Data               | T               | Maps to the payload returned by the Steam Web API. |
+| ContentLength      | long?           | Maps tot he HTTP ContentLength header.             |
+| ContentType        | string          | Maps to the HTTP ContentType header.               |
+| ContentTypeCharSet | string          | Maps to the HTTP ContentType charset header.       |
+| Expires            | DateTimeOffset? | Maps to the HTTP Expires header. Optional.         |
+| LastModified       | DateTimeOffset? | Maps to the HTTP LastModified header. Optional     |
+
 ## Sample Usage
+
 ```cs
 // this will map to the ISteamUser endpoint
 var steamInterface = new SteamUser("<devKeyHere>");
 
 // this will map to ISteamUser/GetPlayerSummaries method in the Steam Web API
 // see PlayerSummaryResultContainer.cs for response documentation
-var playerSummary = await steamInterface.GetPlayerSummaryAsync(<steamIdHere>);
+var playerSummaryResponse = await steamInterface.GetPlayerSummaryAsync(<steamIdHere>);
+var playerSummaryData = playerSummaryResponse.Data;
+var playerSummaryLastModified = playerSummaryResponse.LastModified;
 
 // this will map to ISteamUser/GetFriendsListAsync method in the Steam Web API
 // see FriendListResultContainer.cs for response documentation
-var friendsList = await steamInterface.GetFriendsListAsync(<steamIdHere>);
+var friendsListResponse = await steamInterface.GetFriendsListAsync(<steamIdHere>);
+var friendsList = friendsListResponse.Data;
 ```
 
 ## Changes from 2.0 to 3.0
