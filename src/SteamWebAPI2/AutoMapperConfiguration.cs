@@ -328,7 +328,19 @@ namespace SteamWebAPI2
                         }
                     });
 
-                    x.CreateMap<OwnedGame, OwnedGameModel>();
+                    x.CreateMap<OwnedGame, OwnedGameModel>()
+                    .ForMember(dest => dest.PlaytimeLastTwoWeeks, opts => opts.ResolveUsing(src =>
+                    {
+                        if (!src.Playtime2weeks.HasValue)
+                        {
+                            return (TimeSpan?)null;
+                        }
+                        return TimeSpan.FromMinutes(src.Playtime2weeks.Value);
+                    }))
+                    .ForMember(dest => dest.PlaytimeForever, opts => opts.ResolveUsing(src =>
+                    {
+                        return TimeSpan.FromMinutes(src.PlaytimeForever);
+                    }));
                     x.CreateMap<OwnedGamesResult, OwnedGamesResultModel>();
                     x.CreateMap<OwnedGamesResultContainer, OwnedGamesResultModel>().ConvertUsing(
                         src => Mapper.Map<OwnedGamesResult, OwnedGamesResultModel>(src.Result)
