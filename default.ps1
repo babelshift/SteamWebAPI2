@@ -31,7 +31,8 @@ task compile -depends clean {
 
   exec { dotnet restore $projectPath }
   exec { dotnet build $projectPath -c $config }
-  if ($env:APPVEYOR_REPO_TAG) {
+
+  if ($env:APPVEYOR_REPO_TAG -eq $true) {
     exec { dotnet pack $projectPath -c $config -o $artifactsDir }
   }
   else {
