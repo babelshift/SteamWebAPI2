@@ -15,7 +15,7 @@ task clean {
 }
 
 task init { 
-  exec { .\build\dotnet\install.ps1 --Version "1.0.0-preview3-003171" | Out-Default }
+  exec { .\build\dotnet\install.ps1 --Version "1.0.3" | Out-Default }
   exec { dotnet --version | Out-Default }
 }
 
@@ -24,7 +24,7 @@ task release {
 }
 
 task compile -depends clean {
-  $projectPath = "$sourceDir\SteamWebAPI2\project.json"
+  $projectPath = "$sourceDir\SteamWebAPI2\SteamWebAPI2.csproj"
 
   $version = if ($env:APPVEYOR_BUILD_NUMBER -ne $NULL) { $env:APPVEYOR_BUILD_NUMBER } else { '0' }
   $version = "{0:D5}" -f [convert]::ToInt32($version, 10)
