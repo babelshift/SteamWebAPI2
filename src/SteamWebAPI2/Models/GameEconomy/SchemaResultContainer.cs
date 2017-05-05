@@ -332,6 +332,9 @@ namespace SteamWebAPI2.Models.GameEconomy
         [JsonProperty("craft_material_type")]
         public string CraftMaterialType { get; set; }
 
+        [JsonProperty("item_logname")]
+        public string ItemLogName { get; set; }
+
         [JsonProperty("capabilities")]
         public SchemaCapabilities Capabilities { get; set; }
 
