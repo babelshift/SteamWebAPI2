@@ -31,13 +31,20 @@ namespace SteamWebAPI2.Utilities.JsonConverters
 
             foreach (var x in o)
             {
-                // Edit by Jir : Previously returning Data; should return the correct object AppDetailsContainer instead. Sorry for ugly code
-                var data = x.Value["data"].ToObject<Data>();
-                var success = x.Value["success"].ToObject<bool>();
-                AppDetailsContainer appDetailsContainer = new AppDetailsContainer { Data = data, Success = success };
-                return appDetailsContainer;
+                var dataToken = x.Value["data"];
 
-                // return data;
+                // For some reason, some games treat this as an array? For example, App ID 380 has an empty array here. I don't know how to simultaneously serialize this to an object and an array, so just ignore the weird arrays.
+                var linuxRequirementsToken = dataToken["linux_requirements"];
+                if (linuxRequirementsToken != null && linuxRequirementsToken.Type == JTokenType.Array)
+                {
+                    dataToken["linux_requirements"] = null;
+                }
+
+                var dataObject = dataToken.ToObject<Data>();
+                var successValue = x.Value["success"].ToObject<bool>();
+
+                AppDetailsContainer appDetailsContainer = new AppDetailsContainer { Data = dataObject, Success = successValue };
+                return appDetailsContainer;
             }
 
             return null;
