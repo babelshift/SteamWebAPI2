@@ -1,5 +1,7 @@
 version: '{build}'  
 
+image: Visual Studio 2017 Preview
+
 pull_requests:  
   do_not_increment_build_number: true
   
@@ -20,7 +22,7 @@ artifacts:
     name: NuGet
     
 cache:
-  - '%LOCALAPPDATA%\Microsoft\dotnet'
+  - '%APPVEYOR_BUILD_FOLDER%\dotnet-sdk.exe'
   
 deploy:
   - provider: NuGet
