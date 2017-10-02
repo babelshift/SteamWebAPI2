@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
-using SteamWebAPI2.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -122,14 +122,16 @@ namespace SteamWebAPI2.Utilities
                 httpResponse = await httpClient.PostAsync(command).ConfigureAwait(false);
             }
 
+            var headers = httpResponse.Content?.Headers;
+
             // extract http headers that we care about
             SteamWebResponse<T> steamWebResponse = new SteamWebResponse<T>()
             {
-                ContentLength = httpResponse.Content.Headers.ContentLength,
-                ContentType = httpResponse.Content.Headers.ContentType.MediaType,
-                ContentTypeCharSet = httpResponse.Content.Headers.ContentType.CharSet,
-                Expires = httpResponse.Content.Headers.Expires,
-                LastModified = httpResponse.Content.Headers.LastModified,
+                ContentLength = headers?.ContentLength,
+                ContentType = headers?.ContentType?.MediaType,
+                ContentTypeCharSet = headers?.ContentType?.CharSet,
+                Expires = headers?.Expires,
+                LastModified = headers?.LastModified,
             };
 
             // deserialize the content if we have any as indicated by the response code
@@ -152,7 +154,7 @@ namespace SteamWebAPI2.Utilities
         /// <param name="methodVersion">Example: 1</param>
         /// <param name="parameters">Example: { key: 8A05823474AB641D684EBD95AB5F2E47 } </param>
         /// <returns></returns>
-        private string BuildRequestCommand(string interfaceName, string methodName, int methodVersion, IList<SteamWebRequestParameter> parameters)
+        private string BuildRequestCommand(string interfaceName, string methodName, int methodVersion, IEnumerable<SteamWebRequestParameter> parameters)
         {
             Debug.Assert(!String.IsNullOrWhiteSpace(interfaceName));
             Debug.Assert(!String.IsNullOrWhiteSpace(methodName));
@@ -166,7 +168,7 @@ namespace SteamWebAPI2.Utilities
             string commandUrl = String.Format("{0}/{1}/{2}/v{3}/", steamWebApiBaseUrl, interfaceName, methodName, methodVersion);
 
             // if we have parameters, join them together with & delimiter and append them to the command URL
-            if (parameters != null && parameters.Count > 0)
+            if (parameters != null && parameters.Count() > 0)
             {
                 string parameterString = String.Join("&", parameters);
                 commandUrl += String.Format("?{0}", parameterString);

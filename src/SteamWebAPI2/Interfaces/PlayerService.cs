@@ -1,10 +1,11 @@
-﻿using Steam.Models.SteamCommunity;
+﻿using Newtonsoft.Json;
+using Steam.Models.SteamCommunity;
 using SteamWebAPI2.Models.SteamCommunity;
 using SteamWebAPI2.Models.SteamPlayer;
 using SteamWebAPI2.Utilities;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace SteamWebAPI2.Interfaces
@@ -45,7 +46,7 @@ namespace SteamWebAPI2.Interfaces
             }
 
             var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
-                ISteamWebResponse<PlayingSharedGameResultContainer>, 
+                ISteamWebResponse<PlayingSharedGameResultContainer>,
                 ISteamWebResponse<ulong?>>(steamWebResponse);
 
             return steamWebResponseModel;
@@ -145,16 +146,20 @@ namespace SteamWebAPI2.Interfaces
             if (includeFreeGames.HasValue) { includeFreeGamesBit = includeFreeGames.Value ? 1 : 0; }
 
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
-            parameters.AddIfHasValue(includeFreeGamesBit, "include_played_Free_games");
-            parameters.AddIfHasValue(steamId, "steamid");
-            parameters.AddIfHasValue(includeAppInfoBit, "include_appinfo");
 
-            // join the app ids by commas since that's what the Steam Web API expects
-            if (appIdsToFilter != null)
+            var inputJsonObj = new
             {
-                string appIdsDelimited = String.Join(",", appIdsToFilter);
-                parameters.AddIfHasValue(appIdsDelimited, "appids_filter");
-            }
+                steamid = steamId,
+                include_played_Free_games = includeFreeGamesBit,
+                include_appinfo = includeAppInfoBit,
+                appids_filter = appIdsToFilter
+            };
+            var inputJson = JsonConvert.SerializeObject(inputJsonObj, new JsonSerializerSettings()
+            {
+                NullValueHandling = NullValueHandling.Ignore
+            });
+
+            parameters.AddIfHasValue(WebUtility.UrlEncode(inputJson), "input_json");
 
             var steamWebResponse = await steamWebInterface.GetAsync<OwnedGamesResultContainer>("GetOwnedGames", 1, parameters);
 
