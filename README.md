@@ -48,7 +48,7 @@ Each method returns a SteamWebResponse object which contains the following:
 | Field              | Type            | Description                                        |
 |--------------------|-----------------|----------------------------------------------------|
 | Data               | T               | Maps to the payload returned by the Steam Web API. |
-| ContentLength      | long?           | Maps tot he HTTP ContentLength header.             |
+| ContentLength      | long?           | Maps to the HTTP ContentLength header.             |
 | ContentType        | string          | Maps to the HTTP ContentType header.               |
 | ContentTypeCharSet | string          | Maps to the HTTP ContentType charset header.       |
 | Expires            | DateTimeOffset? | Maps to the HTTP Expires header. Optional.         |
