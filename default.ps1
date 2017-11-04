@@ -19,7 +19,7 @@ task init {
   
   if($isDotNetDownloaded -eq $false) {
     Write-Output 'Did not find dotnet-sdk.exe. Starting download.'
-	exec { curl -O dotnet-sdk.exe https://dotnetcli.azureedge.net/dotnet/Sdk/2.0.0/dotnet-sdk-2.0.0-win-x64.exe | Out-Default }
+	exec { curl -O dotnet-sdk.exe https://download.microsoft.com/download/0/F/D/0FD852A4-7EA1-4E2A-983A-0484AC19B92C/dotnet-sdk-2.0.0-win-x64.exe | Out-Default }
   } else {
 	Write-Output 'Found dotnet-sdk.exe. Skipping download.'
   }
