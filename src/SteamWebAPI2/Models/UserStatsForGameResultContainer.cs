@@ -9,7 +9,7 @@ namespace SteamWebAPI2.Models
         public string Name { get; set; }
 
         [JsonProperty("value")]
-        public int Value { get; set; }
+        public double Value { get; set; }
     }
 
     internal class UserStatAchievement
