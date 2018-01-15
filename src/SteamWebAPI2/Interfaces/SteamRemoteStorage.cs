@@ -24,6 +24,40 @@ namespace SteamWebAPI2.Interfaces
         }
 
         /// <summary>
+        /// Retrieves information about published files such as workshop items and screenshots.
+        /// </summary>
+        /// <param name="itemCount">The quantity of items for which to retrieve details.
+        /// This can be smaller than the amount of items in <paramref name="publishedFileIds"/>, but not larger.</param>
+        /// <param name="publishedFileIds">The list of ids of files for which to retrieve details.</param>
+        /// <returns>A collection of the details of the files or <c>null</c> if the request failed.</returns>
+        public async Task<ISteamWebResponse<IReadOnlyCollection<PublishedFileDetailsModel>>> GetPublishedFileDetailsAsync(uint itemCount, IList<ulong> publishedFileIds) {
+            Debug.Assert(itemCount <= publishedFileIds.Count);
+
+            List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
+            parameters.AddIfHasValue(itemCount, "itemcount");
+
+            for (int i = 0; i < publishedFileIds.Count; ++i)
+            {
+                parameters.AddIfHasValue(publishedFileIds[i], $"publishedfileids[{i}]");
+            }
+
+            try
+            {
+                var steamWebResponse = await steamWebInterface.PostAsync<PublishedFileDetailsResultContainer>("GetPublishedFileDetails", 1, parameters);
+
+                var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+                    ISteamWebResponse<PublishedFileDetailsResultContainer>,
+                    ISteamWebResponse<IReadOnlyCollection<PublishedFileDetailsModel>>>(steamWebResponse);
+
+                return steamWebResponseModel;
+            }
+            catch (HttpRequestException)
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
         /// Returns information about how to download a user generated content based on a UGC ID, App ID, and Steam ID.
         /// </summary>
         /// <param name="ugcId"></param>
@@ -45,7 +79,7 @@ namespace SteamWebAPI2.Interfaces
                 var steamWebResponse = await steamWebInterface.GetAsync<UGCFileDetailsResultContainer>("GetUGCFileDetails", 1, parameters);
 
                 var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
-                    ISteamWebResponse<UGCFileDetailsResultContainer>, 
+                    ISteamWebResponse<UGCFileDetailsResultContainer>,
                     ISteamWebResponse<UGCFileDetailsModel>>(steamWebResponse);
 
                 return steamWebResponseModel;

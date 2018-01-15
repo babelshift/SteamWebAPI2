@@ -108,6 +108,7 @@ namespace SteamWebAPI2
                     CreateSteamWebResponseMap<AssetClassInfoResultContainer, AssetClassInfoResultModel>(x);
                     CreateSteamWebResponseMap<AssetPriceResultContainer, AssetPriceResultModel>(x);
                     CreateSteamWebResponseMap<SteamNewsResultContainer, SteamNewsResultModel>(x);
+                    CreateSteamWebResponseMap<PublishedFileDetailsResultContainer, IReadOnlyCollection<PublishedFileDetailsModel>>(x);
                     CreateSteamWebResponseMap<UGCFileDetailsResultContainer, UGCFileDetailsModel>(x);
                     CreateSteamWebResponseMap<PlayerSummaryResultContainer, PlayerSummaryModel>(x);
                     CreateSteamWebResponseMap<PlayerSummaryResultContainer, IReadOnlyCollection<PlayerSummaryModel>>(x);
@@ -379,6 +380,14 @@ namespace SteamWebAPI2
                     #endregion
 
                     #region Endpoint: SteamRemoteStorage
+
+                    x.CreateMap<uint, PublishedFileVisibility>();
+                    x.CreateMap<PublishedFileDetails, PublishedFileDetailsModel>();
+                    x.CreateMap<PublishedFileDetailsResultContainer, IReadOnlyCollection<PublishedFileDetailsModel>>()
+                        .ConvertUsing(
+                            src => Mapper.Map<IList<PublishedFileDetails>, IReadOnlyCollection<PublishedFileDetailsModel>>(
+                                src.Result != null && src.Result.Result == 1 ? src.Result.Details : null)
+                    );
 
                     x.CreateMap<UGCFileDetails, UGCFileDetailsModel>();
                     x.CreateMap<UGCFileDetailsResultContainer, UGCFileDetailsModel>().ConvertUsing(
