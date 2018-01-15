@@ -38,15 +38,16 @@ namespace SteamWebAPI2.Utilities
         /// Performs an HTTP POST with the passed URL command.
         /// </summary>
         /// <param name="command">URL command for POST operation</param>
+        /// <param name="content">The HTTP request content sent to the server.</param>
         /// <returns>String response such as JSON or XML</returns>
-        public async Task<HttpResponseMessage> PostAsync(string command)
+        public async Task<HttpResponseMessage> PostAsync(string command, HttpContent content)
         {
             Debug.Assert(!String.IsNullOrWhiteSpace(command));
 
             HttpClient httpClient = new HttpClient();
 
-            var response = await httpClient.PostAsync(command, null);
-            
+            var response = await httpClient.PostAsync(command, content);
+
             response.EnsureSuccessStatusCode();
 
             if (response.Content == null)

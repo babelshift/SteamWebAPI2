@@ -8,15 +8,16 @@ namespace SteamWebAPI2.Utilities
         /// <summary>
         /// Performs an HTTP GET with the passed URL command.
         /// </summary>
-        /// <param name="command">URL command for GET operation</param>
+        /// <param name="uri">URL command for GET operation</param>
         /// <returns>String response such as JSON or XML</returns>
         Task<HttpResponseMessage> GetAsync(string uri);
 
         /// <summary>
         /// Performs an HTTP POST with the passed URL command.
         /// </summary>
-        /// <param name="command">URL command for POST operation</param>
+        /// <param name="uri">URL command for POST operation</param>
+        /// <param name="content">The HTTP request content sent to the server.</param>
         /// <returns>String response such as JSON or XML</returns>
-        Task<HttpResponseMessage> PostAsync(string uri);
+        Task<HttpResponseMessage> PostAsync(string uri, HttpContent content);
     }
 }
