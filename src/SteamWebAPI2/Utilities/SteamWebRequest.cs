@@ -109,17 +109,23 @@ namespace SteamWebAPI2.Utilities
 
             parameters.Insert(0, new SteamWebRequestParameter("key", steamWebApiKey));
 
-            string command = BuildRequestCommand(interfaceName, methodName, methodVersion, parameters);
-
             HttpResponseMessage httpResponse = null;
 
             if (httpMethod == HttpMethod.GET)
             {
+                string command = BuildRequestCommand(interfaceName, methodName, methodVersion, parameters);
+
                 httpResponse = await httpClient.GetAsync(command).ConfigureAwait(false);
             }
             else if (httpMethod == HttpMethod.POST)
             {
-                httpResponse = await httpClient.PostAsync(command).ConfigureAwait(false);
+                // Null is passed instead of the parameters so that they are not appended to the URL.
+                string command = BuildRequestCommand(interfaceName, methodName, methodVersion, null);
+
+                // Instead, parameters are passed through this container.
+                FormUrlEncodedContent content = BuildRequestContent(parameters);
+
+                httpResponse = await httpClient.PostAsync(command, content).ConfigureAwait(false);
             }
 
             var headers = httpResponse.Content?.Headers;
@@ -175,6 +181,22 @@ namespace SteamWebAPI2.Utilities
             }
 
             return commandUrl;
+        }
+
+        /// <summary>
+        /// Encodes request parameters using application/x-www-form-urlencoded MIME type.
+        /// The resulting container enables parameters to be sent properly in a POST request.
+        /// </summary>
+        /// <param name="parameters">Example: { key: 8A05823474AB641D684EBD95AB5F2E47 } </param>
+        /// <returns></returns>
+        private static FormUrlEncodedContent BuildRequestContent(IEnumerable<SteamWebRequestParameter> parameters)
+        {
+            if (parameters != null && parameters.Count() > 0)
+            {
+                return new FormUrlEncodedContent(parameters.ToDictionary(p => p.Name, p => p.Value));
+            }
+
+            return null;
         }
 
         /// <summary>
