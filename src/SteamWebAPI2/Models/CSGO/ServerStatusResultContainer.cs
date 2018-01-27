@@ -6,8 +6,8 @@ namespace SteamWebAPI2.Models.CSGO
 {
     internal class ServerStatusApp
     {
-        public int Version { get; set; }
-        public long Timestamp { get; set; }
+        public uint Version { get; set; }
+        public ulong Timestamp { get; set; }
         public string Time { get; set; }
     }
 
@@ -23,16 +23,16 @@ namespace SteamWebAPI2.Models.CSGO
         public string Scheduler { get; set; }
 
         [JsonProperty(PropertyName = "online_servers")]
-        public int OnlineServers { get; set; }
+        public uint OnlineServers { get; set; }
 
         [JsonProperty(PropertyName = "online_players")]
-        public int OnlinePlayers { get; set; }
+        public uint OnlinePlayers { get; set; }
 
         [JsonProperty(PropertyName = "searching_players")]
-        public int SearchingPlayers { get; set; }
+        public uint SearchingPlayers { get; set; }
 
         [JsonProperty(PropertyName = "search_seconds_avg")]
-        public int SearchSecondsAverage { get; set; }
+        public uint SearchSecondsAverage { get; set; }
     }
 
     internal class ServerStatusServices

@@ -12,6 +12,6 @@ namespace SteamWebAPI2.Models
     {
         public string FileName { get; set; }
         public string URL { get; set; }
-        public int Size { get; set; }
+        public uint Size { get; set; }
     }
 }

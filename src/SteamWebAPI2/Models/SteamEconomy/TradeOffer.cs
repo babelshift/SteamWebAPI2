@@ -15,7 +15,7 @@ namespace SteamWebAPI2.Models.SteamEconomy
         public string Message { get; set; }
 
         [JsonProperty("expiration_time")]
-        public long TimeExpiration { get; set; }
+        public ulong TimeExpiration { get; set; }
 
         [JsonProperty("trade_offer_state")]
         public TradeOfferState TradeOfferState { get; set; }
@@ -30,16 +30,16 @@ namespace SteamWebAPI2.Models.SteamEconomy
         public bool IsOfferYouCreated { get; set; }
 
         [JsonProperty("time_created")]
-        public long TimeCreated { get; set; }
+        public ulong TimeCreated { get; set; }
 
         [JsonProperty("time_updated")]
-        public long TimeUpdated { get; set; }
+        public ulong TimeUpdated { get; set; }
 
         [JsonProperty("from_real_time_trade")]
         public bool WasCreatedFromRealTimeTrade { get; set; }
 
         [JsonProperty("escrow_end_date")]
-        public long TimeEscrowEnds { get; set; }
+        public ulong TimeEscrowEnds { get; set; }
 
         [JsonProperty("confirmation_method")]
         public TradeOfferConfirmationMethod ConfirmationMethod { get; set; }

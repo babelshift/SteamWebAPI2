@@ -66,7 +66,7 @@ namespace SteamWebAPI2.Models.SteamStore
         public string SaveText { get; set; }
 
         [JsonProperty("display_type")]
-        public int DisplayType { get; set; }
+        public uint DisplayType { get; set; }
 
         [JsonProperty("is_recurring_subscription")]
         public string IsRecurringSubscription { get; set; }

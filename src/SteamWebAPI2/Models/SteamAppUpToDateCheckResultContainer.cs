@@ -14,7 +14,7 @@ namespace SteamWebAPI2.Models
         public bool VersionIsListable { get; set; }
 
         [JsonProperty("required_version")]
-        public int RequiredVersion { get; set; }
+        public uint RequiredVersion { get; set; }
 
         [JsonProperty("message")]
         public string Message { get; set; }

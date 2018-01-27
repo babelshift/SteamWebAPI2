@@ -56,8 +56,8 @@ namespace SteamWebAPI2.Interfaces
         /// <returns></returns>
         public async Task<ISteamWebResponse<IReadOnlyCollection<GlobalStatModel>>> GetGlobalStatsForGameAsync(uint appId, IReadOnlyList<string> statNames, DateTime? startDate = null, DateTime? endDate = null)
         {
-            long? startDateUnixTimeStamp = null;
-            long? endDateUnixTimeStamp = null;
+            ulong? startDateUnixTimeStamp = null;
+            ulong? endDateUnixTimeStamp = null;
 
             if (startDate.HasValue)
             {

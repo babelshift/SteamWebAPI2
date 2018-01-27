@@ -9,7 +9,7 @@ namespace SteamWebAPI2.Models
         public string Name { get; set; }
 
         [JsonProperty("defaultvalue")]
-        public int DefaultValue { get; set; }
+        public uint DefaultValue { get; set; }
 
         [JsonProperty("displayName")]
         public string DisplayName { get; set; }
@@ -21,13 +21,13 @@ namespace SteamWebAPI2.Models
         public string Name { get; set; }
 
         [JsonProperty("defaultvalue")]
-        public int DefaultValue { get; set; }
+        public uint DefaultValue { get; set; }
 
         [JsonProperty("displayName")]
         public string DisplayName { get; set; }
 
         [JsonProperty("hidden")]
-        public int Hidden { get; set; }
+        public uint Hidden { get; set; }
 
         [JsonProperty("description")]
         public string Description { get; set; }

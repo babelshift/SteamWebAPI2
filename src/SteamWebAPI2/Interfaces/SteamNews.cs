@@ -32,7 +32,7 @@ namespace SteamWebAPI2.Interfaces
         /// <returns></returns>
         public async Task<ISteamWebResponse<SteamNewsResultModel>> GetNewsForAppAsync(uint appId, uint? maxLength = null, DateTime? endDate = null, uint? count = null)
         {
-            long? endDateUnixTimeStamp = null;
+            ulong? endDateUnixTimeStamp = null;
 
             if (endDate.HasValue)
             {

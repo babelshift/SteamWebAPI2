@@ -140,10 +140,10 @@ namespace SteamWebAPI2.Models.SteamEconomy
         public ulong TradeParterSteamId { get; set; }
 
         [JsonProperty("time_init")]
-        public long TimeTradeStarted { get; set; }
+        public ulong TimeTradeStarted { get; set; }
 
         [JsonProperty("time_escrow_end")]
-        public long TimeEscrowEnds { get; set; }
+        public ulong TimeEscrowEnds { get; set; }
 
         [JsonProperty("status")]
         public TradeStatus TradeStatus { get; set; }

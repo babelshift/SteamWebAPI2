@@ -27,7 +27,7 @@ namespace SteamWebAPI2.Models
         public string FeedLabel { get; set; }
 
         [JsonProperty("date")]
-        public int Date { get; set; }
+        public uint Date { get; set; }
 
         [JsonProperty("feedname")]
         public string Feedname { get; set; }
@@ -36,7 +36,7 @@ namespace SteamWebAPI2.Models
     internal class SteamNewsResult
     {
         [JsonProperty("appid")]
-        public int AppId { get; set; }
+        public uint AppId { get; set; }
 
         [JsonProperty("newsitems")]
         public IList<NewsItem> NewsItems { get; set; }

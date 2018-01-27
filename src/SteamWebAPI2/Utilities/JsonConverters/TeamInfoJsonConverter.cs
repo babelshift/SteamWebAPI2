@@ -36,13 +36,13 @@ namespace SteamWebAPI2.Utilities.JsonConverters
                 {
                     string value = teamProperty.Value.ToString();
 
-                    long longValue = 0;
+                    ulong longValue = 0;
                     uint uintValue = 0;
                     ulong ulongValue = 0;
 
                     uint.TryParse(value, out uintValue);
                     ulong.TryParse(value, out ulongValue);
-                    long.TryParse(value, out longValue);
+                    ulong.TryParse(value, out longValue);
 
                     if (teamProperty.Name == "team_id") { teamInfo.TeamId = uintValue; }
                     if (teamProperty.Name == "name") { teamInfo.Name = value; }

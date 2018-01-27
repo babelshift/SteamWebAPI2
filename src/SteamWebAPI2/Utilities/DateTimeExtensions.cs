@@ -9,7 +9,7 @@ namespace SteamWebAPI2.Utilities
         /// </summary>
         /// <param name="unixTimeStamp"></param>
         /// <returns></returns>
-        public static DateTime ToDateTime(this long unixTimeStamp)
+        public static DateTime ToDateTime(this ulong unixTimeStamp)
         {
             DateTime origin = new DateTime(1970, 1, 1, 0, 0, 0, 0);
             return origin.AddSeconds(unixTimeStamp);
@@ -20,13 +20,13 @@ namespace SteamWebAPI2.Utilities
         /// </summary>
         /// <param name="dateTime"></param>
         /// <returns></returns>
-        public static long ToUnixTimeStamp(this DateTime dateTime)
+        public static ulong ToUnixTimeStamp(this DateTime dateTime)
         {
             DateTime origin = new DateTime(1970, 1, 1, 0, 0, 0, 0);
 
             TimeSpan timeSpanSinceOrigin = dateTime.Subtract(origin);
 
-            return Convert.ToInt64(timeSpanSinceOrigin.TotalSeconds);
+            return Convert.ToUInt64(timeSpanSinceOrigin.TotalSeconds);
         }
     }
 }

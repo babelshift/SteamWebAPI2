@@ -6,7 +6,7 @@ namespace SteamWebAPI2.Models
     internal class SteamApp
     {
         [JsonProperty("appid")]
-        public int AppId { get; set; }
+        public uint AppId { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }

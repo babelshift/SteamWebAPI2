@@ -47,7 +47,7 @@ namespace SteamWebAPI2.Models.SteamStore
         public bool StreamingvideoAvailable { get; set; }
 
         [JsonProperty("discount_expiration")]
-        public int DiscountExpiration { get; set; }
+        public uint DiscountExpiration { get; set; }
 
         [JsonProperty("header_image")]
         public string HeaderImage { get; set; }
@@ -146,6 +146,6 @@ namespace SteamWebAPI2.Models.SteamStore
         public TrailerSlideshow TrailerSlideshow { get; set; }
 
         [JsonProperty("status")]
-        public int Status { get; set; }
+        public uint Status { get; set; }
     }
 }

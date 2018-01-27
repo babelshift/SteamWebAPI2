@@ -13,7 +13,7 @@ namespace SteamWebAPI2.Utilities.JsonConverters
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            long unixTime = long.Parse(reader.Value.ToString());
+            ulong unixTime = ulong.Parse(reader.Value.ToString());
             return unixTime.ToDateTime();
         }
 

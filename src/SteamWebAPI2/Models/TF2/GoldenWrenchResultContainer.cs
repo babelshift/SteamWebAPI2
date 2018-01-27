@@ -15,10 +15,10 @@ namespace SteamWebAPI2.Models.TF2
         public DateTime Timestamp { get; set; }
 
         [JsonProperty("itemID")]
-        public int ItemId { get; set; }
+        public uint ItemId { get; set; }
 
         [JsonProperty("wrenchNumber")]
-        public int WrenchNumber { get; set; }
+        public uint WrenchNumber { get; set; }
     }
 
     internal class GoldenWrenchResult
