@@ -582,9 +582,6 @@ namespace SteamWebAPI2
                     x.CreateMap<Platforms, StorePlatformsModel>();
                     x.CreateMap<PackageGroup, StorePackageGroupModel>();
                     x.CreateMap<Sub, StoreSubModel>();
-                    x.CreateMap<LinuxRequirements, StoreLinuxRequirementsModel>();
-                    x.CreateMap<MacRequirements, StoreMacRequirementsModel>();
-                    x.CreateMap<PcRequirements, StorePcRequirementsModel>();
 
                     x.CreateMap<FeaturedCategoriesContainer, StoreFeaturedCategoriesModel>();
                     x.CreateMap<TrailerSlideshow, StoreTrailerSlideshowModel>();

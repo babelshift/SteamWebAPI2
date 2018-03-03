@@ -3,24 +3,6 @@ using SteamWebAPI2.Utilities.JsonConverters;
 
 namespace SteamWebAPI2.Models.SteamStore
 {
-    internal class PcRequirements
-    {
-        [JsonProperty("minimum")]
-        public string Minimum { get; set; }
-    }
-
-    internal class MacRequirements
-    {
-        [JsonProperty("minimum")]
-        public string Minimum { get; set; }
-    }
-
-    internal class LinuxRequirements
-    {
-        [JsonProperty("minimum")]
-        public string Minimum { get; set; }
-    }
-
     internal class Sub
     {
         [JsonProperty("packageid")]
@@ -213,13 +195,13 @@ namespace SteamWebAPI2.Models.SteamStore
         public string Website { get; set; }
 
         [JsonProperty("pc_requirements")]
-        public PcRequirements PcRequirements { get; set; }
+        public dynamic PcRequirements { get; set; }
 
         [JsonProperty("mac_requirements")]
-        public MacRequirements MacRequirements { get; set; }
+        public dynamic MacRequirements { get; set; }
 
         [JsonProperty("linux_requirements")]
-        public LinuxRequirements LinuxRequirements { get; set; }
+        public dynamic LinuxRequirements { get; set; }
 
         [JsonProperty("developers")]
         public string[] Developers { get; set; }
