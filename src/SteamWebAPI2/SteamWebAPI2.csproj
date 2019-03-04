@@ -12,8 +12,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="automapper" Version="6.1.1" />
-    <PackageReference Include="newtonsoft.json" Version="10.0.3" />
+    <PackageReference Include="automapper" Version="8.0.0" />
+    <PackageReference Include="newtonsoft.json" Version="12.0.1" />
     <PackageReference Include="Steam.Models" Version="3.0.8" />
   </ItemGroup>
 
