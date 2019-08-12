@@ -19,10 +19,10 @@ namespace SteamWebAPI2.Interfaces
         /// Default constructor established the Steam Web API key and initializes for subsequent method calls
         /// </summary>
         /// <param name="steamWebApiKey"></param>
-        public DOTA2Econ(string steamWebApiKey, ISteamWebInterface steamWebInterface = null)
+        public DOTA2Econ(ISteamWebRequest steamWebRequest, ISteamWebInterface steamWebInterface = null)
         {
             this.steamWebInterface = steamWebInterface == null
-                ? new SteamWebInterface(steamWebApiKey, "IEconDOTA2_570")
+                ? new SteamWebInterface("IEconDOTA2_570", steamWebRequest)
                 : steamWebInterface;
         }
 

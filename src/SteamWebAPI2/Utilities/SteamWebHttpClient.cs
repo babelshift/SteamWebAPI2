@@ -11,6 +11,13 @@ namespace SteamWebAPI2.Utilities
     /// </summary>
     internal class SteamWebHttpClient : ISteamWebHttpClient
     {
+        private HttpClient httpClient;
+
+        public SteamWebHttpClient(HttpClient httpClient)
+        {
+            this.httpClient = httpClient;   
+        }
+
         /// <summary>
         /// Performs an HTTP GET with the passed URL command.
         /// </summary>
@@ -19,8 +26,6 @@ namespace SteamWebAPI2.Utilities
         public async Task<HttpResponseMessage> GetAsync(string command)
         {
             Debug.Assert(!String.IsNullOrWhiteSpace(command));
-
-            HttpClient httpClient = new HttpClient();
 
             var response = await httpClient.GetAsync(command);
 
@@ -43,8 +48,6 @@ namespace SteamWebAPI2.Utilities
         public async Task<HttpResponseMessage> PostAsync(string command, HttpContent content)
         {
             Debug.Assert(!String.IsNullOrWhiteSpace(command));
-
-            HttpClient httpClient = new HttpClient();
 
             var response = await httpClient.PostAsync(command, content);
 

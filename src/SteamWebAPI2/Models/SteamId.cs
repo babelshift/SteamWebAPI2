@@ -1,5 +1,6 @@
 ﻿using SteamWebAPI2.Exceptions;
 using SteamWebAPI2.Interfaces;
+using SteamWebAPI2.Utilities;
 using System;
 using System.Runtime.ExceptionServices;
 using System.Text.RegularExpressions;
@@ -187,8 +188,8 @@ namespace SteamWebAPI2.Models
         /// to receive a return value from this method in the event that the Steam Web API is required.
         /// </summary>
         /// <param name="value">Value to parse, can be a 64-bit Steam ID, a full Steam Community Profile URL, or the user's Steam Community Profile Name.</param>
-        /// <param name="steamWebApiKey">Required in the event that the Steam Web API is needed to resolve a Profile URL to a 64-bit Steam ID.</param>
-        public SteamId(string value, string steamWebApiKey = "")
+        /// <param name="steamWebRequest">Required in the event that the Steam Web API is needed to resolve a Profile URL to a 64-bit Steam ID.</param>
+        public SteamId(string value, ISteamWebRequest steamWebRequest)
         {
             if (String.IsNullOrEmpty(value))
             {
@@ -241,7 +242,7 @@ namespace SteamWebAPI2.Models
                 bool isUri = Uri.TryCreate(value, UriKind.Absolute, out uriResult)
                     && (uriResult.Scheme == "http" || uriResult.Scheme == "https");
 
-                SteamUser steamUser = new SteamUser(steamWebApiKey);
+                SteamUser steamUser = new SteamUser(steamWebRequest);
 
                 try
                 {
@@ -261,11 +262,6 @@ namespace SteamWebAPI2.Models
                                 // the third segment isn't a 64-bit Steam ID, check if it's a profile name which resolves to a 64-bit Steam ID
                                 if (!isSteamId64)
                                 {
-                                    if (String.IsNullOrEmpty(steamWebApiKey))
-                                    {
-                                        throw new InvalidOperationException(ErrorMessages.SteamWebApiKeyNotProvided);
-                                    }
-
                                     steamId = await ResolveSteamIdFromValueAsync(steamUser, profileId);
                                 }
 
@@ -280,11 +276,6 @@ namespace SteamWebAPI2.Models
                         }
                         else
                         {
-                            if (String.IsNullOrEmpty(steamWebApiKey))
-                            {
-                                throw new InvalidOperationException(ErrorMessages.SteamWebApiKeyNotProvided);
-                            }
-
                             // not a 64-bit Steam ID and not a uri, try to just resolve it as if it was a Steam Community Profile Name
                             steamId = await ResolveSteamIdFromValueAsync(steamUser, value);
 

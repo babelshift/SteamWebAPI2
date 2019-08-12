@@ -21,11 +21,11 @@ namespace SteamWebAPI2.Interfaces
         /// <summary>
         /// Default constructor established the Steam Web API key and initializes for subsequent method calls
         /// </summary>
-        /// <param name="steamWebApiKey"></param>
-        public SteamUser(string steamWebApiKey, ISteamWebInterface steamWebInterface = null)
+        /// <param name="steamWebRequest"></param>
+        public SteamUser(ISteamWebRequest steamWebRequest, ISteamWebInterface steamWebInterface = null)
         {
             this.steamWebInterface = steamWebInterface == null
-                ? new SteamWebInterface(steamWebApiKey, "ISteamUser")
+                ? new SteamWebInterface("ISteamUser", steamWebRequest)
                 : steamWebInterface;
         }
 

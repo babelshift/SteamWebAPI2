@@ -15,8 +15,7 @@ namespace SteamWebAPI2
     {
         private const string steamStoreApiBaseUrl = "http://store.steampowered.com/api/";
         private readonly SteamStoreRequest steamStoreRequest;
-        private readonly string endpointName;
-
+        
         /// <summary>
         /// Constructs and maps the default objects for Steam Store Web API use
         /// </summary>
