@@ -20,7 +20,6 @@ using SteamWebAPI2.Models.TF2;
 using SteamWebAPI2.Utilities;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace SteamWebAPI2
@@ -88,7 +87,6 @@ namespace SteamWebAPI2
                     CreateSteamWebResponseMap<MatchHistoryBySequenceNumberResultContainer, IReadOnlyCollection<MatchHistoryMatchModel>>(x);
                     CreateSteamWebResponseMap<TeamInfoResultContainer, IReadOnlyCollection<TeamInfoModel>>(x);
                     CreateSteamWebResponseMap<EconItemResultContainer, EconItemResultModel>(x);
-                    //CreateSteamWebResponseMap<SchemaResultContainer, Steam.Models.DOTA2.SchemaModel>(x);
                     CreateSteamWebResponseMap<SchemaResultContainer, Steam.Models.TF2.SchemaModel>(x);
                     CreateSteamWebResponseMap<SchemaUrlResultContainer, string>(x);
                     CreateSteamWebResponseMap<StoreMetaDataResultContainer, StoreMetaDataModel>(x);

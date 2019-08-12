@@ -24,30 +24,34 @@ namespace SteamWebAPI2.Utilities
     {
         private string steamWebApiBaseUrl;
         private readonly string steamWebApiKey;
-        private ISteamWebHttpClient httpClient;
+        private ISteamWebHttpClient steamWebHttpClient;
 
         /// <summary>
         /// Every web request requires a secret Steam Web API key
         /// </summary>
         /// <param name="steamWebApiBaseUrl">Base URL for the API (such as http://api.steampowered.com)</param>
         /// <param name="steamWebApiKey">Secret Steam Web API key provided at the Valve developer website</param>
-        /// <param name="httpClient">Optional custom http client implementation for dependency injection</param>
-        public SteamWebRequest(string steamWebApiBaseUrl, string steamWebApiKey, ISteamWebHttpClient httpClient = null)
+        /// <param name="steamWebHttpClient">Optional custom http client implementation for dependency injection</param>
+        public SteamWebRequest(string steamWebApiBaseUrl, string steamWebApiKey, ISteamWebHttpClient steamWebHttpClient)
         {
-            this.httpClient = httpClient == null ? new SteamWebHttpClient() : httpClient;
-
             if (String.IsNullOrWhiteSpace(steamWebApiBaseUrl))
             {
-                throw new ArgumentNullException("steamWebApiBaseUrl");
+                throw new ArgumentNullException(nameof(steamWebApiBaseUrl));
             }
 
             if (String.IsNullOrWhiteSpace(steamWebApiKey))
             {
-                throw new ArgumentNullException("steamWebApiKey");
+                throw new ArgumentNullException(nameof(steamWebApiKey));
+            }
+
+            if(steamWebHttpClient == null)
+            {
+                throw new ArgumentNullException(nameof(steamWebHttpClient));
             }
 
             this.steamWebApiBaseUrl = steamWebApiBaseUrl;
             this.steamWebApiKey = steamWebApiKey;
+            this.steamWebHttpClient = steamWebHttpClient;
         }
 
         /// <summary>
@@ -115,7 +119,7 @@ namespace SteamWebAPI2.Utilities
             {
                 string command = BuildRequestCommand(interfaceName, methodName, methodVersion, parameters);
 
-                httpResponse = await httpClient.GetAsync(command).ConfigureAwait(false);
+                httpResponse = await steamWebHttpClient.GetAsync(command).ConfigureAwait(false);
             }
             else if (httpMethod == HttpMethod.POST)
             {
@@ -125,7 +129,7 @@ namespace SteamWebAPI2.Utilities
                 // Instead, parameters are passed through this container.
                 FormUrlEncodedContent content = BuildRequestContent(parameters);
 
-                httpResponse = await httpClient.PostAsync(command, content).ConfigureAwait(false);
+                httpResponse = await steamWebHttpClient.PostAsync(command, content).ConfigureAwait(false);
             }
 
             var headers = httpResponse.Content?.Headers;

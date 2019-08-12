@@ -11,7 +11,7 @@ namespace SteamWebAPI2.Utilities
     /// </summary>
     internal sealed class SteamWebInterface : ISteamWebInterface
     {
-        private const string steamWebApiBaseUrl = "https://api.steampowered.com/";
+        private readonly string steamWebApiBaseUrl = "https://api.steampowered.com/";
         private readonly ISteamWebRequest steamWebRequest;
         private readonly string interfaceName;
 
@@ -21,20 +21,20 @@ namespace SteamWebAPI2.Utilities
         /// <param name="steamWebApiKey">Steam Web API key (secret to each developer)</param>
         /// <param name="interfaceName">Name for this web interface (such as "IDOTA2Match_570). Must match the Steam Web API interface name exactly as this value
         /// is used to construct the URL to perform the GET or POST.</param>
-        public SteamWebInterface(string steamWebApiKey, string interfaceName, ISteamWebRequest steamWebRequest = null)
+        public SteamWebInterface(string interfaceName, ISteamWebRequest steamWebRequest)
         {
-            if (String.IsNullOrWhiteSpace(steamWebApiKey))
+            if (String.IsNullOrWhiteSpace(interfaceName))
             {
-                throw new ArgumentNullException("steamWebApiKey");
+                throw new ArgumentNullException(nameof(interfaceName));
+            }
+            
+            if (steamWebRequest == null)
+            {
+                throw new ArgumentNullException(nameof(steamWebRequest));
             }
 
-            Debug.Assert(!String.IsNullOrWhiteSpace(interfaceName));
-
             this.interfaceName = interfaceName;
-
-            this.steamWebRequest = steamWebRequest == null
-                ? new SteamWebRequest(steamWebApiBaseUrl, steamWebApiKey)
-                : steamWebRequest;
+            this.steamWebRequest = steamWebRequest;
 
             AutoMapperConfiguration.Initialize();
         }
@@ -46,22 +46,15 @@ namespace SteamWebAPI2.Utilities
         /// <param name="steamWebApiKey">Steam Web API key (secret to each developer)</param>
         /// <param name="interfaceName">Name for this web interface (such as "IDOTA2Match_570). Must match the Steam Web API interface name exactly as this value
         /// is used to construct the URL to perform the GET or POST.</param>
-        public SteamWebInterface(string steamWebApiBaseUrl, string steamWebApiKey, string interfaceName, ISteamWebRequest steamWebRequest = null)
+        public SteamWebInterface(string steamWebApiBaseUrl, string interfaceName, ISteamWebRequest steamWebRequest)
+            : this(interfaceName, steamWebRequest)
         {
-            if (String.IsNullOrWhiteSpace(steamWebApiKey))
+            if (String.IsNullOrWhiteSpace(steamWebApiBaseUrl))
             {
-                throw new ArgumentNullException("steamWebApiKey");
+                throw new ArgumentNullException(nameof(steamWebApiBaseUrl));
             }
-
-            Debug.Assert(!String.IsNullOrWhiteSpace(interfaceName));
-
-            this.interfaceName = interfaceName;
-
-            this.steamWebRequest = steamWebRequest == null
-                ? new SteamWebRequest(steamWebApiBaseUrl, steamWebApiKey)
-                : steamWebRequest;
-
-            AutoMapperConfiguration.Initialize();
+            
+            this.steamWebApiBaseUrl = steamWebApiBaseUrl;
         }
 
         /// <summary>

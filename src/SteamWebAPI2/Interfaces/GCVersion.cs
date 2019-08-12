@@ -29,11 +29,11 @@ namespace SteamWebAPI2.Interfaces
         /// <summary>
         /// Default constructor established the Steam Web API key and initializes for subsequent method calls
         /// </summary>
-        /// <param name="steamWebApiKey"></param>
-        public GCVersion(string steamWebApiKey, GCVersionAppId appId, ISteamWebInterface steamWebInterface = null)
+        /// <param name="steamWebRequest"></param>
+        public GCVersion(ISteamWebRequest steamWebRequest, GCVersionAppId appId, ISteamWebInterface steamWebInterface = null)
         {
             this.steamWebInterface = steamWebInterface == null
-                ? new SteamWebInterface(steamWebApiKey, "IGCVersion_" + (uint)appId)
+                ? new SteamWebInterface("IGCVersion_" + (uint)appId, steamWebRequest)
                 : steamWebInterface;
 
             if (appId <= 0)

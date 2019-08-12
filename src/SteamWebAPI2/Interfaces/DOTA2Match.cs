@@ -16,10 +16,10 @@ namespace SteamWebAPI2.Interfaces
         /// Default constructor established the Steam Web API key and initializes for subsequent method calls
         /// </summary>
         /// <param name="steamWebApiKey"></param>
-        public DOTA2Match(string steamWebApiKey, ISteamWebInterface steamWebInterface = null)
+        public DOTA2Match(ISteamWebRequest steamWebRequest, ISteamWebInterface steamWebInterface = null)
         {
             this.steamWebInterface = steamWebInterface == null
-                ? new SteamWebInterface(steamWebApiKey, "IDOTA2Match_570")
+                ? new SteamWebInterface("IDOTA2Match_570", steamWebRequest)
                 : steamWebInterface;
         }
 

@@ -36,8 +36,8 @@ namespace SteamWebAPI2.Interfaces
         /// <summary>
         /// Default constructor established the Steam Web API key and initializes for subsequent method calls
         /// </summary>
-        /// <param name="steamWebApiKey"></param>
-        public EconItems(string steamWebApiKey, EconItemsAppId appId, ISteamWebInterface steamWebInterface = null)
+        /// <param name="steamWebRequest"></param>
+        public EconItems(ISteamWebRequest steamWebRequest, EconItemsAppId appId, ISteamWebInterface steamWebInterface = null)
         {
             if (appId <= 0)
             {
@@ -45,7 +45,7 @@ namespace SteamWebAPI2.Interfaces
             }
 
             this.steamWebInterface = steamWebInterface == null
-                ? new SteamWebInterface(steamWebApiKey, "IEconItems_" + (uint)appId)
+                ? new SteamWebInterface("IEconItems_" + (uint)appId, steamWebRequest)
                 : steamWebInterface;
 
             this.appId = (uint)appId;
