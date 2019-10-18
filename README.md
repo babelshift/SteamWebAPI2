@@ -57,8 +57,12 @@ Each method returns a SteamWebResponse object which contains the following:
 ## Sample Usage
 
 ```cs
+// factory to be used to generate various web interfaces
+var webInterfaceFactory = new SteamWebInterfaceFactory(<dev api key here>);
+
 // this will map to the ISteamUser endpoint
-var steamInterface = new SteamUser("<devKeyHere>");
+// note that you have full control over HttpClient lifecycle here
+var steamInterface = webInterfaceFactory.CreateSteamWebInterface<SteamUser>(new HttpClient());
 
 // this will map to ISteamUser/GetPlayerSummaries method in the Steam Web API
 // see PlayerSummaryResultContainer.cs for response documentation
