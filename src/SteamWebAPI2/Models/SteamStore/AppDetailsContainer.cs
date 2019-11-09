@@ -206,6 +206,9 @@ namespace SteamWebAPI2.Models.SteamStore
         [JsonProperty("about_the_game")]
         public string AboutTheGame { get; set; }
 
+        [JsonProperty("short_description")]
+        public string ShortDescription { get; set; }
+
         [JsonProperty("supported_languages")]
         public string SupportedLanguages { get; set; }
 
