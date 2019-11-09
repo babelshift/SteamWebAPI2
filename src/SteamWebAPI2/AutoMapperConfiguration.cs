@@ -579,6 +579,7 @@ namespace SteamWebAPI2
                     x.CreateMap<Metacritic, StoreMetacriticModel>();
                     x.CreateMap<Platforms, StorePlatformsModel>();
                     x.CreateMap<PackageGroup, StorePackageGroupModel>();
+                    x.CreateMap<Price, StorePriceOverview>();
                     x.CreateMap<Sub, StoreSubModel>();
 
                     x.CreateMap<FeaturedCategoriesContainer, StoreFeaturedCategoriesModel>();

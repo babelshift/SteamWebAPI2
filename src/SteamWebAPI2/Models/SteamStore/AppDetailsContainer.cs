@@ -159,6 +159,27 @@ namespace SteamWebAPI2.Models.SteamStore
         public string Email { get; set; }
     }
 
+    internal class Price
+    {
+        [JsonProperty("currency")]
+        public string Currency { get; set; }
+
+        [JsonProperty("initial")]
+        public uint Initial { get; set; }
+
+        [JsonProperty("final")]
+        public uint Final { get; set; }
+
+        [JsonProperty("discount_percent")]
+        public uint DiscountPercent { get; set; }
+
+        [JsonProperty("initial_formatted")]
+        public string InitialFormatted { get; set; }
+
+        [JsonProperty("final_formatted")]
+        public string FinalFormatted { get; set; }
+    }
+
     internal class Data
     {
         [JsonProperty("type")]
@@ -205,6 +226,9 @@ namespace SteamWebAPI2.Models.SteamStore
 
         [JsonProperty("developers")]
         public string[] Developers { get; set; }
+
+        [JsonProperty("price_overview")]
+        public Price PriceOverview { get; set; }
 
         [JsonProperty("publishers")]
         public string[] Publishers { get; set; }
