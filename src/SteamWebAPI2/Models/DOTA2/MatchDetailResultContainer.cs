@@ -105,7 +105,7 @@ namespace SteamWebAPI2.Models.DOTA2
         public ulong MatchId { get; set; }
 
         [JsonProperty(PropertyName = "match_seq_num")]
-        public uint MatchSequenceNumber { get; set; }
+        public ulong MatchSequenceNumber { get; set; }
 
         [JsonProperty(PropertyName = "tower_status_radiant")]
         public uint TowerStatusRadiant { get; set; }

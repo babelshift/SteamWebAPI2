@@ -11,7 +11,7 @@ namespace SteamWebAPI2.Models.DOTA2
         public ulong MatchId { get; set; }
 
         [JsonProperty(PropertyName = "match_seq_num")]
-        public uint MatchSequenceNumber { get; set; }
+        public ulong MatchSequenceNumber { get; set; }
 
         [JsonProperty(PropertyName = "start_time")]
         [JsonConverter(typeof(UnixTimeJsonConverter))]
