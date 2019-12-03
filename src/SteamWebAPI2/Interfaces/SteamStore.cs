@@ -2,12 +2,21 @@
 using SteamWebAPI2.Models.SteamStore;
 using SteamWebAPI2.Utilities;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace SteamWebAPI2.Interfaces
 {
     public class SteamStore : SteamStoreInterface, ISteamStore
     {
+        public SteamStore() : base()
+        {
+        }
+
+        public SteamStore(HttpClient httpClient) : base(httpClient)
+        {
+        }
+
         /// <summary>
         /// Maps to the steam store api endpoint: GET http://store.steampowered.com/api/appdetails/
         /// </summary>
