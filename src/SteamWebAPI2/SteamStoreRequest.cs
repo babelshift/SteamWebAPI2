@@ -14,6 +14,7 @@ namespace SteamWebAPI2
     internal class SteamStoreRequest
     {
         private string steamStoreApiBaseUrl;
+        private readonly HttpClient httpClient;
 
         /// <summary>
         /// Constructs a Steam Store Web API request
@@ -27,6 +28,17 @@ namespace SteamWebAPI2
             }
 
             this.steamStoreApiBaseUrl = steamStoreApiBaseUrl;
+        }
+
+        public SteamStoreRequest(string steamStoreApiBaseUrl, HttpClient httpClient)
+        {
+            if (String.IsNullOrEmpty(steamStoreApiBaseUrl))
+            {
+                throw new ArgumentNullException("steamStoreApiBaseUrl");
+            }
+
+            this.steamStoreApiBaseUrl = steamStoreApiBaseUrl;
+            this.httpClient = httpClient;
         }
 
         /// <summary>
@@ -71,10 +83,10 @@ namespace SteamWebAPI2
         /// </summary>
         /// <param name="command">Command (method endpoint) to send to an interface</param>
         /// <returns>HTTP response as a string without tabs and newlines</returns>
-        private static async Task<string> GetHttpStringResponseAsync(string command)
+        private async Task<string> GetHttpStringResponseAsync(string command)
         {
-            HttpClient httpClient = new HttpClient();
-            string response = await httpClient.GetStringAsync(command);
+            HttpClient client = httpClient ?? new HttpClient();
+            string response = await client.GetStringAsync(command);
             response = response.Replace("\n", "");
             response = response.Replace("\t", "");
             return response;
