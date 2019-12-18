@@ -86,34 +86,11 @@ namespace SteamWebAPI2.Interfaces
         }
 
         /// <summary>
-        /// Returns the economy / item schema for a specific App ID.
+        /// Returns the item schema for TF2 specifically.
         /// </summary>
         /// <param name="language"></param>
         /// <returns></returns>
-        public async Task<ISteamWebResponse<Steam.Models.DOTA2.SchemaModel>> GetSchemaAsync(string language = "en_us")
-        {
-            if (!validSchemaAppIds.Contains(appId))
-            {
-                throw new InvalidOperationException(String.Format("AppId {0} is not valid for the GetSchema method.", appId));
-            }
-
-            List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
-
-            parameters.AddIfHasValue(language, "language");
-
-            var steamWebResponse = await steamWebInterface.GetAsync<SchemaResultContainer>("GetSchema", 1, parameters);
-
-            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<ISteamWebResponse<SchemaResultContainer>, ISteamWebResponse<Steam.Models.DOTA2.SchemaModel>>(steamWebResponse);
-
-            return steamWebResponseModel;
-        }
-
-        /// <summary>
-        /// Returns the economy / item schema for TF2 specifically.
-        /// </summary>
-        /// <param name="language"></param>
-        /// <returns></returns>
-        public async Task<ISteamWebResponse<Steam.Models.TF2.SchemaModel>> GetSchemaForTF2Async(string language = "en_us")
+        public async Task<ISteamWebResponse<SchemaItemsResultContainer>> GetSchemaItemsForTF2Async(string language = "en_us")
         {
             if (this.appId != (int)EconItemsAppId.TeamFortress2)
             {
@@ -124,11 +101,30 @@ namespace SteamWebAPI2.Interfaces
 
             parameters.AddIfHasValue(language, "language");
 
-            var steamWebResponse = await steamWebInterface.GetAsync<SchemaResultContainer>("GetSchema", 1, parameters);
+            var steamWebResponse = await steamWebInterface.GetAsync<SchemaItemsResultContainer>("GetSchemaItems", 1, parameters);
 
-            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<ISteamWebResponse<SchemaResultContainer>, ISteamWebResponse<Steam.Models.TF2.SchemaModel>>(steamWebResponse);
+            return steamWebResponse;
+        }
 
-            return steamWebResponseModel;
+                /// <summary>
+        /// Returns the schema overview for TF2 specifically.
+        /// </summary>
+        /// <param name="language"></param>
+        /// <returns></returns>
+        public async Task<ISteamWebResponse<SchemaOverviewResultContainer>> GetSchemaOverviewForTF2Async(string language = "en_us")
+        {
+            if (this.appId != (int)EconItemsAppId.TeamFortress2)
+            {
+                throw new InvalidOperationException(String.Format("AppId {0} is not valid for the GetSchemaTF2 method.", appId));
+            }
+
+            List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
+
+            parameters.AddIfHasValue(language, "language");
+
+            var steamWebResponse = await steamWebInterface.GetAsync<SchemaOverviewResultContainer>("GetSchemaOverview", 1, parameters);
+
+            return steamWebResponse;
         }
 
         /// <summary>

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SteamWebAPI2.Models.GameEconomy
 {
-    internal class SchemaQualities
+    public class SchemaQualities
     {
         /// <summary>
         /// Normal item rarity: https://wiki.teamfortress.com/wiki/Normal
@@ -99,7 +99,7 @@ namespace SteamWebAPI2.Models.GameEconomy
         public uint PaintKitWeapon { get; set; }
     }
 
-    internal class SchemaOriginName
+    public class SchemaOriginName
     {
         [JsonProperty("origin")]
         public uint Origin { get; set; }
@@ -108,7 +108,7 @@ namespace SteamWebAPI2.Models.GameEconomy
         public string Name { get; set; }
     }
 
-    internal class SchemaCapabilities
+    public class SchemaCapabilities
     {
         [JsonProperty("nameable")]
         public bool Nameable { get; set; }
@@ -171,7 +171,7 @@ namespace SteamWebAPI2.Models.GameEconomy
         public bool? Decodable { get; set; }
     }
 
-    internal class SchemaAdditionalHiddenBodygroups
+    public class SchemaAdditionalHiddenBodygroups
     {
         [JsonProperty("hat")]
         public uint Hat { get; set; }
@@ -183,7 +183,7 @@ namespace SteamWebAPI2.Models.GameEconomy
         public uint? Head { get; set; }
     }
 
-    internal class SchemaStyle
+    public class SchemaStyle
     {
         [JsonProperty("name")]
         public string Name { get; set; }
@@ -192,7 +192,7 @@ namespace SteamWebAPI2.Models.GameEconomy
         public SchemaAdditionalHiddenBodygroups AdditionalHiddenBodygroups { get; set; }
     }
 
-    internal class SchemaItemAttribute
+    public class SchemaItemAttribute
     {
         [JsonProperty("name")]
         public string Name { get; set; }
@@ -204,7 +204,7 @@ namespace SteamWebAPI2.Models.GameEconomy
         public double Value { get; set; }
     }
 
-    internal class SchemaPerClassLoadoutSlots
+    public class SchemaPerClassLoadoutSlots
     {
         [JsonProperty("Soldier")]
         public string Soldier { get; set; }
@@ -222,7 +222,7 @@ namespace SteamWebAPI2.Models.GameEconomy
         public string Demoman { get; set; }
     }
 
-    internal class SchemaUsageCapabilities
+    public class SchemaUsageCapabilities
     {
         [JsonProperty("nameable")]
         public bool Nameable { get; set; }
@@ -264,7 +264,7 @@ namespace SteamWebAPI2.Models.GameEconomy
         public bool? CanConsume { get; set; }
     }
 
-    internal class SchemaTool
+    public class SchemaTool
     {
         [JsonProperty("type")]
         public string Type { get; set; }
@@ -279,7 +279,7 @@ namespace SteamWebAPI2.Models.GameEconomy
         public string Restriction { get; set; }
     }
 
-    internal class SchemaItem
+    public class SchemaItem
     {
         [JsonProperty("defindex")]
         public uint DefIndex { get; set; }
@@ -363,7 +363,7 @@ namespace SteamWebAPI2.Models.GameEconomy
         public SchemaTool Tool { get; set; }
     }
 
-    internal class SchemaAttribute
+    public class SchemaAttribute
     {
         [JsonProperty("name")]
         public string Name { get; set; }
@@ -390,7 +390,7 @@ namespace SteamWebAPI2.Models.GameEconomy
         public bool StoredAsInteger { get; set; }
     }
 
-    internal class SchemaItemSetAttribute
+    public class SchemaItemSetAttribute
     {
         [JsonProperty("name")]
         public string Name { get; set; }
@@ -402,7 +402,7 @@ namespace SteamWebAPI2.Models.GameEconomy
         public double Value { get; set; }
     }
 
-    internal class SchemaItemSet
+    public class SchemaItemSet
     {
         [JsonProperty("item_set")]
         public string ItemSet { get; set; }
@@ -420,7 +420,7 @@ namespace SteamWebAPI2.Models.GameEconomy
         public string StoreBundleName { get; set; }
     }
 
-    internal class SchemaAttributeControlledAttachedParticle
+    public class SchemaAttributeControlledAttachedParticle
     {
         [JsonProperty("system")]
         public string System { get; set; }
@@ -438,7 +438,7 @@ namespace SteamWebAPI2.Models.GameEconomy
         public string Attachment { get; set; }
     }
 
-    internal class SchemaLevel
+    public class SchemaLevel
     {
         [JsonProperty("level")]
         public uint Level { get; set; }
@@ -450,7 +450,7 @@ namespace SteamWebAPI2.Models.GameEconomy
         public string Name { get; set; }
     }
 
-    internal class SchemaItemLevel
+    public class SchemaItemLevel
     {
         [JsonProperty("name")]
         public string Name { get; set; }
@@ -459,7 +459,7 @@ namespace SteamWebAPI2.Models.GameEconomy
         public IList<SchemaLevel> Levels { get; set; }
     }
 
-    internal class SchemaKillEaterScoreType
+    public class SchemaKillEaterScoreType
     {
         [JsonProperty("type")]
         public uint Type { get; set; }
@@ -471,7 +471,7 @@ namespace SteamWebAPI2.Models.GameEconomy
         public string LevelData { get; set; }
     }
 
-    internal class SchemaString
+    public class SchemaString
     {
         [JsonProperty("index")]
         public uint Index { get; set; }
@@ -480,54 +480,12 @@ namespace SteamWebAPI2.Models.GameEconomy
         public string String { get; set; }
     }
 
-    internal class SchemaStringLookup
+    public class SchemaStringLookup
     {
         [JsonProperty("table_name")]
         public string TableName { get; set; }
 
         [JsonProperty("strings")]
         public IList<SchemaString> Strings { get; set; }
-    }
-
-    internal class SchemaResult
-    {
-        [JsonProperty("status")]
-        public uint Status { get; set; }
-
-        [JsonProperty("items_game_url")]
-        public string ItemsGameUrl { get; set; }
-
-        [JsonProperty("qualities")]
-        public SchemaQualities Qualities { get; set; }
-
-        [JsonProperty("originNames")]
-        public IList<SchemaOriginName> OriginNames { get; set; }
-
-        [JsonProperty("items")]
-        public IList<SchemaItem> Items { get; set; }
-
-        [JsonProperty("attributes")]
-        public IList<SchemaAttribute> Attributes { get; set; }
-
-        [JsonProperty("item_sets")]
-        public IList<SchemaItemSet> ItemSets { get; set; }
-
-        [JsonProperty("attribute_controlled_attached_particles")]
-        public IList<SchemaAttributeControlledAttachedParticle> AttributeControlledAttachedParticles { get; set; }
-
-        [JsonProperty("item_levels")]
-        public IList<SchemaItemLevel> ItemLevels { get; set; }
-
-        [JsonProperty("kill_eater_score_types")]
-        public IList<SchemaKillEaterScoreType> KillEaterScoreTypes { get; set; }
-
-        [JsonProperty("string_lookups")]
-        public IList<SchemaStringLookup> StringLookups { get; set; }
-    }
-
-    internal class SchemaResultContainer
-    {
-        [JsonProperty("result")]
-        public SchemaResult Result { get; set; }
     }
 }

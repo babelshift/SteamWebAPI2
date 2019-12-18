@@ -9,9 +9,9 @@ namespace SteamWebAPI2.Interfaces
     {
         Task<ISteamWebResponse<EconItemResultModel>> GetPlayerItemsAsync(ulong steamId);
 
-        Task<ISteamWebResponse<Steam.Models.DOTA2.SchemaModel>> GetSchemaAsync(string language = "en_us");
+        Task<ISteamWebResponse<SteamWebAPI2.Models.GameEconomy.SchemaItemsResultContainer>> GetSchemaItemsForTF2Async(string language = "en_us");
         
-        Task<ISteamWebResponse<Steam.Models.TF2.SchemaModel>> GetSchemaForTF2Async(string language = "en_us");
+        Task<ISteamWebResponse<SteamWebAPI2.Models.GameEconomy.SchemaOverviewResultContainer>> GetSchemaOverviewForTF2Async(string language = "en_us");
 
         Task<ISteamWebResponse<string>> GetSchemaUrlAsync();
 
