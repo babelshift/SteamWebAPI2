@@ -87,7 +87,6 @@ namespace SteamWebAPI2
                     CreateSteamWebResponseMap<MatchHistoryBySequenceNumberResultContainer, IReadOnlyCollection<MatchHistoryMatchModel>>(x);
                     CreateSteamWebResponseMap<TeamInfoResultContainer, IReadOnlyCollection<TeamInfoModel>>(x);
                     CreateSteamWebResponseMap<EconItemResultContainer, EconItemResultModel>(x);
-                    CreateSteamWebResponseMap<SchemaResultContainer, Steam.Models.TF2.SchemaModel>(x);
                     CreateSteamWebResponseMap<SchemaUrlResultContainer, string>(x);
                     CreateSteamWebResponseMap<StoreMetaDataResultContainer, StoreMetaDataModel>(x);
                     CreateSteamWebResponseMap<StoreStatusResultContainer, uint>(x);
@@ -139,7 +138,6 @@ namespace SteamWebAPI2
 
                     x.CreateMap<ItemIconPathResultContainer, string>().ConvertUsing(src => src.Result != null ? src.Result.Path : null);
 
-                    x.CreateMap<SchemaResult, Steam.Models.TF2.SchemaModel>();
                     x.CreateMap<SchemaQualities, Steam.Models.TF2.SchemaQualitiesModel>();
                     x.CreateMap<SchemaOriginName, Steam.Models.TF2.SchemaOriginNameModel>();
                     x.CreateMap<SchemaItem, Steam.Models.TF2.SchemaItemModel>();
@@ -159,9 +157,6 @@ namespace SteamWebAPI2
                     x.CreateMap<SchemaKillEaterScoreType, Steam.Models.TF2.SchemaKillEaterScoreTypeModel>();
                     x.CreateMap<SchemaStringLookup, Steam.Models.TF2.SchemaStringLookupModel>();
                     x.CreateMap<SchemaString, Steam.Models.TF2.SchemaStringModel>();
-                    x.CreateMap<SchemaResultContainer, Steam.Models.TF2.SchemaModel>().ConvertUsing(
-                        src => Mapper.Map<SchemaResult, Steam.Models.TF2.SchemaModel>(src.Result)
-                    );
 
                     // TODO: Rework the way Schema models are used for different games (TF2 / DOTA2)
                     //x.CreateMap<SchemaQualities, Steam.Models.DOTA2.SchemaQualityModel>()
