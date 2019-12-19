@@ -30,18 +30,15 @@ See the library in the NuGet gallery [here](https://www.nuget.org/packages/Steam
 Install-Package SteamWebAPI2 
 ```
 
-## How Valve's Steam Web API is Architected
-Gain a basic understanding of how Valve's Steam Web API is laid out: please see [this helper site](http://steamwebapi.azurewebsites.net/) that I made to more easily describe the available endpoints.
-
 ## How to Use the Library
   1. Read the `About` section so you understand why this library exists
   2. Install the library from NuGet
-  3. Instantiate an object from any class that inherits from `SteamWebInterface` for whatever endpoint you want to use
-    1. Requires a Steam Web API developer key. [Get one here](https://steamcommunity.com/dev/apikey). **KEEP THIS SECRET**.
-    2. Some endpoints require an AppId (such as 440 for Team Fortress 2)
-  4. Call the method with your parameters that you want to use
+  3. Get a Steam Web API developer key. [Get one here](https://steamcommunity.com/dev/apikey). **KEEP THIS SECRET**.
+  4. Instantiate a `SteamWebInterfaceFactory` to use as a helper to create objects for various endpoint calls.
+  5. Use the factory to create endpoint interface classes.
+  5. Use the interface class and call a method with your parameters.
 
-The library is structured to mirror the endpoint structure. For example, the "DOTA2Econ" class will expose methods to communicate with the "IDOTA2Econ" endpoints.
+The library is structured to mirror the Steam Web API endpoint structure. For example, the "DOTA2Econ" class will expose methods to communicate with the "IDOTA2Econ" endpoints.
 
 Each method returns a SteamWebResponse object which contains the following:
 
