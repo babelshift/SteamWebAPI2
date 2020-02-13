@@ -12,7 +12,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="automapper" Version="6.1.1" />
+    <PackageReference Include="automapper" Version="9.0.0" />
     <PackageReference Include="newtonsoft.json" Version="10.0.3" />
     <PackageReference Include="Steam.Models" Version="3.0.10" />
   </ItemGroup>

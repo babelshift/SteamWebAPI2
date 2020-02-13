@@ -311,7 +311,7 @@ namespace SteamWebAPI2
                         src => Mapper.Map<BadgesResult, BadgesResultModel>(src.Result)
                     );
 
-                    x.CreateMap<SteamLevelResultContainer, uint?>().ConvertUsing(src =>
+                    x.CreateMap<SteamLevelResultContainer, uint?>().ConvertUsing((src, dest) =>
                     {
                         if (src.Result == null)
                         {
@@ -324,7 +324,7 @@ namespace SteamWebAPI2
                     });
 
                     x.CreateMap<OwnedGame, OwnedGameModel>()
-                    .ForMember(dest => dest.PlaytimeLastTwoWeeks, opts => opts.ResolveUsing(src =>
+                    .ForMember(dest => dest.PlaytimeLastTwoWeeks, opts => opts.MapFrom((src, dest) =>
                     {
                         if (!src.Playtime2weeks.HasValue)
                         {
@@ -332,7 +332,7 @@ namespace SteamWebAPI2
                         }
                         return TimeSpan.FromMinutes(src.Playtime2weeks.Value);
                     }))
-                    .ForMember(dest => dest.PlaytimeForever, opts => opts.ResolveUsing(src =>
+                    .ForMember(dest => dest.PlaytimeForever, opts => opts.MapFrom((src, dest) =>
                     {
                         return TimeSpan.FromMinutes(src.PlaytimeForever);
                     }));
@@ -376,7 +376,7 @@ namespace SteamWebAPI2
                     #region Endpoint: SteamRemoteStorage
 
                     x.CreateMap<uint, PublishedFileVisibility>()
-                        .ConvertUsing(src =>
+                        .ConvertUsing((src, dest) =>
                         {
                             return (PublishedFileVisibility)src;
                         });
@@ -385,12 +385,12 @@ namespace SteamWebAPI2
                         .ForMember(dest => dest.PreviewUrl, opts => opts.MapFrom(source => new Uri(source.PreviewUrl)));
                     x.CreateMap<PublishedFileDetailsResultContainer, IReadOnlyCollection<PublishedFileDetailsModel>>()
                         .ConvertUsing(
-                            src => Mapper.Map<IList<PublishedFileDetails>, IReadOnlyCollection<PublishedFileDetailsModel>>(
+                            (src, dest) => Mapper.Map<IList<PublishedFileDetails>, IReadOnlyCollection<PublishedFileDetailsModel>>(
                                 src.Result?.Result == 1 ? src.Result.Details : null)
                     );
                     x.CreateMap<PublishedFileDetailsResultContainer, PublishedFileDetailsModel>()
                         .ConvertUsing(
-                            src => Mapper.Map<PublishedFileDetails, PublishedFileDetailsModel>(
+                            (src, dest) => Mapper.Map<PublishedFileDetails, PublishedFileDetailsModel>(
                                 src.Result?.Result == 1 ? src.Result.Details?.SingleOrDefault() : null)
                         );
 
