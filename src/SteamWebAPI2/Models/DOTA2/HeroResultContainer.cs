@@ -7,7 +7,7 @@ namespace SteamWebAPI2.Models.DOTA2
     {
         public string Name { get; set; }
         public uint Id { get; set; }
-        
+
         [JsonProperty(PropertyName = "localized_name")]
         public string LocalizedName { get; set; }
     }

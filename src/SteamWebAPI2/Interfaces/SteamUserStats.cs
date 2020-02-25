@@ -7,7 +7,6 @@ using SteamWebAPI2.Models.SteamPlayer;
 using SteamWebAPI2.Utilities;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
 namespace SteamWebAPI2.Interfaces
@@ -77,7 +76,7 @@ namespace SteamWebAPI2.Interfaces
 
             for (int i = 0; i < statNames.Count; i++)
             {
-                parameters.AddIfHasValue(statNames[i], String.Format("name[{0}]", i));
+                parameters.AddIfHasValue(statNames[i], string.Format("name[{0}]", i));
             }
 
             var steamWebResponse = await steamWebInterface.GetAsync<GlobalStatsForGameResultContainer>("GetGlobalStatsForGame", 1, parameters);
@@ -167,7 +166,7 @@ namespace SteamWebAPI2.Interfaces
             var steamWebResponse = await steamWebInterface.GetAsync<UserStatsForGameResultContainer>("GetUserStatsForGame", 2, parameters);
 
             var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
-                ISteamWebResponse<UserStatsForGameResultContainer>, 
+                ISteamWebResponse<UserStatsForGameResultContainer>,
                 ISteamWebResponse<UserStatsForGameResultModel>>(steamWebResponse);
 
             return steamWebResponseModel;

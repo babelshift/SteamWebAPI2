@@ -20,7 +20,7 @@ namespace SteamWebAPI2.Models.DOTA2
         [JsonProperty(PropertyName = "localized_name")]
         public string LocalizedName { get; set; }
 
-        public bool IsAvailableAtSecretShop {  get { return SecretShop == 1 ? true : false; } }
+        public bool IsAvailableAtSecretShop { get { return SecretShop == 1 ? true : false; } }
         public bool IsAvailableAtSideShop { get { return SideShop == 1 ? true : false; } }
         public bool IsRecipe { get { return Recipe == 1 ? true : false; } }
     }

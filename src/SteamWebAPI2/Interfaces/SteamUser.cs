@@ -3,9 +3,7 @@ using SteamWebAPI2.Exceptions;
 using SteamWebAPI2.Models.SteamCommunity;
 using SteamWebAPI2.Models.SteamPlayer;
 using SteamWebAPI2.Utilities;
-using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -121,14 +119,14 @@ namespace SteamWebAPI2.Interfaces
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
-            string steamIdsParamValue = String.Join(",", steamIds);
+            string steamIdsParamValue = string.Join(",", steamIds);
 
             parameters.AddIfHasValue(steamIdsParamValue, "steamids");
 
             var steamWebResponse = await steamWebInterface.GetAsync<PlayerBansContainer>("GetPlayerBans", 1, parameters);
 
             var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
-                ISteamWebResponse<PlayerBansContainer>, 
+                ISteamWebResponse<PlayerBansContainer>,
                 ISteamWebResponse<IReadOnlyCollection<PlayerBansModel>>>(steamWebResponse);
 
             return steamWebResponseModel;
@@ -173,7 +171,7 @@ namespace SteamWebAPI2.Interfaces
             {
                 throw new VanityUrlNotResolvedException(ErrorMessages.VanityUrlNotResolved);
             }
-            
+
             var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
                 ISteamWebResponse<ResolveVanityUrlResultContainer>,
                 ISteamWebResponse<ulong>>(steamWebResponse);
@@ -189,7 +187,7 @@ namespace SteamWebAPI2.Interfaces
         public async Task<SteamCommunityProfileModel> GetCommunityProfileAsync(ulong steamId)
         {
             HttpClient httpClient = new HttpClient();
-            string xml = await httpClient.GetStringAsync(String.Format("http://steamcommunity.com/profiles/{0}?xml=1", steamId));
+            string xml = await httpClient.GetStringAsync(string.Format("http://steamcommunity.com/profiles/{0}?xml=1", steamId));
 
             var profile = DeserializeXML<SteamCommunityProfile>(xml);
 

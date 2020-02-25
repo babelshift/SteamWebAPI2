@@ -1,8 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Reflection;
-
-using Newtonsoft.Json;
 
 namespace SteamWebAPI2.Utilities.JsonConverters
 {

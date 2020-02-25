@@ -1,7 +1,6 @@
 ﻿using Steam.Models.SteamEconomy;
 using SteamWebAPI2.Models.SteamEconomy;
 using SteamWebAPI2.Utilities;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -39,7 +38,7 @@ namespace SteamWebAPI2.Interfaces
 
             for (int i = 0; i < classIds.Count; i++)
             {
-                parameters.AddIfHasValue(classIds[i], String.Format("classid{0}", i));
+                parameters.AddIfHasValue(classIds[i], string.Format("classid{0}", i));
             }
 
             var steamWebResponse = await steamWebInterface.GetAsync<AssetClassInfoResultContainer>("GetAssetClassInfo", 1, parameters);
@@ -69,7 +68,7 @@ namespace SteamWebAPI2.Interfaces
             var steamWebResponse = await steamWebInterface.GetAsync<AssetPriceResultContainer>("GetAssetPrices", 1, parameters);
 
             var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
-                ISteamWebResponse<AssetPriceResultContainer>, 
+                ISteamWebResponse<AssetPriceResultContainer>,
                 ISteamWebResponse<AssetPriceResultModel>>(steamWebResponse);
 
             return steamWebResponseModel;

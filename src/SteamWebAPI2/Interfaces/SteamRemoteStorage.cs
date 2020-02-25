@@ -34,7 +34,8 @@ namespace SteamWebAPI2.Interfaces
         /// <returns>A collection of the details of each file or <c>null</c> if the request failed.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="publishedFileIds"/> is null.</exception>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="publishedFileIds"/> is empty or <paramref name="itemCount"/>is greater than the number of elements in <paramref name="publishedFileIds"/>.</exception>
-        public async Task<ISteamWebResponse<IReadOnlyCollection<PublishedFileDetailsModel>>> GetPublishedFileDetailsAsync(uint itemCount, IList<ulong> publishedFileIds) {
+        public async Task<ISteamWebResponse<IReadOnlyCollection<PublishedFileDetailsModel>>> GetPublishedFileDetailsAsync(uint itemCount, IList<ulong> publishedFileIds)
+        {
             if (publishedFileIds == null)
             {
                 throw new ArgumentNullException(nameof(publishedFileIds));
@@ -132,7 +133,8 @@ namespace SteamWebAPI2.Interfaces
         /// <typeparam name="TData">The type to which to map the data of the response.</typeparam>
         /// <param name="parameters">The parameters of the request.</param>
         /// <returns>The response of the request to the API or <c>null</c> if the request failed.</returns>
-        private async Task<ISteamWebResponse<TData>> GetPublishedFileDetailsAsync<TData>(IList<SteamWebRequestParameter> parameters) {
+        private async Task<ISteamWebResponse<TData>> GetPublishedFileDetailsAsync<TData>(IList<SteamWebRequestParameter> parameters)
+        {
             try
             {
                 var steamWebResponse = await steamWebInterface.PostAsync<PublishedFileDetailsResultContainer>("GetPublishedFileDetails", 1, parameters);
