@@ -25,13 +25,13 @@ namespace SteamWebAPI2.Utilities
         /// <param name="value">Value to give this parameter</param>
         public SteamWebRequestParameter(string name, string value)
         {
-            if (String.IsNullOrWhiteSpace(name))
+            if (string.IsNullOrWhiteSpace(name))
             {
                 throw new ArgumentNullException("name");
             }
 
-            this.Name = name;
-            this.Value = value;
+            Name = name;
+            Value = value;
         }
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace SteamWebAPI2.Utilities
         /// </summary>
         public override string ToString()
         {
-            return String.Format("{0}={1}", Name, Value.ToString());
+            return string.Format("{0}={1}", Name, Value.ToString());
         }
     }
 }

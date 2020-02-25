@@ -92,9 +92,9 @@ namespace SteamWebAPI2.Interfaces
         /// <returns></returns>
         public async Task<ISteamWebResponse<SchemaItemsResultContainer>> GetSchemaItemsForTF2Async(string language = "en_us")
         {
-            if (this.appId != (int)EconItemsAppId.TeamFortress2)
+            if (appId != (int)EconItemsAppId.TeamFortress2)
             {
-                throw new InvalidOperationException(String.Format("AppId {0} is not valid for the GetSchemaTF2 method.", appId));
+                throw new InvalidOperationException(string.Format("AppId {0} is not valid for the GetSchemaTF2 method.", appId));
             }
 
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
@@ -106,16 +106,16 @@ namespace SteamWebAPI2.Interfaces
             return steamWebResponse;
         }
 
-                /// <summary>
+        /// <summary>
         /// Returns the schema overview for TF2 specifically.
         /// </summary>
         /// <param name="language"></param>
         /// <returns></returns>
         public async Task<ISteamWebResponse<SchemaOverviewResultContainer>> GetSchemaOverviewForTF2Async(string language = "en_us")
         {
-            if (this.appId != (int)EconItemsAppId.TeamFortress2)
+            if (appId != (int)EconItemsAppId.TeamFortress2)
             {
-                throw new InvalidOperationException(String.Format("AppId {0} is not valid for the GetSchemaTF2 method.", appId));
+                throw new InvalidOperationException(string.Format("AppId {0} is not valid for the GetSchemaTF2 method.", appId));
             }
 
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
@@ -135,7 +135,7 @@ namespace SteamWebAPI2.Interfaces
         {
             if (!validSchemaUrlAppIds.Contains(appId))
             {
-                throw new InvalidOperationException(String.Format("AppId {0} is not valid for the GetSchemaUrl method.", appId));
+                throw new InvalidOperationException(string.Format("AppId {0} is not valid for the GetSchemaUrl method.", appId));
             }
 
             var steamWebResponse = await steamWebInterface.GetAsync<SchemaUrlResultContainer>("GetSchemaURL", 1);
@@ -154,7 +154,7 @@ namespace SteamWebAPI2.Interfaces
         {
             if (!validStoreMetaDataAppIds.Contains(appId))
             {
-                throw new InvalidOperationException(String.Format("AppId {0} is not valid for the GetStoreMetaData method.", appId));
+                throw new InvalidOperationException(string.Format("AppId {0} is not valid for the GetStoreMetaData method.", appId));
             }
 
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
@@ -176,7 +176,7 @@ namespace SteamWebAPI2.Interfaces
         {
             if (!validStoreStatusAppIds.Contains(appId))
             {
-                throw new InvalidOperationException(String.Format("AppId {0} is not valid for the GetStoreStatus method.", appId));
+                throw new InvalidOperationException(string.Format("AppId {0} is not valid for the GetStoreStatus method.", appId));
             }
 
             var steamWebResponse = await steamWebInterface.GetAsync<StoreStatusResultContainer>("GetStoreStatus", 1);

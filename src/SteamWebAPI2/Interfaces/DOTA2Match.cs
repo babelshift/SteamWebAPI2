@@ -2,8 +2,6 @@
 using SteamWebAPI2.Models.DOTA2;
 using SteamWebAPI2.Utilities;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace SteamWebAPI2.Interfaces

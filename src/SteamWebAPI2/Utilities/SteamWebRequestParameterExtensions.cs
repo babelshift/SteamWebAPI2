@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace SteamWebAPI2.Utilities
 {
@@ -43,7 +42,7 @@ namespace SteamWebAPI2.Utilities
         /// <param name="list">List of web request parameters that will be used in the building of the request URL</param>
         internal static void AddIfHasValue(this IList<SteamWebRequestParameter> list, string value, string name)
         {
-            if (!String.IsNullOrEmpty(value))
+            if (!string.IsNullOrEmpty(value))
             {
                 list.Add(new SteamWebRequestParameter(name, value));
             }

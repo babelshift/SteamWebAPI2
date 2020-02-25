@@ -116,11 +116,10 @@ namespace SteamWebAPI2.Utilities
 
                 httpResponse = await httpClient.GetAsync(command).ConfigureAwait(false);
                 httpResponse.EnsureSuccessStatusCode();
-                if(httpResponse.Content == null)
+                if (httpResponse.Content == null)
                 {
                     httpResponse = new HttpResponseMessage(HttpStatusCode.NoContent);
                 }
-                
             }
             else if (httpMethod == HttpMethod.POST)
             {

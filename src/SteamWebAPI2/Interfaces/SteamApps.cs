@@ -2,7 +2,6 @@
 using SteamWebAPI2.Models;
 using SteamWebAPI2.Utilities;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
 namespace SteamWebAPI2.Interfaces
@@ -53,7 +52,7 @@ namespace SteamWebAPI2.Interfaces
             var steamWebResponse = await steamWebInterface.GetAsync<SteamAppUpToDateCheckResultContainer>("UpToDateCheck", 1, parameters);
 
             var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
-                ISteamWebResponse<SteamAppUpToDateCheckResultContainer>, 
+                ISteamWebResponse<SteamAppUpToDateCheckResultContainer>,
                 ISteamWebResponse<SteamAppUpToDateCheckModel>>(steamWebResponse);
 
             return steamWebResponseModel;

@@ -1,5 +1,4 @@
 ﻿using SteamWebAPI2.Utilities;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
@@ -20,7 +19,7 @@ namespace SteamWebAPI2
         /// </summary>
         public SteamStoreInterface()
         {
-            this.steamStoreRequest = new SteamStoreRequest(steamStoreApiBaseUrl);
+            steamStoreRequest = new SteamStoreRequest(steamStoreApiBaseUrl);
 
             AutoMapperConfiguration.Initialize();
         }
@@ -31,7 +30,7 @@ namespace SteamWebAPI2
         /// <param name="httpClient">Client to make requests with</param>
         public SteamStoreInterface(HttpClient httpClient)
         {
-            this.steamStoreRequest = new SteamStoreRequest(steamStoreApiBaseUrl, httpClient);
+            steamStoreRequest = new SteamStoreRequest(steamStoreApiBaseUrl, httpClient);
 
             AutoMapperConfiguration.Initialize();
         }
@@ -42,7 +41,7 @@ namespace SteamWebAPI2
         /// <param name="steamStoreApiBaseUrl">Steam Store Web API URL</param>
         public SteamStoreInterface(string steamStoreApiBaseUrl)
         {
-            this.steamStoreRequest = new SteamStoreRequest(steamStoreApiBaseUrl);
+            steamStoreRequest = new SteamStoreRequest(steamStoreApiBaseUrl);
 
             AutoMapperConfiguration.Initialize();
         }
@@ -54,7 +53,7 @@ namespace SteamWebAPI2
         /// <param name="httpClient">Client to make requests with</param>
         public SteamStoreInterface(string steamStoreApiBaseUrl, HttpClient httpClient)
         {
-            this.steamStoreRequest = new SteamStoreRequest(steamStoreApiBaseUrl, httpClient);
+            steamStoreRequest = new SteamStoreRequest(steamStoreApiBaseUrl, httpClient);
 
             AutoMapperConfiguration.Initialize();
         }
@@ -68,7 +67,7 @@ namespace SteamWebAPI2
         /// <returns>Deserialized response object</returns>
         internal async Task<T> CallMethodAsync<T>(string endpointName, IList<SteamWebRequestParameter> parameters = null)
         {
-            Debug.Assert(!String.IsNullOrEmpty(endpointName));
+            Debug.Assert(!string.IsNullOrEmpty(endpointName));
 
             return await steamStoreRequest.SendStoreRequestAsync<T>(endpointName, parameters);
         }

@@ -2,7 +2,6 @@
 using SteamWebAPI2.Models;
 using SteamWebAPI2.Utilities;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
 namespace SteamWebAPI2.Interfaces
@@ -31,7 +30,7 @@ namespace SteamWebAPI2.Interfaces
             var steamServerInfo = await steamWebInterface.GetAsync<SteamServerInfo>("GetServerInfo", 1);
 
             var steamServerInfoModel = AutoMapperConfiguration.Mapper.Map<
-                ISteamWebResponse<SteamServerInfo>, 
+                ISteamWebResponse<SteamServerInfo>,
                 ISteamWebResponse<SteamServerInfoModel>>(steamServerInfo);
 
             return steamServerInfoModel;
@@ -46,7 +45,7 @@ namespace SteamWebAPI2.Interfaces
             var steamWebResponse = await steamWebInterface.GetAsync<SteamApiListContainer>("GetSupportedAPIList", 1);
 
             var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
-                ISteamWebResponse<SteamApiListContainer>, 
+                ISteamWebResponse<SteamApiListContainer>,
                 ISteamWebResponse<IReadOnlyCollection<SteamInterfaceModel>>>(steamWebResponse);
 
             return steamWebResponseModel;
