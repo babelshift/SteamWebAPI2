@@ -55,8 +55,7 @@ namespace SteamWebAPI2.Utilities
 
         private ISteamWebRequest CreateSteamWebRequest(HttpClient httpClient)
         {
-            SteamWebHttpClient steamWebHttpClient = new SteamWebHttpClient(httpClient);
-            return new SteamWebRequest(steamWebApiBaseUrl, steamWebApiKey, steamWebHttpClient);
+            return new SteamWebRequest(steamWebApiBaseUrl, steamWebApiKey, httpClient);
         }
     }
 }
