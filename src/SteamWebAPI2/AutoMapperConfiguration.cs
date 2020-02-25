@@ -28,9 +28,7 @@ namespace SteamWebAPI2
     {
         private static bool isInitialized = false;
         private static MapperConfiguration config;
-        private static IMapper mapper;
-
-        public static IMapper Mapper { get { return mapper; } }
+        public static IMapper Mapper { get; private set; }
 
         private static SteamWebResponse<TDestination> ConstructSteamWebResponse<TSource, TDestination>(ISteamWebResponse<TSource> response)
         {
@@ -180,7 +178,7 @@ namespace SteamWebAPI2
 
                     x.CreateMap<PrizePoolResultContainer, uint>().ConvertUsing(src => src.Result != null ? src.Result.PrizePool : default(uint));
 
-                    #endregion
+                    #endregion Endpoint: DOTA2Econ
 
                     #region Endpoint: DOTA2Fantasy
 
@@ -193,7 +191,7 @@ namespace SteamWebAPI2
                     x.CreateMap<ProPlayerLeaderboard, ProPlayerLeaderboardModel>();
                     x.CreateMap<ProPlayerListResult, ProPlayerDetailModel>();
 
-                    #endregion
+                    #endregion Endpoint: DOTA2Fantasy
 
                     #region Endpoint: DOTA2Match
 
@@ -253,7 +251,7 @@ namespace SteamWebAPI2
                         src => Mapper.Map<IList<TeamInfo>, IReadOnlyCollection<TeamInfoModel>>(src.Result != null ? src.Result.Teams : null)
                     );
 
-                    #endregion
+                    #endregion Endpoint: DOTA2Match
 
                     #region Endpoint: EconService
 
@@ -284,7 +282,7 @@ namespace SteamWebAPI2
                         src => Mapper.Map<TradeOffersResult, TradeOffersResultModel>(src.Result)
                     );
 
-                    #endregion
+                    #endregion Endpoint: EconService
 
                     #region Endpoint: GCVersion
 
@@ -293,7 +291,7 @@ namespace SteamWebAPI2
                         src => Mapper.Map<GameClientResult, GameClientResultModel>(src.Result)
                     );
 
-                    #endregion
+                    #endregion Endpoint: GCVersion
 
                     #region Endpoint: PlayerService
 
@@ -347,7 +345,7 @@ namespace SteamWebAPI2
                         src => Mapper.Map<RecentlyPlayedGameResult, RecentlyPlayedGamesResultModel>(src.Result)
                     );
 
-                    #endregion
+                    #endregion Endpoint: PlayerService
 
                     #region Endpoint: SteamApps
 
@@ -361,7 +359,7 @@ namespace SteamWebAPI2
                         src => Mapper.Map<SteamAppUpToDateCheckResult, SteamAppUpToDateCheckModel>(src.Result)
                     );
 
-                    #endregion
+                    #endregion Endpoint: SteamApps
 
                     #region Endpoint: SteamNews
 
@@ -371,7 +369,7 @@ namespace SteamWebAPI2
                         src => Mapper.Map<SteamNewsResult, SteamNewsResultModel>(src.Result)
                     );
 
-                    #endregion
+                    #endregion Endpoint: SteamNews
 
                     #region Endpoint: SteamRemoteStorage
 
@@ -399,7 +397,7 @@ namespace SteamWebAPI2
                         src => Mapper.Map<UGCFileDetails, UGCFileDetailsModel>(src.Result)
                     );
 
-                    #endregion
+                    #endregion Endpoint: SteamRemoteStorage
 
                     #region Endpoint: SteamUser
 
@@ -429,7 +427,7 @@ namespace SteamWebAPI2
 
                     x.CreateMap<ResolveVanityUrlResultContainer, ulong>().ConvertUsing(src => src.Result != null ? src.Result.SteamId : default(ulong));
 
-                    #endregion
+                    #endregion Endpoint: SteamUser
 
                     #region Endpoint: SteamUserStats
 
@@ -465,7 +463,7 @@ namespace SteamWebAPI2
                         src => Mapper.Map<UserStatsForGameResult, UserStatsForGameResultModel>(src.Result)
                     );
 
-                    #endregion
+                    #endregion Endpoint: SteamUserStats
 
                     #region Endpoint: SteamWebAPIUtil
 
@@ -478,7 +476,7 @@ namespace SteamWebAPI2
                         src => Mapper.Map<IList<SteamInterface>, IReadOnlyCollection<SteamInterfaceModel>>(src.Result != null ? src.Result.Interfaces : null)
                     );
 
-                    #endregion
+                    #endregion Endpoint: SteamWebAPIUtil
 
                     #region Endpoint: TFItems
 
@@ -487,7 +485,7 @@ namespace SteamWebAPI2
                         src => Mapper.Map<IList<GoldenWrench>, IReadOnlyCollection<GoldenWrenchModel>>(src.Result != null ? src.Result.GoldenWrenches : null)
                     );
 
-                    #endregion
+                    #endregion Endpoint: TFItems
 
                     #region Endpoint: SteamEconomy
 
@@ -513,7 +511,7 @@ namespace SteamWebAPI2
                         src => Mapper.Map<AssetPriceResult, AssetPriceResultModel>(src.Result)
                     );
 
-                    #endregion
+                    #endregion Endpoint: SteamEconomy
 
                     x.CreateMap<SchemaUrlResultContainer, string>().ConvertUsing(src => src.Result != null ? src.Result.ItemsGameUrl : null);
 
@@ -592,7 +590,7 @@ namespace SteamWebAPI2
                     x.CreateMap<FeaturedWin, StoreFeaturedWinModel>();
                     x.CreateMap<LargeCapsule, StoreLargeCapsuleModel>();
 
-                    #endregion
+                    #endregion Endpoint: SteamStore
 
                     x.CreateMap<ProfileInGameInfo, InGameInfoModel>()
                         .ForMember(dest => dest.GameIcon, opts => opts.MapFrom(source => source.GameIcon))
@@ -607,7 +605,7 @@ namespace SteamWebAPI2
                         .ForMember(dest => dest.Logo, opts => opts.MapFrom(source => new Uri(source.GameLogo)))
                         .ForMember(dest => dest.LogoSmall, opts => opts.MapFrom(source => new Uri(source.GameLogoSmall)))
                         .ForMember(dest => dest.Name, opts => opts.MapFrom(source => source.GameName))
-                        .ForMember(dest => dest.HoursOnRecord, opts => opts.MapFrom(source => !String.IsNullOrEmpty(source.HoursOnRecord) ? double.Parse(source.HoursOnRecord) : 0d))
+                        .ForMember(dest => dest.HoursOnRecord, opts => opts.MapFrom(source => !string.IsNullOrEmpty(source.HoursOnRecord) ? double.Parse(source.HoursOnRecord) : 0d))
                         .ForMember(dest => dest.HoursPlayed, opts => opts.MapFrom(source => (double)source.HoursPlayed))
                         .ForMember(dest => dest.StatsName, opts => opts.MapFrom(source => source.StatsName));
 
@@ -625,7 +623,7 @@ namespace SteamWebAPI2
                         .ForMember(dest => dest.State, opts => opts.MapFrom(source => source.OnlineState))
                         .ForMember(dest => dest.StateMessage, opts => opts.MapFrom(source => source.StateMessage))
                         .ForMember(dest => dest.SteamID, opts => opts.MapFrom(source => source.SteamID64))
-                        .ForMember(dest => dest.SteamRating, opts => opts.MapFrom(source => !String.IsNullOrEmpty(source.SteamRating) ? double.Parse(source.SteamRating) : 0d))
+                        .ForMember(dest => dest.SteamRating, opts => opts.MapFrom(source => !string.IsNullOrEmpty(source.SteamRating) ? double.Parse(source.SteamRating) : 0d))
                         .ForMember(dest => dest.Summary, opts => opts.MapFrom(source => source.Summary))
                         .ForMember(dest => dest.TradeBanState, opts => opts.MapFrom(source => source.TradeBanState))
                         .ForMember(dest => dest.IsVacBanned, opts => opts.MapFrom(source => source.VacBanned == 1 ? true : false))
@@ -633,12 +631,11 @@ namespace SteamWebAPI2
                         .ForMember(dest => dest.InGameServerIP, opts => opts.MapFrom(source => source.InGameServerIP))
                         .ForMember(dest => dest.InGameInfo, opts => opts.MapFrom(source => source.InGameInfo));
                 });
-
             }
 
-            if (mapper == null)
+            if (Mapper == null)
             {
-                mapper = config.CreateMapper();
+                Mapper = config.CreateMapper();
             }
 
             isInitialized = true;
@@ -651,7 +648,7 @@ namespace SteamWebAPI2
         public static void Reset()
         {
             config = null;
-            mapper = null;
+            Mapper = null;
         }
     }
 }

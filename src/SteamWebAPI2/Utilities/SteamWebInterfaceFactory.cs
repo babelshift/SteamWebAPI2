@@ -1,6 +1,6 @@
+using SteamWebAPI2.Interfaces;
 using System;
 using System.Net.Http;
-using SteamWebAPI2.Interfaces;
 
 namespace SteamWebAPI2.Utilities
 {
@@ -16,14 +16,14 @@ namespace SteamWebAPI2.Utilities
         /// <param name="steamWebApiBaseUrl">Base URL of the Steam Web API (optional)</param>
         public SteamWebInterfaceFactory(string steamWebApiKey, string steamWebApiBaseUrl = null)
         {
-            if(string.IsNullOrWhiteSpace(steamWebApiKey))
+            if (string.IsNullOrWhiteSpace(steamWebApiKey))
             {
                 throw new ArgumentNullException(nameof(steamWebApiKey));
             }
 
             this.steamWebApiKey = steamWebApiKey;
 
-            if(!string.IsNullOrWhiteSpace(steamWebApiBaseUrl))
+            if (!string.IsNullOrWhiteSpace(steamWebApiBaseUrl))
             {
                 this.steamWebApiBaseUrl = steamWebApiBaseUrl;
             }
@@ -41,7 +41,7 @@ namespace SteamWebAPI2.Utilities
             return (T)Activator.CreateInstance(typeof(T), steamWebRequest, null);
         }
 
-                /// <summary>
+        /// <summary>
         /// Creates a web interface object connected to a specific Steam Web API interfac endpoint
         /// </summary>
         /// <param name="httpClient">Custom http client injected with your customization (if necessary)</param>

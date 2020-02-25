@@ -3,7 +3,6 @@ using SteamWebAPI2.Models.DOTA2;
 using SteamWebAPI2.Utilities;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace SteamWebAPI2.Interfaces
@@ -74,7 +73,7 @@ namespace SteamWebAPI2.Interfaces
         /// <returns></returns>
         public async Task<ISteamWebResponse<string>> GetItemIconPathAsync(string iconName, string iconType = "")
         {
-            if (String.IsNullOrEmpty(iconName))
+            if (string.IsNullOrEmpty(iconName))
             {
                 throw new ArgumentNullException("iconName");
             }

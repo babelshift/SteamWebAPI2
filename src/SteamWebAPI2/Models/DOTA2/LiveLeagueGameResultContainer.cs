@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using Steam.Models.DOTA2;
-using SteamWebAPI2.Interfaces;
 using System.Collections.Generic;
 
 namespace SteamWebAPI2.Models.DOTA2

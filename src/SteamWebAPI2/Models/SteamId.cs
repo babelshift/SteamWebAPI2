@@ -224,7 +224,7 @@ namespace SteamWebAPI2.Models
                 string accountTypeCharacter = modernCheckResult[0].Groups[1].Value;
                 string universe = modernCheckResult[0].Groups[2].Value;
                 string accountId = modernCheckResult[0].Groups[3].Value;
-                string instance = String.Empty;
+                string instance = string.Empty;
                 if (modernCheckResult[0].Groups.Count == 5)
                 {
                     instance = modernCheckResult[0].Groups[4].Value;
@@ -320,7 +320,7 @@ namespace SteamWebAPI2.Models
             else { Instance = SteamInstance.All; }
 
             // override if an instance was provided
-            if (!String.IsNullOrEmpty(instance))
+            if (!string.IsNullOrEmpty(instance))
             {
                 Instance = (SteamInstance)uint.Parse(instance);
             }
@@ -430,7 +430,7 @@ namespace SteamWebAPI2.Models
             // Y = lowest bit of Account Id (always 0 or 1)
             uint y = AccountId & 1;
 
-            return String.Format("STEAM_{0}:{1}:{2}", x, y, z);
+            return string.Format("STEAM_{0}:{1}:{2}", x, y, z);
         }
 
         /// <summary>
@@ -449,7 +449,7 @@ namespace SteamWebAPI2.Models
             // A = account id
             uint a = AccountId;
 
-            return String.Format("[{0}:{1}:{2}]", c, u, a);
+            return string.Format("[{0}:{1}:{2}]", c, u, a);
         }
 
         /// <summary>

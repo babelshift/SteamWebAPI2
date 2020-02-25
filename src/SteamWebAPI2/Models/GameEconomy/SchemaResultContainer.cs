@@ -301,7 +301,7 @@ namespace SteamWebAPI2.Models.GameEconomy
 
         [JsonProperty("item_class")]
         public string ItemClass { get; set; }
-        
+
         [JsonProperty("proper_name")]
         public bool ProperName { get; set; }
 

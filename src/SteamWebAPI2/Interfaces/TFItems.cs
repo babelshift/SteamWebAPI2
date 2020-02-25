@@ -2,7 +2,6 @@
 using SteamWebAPI2.Models.TF2;
 using SteamWebAPI2.Utilities;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
 namespace SteamWebAPI2.Interfaces
@@ -31,7 +30,7 @@ namespace SteamWebAPI2.Interfaces
             var steamWebResponse = await steamWebInterface.GetAsync<GoldenWrenchResultContainer>("GetGoldenWrenches", 2);
 
             var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
-                ISteamWebResponse<GoldenWrenchResultContainer>, 
+                ISteamWebResponse<GoldenWrenchResultContainer>,
                 ISteamWebResponse<IReadOnlyCollection<GoldenWrenchModel>>>(steamWebResponse);
 
             return steamWebResponseModel;

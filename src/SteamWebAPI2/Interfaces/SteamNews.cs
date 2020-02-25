@@ -49,7 +49,7 @@ namespace SteamWebAPI2.Interfaces
             var steamWebResponse = await steamWebInterface.GetAsync<SteamNewsResultContainer>("GetNewsForApp", 2, parameters);
 
             var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
-                ISteamWebResponse<SteamNewsResultContainer>, 
+                ISteamWebResponse<SteamNewsResultContainer>,
                 ISteamWebResponse<SteamNewsResultModel>>(steamWebResponse);
 
             return steamWebResponseModel;

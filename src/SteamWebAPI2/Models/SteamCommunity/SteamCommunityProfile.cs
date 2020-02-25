@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
-using System.Xml.Serialization;
 
 namespace SteamWebAPI2.Models.SteamCommunity
 {
@@ -37,7 +34,7 @@ namespace SteamWebAPI2.Models.SteamCommunity
         public string AvatarFull { get; set; }
 
         [DataMember(Name = "vacBanned", Order = 9)]
-        public byte VacBanned {get; set; }
+        public byte VacBanned { get; set; }
 
         [DataMember(Name = "tradeBanState", Order = 10)]
         public string TradeBanState { get; set; }
@@ -158,36 +155,46 @@ namespace SteamWebAPI2.Models.SteamCommunity
 
         [DataMember(Name = "memberCount", Order = 8)]
         public uint MemberCount { get; set; }
-        
+
         public bool MemberCountSpecified { get; set; }
 
         [DataMember(Name = "membersInChat", Order = 9)]
         public uint MembersInChat { get; set; }
-        
+
         public bool MembersInChatSpecified { get; set; }
 
         [DataMember(Name = "membersInGame", Order = 10)]
         public uint MembersInGame { get; set; }
-        
+
         public bool MembersInGameSpecified { get; set; }
 
         [DataMember(Name = "membersOnline", Order = 11)]
         public uint MembersOnline { get; set; }
-        
+
         public bool MembersOnlineSpecified { get; set; }
     }
 
     [CollectionDataContract(ItemName = "mostPlayedGame", Namespace = "")]
     internal class ProfileMostPlayedGameList : List<ProfileMostPlayedGame>
     {
-        public ProfileMostPlayedGameList() { }
-        public ProfileMostPlayedGameList(IEnumerable<ProfileMostPlayedGame> collection) : base(collection) { }
+        public ProfileMostPlayedGameList()
+        {
+        }
+
+        public ProfileMostPlayedGameList(IEnumerable<ProfileMostPlayedGame> collection) : base(collection)
+        {
+        }
     }
 
     [CollectionDataContract(ItemName = "group", Namespace = "")]
     internal class ProfileGroupList : List<ProfileGroup>
     {
-        public ProfileGroupList() { }
-        public ProfileGroupList(IEnumerable<ProfileGroup> collection) : base(collection) { }
+        public ProfileGroupList()
+        {
+        }
+
+        public ProfileGroupList(IEnumerable<ProfileGroup> collection) : base(collection)
+        {
+        }
     }
 }

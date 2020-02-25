@@ -3,7 +3,6 @@ using Steam.Models.SteamCommunity;
 using SteamWebAPI2.Models.SteamCommunity;
 using SteamWebAPI2.Models.SteamPlayer;
 using SteamWebAPI2.Utilities;
-using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
@@ -173,7 +172,7 @@ namespace SteamWebAPI2.Interfaces
             {
                 foreach (var ownedGame in steamWebResponse.Data.Result.OwnedGames)
                 {
-                    if (!String.IsNullOrWhiteSpace(ownedGame.Name))
+                    if (!string.IsNullOrWhiteSpace(ownedGame.Name))
                     {
                         ownedGame.Name = ownedGame.Name.Trim();
                     }

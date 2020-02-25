@@ -59,7 +59,7 @@ namespace SteamWebAPI2.Interfaces
         {
             if (!validClientVersionAppIds.Contains(appId))
             {
-                throw new InvalidOperationException(String.Format("AppId {0} is not valid for the GetClientVersion method.", appId));
+                throw new InvalidOperationException(string.Format("AppId {0} is not valid for the GetClientVersion method.", appId));
             }
 
             var steamWebResponse = await steamWebInterface.GetAsync<GameClientResultContainer>("GetClientVersion", 1);
@@ -77,7 +77,7 @@ namespace SteamWebAPI2.Interfaces
         {
             if (!validServerVersionAppIds.Contains(appId))
             {
-                throw new InvalidOperationException(String.Format("AppId {0} is not valid for the GetServerVersion method.", appId));
+                throw new InvalidOperationException(string.Format("AppId {0} is not valid for the GetServerVersion method.", appId));
             }
 
             var steamWebResponse = await steamWebInterface.GetAsync<GameClientResultContainer>("GetServerVersion", 1);
