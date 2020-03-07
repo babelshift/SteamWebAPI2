@@ -26,7 +26,6 @@ namespace SteamWebAPI2.Interfaces
         // The API only exposes certain methods for certain App Ids in the EconItems interface
         // I'm hard coding the values for now until I come up with a better, more dynamic solution
         private List<uint> validSchemaAppIds = new List<uint>();
-
         private List<uint> validSchemaUrlAppIds = new List<uint>();
         private List<uint> validStoreMetaDataAppIds = new List<uint>();
         private List<uint> validStoreStatusAppIds = new List<uint>();
