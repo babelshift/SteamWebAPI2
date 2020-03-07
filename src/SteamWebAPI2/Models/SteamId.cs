@@ -261,31 +261,45 @@ namespace SteamWebAPI2.Models
                         {
                             string profileId = uriResult.Segments[2];
 
-                            // try to parse the 3rd segment as a 64-bit Steam ID (http://steamcommunity.com/profiles/762541427451 for example)
-                            bool isSteamId64 = ulong.TryParse(profileId, out steamId);
-
-                            // the third segment isn't a 64-bit Steam ID, check if it's a profile name which resolves to a 64-bit Steam ID
-                            if (!isSteamId64)
+                            // if a user has a vanity name setup in their steam profile, the steam profile url will be in the format of: 
+                            // http://steamcommunity.com/id/<vanity name>
+                            // otherwise, the format will be:
+                            // http://steamcommunity.com/profiles/<64-bit Steam ID>
+                            if (uriResult.Segments[1] == "id/")
                             {
                                 steamId = await ResolveSteamIdFromValueAsync(steamUser, profileId);
+                                ConstructFromSteamId64(steamId);
+                                ResolvedFrom = SteamIdResolvedFrom.SteamCommunityUri;
                             }
+                            else if (uriResult.Segments[1] == "profiles/")
+                            {
+                                bool isSteamId64 = ulong.TryParse(profileId, out steamId);
 
-                            ConstructFromSteamId64(steamId);
+                                if (isSteamId64)
+                                {
+                                    ConstructFromSteamId64(steamId);
+                                    ResolvedFrom = SteamIdResolvedFrom.SteamCommunityUri;
+                                }
+                                else
+                                {
+                                    throw new InvalidSteamCommunityUriException(ErrorMessages.InvalidSteamCommunityUri);
+                                }
+                            }
+                            else
+                            {
+                                throw new InvalidSteamCommunityUriException(ErrorMessages.InvalidSteamCommunityUri);
+                            }
                         }
                         else
                         {
                             throw new InvalidSteamCommunityUriException(ErrorMessages.InvalidSteamCommunityUri);
                         }
-
-                        ResolvedFrom = SteamIdResolvedFrom.SteamCommunityUri;
                     }
                     else
                     {
                         // not a 64-bit Steam ID and not a uri, try to just resolve it as if it was a Steam Community Profile Name
                         steamId = await ResolveSteamIdFromValueAsync(steamUser, value);
-
                         ConstructFromSteamId64(steamId);
-
                         ResolvedFrom = SteamIdResolvedFrom.SteamCommunityProfileName;
                     }
                 }
