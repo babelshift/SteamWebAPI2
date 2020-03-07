@@ -19,9 +19,9 @@ task init {
   
   if($isDotNetDownloaded -eq $false) {
     Write-Output 'Did not find dotnet-sdk.exe. Starting download.'
-	exec { curl -O dotnet-sdk.exe https://download.microsoft.com/download/0/F/D/0FD852A4-7EA1-4E2A-983A-0484AC19B92C/dotnet-sdk-2.0.0-win-x64.exe | Out-Default }
+	exec { curl -O dotnet-sdk.exe https://download.visualstudio.microsoft.com/download/pr/5aad9c2c-7bb6-45b1-97e7-98f12cb5b63b/6f6d7944c81b043bdb9a7241529a5504/dotnet-sdk-3.1.102-win-x64.exe | Out-Default }
   } else {
-	Write-Output 'Found dotnet-sdk.exe. Skipping download.'
+	  Write-Output 'Found dotnet-sdk.exe. Skipping download.'
   }
   
   Write-Output 'Installing dotnet-sdk.exe.'
