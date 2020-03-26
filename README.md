@@ -1,5 +1,5 @@
 # SteamWebAPI2
-[![Build status](https://ci.appveyor.com/api/projects/status/cga6ck03o286sq80?svg=true)](https://ci.appveyor.com/project/JustinSkiles/steamwebapi2)
+[![Build Status](https://dev.azure.com/justinskiles/justinskiles/_apis/build/status/babelshift.SteamWebAPI2?branchName=master)](https://dev.azure.com/justinskiles/justinskiles/_build/latest?definitionId=2&branchName=master)
 [![NuGet](https://img.shields.io/nuget/v/SteamWebAPI2.svg)](https://www.nuget.org/packages/SteamWebAPI2)
 [![MyGet CI](https://img.shields.io/myget/babelshift-ci/v/SteamWebAPI2.svg)](https://www.myget.org/feed/babelshift-ci/package/nuget/SteamWebAPI2)
 
