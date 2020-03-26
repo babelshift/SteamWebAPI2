@@ -2,22 +2,31 @@
 
   <PropertyGroup>
     <Description>This is a .NET library that makes it easy to use the Steam Web API. It conveniently wraps around all of the JSON data and ugly API details with clean methods, structures and classes.</Description>
-    <VersionPrefix>4.1.0</VersionPrefix>
+    <VersionPrefix>4.1.1</VersionPrefix>
     <Authors>Justin Skiles</Authors>
     <AssemblyName>SteamWebAPI2</AssemblyName>
     <PackageId>SteamWebAPI2</PackageId>
     <PackageProjectUrl>https://github.com/babelshift/SteamWebAPI2</PackageProjectUrl>
-    <PackageLicenseUrl>https://raw.githubusercontent.com/babelshift/SteamWebAPI2/master/LICENSE</PackageLicenseUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
-
+  <PropertyGroup>
+    <!-- https://github.com/nuget/home/issues/3891 -->
+    <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
+  </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="automapper" Version="9.0.0" />
     <PackageReference Include="newtonsoft.json" Version="12.0.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Steam.Models\Steam.Models.csproj" />
+    <ProjectReference Include="..\Steam.Models\Steam.Models.csproj" PrivateAssets="all" />
   </ItemGroup>
 
+  <Target Name="CopyProjectReferencesToPackage" DependsOnTargets="ResolveReferences">
+    <ItemGroup>
+      <!-- https://github.com/nuget/home/issues/3891 -->
+      <BuildOutputInPackage Include="@(ReferenceCopyLocalPaths->WithMetadataValue('ReferenceSourceTarget', 'ProjectReference'))"/>
+    </ItemGroup>
+  </Target>
 </Project>
