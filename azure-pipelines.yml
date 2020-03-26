@@ -1,0 +1,86 @@
+# .NET Desktop
+# Build and run tests for .NET Desktop or Windows classic desktop solutions.
+# Add steps that publish symbols, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/apps/windows/dot-net
+
+trigger:
+  branches:
+    include: 
+    - master
+  tags:
+    include:
+    - '*'
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+- group: my-variable-group
+- name: solution
+  value: '**/*.sln'
+- name: buildPlatform
+  value: 'Any CPU'
+- name: buildConfiguration
+  value: 'Release'
+
+steps:
+- task: NuGetToolInstaller@1
+
+- task: NuGetCommand@2
+  displayName: NuGet Restore
+  inputs:
+    restoreSolution: '$(solution)'
+
+- task: VSBuild@1
+  displayName: Build (Visual Studio)
+  inputs:
+    solution: '$(solution)'
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+
+- task: VSTest@2
+  displayName: Test (Visual Studio)
+  inputs:
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+
+# Only pack if this is from a tag
+- task: DotNetCoreCLI@2
+  displayName: NuGet Pack (if tagged)
+  condition: startsWith(variables['Build.SourceBranch'], 'refs/tags/')
+  inputs:
+    command: 'pack'
+    packagesToPack: 'src/SteamWebAPI2/SteamWebAPI2.csproj'
+    versioningScheme: 'off'
+
+# Deploy release to NuGet.org
+# Custom nuget command has to be used to workaround issue where dotnet core doesn't support encrypted API Key publication
+# -n to skip symbols
+# --skip-duplicate to prevent publishing the same version more than once
+# Only publish if this is from a tag
+- task: DotNetCoreCLI@2
+  displayName: Push NuGet Package (if tagged)
+  condition: startsWith(variables['Build.SourceBranch'], 'refs/tags/')
+  inputs:
+    command: custom
+    custom: nuget
+    arguments: >
+      push $(Build.ArtifactStagingDirectory)/**.nupkg
+      -s $(NuGetSourceServerUrl)
+      -k $(NuGetSourceServerApiKey)
+      -n true
+      --skip-duplicate
+
+# Deploy release to GitHub
+# Only publish if this is from a tag
+- task: GitHubRelease@1
+  displayName: Push GitHub Release (if tagged)
+  condition: startsWith(variables['Build.SourceBranch'], 'refs/tags/')
+  inputs:
+    gitHubConnection: 'GitHub.com OAuth - Babelshift'
+    repositoryName: 'babelshift/SharpDL'
+    action: 'create'
+    target: '$(Build.SourceVersion)'
+    tagSource: 'gitTag'
+    changeLogCompareToRelease: 'lastFullRelease'
+    changeLogType: 'commitBased'
