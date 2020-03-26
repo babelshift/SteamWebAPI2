@@ -15,7 +15,7 @@ pool:
   vmImage: 'windows-latest'
 
 variables:
-- group: my-variable-group
+- group: NuGet
 - name: solution
   value: '**/*.sln'
 - name: buildPlatform
