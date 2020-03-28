@@ -24,10 +24,16 @@ Instead of stressing about parsing the ugly JSON responses yourself, just use th
     * Handles legacy, modern, and 64-bit Steam Id representations
 
 ## Install the Library from NuGet
-See the library in the NuGet gallery [here](https://www.nuget.org/packages/SteamWebAPI2). You can install the library into your project directly from the package manager.
+See the library in the NuGet gallery [here](https://www.nuget.org/packages/SteamWebAPI2).
 
+Package Manager:
 ```
 Install-Package SteamWebAPI2 
+```
+
+.NET Core CLI:
+```
+dotnet add package SteamWebAPI2
 ```
 
 ## How to Use the Library
@@ -38,7 +44,7 @@ Install-Package SteamWebAPI2
   5. Use the factory to create endpoint interface classes.
   5. Use the interface class and call a method with your parameters.
 
-The library is structured to mirror the Steam Web API endpoint structure. For example, the "DOTA2Econ" class will expose methods to communicate with the "IDOTA2Econ" endpoints.
+The library is structured to mirror the Steam Web API endpoint structure. For example, the "DOTA2Econ" class will expose methods to communicate with the "IDOTA2Econ" endpoints. See [here](http://steamwebapi.azurewebsites.net/) for more endpoint details.
 
 Each method returns a SteamWebResponse object which contains the following:
 
@@ -72,10 +78,3 @@ var playerSummaryLastModified = playerSummaryResponse.LastModified;
 var friendsListResponse = await steamInterface.GetFriendsListAsync(<steamIdHere>);
 var friendsList = friendsListResponse.Data;
 ```
-
-## Changes from 2.0 to 3.0
-In versions previous to 3.0, numerical types were treated as short, int, and long. This caused problems when interacting with the Steam Web API because Valve accepts and returns unsigned numerical types. Instead of constantly reacting to overflows when a specific endpoint would return something outside the bounds of a 32-bit int, I decided to switch all numerical types to their unsigned counterparts.
-
-## Changes from 3.0 to 4.0
-  * .NET Core is now supported.
-  * All endpoints now return ISteamWebResponse<T> where T is the response payload type. This allows more metadata to be returned with each end point such as HTTP headers and status messages in addition to the response payload.
