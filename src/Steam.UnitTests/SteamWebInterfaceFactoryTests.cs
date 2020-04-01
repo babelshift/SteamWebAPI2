@@ -8,13 +8,13 @@ namespace Steam.UnitTests
 {
     public class SteamWebInterfaceFactoryTests
     {
-        private SteamWebInterfaceFactory testWebInterfaceFactory = new SteamWebInterfaceFactory("ABC123");
+        private readonly SteamWebInterfaceFactory factory = new SteamWebInterfaceFactory("ABC123");
 
         [Fact]
         public void Constructor_Should_Succeed()
         {
-            var webInterfaceFactory = new SteamWebInterfaceFactory("ABC123");
-            Assert.NotNull(webInterfaceFactory);
+            var factory = new SteamWebInterfaceFactory("ABC123");
+            Assert.NotNull(factory);
         }
 
         [Fact]
@@ -32,105 +32,105 @@ namespace Steam.UnitTests
         [Fact]
         public void Create_SteamUser_Interface_Should_Succeed()
         {
-            var steamInterface = testWebInterfaceFactory.CreateSteamWebInterface<SteamUser>(new HttpClient());
+            var steamInterface = factory.CreateSteamWebInterface<SteamUser>(new HttpClient());
             Assert.NotNull(steamInterface);
         }
 
         [Fact]
         public void Create_CSGOServers_Interface_Should_Succeed()
         {
-            var steamInterface = testWebInterfaceFactory.CreateSteamWebInterface<CSGOServers>(new HttpClient());
+            var steamInterface = factory.CreateSteamWebInterface<CSGOServers>(new HttpClient());
             Assert.NotNull(steamInterface);
         }
 
         [Fact]
         public void Create_DOTA2Econ_Interface_Should_Succeed()
         {
-            var steamInterface = testWebInterfaceFactory.CreateSteamWebInterface<DOTA2Econ>(new HttpClient());
+            var steamInterface = factory.CreateSteamWebInterface<DOTA2Econ>(new HttpClient());
             Assert.NotNull(steamInterface);
         }
 
         [Fact]
         public void Create_DOTA2Fantasy_Interface_Should_Succeed()
         {
-            var steamInterface = testWebInterfaceFactory.CreateSteamWebInterface<DOTA2Fantasy>(new HttpClient());
+            var steamInterface = factory.CreateSteamWebInterface<DOTA2Fantasy>(new HttpClient());
             Assert.NotNull(steamInterface);
         }
 
         [Fact]
         public void Create_DOTA2Match_Interface_Should_Succeed()
         {
-            var steamInterface = testWebInterfaceFactory.CreateSteamWebInterface<DOTA2Match>(new HttpClient());
+            var steamInterface = factory.CreateSteamWebInterface<DOTA2Match>(new HttpClient());
             Assert.NotNull(steamInterface);
         }
 
         [Fact]
         public void Create_DOTA2Ticket_Interface_Should_Succeed()
         {
-            var steamInterface = testWebInterfaceFactory.CreateSteamWebInterface<DOTA2Ticket>(new HttpClient());
+            var steamInterface = factory.CreateSteamWebInterface<DOTA2Ticket>(new HttpClient());
             Assert.NotNull(steamInterface);
         }
 
         [Fact]
         public void Create_EconItems_Interface_Should_Succeed()
         {
-            var steamInterface = testWebInterfaceFactory.CreateSteamWebInterface<EconItems>(new HttpClient(), EconItemsAppId.TeamFortress2);
+            var steamInterface = factory.CreateSteamWebInterface<EconItems>(new HttpClient(), EconItemsAppId.TeamFortress2);
             Assert.NotNull(steamInterface);
         }
 
         [Fact]
         public void Create_EconService_Interface_Should_Succeed()
         {
-            var steamInterface = testWebInterfaceFactory.CreateSteamWebInterface<EconService>(new HttpClient());
+            var steamInterface = factory.CreateSteamWebInterface<EconService>(new HttpClient());
             Assert.NotNull(steamInterface);
         }
 
         [Fact]
         public void Create_GameServersService_Interface_Should_Succeed()
         {
-            var steamInterface = testWebInterfaceFactory.CreateSteamWebInterface<GameServersService>(new HttpClient());
+            var steamInterface = factory.CreateSteamWebInterface<GameServersService>(new HttpClient());
             Assert.NotNull(steamInterface);
         }
 
         [Fact]
         public void Create_GCVersion_Interface_Should_Succeed()
         {
-            var steamInterface = testWebInterfaceFactory.CreateSteamWebInterface<GCVersion>(new HttpClient(), GCVersionAppId.TeamFortress2);
+            var steamInterface = factory.CreateSteamWebInterface<GCVersion>(new HttpClient(), GCVersionAppId.TeamFortress2);
             Assert.NotNull(steamInterface);
         }
 
         [Fact]
         public void Create_PlayerService_Interface_Should_Succeed()
         {
-            var steamInterface = testWebInterfaceFactory.CreateSteamWebInterface<PlayerService>(new HttpClient());
+            var steamInterface = factory.CreateSteamWebInterface<PlayerService>(new HttpClient());
             Assert.NotNull(steamInterface);
         }
 
         [Fact]
         public void Create_SteamApps_Interface_Should_Succeed()
         {
-            var steamInterface = testWebInterfaceFactory.CreateSteamWebInterface<SteamApps>(new HttpClient());
+            var steamInterface = factory.CreateSteamWebInterface<SteamApps>(new HttpClient());
             Assert.NotNull(steamInterface);
         }
 
         [Fact]
         public void Create_SteamEconomy_Interface_Should_Succeed()
         {
-            var steamInterface = testWebInterfaceFactory.CreateSteamWebInterface<SteamEconomy>(new HttpClient());
+            var steamInterface = factory.CreateSteamWebInterface<SteamEconomy>(new HttpClient());
             Assert.NotNull(steamInterface);
         }
 
         [Fact]
         public void Create_SteamNews_Interface_Should_Succeed()
         {
-            var steamInterface = testWebInterfaceFactory.CreateSteamWebInterface<SteamNews>(new HttpClient());
+            var steamInterface = factory.CreateSteamWebInterface<SteamNews>(new HttpClient());
             Assert.NotNull(steamInterface);
         }
 
         [Fact]
         public void Create_SteamRemoteStorage_Interface_Should_Succeed()
         {
-            var steamInterface = testWebInterfaceFactory.CreateSteamWebInterface<SteamRemoteStorage>(new HttpClient());
+            var steamInterface = factory.CreateSteamWebInterface<SteamRemoteStorage>(new HttpClient());
             Assert.NotNull(steamInterface);
         }
 
@@ -144,21 +144,21 @@ namespace Steam.UnitTests
         [Fact]
         public void Create_SteamUserAuth_Interface_Should_Succeed()
         {
-            var steamInterface = testWebInterfaceFactory.CreateSteamWebInterface<SteamUserAuth>(new HttpClient());
+            var steamInterface = factory.CreateSteamWebInterface<SteamUserAuth>(new HttpClient());
             Assert.NotNull(steamInterface);
         }
 
         [Fact]
         public void Create_SteamUserStats_Interface_Should_Succeed()
         {
-            var steamInterface = testWebInterfaceFactory.CreateSteamWebInterface<SteamUserStats>(new HttpClient());
+            var steamInterface = factory.CreateSteamWebInterface<SteamUserStats>(new HttpClient());
             Assert.NotNull(steamInterface);
         }
 
         [Fact]
         public void Create_SteamWebAPIUtil_Interface_Should_Succeed()
         {
-            var steamInterface = testWebInterfaceFactory.CreateSteamWebInterface<SteamWebAPIUtil>(new HttpClient());
+            var steamInterface = factory.CreateSteamWebInterface<SteamWebAPIUtil>(new HttpClient());
             Assert.NotNull(steamInterface);
         }
     }
