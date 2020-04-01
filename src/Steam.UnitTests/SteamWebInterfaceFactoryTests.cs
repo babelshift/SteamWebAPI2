@@ -51,13 +51,6 @@ namespace Steam.UnitTests
         }
 
         [Fact]
-        public void Create_DOTA2Fantasy_Interface_Should_Succeed()
-        {
-            var steamInterface = factory.CreateSteamWebInterface<DOTA2Fantasy>(new HttpClient());
-            Assert.NotNull(steamInterface);
-        }
-
-        [Fact]
         public void Create_DOTA2Match_Interface_Should_Succeed()
         {
             var steamInterface = factory.CreateSteamWebInterface<DOTA2Match>(new HttpClient());

@@ -11,7 +11,9 @@ namespace SteamWebAPI2.Interfaces
     {
         TeamFortress2 = 440,
         Dota2 = 570,
-        CounterStrikeGO = 730
+        CounterStrikeGO = 730,
+        Artifact = 583950,
+        DotaUnderlords = 1046930
     }
 
     public class GCVersion : IGCVersion
@@ -43,12 +45,16 @@ namespace SteamWebAPI2.Interfaces
 
             this.appId = (uint)appId;
 
-            validClientVersionAppIds.Add(440);
-            validClientVersionAppIds.Add(570);
+            validClientVersionAppIds.Add((int)GCVersionAppId.TeamFortress2);
+            validClientVersionAppIds.Add((int)GCVersionAppId.Dota2);
+            validClientVersionAppIds.Add((int)GCVersionAppId.Artifact);
+            validClientVersionAppIds.Add((int)GCVersionAppId.DotaUnderlords);
 
-            validServerVersionAppIds.Add(440);
-            validServerVersionAppIds.Add(570);
-            validServerVersionAppIds.Add(730);
+            validServerVersionAppIds.Add((int)GCVersionAppId.TeamFortress2);
+            validServerVersionAppIds.Add((int)GCVersionAppId.Dota2);
+            validServerVersionAppIds.Add((int)GCVersionAppId.CounterStrikeGO);
+            validServerVersionAppIds.Add((int)GCVersionAppId.Artifact);
+            validServerVersionAppIds.Add((int)GCVersionAppId.DotaUnderlords);
         }
 
         /// <summary>

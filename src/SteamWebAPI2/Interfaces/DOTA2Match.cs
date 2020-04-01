@@ -22,24 +22,6 @@ namespace SteamWebAPI2.Interfaces
         }
 
         /// <summary>
-        /// Returns a collection of all leagues registered in Dota 2.
-        /// </summary>
-        /// <param name="language"></param>
-        /// <returns></returns>
-        public async Task<ISteamWebResponse<IReadOnlyCollection<LeagueModel>>> GetLeagueListingAsync(string language = "en_us")
-        {
-            List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
-
-            parameters.AddIfHasValue(language, "language");
-
-            var steamWebResponse = await steamWebInterface.GetAsync<LeagueResultContainer>("GetLeagueListing", 1, parameters);
-
-            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<ISteamWebResponse<LeagueResultContainer>, ISteamWebResponse<IReadOnlyCollection<LeagueModel>>>(steamWebResponse);
-
-            return steamWebResponseModel;
-        }
-
-        /// <summary>
         /// Returns a collection of all live league games and details. Live league games are games registered in a Dota 2 league and are currently being played.
         /// </summary>
         /// <param name="leagueId"></param>

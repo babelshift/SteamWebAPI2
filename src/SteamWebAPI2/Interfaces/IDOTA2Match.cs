@@ -7,8 +7,6 @@ namespace SteamWebAPI2.Interfaces
 {
     public interface IDOTA2Match
     {
-        Task<ISteamWebResponse<IReadOnlyCollection<LeagueModel>>> GetLeagueListingAsync(string language);
-
         Task<ISteamWebResponse<IReadOnlyCollection<LiveLeagueGameModel>>> GetLiveLeagueGamesAsync(uint? leagueId = null, ulong? matchId = null);
 
         Task<ISteamWebResponse<MatchDetailModel>> GetMatchDetailsAsync(ulong matchId);

@@ -42,5 +42,12 @@ namespace Steam.UnitTests
             Assert.NotNull(response);
             Assert.NotNull(response.Data);
         }
+
+        [Fact]
+        public async Task GetTournamentPrizePoolAsync_Should_Succeed()
+        {
+            var response = await steamInterface.GetTournamentPrizePoolAsync();
+            Assert.NotNull(response);
+        }
     }
 }
