@@ -4,6 +4,6 @@ namespace Steam.Models.SteamEconomy
 {
     public class AssetClassAppDataFilterModel
     {
-        public IReadOnlyCollection<long> ElementIds { get; set; }
+        public IReadOnlyCollection<ulong> ElementIds { get; set; }
     }
 }

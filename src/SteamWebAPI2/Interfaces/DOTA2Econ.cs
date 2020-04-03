@@ -66,31 +66,6 @@ namespace SteamWebAPI2.Interfaces
         }
 
         /// <summary>
-        /// It is important to note that the "items" this method is referring to are not the in game items. These are actually cosmetic items found in the DOTA 2 store and workshop.
-        /// </summary>
-        /// <param name="iconName"></param>
-        /// <param name="iconType"></param>
-        /// <returns></returns>
-        public async Task<ISteamWebResponse<string>> GetItemIconPathAsync(string iconName, string iconType = "")
-        {
-            if (string.IsNullOrEmpty(iconName))
-            {
-                throw new ArgumentNullException("iconName");
-            }
-
-            List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
-
-            parameters.AddIfHasValue(iconName, "iconname");
-            parameters.AddIfHasValue(iconType, "icontype");
-
-            var steamWebResponse = await steamWebInterface.GetAsync<ItemIconPathResultContainer>("GetItemIconPath", 1, parameters);
-
-            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<ISteamWebResponse<ItemIconPathResultContainer>, ISteamWebResponse<string>>(steamWebResponse);
-
-            return steamWebResponseModel;
-        }
-
-        /// <summary>
         /// Returns a collection of item rarities.
         /// </summary>
         /// <param name="language"></param>

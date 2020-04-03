@@ -16,6 +16,6 @@ namespace Steam.Models.SteamEconomy
 
         public IReadOnlyCollection<string> Tags { get; set; }
 
-        public IReadOnlyCollection<long> TagIds { get; set; }
+        public IReadOnlyCollection<ulong> TagIds { get; set; }
     }
 }

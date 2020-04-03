@@ -1,0 +1,20 @@
+using Microsoft.Extensions.Configuration;
+using SteamWebAPI2.Utilities;
+
+namespace Steam.UnitTests
+{
+    public class BaseTest
+    {
+        private IConfiguration configuration;
+        protected readonly SteamWebInterfaceFactory factory;
+
+        public BaseTest()
+        {
+            var builder = new ConfigurationBuilder()
+                .AddUserSecrets<CSGOServersTests>();
+            configuration = builder.Build();
+
+            factory = new SteamWebInterfaceFactory(configuration["SteamWebApiKey"]);
+        }
+    }
+}

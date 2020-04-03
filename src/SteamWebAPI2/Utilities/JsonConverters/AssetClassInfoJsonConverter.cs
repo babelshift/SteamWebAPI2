@@ -200,11 +200,11 @@ namespace SteamWebAPI2.Utilities.JsonConverters
                                         {
                                             if (assetClassAppDataFilterDetailProperty.Name == "element_ids")
                                             {
-                                                List<long> elementIds = new List<long>();
+                                                List<ulong> elementIds = new List<ulong>();
 
                                                 foreach (var elementId in assetClassAppDataFilterDetailProperty.Value.Children<JProperty>())
                                                 {
-                                                    elementIds.Add(long.Parse(elementId.Value.ToString()));
+                                                    elementIds.Add(ulong.Parse(elementId.Value.ToString()));
                                                 }
 
                                                 filter.ElementIds = elementIds;

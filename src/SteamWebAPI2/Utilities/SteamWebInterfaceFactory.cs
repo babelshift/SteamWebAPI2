@@ -53,6 +53,18 @@ namespace SteamWebAPI2.Utilities
             return (T)Activator.CreateInstance(typeof(T), steamWebRequest, appId, null);
         }
 
+        /// <summary>
+        /// Creates a web interface object connected to a specific Steam Web API interfac endpoint
+        /// </summary>
+        /// <param name="httpClient">Custom http client injected with your customization (if necessary)</param>
+        /// <typeparam name="T">Type of the web interface to create</typeparam>
+        /// <returns>Instance of the web interface</returns>
+        public T CreateSteamWebInterface<T>(HttpClient httpClient, GCVersionAppId appId)
+        {
+            var steamWebRequest = CreateSteamWebRequest(httpClient);
+            return (T)Activator.CreateInstance(typeof(T), steamWebRequest, appId, null);
+        }
+
         private ISteamWebRequest CreateSteamWebRequest(HttpClient httpClient)
         {
             return new SteamWebRequest(steamWebApiBaseUrl, steamWebApiKey, httpClient);

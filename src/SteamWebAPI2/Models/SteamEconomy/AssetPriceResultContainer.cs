@@ -117,7 +117,7 @@ namespace SteamWebAPI2.Models.SteamEconomy
         public IList<string> Tags { get; set; }
 
         [JsonProperty("tag_ids")]
-        public IList<long> TagIds { get; set; }
+        public IList<ulong> TagIds { get; set; }
     }
 
     internal class AssetTags

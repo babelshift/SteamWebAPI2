@@ -15,7 +15,7 @@ namespace Steam.Models.DOTA2
         public string Url { get; set; }
         public uint GamesPlayedWithCurrentRoster { get; set; }
         public uint AdminAccountId { get; set; }
-        public IReadOnlyCollection<int> PlayerIds { get; set; }
-        public IReadOnlyCollection<int> LeagueIds { get; set; }
+        public IReadOnlyCollection<uint> PlayerIds { get; set; }
+        public IReadOnlyCollection<uint> LeagueIds { get; set; }
     }
 }

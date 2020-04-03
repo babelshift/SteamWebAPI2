@@ -44,7 +44,7 @@ namespace SteamWebAPI2.Models.SteamEconomy
 
     internal class AssetClassAppDataFilter
     {
-        public IList<long> ElementIds { get; set; }
+        public IList<ulong> ElementIds { get; set; }
     }
 
     internal class AssetClassAppData

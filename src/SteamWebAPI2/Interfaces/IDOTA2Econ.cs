@@ -11,8 +11,6 @@ namespace SteamWebAPI2.Interfaces
 
         Task<ISteamWebResponse<IReadOnlyCollection<HeroModel>>> GetHeroesAsync(string language = "", bool itemizedOnly = false);
 
-        Task<ISteamWebResponse<string>> GetItemIconPathAsync(string iconName, string iconType = "");
-
         Task<ISteamWebResponse<IReadOnlyCollection<RarityModel>>> GetRaritiesAsync(string language = "");
 
         Task<ISteamWebResponse<uint>> GetTournamentPrizePoolAsync(uint? leagueId = null);
