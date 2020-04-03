@@ -39,12 +39,15 @@ steps:
     configuration: '$(buildConfiguration)'
 
 - task: FileTransform@2
+  displayName: Replace Unit Tests appsettings.json
   inputs:
     folderPath: '$(System.DefaultWorkingDirectory)/src/Steam.UnitTests'
     xmlTransformationRules: 
     jsonTargetFiles: 'appsettings.json'
 
 - task: DotNetCoreCLI@2
+  displayName: Unit Tests
+  continueOnError: true
   inputs:
     command: 'test'
     projects: '**/*.csproj'
