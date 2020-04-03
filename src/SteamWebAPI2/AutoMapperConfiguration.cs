@@ -436,6 +436,8 @@ namespace SteamWebAPI2
                         src => Mapper.Map<IList<GlobalAchievementPercentage>, IReadOnlyCollection<GlobalAchievementPercentageModel>>(src.Result != null ? src.Result.AchievementPercentages : null)
                     );
 
+                    x.CreateMap<GlobalStat, GlobalStatModel>();
+
                     x.CreateMap<GlobalStatsForGameResultContainer, IReadOnlyCollection<GlobalStatModel>>().ConvertUsing(
                         src => Mapper.Map<IList<GlobalStat>, IReadOnlyCollection<GlobalStatModel>>(src.Result != null ? src.Result.GlobalStats : null)
                     );

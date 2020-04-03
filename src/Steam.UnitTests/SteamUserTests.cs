@@ -74,7 +74,7 @@ namespace Steam.UnitTests
         {
             var response = await steamInterface.ResolveVanityUrlAsync("aro");
             Assert.NotNull(response);
-            Assert.NotNull(response.Data);
+            Assert.True(response.Data > 0);
         }
 
         [Fact]

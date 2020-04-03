@@ -17,19 +17,11 @@ namespace Steam.UnitTests
         public EconItemsTeamFortress2Tests()
         {
             steamInterface = factory.CreateSteamWebInterface<EconItems>(
-                new HttpClient(), 
+                new HttpClient(),
                 EconItemsAppId.TeamFortress2
             );
         }
 
-        [Fact]
-        public async Task GetPlayerItemsAsync_Should_Succeed()
-        {
-            var response = await steamInterface.GetPlayerItemsAsync(76561198050013009);
-            Assert.NotNull(response);
-            Assert.NotNull(response.Data);
-        }
-        
         [Fact]
         public async Task GetSchemaItemsForTF2Async_Should_Succeed()
         {
@@ -37,7 +29,7 @@ namespace Steam.UnitTests
             Assert.NotNull(response);
             Assert.NotNull(response.Data);
         }
-        
+
         [Fact]
         public async Task GetSchemaOverviewForTF2Async_Should_Succeed()
         {
@@ -45,7 +37,7 @@ namespace Steam.UnitTests
             Assert.NotNull(response);
             Assert.NotNull(response.Data);
         }
-        
+
         [Fact]
         public async Task GetSchemaUrlAsync_Should_Succeed()
         {
@@ -53,7 +45,7 @@ namespace Steam.UnitTests
             Assert.NotNull(response);
             Assert.NotNull(response.Data);
         }
-        
+
         [Fact]
         public async Task GetStoreMetaDataAsync_Should_Succeed()
         {
@@ -61,7 +53,7 @@ namespace Steam.UnitTests
             Assert.NotNull(response);
             Assert.NotNull(response.Data);
         }
-        
+
         [Fact]
         public async Task GetStoreStatusAsync_Should_Succeed()
         {
