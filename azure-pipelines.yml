@@ -38,6 +38,12 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
+- task: FileTransform@2
+  inputs:
+    folderPath: '$(System.DefaultWorkingDirectory)/src/Steam.UnitTests'
+    xmlTransformationRules: 
+    jsonTargetFiles: 'appsettings.json'
+
 - task: DotNetCoreCLI@2
   inputs:
     command: 'test'
