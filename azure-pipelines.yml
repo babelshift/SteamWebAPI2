@@ -22,6 +22,8 @@ variables:
   value: 'Any CPU'
 - name: buildConfiguration
   value: 'Release'
+- name: SteamWebApiKey
+  value: $(SteamWebApiKey)
 
 steps:
 - task: NuGetToolInstaller@1
@@ -37,6 +39,12 @@ steps:
     solution: '$(solution)'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+
+- task: FileTransform@2
+  inputs:
+    folderPath: '$(System.DefaultWorkingDirectory)/src/Steam.UnitTests'
+    xmlTransformationRules: 
+    jsonTargetFiles: 'appsettings.json'
 
 - task: DotNetCoreCLI@2
   inputs:
