@@ -11,6 +11,7 @@ namespace Steam.UnitTests
         public BaseTest()
         {
             var builder = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json")
                 .AddUserSecrets<CSGOServersTests>();
             configuration = builder.Build();
 

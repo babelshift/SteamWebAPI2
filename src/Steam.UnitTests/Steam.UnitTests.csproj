@@ -17,4 +17,9 @@
     <ProjectReference Include="..\Steam.Models\Steam.Models.csproj" />
     <ProjectReference Include="..\SteamWebAPI2\SteamWebAPI2.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 </Project>
