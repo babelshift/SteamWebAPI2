@@ -67,8 +67,15 @@ namespace SteamWebAPI2.Utilities
         /// <returns></returns>
         public async Task<ISteamWebResponse<T>> GetAsync<T>(string methodName, int version, IList<SteamWebRequestParameter> parameters = null)
         {
-            Debug.Assert(!string.IsNullOrWhiteSpace(methodName));
-            Debug.Assert(version > 0);
+            if(string.IsNullOrWhiteSpace(methodName))
+            {
+                throw new ArgumentNullException(nameof(methodName));
+            }
+
+            if(version <= 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(version));
+            }
 
             return await steamWebRequest.GetAsync<T>(interfaceName, methodName, version, parameters);
         }
@@ -83,8 +90,15 @@ namespace SteamWebAPI2.Utilities
         /// <returns></returns>
         public async Task<ISteamWebResponse<T>> PostAsync<T>(string methodName, int version, IList<SteamWebRequestParameter> parameters = null)
         {
-            Debug.Assert(!string.IsNullOrWhiteSpace(methodName));
-            Debug.Assert(version > 0);
+            if(string.IsNullOrWhiteSpace(methodName))
+            {
+                throw new ArgumentNullException(nameof(methodName));
+            }
+
+            if(version <= 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(version));
+            }
 
             return await steamWebRequest.PostAsync<T>(interfaceName, methodName, version, parameters);
         }

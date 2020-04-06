@@ -39,7 +39,7 @@ namespace SteamWebAPI2.Utilities
         /// </summary>
         public override string ToString()
         {
-            return string.Format("{0}={1}", Name, Value.ToString());
+            return $"{Name}={Value}";
         }
     }
 }
