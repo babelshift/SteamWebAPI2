@@ -17,8 +17,8 @@ namespace Steam.UnitTests
         public EconItemsTeamFortress2Tests()
         {
             steamInterface = factory.CreateSteamWebInterface<EconItems>(
-                new HttpClient(),
-                EconItemsAppId.TeamFortress2
+                EconItemsAppId.TeamFortress2,
+                new HttpClient()
             );
         }
 

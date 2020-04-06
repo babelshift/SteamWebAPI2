@@ -23,28 +23,28 @@ namespace Steam.UnitTests
             HttpClient httpClient = new HttpClient();
 
             steamInterfaceTeamFortress2 = factory.CreateSteamWebInterface<GCVersion>(
-                httpClient,
-                GCVersionAppId.TeamFortress2
+                GCVersionAppId.TeamFortress2,
+                httpClient
             );
             
             steamInterfaceCounterStrikeGO= factory.CreateSteamWebInterface<GCVersion>(
-                httpClient, 
-                GCVersionAppId.CounterStrikeGO
+                GCVersionAppId.CounterStrikeGO,
+                httpClient
             );
             
             steamInterfaceDota2 = factory.CreateSteamWebInterface<GCVersion>(
-                httpClient, 
-                GCVersionAppId.Dota2
+                GCVersionAppId.Dota2,
+                httpClient
             );
             
             steamInterfaceArtifact = factory.CreateSteamWebInterface<GCVersion>(
-                httpClient, 
-                GCVersionAppId.Artifact
+                GCVersionAppId.Artifact,
+                httpClient
             );
             
             steamInterfaceDotaUnderlords = factory.CreateSteamWebInterface<GCVersion>(
-                httpClient, 
-                GCVersionAppId.DotaUnderlords
+                GCVersionAppId.DotaUnderlords,
+                httpClient
             );
         }
         
