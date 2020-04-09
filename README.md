@@ -22,6 +22,9 @@ Instead of stressing about parsing the ugly JSON responses yourself, just use th
   * Clean up some of the more egregious JSON responses where JSON arrays should have been used but weren't.
   * Offer a sane way of handling the various representations and conversions of Steam ID by offering a SteamId class.
     * Handles legacy, modern, and 64-bit Steam Id representations
+    
+**NOTE:**
+Valve's [Steamworks documentation](https://partner.steamgames.com/doc/webapi) doesn't do a good job at explaining the difference between their public API and partner API. This library only works with the public-facing API located at: `api.steampowered.com`. Any endpoints from their documentation that are located at the `partner.steam-api.com` will not be accessible with this library. I am not a registered publisher and thus don't have access to any of the partner endpoints.
 
 ## Install the Library from NuGet
 See the library in the NuGet gallery [here](https://www.nuget.org/packages/SteamWebAPI2).
