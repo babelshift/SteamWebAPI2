@@ -121,6 +121,7 @@ namespace SteamWebAPI2
                     CreateSteamWebResponseMap<SteamServerInfo, SteamServerInfoModel>(x);
                     CreateSteamWebResponseMap<SteamApiListContainer, IReadOnlyCollection<SteamInterfaceModel>>(x);
                     CreateSteamWebResponseMap<GoldenWrenchResultContainer, IReadOnlyCollection<GoldenWrenchModel>>(x);
+                    CreateSteamWebResponseMap<GameMapsPlaytimeContainer, IEnumerable<GameMapsPlaytimeModel>>(x);
 
                     #region Endpoint: DOTA2Econ
 
@@ -550,6 +551,12 @@ namespace SteamWebAPI2
                     x.CreateMap<ServerStatusResultContainer, ServerStatusModel>().ConvertUsing(
                         src => Mapper.Map<ServerStatusResult, ServerStatusModel>(src.Result)
                     );
+
+                    x.CreateMap<GameMapsPlaytimeContainer, IEnumerable<GameMapsPlaytimeModel>>().ConvertUsing(
+                        src => Mapper.Map<IEnumerable<GameMapsPlaytime>, IEnumerable<GameMapsPlaytimeModel>>(src.Result.Playtimes)
+                    );
+                    x.CreateMap<GameMapsPlaytime, GameMapsPlaytimeModel>()
+                        .ForMember(dest => dest.IntervalStartTimeStamp, opts => opts.MapFrom(source => source.IntervalStartTimeStamp.ToDateTime()));
 
                     x.CreateMap<EconItem, EconItemModel>();
                     x.CreateMap<EconItemAttribute, EconItemAttributeModel>();

@@ -1,6 +1,7 @@
 ﻿using Steam.Models.CSGO;
 using SteamWebAPI2.Models.CSGO;
 using SteamWebAPI2.Utilities;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace SteamWebAPI2.Interfaces
@@ -21,6 +22,31 @@ namespace SteamWebAPI2.Interfaces
             this.steamWebInterface = steamWebInterface == null
                 ? new SteamWebInterface("ICSGOServers_730", steamWebRequest)
                 : steamWebInterface;
+        }
+
+        /// <summary>
+        /// Maps to the Steam Web API interface/method of ICSGOServers_730/GetGameMapsPlaytime/v1
+        /// </summary>
+        /// <returns></returns>
+        public async Task<ISteamWebResponse<IEnumerable<GameMapsPlaytimeModel>>> GetGameMapsPlaytimeAsync(
+            GameMapsPlaytimeInterval interval, 
+            GameMapsPlaytimeGameMode gameMode, 
+            GameMapsPlaytimeMapGroup mapGroup
+        )
+        {
+            List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
+            
+            parameters.AddIfHasValue(interval.ToString().ToLower(), "interval");
+            parameters.AddIfHasValue(gameMode.ToString().ToLower(), "gamemode");
+            parameters.AddIfHasValue(mapGroup.ToString().ToLower(), "mapgroup");
+
+            var steamWebResponse = await steamWebInterface.GetAsync<GameMapsPlaytimeContainer>("GetGameMapsPlaytime", 1, parameters);
+
+            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+                ISteamWebResponse<GameMapsPlaytimeContainer>, 
+                ISteamWebResponse<IEnumerable<GameMapsPlaytimeModel>>>(steamWebResponse);
+
+            return steamWebResponseModel;
         }
 
         /// <summary>
