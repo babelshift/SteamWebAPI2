@@ -7,6 +7,8 @@ This is a .NET library that makes it easy to use the Steam Web API. It convenien
 
 Please refer [here](http://steamwebapi.azurewebsites.net/) for details regarding the Steam Web API, its endpoints, and how this library consumes them.
 
+Check this README and the [Wiki](https://github.com/babelshift/SteamWebAPI2/wiki/) for more details about [getting started](https://github.com/babelshift/SteamWebAPI2/wiki/1.-Getting-Started) and [common use cases](https://github.com/babelshift/SteamWebAPI2/wiki/Common-Use-Examples).
+
 ## About this Library
 This library was created to address the (at times) awful nature of the Steam Web API. Many of the exposed endpoints have little to no documentation on the parameters and absolutely no documentation on any of the responses. In addition, many of the endpoints do not follow any type of coding convention as it appears that different developers created different endpoints without collaborating with one another.
 
