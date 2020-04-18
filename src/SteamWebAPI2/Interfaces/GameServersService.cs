@@ -1,4 +1,6 @@
-﻿using SteamWebAPI2.Utilities;
+﻿using Steam.Models;
+using SteamWebAPI2.Models.GameServers;
+using SteamWebAPI2.Utilities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -19,10 +21,15 @@ namespace SteamWebAPI2.Interfaces
                 : steamWebInterface;
         }
 
-        public async Task<ISteamWebResponse<dynamic>> GetAccountListAsync()
+        public async Task<ISteamWebResponse<AccountListModel>> GetAccountListAsync()
         {
-            var steamWebResponse = await steamWebInterface.GetAsync<dynamic>("GetAccountList", 1);
-            return steamWebResponse;
+            var steamWebResponse = await steamWebInterface.GetAsync<AccountListContainer>("GetAccountList", 1);
+
+            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+                ISteamWebResponse<AccountListContainer>,
+                ISteamWebResponse<AccountListModel>>(steamWebResponse);
+
+            return steamWebResponseModel;
         }
 
         public async Task<ISteamWebResponse<dynamic>> CreateAccount(uint appId, string memo)

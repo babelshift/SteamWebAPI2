@@ -21,6 +21,7 @@ using SteamWebAPI2.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using SteamWebAPI2.Models.GameServers;
 
 namespace SteamWebAPI2
 {
@@ -122,6 +123,7 @@ namespace SteamWebAPI2
                     CreateSteamWebResponseMap<SteamApiListContainer, IReadOnlyCollection<SteamInterfaceModel>>(x);
                     CreateSteamWebResponseMap<GoldenWrenchResultContainer, IReadOnlyCollection<GoldenWrenchModel>>(x);
                     CreateSteamWebResponseMap<GameMapsPlaytimeContainer, IEnumerable<GameMapsPlaytimeModel>>(x);
+                    CreateSteamWebResponseMap<AccountListContainer, AccountListModel>(x);
 
                     #region Endpoint: DOTA2Econ
 
@@ -642,6 +644,18 @@ namespace SteamWebAPI2
                         .ForMember(dest => dest.VisibilityState, opts => opts.MapFrom(source => source.VisibilityState))
                         .ForMember(dest => dest.InGameServerIP, opts => opts.MapFrom(source => source.InGameServerIP))
                         .ForMember(dest => dest.InGameInfo, opts => opts.MapFrom(source => source.InGameInfo));
+                    
+                    #region Endpoint: GameServers
+
+                    x.CreateMap<AccountListContainer, AccountListModel>().ConvertUsing(
+                        src => Mapper.Map<AccountList, AccountListModel>(src.Response)
+                    );
+                    x.CreateMap<AccountList, AccountListModel>()
+                        .ForMember(dest => dest.LastActionTime, opts => opts.MapFrom(src => src.LastActionTime.ToDateTime()));
+                    x.CreateMap<AccountServer, AccountServerModel>()
+                        .ForMember(dest => dest.RtLastLogon, opts => opts.MapFrom(src => src.RtLastLogon.ToDateTime()));
+
+                    #endregion
                 });
             }
 

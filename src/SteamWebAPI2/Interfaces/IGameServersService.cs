@@ -1,4 +1,5 @@
-﻿using SteamWebAPI2.Utilities;
+﻿using Steam.Models;
+using SteamWebAPI2.Utilities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -6,7 +7,7 @@ namespace SteamWebAPI2.Interfaces
 {
     public interface IGameServersService
     {
-        Task<ISteamWebResponse<dynamic>> GetAccountListAsync();
+        Task<ISteamWebResponse<AccountListModel>> GetAccountListAsync();
 
         Task<ISteamWebResponse<dynamic>> CreateAccount(uint appid, string memo);
 
