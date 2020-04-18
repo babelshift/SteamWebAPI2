@@ -6,6 +6,12 @@ using System.Threading.Tasks;
 
 namespace SteamWebAPI2.Interfaces
 {
+    public enum GameServersAppId 
+    {
+        TeamFortress2 = 440,
+        CounterStrikeGo = 730
+    }
+
     public class GameServersService : IGameServersService
     {
         private ISteamWebInterface steamWebInterface;
@@ -24,21 +30,25 @@ namespace SteamWebAPI2.Interfaces
         public async Task<ISteamWebResponse<AccountListModel>> GetAccountListAsync()
         {
             var steamWebResponse = await steamWebInterface.GetAsync<AccountListContainer>("GetAccountList", 1);
-
             var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
                 ISteamWebResponse<AccountListContainer>,
                 ISteamWebResponse<AccountListModel>>(steamWebResponse);
-
             return steamWebResponseModel;
         }
 
-        public async Task<ISteamWebResponse<dynamic>> CreateAccount(uint appId, string memo)
+        public async Task<ISteamWebResponse<CreateAccountModel>> CreateAccount(GameServersAppId appId, string memo)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
-            parameters.AddIfHasValue(appId, "appid");
+            parameters.AddIfHasValue((int)appId, "appid");
             parameters.AddIfHasValue(memo, "memo");
-            var steamWebResponse = await steamWebInterface.PostAsync<dynamic>("CreateAccount", 1, parameters);
-            return steamWebResponse;
+
+            var steamWebResponse = await steamWebInterface.PostAsync<CreateAccountContainer>("CreateAccount", 1, parameters);
+
+            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+                ISteamWebResponse<CreateAccountContainer>,
+                ISteamWebResponse<CreateAccountModel>>(steamWebResponse);
+
+            return steamWebResponseModel;
         }
 
         public async Task<ISteamWebResponse<dynamic>> SetMemo(ulong steamId, string memo)

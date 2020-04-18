@@ -124,6 +124,7 @@ namespace SteamWebAPI2
                     CreateSteamWebResponseMap<GoldenWrenchResultContainer, IReadOnlyCollection<GoldenWrenchModel>>(x);
                     CreateSteamWebResponseMap<GameMapsPlaytimeContainer, IEnumerable<GameMapsPlaytimeModel>>(x);
                     CreateSteamWebResponseMap<AccountListContainer, AccountListModel>(x);
+                    CreateSteamWebResponseMap<CreateAccountContainer, CreateAccountModel>(x);
 
                     #region Endpoint: DOTA2Econ
 
@@ -654,6 +655,11 @@ namespace SteamWebAPI2
                         .ForMember(dest => dest.LastActionTime, opts => opts.MapFrom(src => src.LastActionTime.ToDateTime()));
                     x.CreateMap<AccountServer, AccountServerModel>()
                         .ForMember(dest => dest.RtLastLogon, opts => opts.MapFrom(src => src.RtLastLogon.ToDateTime()));
+
+                    x.CreateMap<CreateAccountContainer, CreateAccountModel>().ConvertUsing(
+                        src => Mapper.Map<CreateAccount, CreateAccountModel>(src.Response)
+                    );
+                    x.CreateMap<CreateAccount, CreateAccountModel>();
 
                     #endregion
                 });
