@@ -1,5 +1,7 @@
-﻿using SteamWebAPI2.Models.SteamEconomy;
+﻿using Steam.Models.SteamEconomy;
+using SteamWebAPI2.Models.SteamEconomy;
 using SteamWebAPI2.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -32,18 +34,30 @@ namespace SteamWebAPI2.Interfaces
         /// <param name="includeFailed">If set, trades in status k_ETradeStatus_Failed, k_ETradeStatus_RollbackFailed, k_ETradeStatus_RollbackAbandoned, and k_ETradeStatus_EscrowRollback will be included</param>
         /// <param name="includeTotal">Unknown</param>
         /// <returns></returns>
-        public async Task<ISteamWebResponse<Steam.Models.SteamEconomy.TradeHistoryModel>> GetTradeHistoryAsync(uint maxTrades, uint startAfterTime = 0, ulong startAfterTradeId = 0, bool navigatingBack = false, bool getDescriptions = false, string language = "", bool includeFailed = false, bool includeTotal = false)
+        public async Task<ISteamWebResponse<TradeHistoryModel>> GetTradeHistoryAsync(
+            uint maxTrades,
+            DateTime? startAfterTime = null,
+            ulong startAfterTradeId = 0,
+            bool navigatingBack = false,
+            bool getDescriptions = false,
+            string language = "",
+            bool includeFailed = false,
+            bool includeTotal = false)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
+            ulong? startAfterTimeUnix = startAfterTime.HasValue 
+                ? startAfterTime.Value.ToUnixTimeStamp() 
+                : (ulong?)null;
+
             parameters.AddIfHasValue(maxTrades, "max_trades");
-            parameters.AddIfHasValue(startAfterTime, "start_after_time");
+            parameters.AddIfHasValue(startAfterTimeUnix, "start_after_time");
             parameters.AddIfHasValue(startAfterTradeId, "start_after_tradeid");
             parameters.AddIfHasValue(navigatingBack, "navigating_back");
             parameters.AddIfHasValue(getDescriptions, "get_descriptions");
             parameters.AddIfHasValue(language, "language");
             parameters.AddIfHasValue(includeFailed, "include_failed");
-            parameters.AddIfHasValue(includeTotal, "inclue_total");
+            parameters.AddIfHasValue(includeTotal, "include_total");
 
             var steamWebResponse = await steamWebInterface.GetAsync<TradeHistoryResultContainer>("GetTradeHistory", 1, parameters);
 
@@ -65,12 +79,23 @@ namespace SteamWebAPI2.Interfaces
         /// <param name="historicalOnly">Return trade offers that are not in an active state.</param>
         /// <param name="timeHistoricalCutoff">A unix time value. when active_only is set, inactive offers will be returned if their state was updated since this time. Useful to get delta updates on what has changed. WARNING: If not passed, this will default to the time your account last viewed the trade offers page. To avoid this behavior use a very low or very high date.</param>
         /// <returns></returns>
-        public async Task<ISteamWebResponse<Steam.Models.SteamEconomy.TradeOffersResultModel>> GetTradeOffersAsync(bool getSentOffers, bool getReceivedOffers, bool getDescriptions = false, string language = "", bool activeOnly = false, bool historicalOnly = false, uint timeHistoricalCutoff = 0)
+        public async Task<ISteamWebResponse<TradeOffersResultModel>> GetTradeOffersAsync(
+            bool getSentOffers,
+            bool getReceivedOffers,
+            bool getDescriptions = false,
+            string language = "",
+            bool activeOnly = false,
+            bool historicalOnly = false,
+            DateTime? timeHistoricalCutoff = null)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
             int getSentOffersBit = getSentOffers ? 1 : 0;
             int getReceivedOffersBit = getReceivedOffers ? 1 : 0;
+
+            ulong? timeHistoricalCutoffUnix = timeHistoricalCutoff.HasValue 
+                ? timeHistoricalCutoff.Value.ToUnixTimeStamp() 
+                : (ulong?)null;
 
             parameters.AddIfHasValue(getSentOffersBit, "get_sent_offers");
             parameters.AddIfHasValue(getReceivedOffersBit, "get_received_offers");
@@ -78,7 +103,7 @@ namespace SteamWebAPI2.Interfaces
             parameters.AddIfHasValue(language, "language");
             parameters.AddIfHasValue(activeOnly, "active_only");
             parameters.AddIfHasValue(historicalOnly, "historicalOnly");
-            parameters.AddIfHasValue(timeHistoricalCutoff, "time_historical_cutoff");
+            parameters.AddIfHasValue(timeHistoricalCutoffUnix, "time_historical_cutoff");
 
             var steamWebResponse = await steamWebInterface.GetAsync<TradeOffersResultContainer>("GetTradeOffers", 1, parameters);
 
@@ -95,12 +120,16 @@ namespace SteamWebAPI2.Interfaces
         /// <param name="tradeOfferId">The trade offer identifier</param>
         /// <param name="language">The language to use for item display information.</param>
         /// <returns></returns>
-        public async Task<ISteamWebResponse<Steam.Models.SteamEconomy.TradeOfferResultModel>> GetTradeOfferAsync(ulong tradeOfferId, string language = "")
+        public async Task<ISteamWebResponse<TradeOfferResultModel>> GetTradeOfferAsync(
+            ulong tradeOfferId,
+            string language = "",
+            bool getDescriptions = false)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
             parameters.AddIfHasValue(tradeOfferId, "tradeOfferId");
             parameters.AddIfHasValue(language, "language");
+            parameters.AddIfHasValue(getDescriptions, "get_descriptions");
 
             var steamWebResponse = await steamWebInterface.GetAsync<TradeOfferResultContainer>("GetTradeOffer", 1, parameters);
 
@@ -109,6 +138,31 @@ namespace SteamWebAPI2.Interfaces
                 ISteamWebResponse<Steam.Models.SteamEconomy.TradeOfferResultModel>>(steamWebResponse);
 
             return steamWebResponseModel;
+        }
+
+        public Task<ISteamWebResponse<dynamic>> GetTradeStatusAsync(ulong tradeId, bool getDescriptions, string language)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<ISteamWebResponse<dynamic>> GetTradeOffersSummaryAsync(DateTime timeLastVisit)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<ISteamWebResponse<dynamic>> DeclineTradeOfferAsync(ulong tradeOfferId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<ISteamWebResponse<dynamic>> CancelTradeOfferAsync(ulong tradeOfferId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<ISteamWebResponse<dynamic>> GetTradeHoldDurationsAsync(ulong steamIdTarget, string tradeOfferAccessToken)
+        {
+            throw new NotImplementedException();
         }
     }
 }
