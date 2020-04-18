@@ -197,6 +197,9 @@ namespace SteamWebAPI2.Models.SteamStore
         [JsonProperty("is_free")]
         public bool IsFree { get; set; }
 
+        [JsonProperty("controller_support")]
+        public string ControllerSupport { get; set; }
+
         [JsonProperty("dlc")]
         public uint[] Dlc { get; set; }
 
@@ -230,11 +233,11 @@ namespace SteamWebAPI2.Models.SteamStore
         [JsonProperty("developers")]
         public string[] Developers { get; set; }
 
-        [JsonProperty("price_overview")]
-        public Price PriceOverview { get; set; }
-
         [JsonProperty("publishers")]
         public string[] Publishers { get; set; }
+
+        [JsonProperty("price_overview")]
+        public Price PriceOverview { get; set; }
 
         [JsonProperty("packages")]
         public string[] Packages { get; set; }
@@ -263,6 +266,9 @@ namespace SteamWebAPI2.Models.SteamStore
         [JsonProperty("recommendations")]
         public Recommendations Recommendations { get; set; }
 
+        [JsonProperty("achievements")]
+        public Achievement Achievements { get; set; }
+
         [JsonProperty("release_date")]
         public ReleaseDate ReleaseDate { get; set; }
 
@@ -271,6 +277,36 @@ namespace SteamWebAPI2.Models.SteamStore
 
         [JsonProperty("background")]
         public string Background { get; set; }
+
+        [JsonProperty("content_descriptors")]
+        public ContentDescriptor ContentDescriptors { get; set; }
+    }
+
+    public class ContentDescriptor
+    {
+        [JsonProperty("ids")]
+        public uint[] Ids { get; set; }
+
+        [JsonProperty("notes")]
+        public string Notes { get; set; }
+    }
+
+    public class Achievement
+    {
+        [JsonProperty("total")]
+        public uint Total { get; set; }
+
+        [JsonProperty("highlighted")]
+        public Highlighted[] Highlighted { get; set; }
+    }
+
+    public class Highlighted
+    {
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
+        [JsonProperty("path")]
+        public string Path { get; set; }
     }
 
     [JsonConverter(typeof(StoreAppDetailsContainerJsonConverter))]

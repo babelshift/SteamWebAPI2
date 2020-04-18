@@ -583,6 +583,9 @@ namespace SteamWebAPI2
                     x.CreateMap<PackageGroup, StorePackageGroupModel>();
                     x.CreateMap<Price, StorePriceOverview>();
                     x.CreateMap<Sub, StoreSubModel>();
+                    x.CreateMap<Achievement, StoreAchievement>();
+                    x.CreateMap<Highlighted, StoreHighlighted>();
+                    x.CreateMap<ContentDescriptor, StoreContentDescriptor>();
 
                     x.CreateMap<FeaturedCategoriesContainer, StoreFeaturedCategoriesModel>();
                     x.CreateMap<TrailerSlideshow, StoreTrailerSlideshowModel>();
