@@ -125,6 +125,7 @@ namespace SteamWebAPI2
                     CreateSteamWebResponseMap<GameMapsPlaytimeContainer, IEnumerable<GameMapsPlaytimeModel>>(x);
                     CreateSteamWebResponseMap<AccountListContainer, AccountListModel>(x);
                     CreateSteamWebResponseMap<CreateAccountContainer, CreateAccountModel>(x);
+                    CreateSteamWebResponseMap<LoginTokenContainer, string>(x);
 
                     #region Endpoint: DOTA2Econ
 
@@ -660,6 +661,10 @@ namespace SteamWebAPI2
                         src => Mapper.Map<CreateAccount, CreateAccountModel>(src.Response)
                     );
                     x.CreateMap<CreateAccount, CreateAccountModel>();
+
+                    x.CreateMap<LoginTokenContainer, string>().ConvertUsing(
+                        src => src.Response.LoginToken
+                    );
 
                     #endregion
                 });

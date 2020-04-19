@@ -9,20 +9,20 @@ namespace SteamWebAPI2.Interfaces
     {
         Task<ISteamWebResponse<AccountListModel>> GetAccountListAsync();
 
-        Task<ISteamWebResponse<CreateAccountModel>> CreateAccount(GameServersAppId appId, string memo);
+        Task<ISteamWebResponse<CreateAccountModel>> CreateAccountAsync(GameServersAppId appId, string memo);
 
-        Task<ISteamWebResponse<dynamic>> SetMemo(ulong steamId, string memo);
+        Task SetMemoAsync(ulong steamId, string memo);
 
-        Task<ISteamWebResponse<dynamic>> ResetLoginToken(ulong steamId);
+        Task<ISteamWebResponse<string>> ResetLoginTokenAsync(ulong steamId);
 
-        Task<ISteamWebResponse<dynamic>> DeleteAccount(ulong steamId);
+        Task<ISteamWebResponse<dynamic>> DeleteAccountAsync(ulong steamId);
 
-        Task<ISteamWebResponse<dynamic>> GetAccountPublicInfo(ulong steamId);
+        Task<ISteamWebResponse<dynamic>> GetAccountPublicInfoAsync(ulong steamId);
 
-        Task<ISteamWebResponse<dynamic>> QueryLoginToken(string loginToken);
+        Task<ISteamWebResponse<dynamic>> QueryLoginTokenAsync(string loginToken);
 
-        Task<ISteamWebResponse<dynamic>> GetServerSteamIDsByIP(IReadOnlyCollection<string> serverIPs);
+        Task<ISteamWebResponse<dynamic>> GetServerSteamIDsByIPAsync(IReadOnlyCollection<string> serverIPs);
 
-        Task<ISteamWebResponse<dynamic>> GetServerIPsBySteamID(IReadOnlyCollection<ulong> steamIds);
+        Task<ISteamWebResponse<dynamic>> GetServerIPsBySteamIDAsync(IReadOnlyCollection<ulong> steamIds);
     }
 }
