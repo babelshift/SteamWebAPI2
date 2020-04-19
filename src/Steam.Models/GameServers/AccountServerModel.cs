@@ -1,6 +1,6 @@
 using System;
 
-namespace Steam.Models
+namespace Steam.Models.GameServers
 {
     public class AccountServerModel
     {
