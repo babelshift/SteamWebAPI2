@@ -22,6 +22,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using SteamWebAPI2.Models.GameServers;
+using Steam.Models.GameServers;
 
 namespace SteamWebAPI2
 {
@@ -125,7 +126,9 @@ namespace SteamWebAPI2
                     CreateSteamWebResponseMap<GameMapsPlaytimeContainer, IEnumerable<GameMapsPlaytimeModel>>(x);
                     CreateSteamWebResponseMap<AccountListContainer, AccountListModel>(x);
                     CreateSteamWebResponseMap<CreateAccountContainer, CreateAccountModel>(x);
-                    CreateSteamWebResponseMap<LoginTokenContainer, string>(x);
+                    CreateSteamWebResponseMap<ResetLoginTokenContainer, string>(x);
+                    CreateSteamWebResponseMap<AccountPublicInfoContainer, AccountPublicInfoModel>(x);
+                    CreateSteamWebResponseMap<QueryLoginTokenContainer, QueryLoginTokenModel>(x);
 
                     #region Endpoint: DOTA2Econ
 
@@ -662,8 +665,17 @@ namespace SteamWebAPI2
                     );
                     x.CreateMap<CreateAccount, CreateAccountModel>();
 
-                    x.CreateMap<LoginTokenContainer, string>().ConvertUsing(
+                    x.CreateMap<ResetLoginTokenContainer, string>().ConvertUsing(
                         src => src.Response.LoginToken
+                    );
+
+                    x.CreateMap<AccountPublicInfoContainer, AccountPublicInfoModel>().ConvertUsing(
+                        src => Mapper.Map<AccountPublicInfo, AccountPublicInfoModel>(src.Response)
+                    );
+                    x.CreateMap<AccountPublicInfo, AccountPublicInfoModel>();
+
+                    x.CreateMap<QueryLoginTokenContainer, QueryLoginTokenModel>().ConvertUsing(
+                        src => Mapper.Map<QueryLoginTokenResponse, QueryLoginTokenModel>(src.Response)
                     );
 
                     #endregion

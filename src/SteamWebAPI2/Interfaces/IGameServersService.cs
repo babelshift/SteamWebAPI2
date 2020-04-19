@@ -1,4 +1,4 @@
-﻿using Steam.Models;
+﻿using Steam.Models.GameServers;
 using SteamWebAPI2.Utilities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -15,9 +15,9 @@ namespace SteamWebAPI2.Interfaces
 
         Task<ISteamWebResponse<string>> ResetLoginTokenAsync(ulong steamId);
 
-        Task<ISteamWebResponse<dynamic>> DeleteAccountAsync(ulong steamId);
+        Task DeleteAccountAsync(ulong steamId);
 
-        Task<ISteamWebResponse<dynamic>> GetAccountPublicInfoAsync(ulong steamId);
+        Task<ISteamWebResponse<AccountPublicInfoModel>> GetAccountPublicInfoAsync(ulong steamId);
 
         Task<ISteamWebResponse<dynamic>> QueryLoginTokenAsync(string loginToken);
 

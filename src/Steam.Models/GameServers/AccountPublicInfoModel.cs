@@ -1,9 +1,9 @@
 namespace Steam.Models.GameServers
 {
-    public class CreateAccountModel
+    public class AccountPublicInfoModel
     {
         public ulong SteamId { get; set; }
-        
-        public string LoginToken { get; set; }
+
+        public uint AppId { get; set; }
     }
 }

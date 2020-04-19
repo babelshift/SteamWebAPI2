@@ -2,13 +2,13 @@ using Newtonsoft.Json;
 
 namespace SteamWebAPI2.Models.GameServers
 {
-    public class LoginTokenContainer
+    public class ResetLoginTokenContainer
     {
         [JsonProperty("response")]
-        public LoginTokenResponse Response { get; set; }
+        public ResetLoginTokenResponse Response { get; set; }
     }
 
-    public class LoginTokenResponse
+    public class ResetLoginTokenResponse
     {
         [JsonProperty("login_token")]
         public string LoginToken { get; set; }

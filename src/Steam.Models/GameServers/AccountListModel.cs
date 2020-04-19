@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Steam.Models
+namespace Steam.Models.GameServers
 {
     public class AccountListModel
     {

@@ -1,4 +1,4 @@
-﻿using Steam.Models;
+﻿using Steam.Models.GameServers;
 using SteamWebAPI2.Models.GameServers;
 using SteamWebAPI2.Utilities;
 using System.Collections.Generic;
@@ -74,31 +74,45 @@ namespace SteamWebAPI2.Interfaces
             await steamWebInterface.PostAsync<dynamic>("SetMemo", 1, parameters);
         }
 
+        /// <summary>Generates a new login token for the specified game server
+        /// </summary>
+        /// <param name="steamId">The SteamID of the game server to reset the login token</param>
+        /// <returns>New login token</returns>
         public async Task<ISteamWebResponse<string>> ResetLoginTokenAsync(ulong steamId)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
             parameters.AddIfHasValue(steamId, "steamid");
-            var steamWebResponse = await steamWebInterface.PostAsync<LoginTokenContainer>("ResetLoginToken", 1, parameters);
+            var steamWebResponse = await steamWebInterface.PostAsync<ResetLoginTokenContainer>("ResetLoginToken", 1, parameters);
             var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
-                ISteamWebResponse<LoginTokenContainer>,
+                ISteamWebResponse<ResetLoginTokenContainer>,
                 ISteamWebResponse<string>>(steamWebResponse);
             return steamWebResponseModel;
         }
 
-        public async Task<ISteamWebResponse<dynamic>> DeleteAccountAsync(ulong steamId)
+        /// <summary>Deletes a persistent game server account
+        /// </summary>
+        /// <param name="steamId">The SteamID of the game server account to delete</param>
+        /// <returns>200 OK with no content indicates success from this endpoint.</returns>
+        public async Task DeleteAccountAsync(ulong steamId)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
             parameters.AddIfHasValue(steamId, "steamid");
-            var steamWebResponse = await steamWebInterface.PostAsync<dynamic>("DeleteAccount", 1, parameters);
-            return steamWebResponse;
+            await steamWebInterface.PostAsync<dynamic>("DeleteAccount", 1, parameters);
         }
 
-        public async Task<ISteamWebResponse<dynamic>> GetAccountPublicInfoAsync(ulong steamId)
+        /// <summary>Gets public information about a given game server account
+        /// </summary>
+        /// <param name="steamId">The SteamID of the game server to get info</param>
+        /// <returns>Steam ID and associated App ID of the game server</returns>
+        public async Task<ISteamWebResponse<AccountPublicInfoModel>> GetAccountPublicInfoAsync(ulong steamId)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
             parameters.AddIfHasValue(steamId, "steamid");
-            var steamWebResponse = await steamWebInterface.GetAsync<dynamic>("GetAccountPublicInfo", 1, parameters);
-            return steamWebResponse;
+            var steamWebResponse = await steamWebInterface.GetAsync<AccountPublicInfoContainer>("GetAccountPublicInfo", 1, parameters);
+            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+                ISteamWebResponse<AccountPublicInfoContainer>,
+                ISteamWebResponse<AccountPublicInfoModel>>(steamWebResponse);
+            return steamWebResponseModel;
         }
 
         public async Task<ISteamWebResponse<dynamic>> QueryLoginTokenAsync(string loginToken)
