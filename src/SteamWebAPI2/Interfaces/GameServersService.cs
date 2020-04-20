@@ -6,12 +6,6 @@ using System.Threading.Tasks;
 
 namespace SteamWebAPI2.Interfaces
 {
-    public enum GameServersAppId
-    {
-        TeamFortress2 = 440,
-        CounterStrikeGo = 730
-    }
-
     public class GameServersService : IGameServersService
     {
         private ISteamWebInterface steamWebInterface;
@@ -44,7 +38,7 @@ namespace SteamWebAPI2.Interfaces
         /// <param name="appId">Only supports TF2 and CSGO.</param>
         /// <param name="memo">Free text to attach to server. Does nothing but act as an identifier.</param>
         /// <returns>Steam ID and LoginToken for the new server.</returns>
-        public async Task<ISteamWebResponse<CreateAccountModel>> CreateAccountAsync(GameServersAppId appId, string memo)
+        public async Task<ISteamWebResponse<CreateAccountModel>> CreateAccountAsync(AppId appId, string memo)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
             parameters.AddIfHasValue((int)appId, "appid");

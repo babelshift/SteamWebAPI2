@@ -9,7 +9,7 @@ namespace SteamWebAPI2.Interfaces
     {
         Task<ISteamWebResponse<AccountListModel>> GetAccountListAsync();
 
-        Task<ISteamWebResponse<CreateAccountModel>> CreateAccountAsync(GameServersAppId appId, string memo);
+        Task<ISteamWebResponse<CreateAccountModel>> CreateAccountAsync(AppId appId, string memo);
 
         Task SetMemoAsync(ulong steamId, string memo);
 

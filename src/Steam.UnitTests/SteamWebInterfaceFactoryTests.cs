@@ -67,7 +67,7 @@ namespace Steam.UnitTests
         [Fact]
         public void Create_EconItems_Interface_Should_Succeed()
         {
-            var steamInterface = factory.CreateSteamWebInterface<EconItems>(EconItemsAppId.TeamFortress2);
+            var steamInterface = factory.CreateSteamWebInterface<EconItems>(AppId.TeamFortress2);
             Assert.NotNull(steamInterface);
         }
 
@@ -88,7 +88,7 @@ namespace Steam.UnitTests
         [Fact]
         public void Create_GCVersion_Interface_Should_Succeed()
         {
-            var steamInterface = factory.CreateSteamWebInterface<GCVersion>(GCVersionAppId.TeamFortress2);
+            var steamInterface = factory.CreateSteamWebInterface<GCVersion>(AppId.TeamFortress2);
             Assert.NotNull(steamInterface);
         }
 
