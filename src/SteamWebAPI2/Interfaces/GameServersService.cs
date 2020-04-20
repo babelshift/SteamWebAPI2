@@ -115,12 +115,15 @@ namespace SteamWebAPI2.Interfaces
             return steamWebResponseModel;
         }
 
-        public async Task<ISteamWebResponse<dynamic>> QueryLoginTokenAsync(string loginToken)
+        public async Task<ISteamWebResponse<QueryLoginTokenModel>> QueryLoginTokenAsync(string loginToken)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
             parameters.AddIfHasValue(loginToken, "login_token");
-            var steamWebResponse = await steamWebInterface.GetAsync<dynamic>("QueryLoginToken", 1, parameters);
-            return steamWebResponse;
+            var steamWebResponse = await steamWebInterface.GetAsync<QueryLoginTokenContainer>("QueryLoginToken", 1, parameters);
+            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+                ISteamWebResponse<QueryLoginTokenContainer>,
+                ISteamWebResponse<QueryLoginTokenModel>>(steamWebResponse);
+            return steamWebResponseModel;
         }
 
         public async Task<ISteamWebResponse<dynamic>> GetServerSteamIDsByIPAsync(IReadOnlyCollection<string> serverIPs)

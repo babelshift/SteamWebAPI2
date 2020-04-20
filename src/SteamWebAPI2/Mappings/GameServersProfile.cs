@@ -38,6 +38,8 @@ namespace SteamWebAPI2.Mappings
             CreateMap<QueryLoginTokenContainer, QueryLoginTokenModel>().ConvertUsing((src, dest, context) => 
                 context.Mapper.Map<QueryLoginTokenResponse, QueryLoginTokenModel>(src.Response)
             );
+
+            CreateMap<QueryLoginTokenResponse, QueryLoginTokenModel>();
         }
     }
 }

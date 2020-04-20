@@ -114,6 +114,7 @@ namespace SteamWebAPI2
                     x.AddProfile<SteamAppsProfile>();
                     x.AddProfile<SteamWebAPIUtilProfile>();
                     x.AddProfile<TFItemsProfile>();
+                    x.AddProfile<SteamNewsProfile>();
                 });
             }
 

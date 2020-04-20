@@ -19,7 +19,7 @@ namespace SteamWebAPI2.Interfaces
 
         Task<ISteamWebResponse<AccountPublicInfoModel>> GetAccountPublicInfoAsync(ulong steamId);
 
-        Task<ISteamWebResponse<dynamic>> QueryLoginTokenAsync(string loginToken);
+        Task<ISteamWebResponse<QueryLoginTokenModel>> QueryLoginTokenAsync(string loginToken);
 
         Task<ISteamWebResponse<dynamic>> GetServerSteamIDsByIPAsync(IReadOnlyCollection<string> serverIPs);
 
