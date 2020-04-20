@@ -140,29 +140,56 @@ namespace SteamWebAPI2.Interfaces
             return steamWebResponseModel;
         }
 
-        public Task<ISteamWebResponse<dynamic>> GetTradeStatusAsync(ulong tradeId, bool getDescriptions, string language)
+        public async Task<ISteamWebResponse<dynamic>> GetTradeStatusAsync(ulong tradeId, bool getDescriptions, string language)
         {
-            throw new NotImplementedException();
+            List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
+            parameters.AddIfHasValue(tradeId, "tradeid");
+            parameters.AddIfHasValue(getDescriptions, "get_descriptions");
+            parameters.AddIfHasValue(language, "language");
+            var steamWebResponse = await steamWebInterface.GetAsync<dynamic>("GetTradeStatus", 1, parameters);
+            return steamWebResponse;
         }
 
-        public Task<ISteamWebResponse<dynamic>> GetTradeOffersSummaryAsync(DateTime timeLastVisit)
+        public async Task<ISteamWebResponse<dynamic>> GetTradeOffersSummaryAsync(DateTime? timeLastVisit = null)
         {
-            throw new NotImplementedException();
+            ulong? timeLastVisitUnix = timeLastVisit.HasValue 
+                ? timeLastVisit.Value.ToUnixTimeStamp() 
+                : (ulong?)null;
+
+            List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
+            parameters.AddIfHasValue(timeLastVisitUnix, "time_last_visit");
+            var steamWebResponse = await steamWebInterface.GetAsync<dynamic>("GetTradeOffersSummary", 1, parameters);
+            return steamWebResponse;
         }
 
-        public Task<ISteamWebResponse<dynamic>> DeclineTradeOfferAsync(ulong tradeOfferId)
+        public async Task<ISteamWebResponse<dynamic>> DeclineTradeOfferAsync(ulong tradeOfferId)
         {
-            throw new NotImplementedException();
+            List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
+            parameters.AddIfHasValue(tradeOfferId, "tradeid");
+            var steamWebResponse = await steamWebInterface.PostAsync<dynamic>("DeclineTradeOffer", 1, parameters);
+            return steamWebResponse;
         }
 
-        public Task<ISteamWebResponse<dynamic>> CancelTradeOfferAsync(ulong tradeOfferId)
+        public async Task<ISteamWebResponse<dynamic>> CancelTradeOfferAsync(ulong tradeOfferId)
         {
-            throw new NotImplementedException();
+            List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
+            parameters.AddIfHasValue(tradeOfferId, "tradeid");
+            var steamWebResponse = await steamWebInterface.PostAsync<dynamic>("CancelTradeOffer", 1, parameters);
+            return steamWebResponse;
         }
 
-        public Task<ISteamWebResponse<dynamic>> GetTradeHoldDurationsAsync(ulong steamIdTarget, string tradeOfferAccessToken)
+        public async Task<ISteamWebResponse<TradeHoldDurationsResultModel>> GetTradeHoldDurationsAsync(ulong steamIdTarget, string tradeOfferAccessToken = "")
         {
-            throw new NotImplementedException();
+            List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
+            parameters.AddIfHasValue(steamIdTarget, "steamid_target");
+            parameters.AddIfHasValue(tradeOfferAccessToken, "trade_offer_access_token");
+            var steamWebResponse = await steamWebInterface.GetAsync<TradeHoldDurationsResultContainer>("GetTradeHoldDurations", 1, parameters);
+            
+            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+                ISteamWebResponse<TradeHoldDurationsResultContainer>,
+                ISteamWebResponse<TradeHoldDurationsResultModel>>(steamWebResponse);
+
+            return steamWebResponseModel;
         }
     }
 }

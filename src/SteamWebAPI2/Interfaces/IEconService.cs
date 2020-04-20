@@ -62,12 +62,12 @@ namespace SteamWebAPI2.Interfaces
         /// <returns></returns>
         Task<ISteamWebResponse<TradeOfferResultModel>> GetTradeOfferAsync(ulong tradeOfferId, string language, bool getDescriptions);
 
-        Task<ISteamWebResponse<dynamic>> GetTradeOffersSummaryAsync(DateTime timeLastVisit);
+        Task<ISteamWebResponse<dynamic>> GetTradeOffersSummaryAsync(DateTime? timeLastVisit);
 
         Task<ISteamWebResponse<dynamic>> DeclineTradeOfferAsync(ulong tradeOfferId);
         
         Task<ISteamWebResponse<dynamic>> CancelTradeOfferAsync(ulong tradeOfferId);
 
-        Task<ISteamWebResponse<dynamic>> GetTradeHoldDurationsAsync(ulong steamIdTarget, string tradeOfferAccessToken);
+        Task<ISteamWebResponse<TradeHoldDurationsResultModel>> GetTradeHoldDurationsAsync(ulong steamIdTarget, string tradeOfferAccessToken);
     }
 }
