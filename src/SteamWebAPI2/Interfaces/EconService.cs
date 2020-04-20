@@ -165,7 +165,7 @@ namespace SteamWebAPI2.Interfaces
         public async Task<ISteamWebResponse<dynamic>> DeclineTradeOfferAsync(ulong tradeOfferId)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
-            parameters.AddIfHasValue(tradeOfferId, "tradeid");
+            parameters.AddIfHasValue(tradeOfferId, "tradeofferid");
             var steamWebResponse = await steamWebInterface.PostAsync<dynamic>("DeclineTradeOffer", 1, parameters);
             return steamWebResponse;
         }
@@ -173,7 +173,7 @@ namespace SteamWebAPI2.Interfaces
         public async Task<ISteamWebResponse<dynamic>> CancelTradeOfferAsync(ulong tradeOfferId)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
-            parameters.AddIfHasValue(tradeOfferId, "tradeid");
+            parameters.AddIfHasValue(tradeOfferId, "tradeofferid");
             var steamWebResponse = await steamWebInterface.PostAsync<dynamic>("CancelTradeOffer", 1, parameters);
             return steamWebResponse;
         }
