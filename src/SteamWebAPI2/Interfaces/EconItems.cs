@@ -7,18 +7,6 @@ using System.Threading.Tasks;
 
 namespace SteamWebAPI2.Interfaces
 {
-    public enum EconItemsAppId
-    {
-        TeamFortress2 = 440,
-        Dota2 = 570,
-        Payday2 = 218620,
-        DefenseGrid2 = 221540,
-        BattleBlockTheater = 238460,
-        Portal2 = 620,
-        CounterStrikeGO = 730,
-        Portal2_Beta = 841
-    }
-
     public class EconItems : IEconItems
     {
         private uint appId;
@@ -36,7 +24,7 @@ namespace SteamWebAPI2.Interfaces
         /// Default constructor established the Steam Web API key and initializes for subsequent method calls
         /// </summary>
         /// <param name="steamWebRequest"></param>
-        public EconItems(ISteamWebRequest steamWebRequest, EconItemsAppId appId, ISteamWebInterface steamWebInterface = null)
+        public EconItems(ISteamWebRequest steamWebRequest, AppId appId, ISteamWebInterface steamWebInterface = null)
         {
             if (appId <= 0)
             {
@@ -49,21 +37,21 @@ namespace SteamWebAPI2.Interfaces
 
             this.appId = (uint)appId;
 
-            validSchemaAppIds.Add((uint)EconItemsAppId.TeamFortress2);
-            validSchemaAppIds.Add((uint)EconItemsAppId.Dota2);
-            validSchemaAppIds.Add((uint)EconItemsAppId.Portal2);
-            validSchemaAppIds.Add((uint)EconItemsAppId.Portal2_Beta);
-            validSchemaAppIds.Add((uint)EconItemsAppId.CounterStrikeGO);
+            validSchemaAppIds.Add((uint)AppId.TeamFortress2);
+            validSchemaAppIds.Add((uint)AppId.Dota2);
+            validSchemaAppIds.Add((uint)AppId.Portal2);
+            validSchemaAppIds.Add((uint)AppId.Portal2_Beta);
+            validSchemaAppIds.Add((uint)AppId.CounterStrikeGO);
 
-            validSchemaUrlAppIds.Add((uint)EconItemsAppId.TeamFortress2);
-            validSchemaUrlAppIds.Add((uint)EconItemsAppId.Dota2);
-            validSchemaUrlAppIds.Add((uint)EconItemsAppId.CounterStrikeGO);
+            validSchemaUrlAppIds.Add((uint)AppId.TeamFortress2);
+            validSchemaUrlAppIds.Add((uint)AppId.Dota2);
+            validSchemaUrlAppIds.Add((uint)AppId.CounterStrikeGO);
 
-            validStoreMetaDataAppIds.Add((uint)EconItemsAppId.TeamFortress2);
-            validStoreMetaDataAppIds.Add((uint)EconItemsAppId.Dota2);
-            validStoreMetaDataAppIds.Add((uint)EconItemsAppId.CounterStrikeGO);
+            validStoreMetaDataAppIds.Add((uint)AppId.TeamFortress2);
+            validStoreMetaDataAppIds.Add((uint)AppId.Dota2);
+            validStoreMetaDataAppIds.Add((uint)AppId.CounterStrikeGO);
 
-            validStoreStatusAppIds.Add((uint)EconItemsAppId.TeamFortress2);
+            validStoreStatusAppIds.Add((uint)AppId.TeamFortress2);
         }
 
         /// <summary>
@@ -91,7 +79,7 @@ namespace SteamWebAPI2.Interfaces
         /// <returns></returns>
         public async Task<ISteamWebResponse<SchemaItemsResultContainer>> GetSchemaItemsForTF2Async(string language = "en_us")
         {
-            if (appId != (int)EconItemsAppId.TeamFortress2)
+            if (appId != (int)AppId.TeamFortress2)
             {
                 throw new InvalidOperationException(string.Format("AppId {0} is not valid for the GetSchemaTF2 method.", appId));
             }
@@ -112,7 +100,7 @@ namespace SteamWebAPI2.Interfaces
         /// <returns></returns>
         public async Task<ISteamWebResponse<SchemaOverviewResultContainer>> GetSchemaOverviewForTF2Async(string language = "en_us")
         {
-            if (appId != (int)EconItemsAppId.TeamFortress2)
+            if (appId != (int)AppId.TeamFortress2)
             {
                 throw new InvalidOperationException(string.Format("AppId {0} is not valid for the GetSchemaTF2 method.", appId));
             }

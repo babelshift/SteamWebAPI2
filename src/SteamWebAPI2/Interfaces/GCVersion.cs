@@ -7,15 +7,6 @@ using System.Threading.Tasks;
 
 namespace SteamWebAPI2.Interfaces
 {
-    public enum GCVersionAppId
-    {
-        TeamFortress2 = 440,
-        Dota2 = 570,
-        CounterStrikeGO = 730,
-        Artifact = 583950,
-        DotaUnderlords = 1046930
-    }
-
     public class GCVersion : IGCVersion
     {
         private uint appId;
@@ -32,7 +23,7 @@ namespace SteamWebAPI2.Interfaces
         /// Default constructor established the Steam Web API key and initializes for subsequent method calls
         /// </summary>
         /// <param name="steamWebRequest"></param>
-        public GCVersion(ISteamWebRequest steamWebRequest, GCVersionAppId appId, ISteamWebInterface steamWebInterface = null)
+        public GCVersion(ISteamWebRequest steamWebRequest, AppId appId, ISteamWebInterface steamWebInterface = null)
         {
             this.steamWebInterface = steamWebInterface == null
                 ? new SteamWebInterface("IGCVersion_" + (uint)appId, steamWebRequest)
@@ -45,16 +36,16 @@ namespace SteamWebAPI2.Interfaces
 
             this.appId = (uint)appId;
 
-            validClientVersionAppIds.Add((int)GCVersionAppId.TeamFortress2);
-            validClientVersionAppIds.Add((int)GCVersionAppId.Dota2);
-            validClientVersionAppIds.Add((int)GCVersionAppId.Artifact);
-            validClientVersionAppIds.Add((int)GCVersionAppId.DotaUnderlords);
+            validClientVersionAppIds.Add((int)AppId.TeamFortress2);
+            validClientVersionAppIds.Add((int)AppId.Dota2);
+            validClientVersionAppIds.Add((int)AppId.Artifact);
+            validClientVersionAppIds.Add((int)AppId.DotaUnderlords);
 
-            validServerVersionAppIds.Add((int)GCVersionAppId.TeamFortress2);
-            validServerVersionAppIds.Add((int)GCVersionAppId.Dota2);
-            validServerVersionAppIds.Add((int)GCVersionAppId.CounterStrikeGO);
-            validServerVersionAppIds.Add((int)GCVersionAppId.Artifact);
-            validServerVersionAppIds.Add((int)GCVersionAppId.DotaUnderlords);
+            validServerVersionAppIds.Add((int)AppId.TeamFortress2);
+            validServerVersionAppIds.Add((int)AppId.Dota2);
+            validServerVersionAppIds.Add((int)AppId.CounterStrikeGO);
+            validServerVersionAppIds.Add((int)AppId.Artifact);
+            validServerVersionAppIds.Add((int)AppId.DotaUnderlords);
         }
 
         /// <summary>
