@@ -1,4 +1,5 @@
-﻿using SteamWebAPI2.Utilities;
+﻿using Steam.Models.GameServers;
+using SteamWebAPI2.Utilities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -6,22 +7,22 @@ namespace SteamWebAPI2.Interfaces
 {
     public interface IGameServersService
     {
-        Task<ISteamWebResponse<dynamic>> GetAccountListAsync();
+        Task<ISteamWebResponse<AccountListModel>> GetAccountListAsync();
 
-        Task<ISteamWebResponse<dynamic>> CreateAccount(uint appid, string memo);
+        Task<ISteamWebResponse<CreateAccountModel>> CreateAccountAsync(GameServersAppId appId, string memo);
 
-        Task<ISteamWebResponse<dynamic>> SetMemo(ulong steamId, string memo);
+        Task SetMemoAsync(ulong steamId, string memo);
 
-        Task<ISteamWebResponse<dynamic>> ResetLoginToken(ulong steamId);
+        Task<ISteamWebResponse<string>> ResetLoginTokenAsync(ulong steamId);
 
-        Task<ISteamWebResponse<dynamic>> DeleteAccount(ulong steamId);
+        Task DeleteAccountAsync(ulong steamId);
 
-        Task<ISteamWebResponse<dynamic>> GetAccountPublicInfo(ulong steamId);
+        Task<ISteamWebResponse<AccountPublicInfoModel>> GetAccountPublicInfoAsync(ulong steamId);
 
-        Task<ISteamWebResponse<dynamic>> QueryLoginToken(string loginToken);
+        Task<ISteamWebResponse<QueryLoginTokenModel>> QueryLoginTokenAsync(string loginToken);
 
-        Task<ISteamWebResponse<dynamic>> GetServerSteamIDsByIP(IReadOnlyCollection<string> serverIPs);
+        Task<ISteamWebResponse<dynamic>> GetServerSteamIDsByIPAsync(IReadOnlyCollection<string> serverIPs);
 
-        Task<ISteamWebResponse<dynamic>> GetServerIPsBySteamID(IReadOnlyCollection<ulong> steamIds);
+        Task<ISteamWebResponse<dynamic>> GetServerIPsBySteamIDAsync(IReadOnlyCollection<ulong> steamIds);
     }
 }
