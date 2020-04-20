@@ -1,5 +1,6 @@
 ﻿using Steam.Models.SteamEconomy;
 using SteamWebAPI2.Utilities;
+using System;
 using System.Threading.Tasks;
 
 namespace SteamWebAPI2.Interfaces
@@ -18,7 +19,20 @@ namespace SteamWebAPI2.Interfaces
         /// <param name="includeFailed">If set, trades in status k_ETradeStatus_Failed, k_ETradeStatus_RollbackFailed, k_ETradeStatus_RollbackAbandoned, and k_ETradeStatus_EscrowRollback will be included</param>
         /// <param name="includeTotal">Unknown</param>
         /// <returns></returns>
-        Task<ISteamWebResponse<TradeHistoryModel>> GetTradeHistoryAsync(uint maxTrades, uint startAfterTime, ulong startAfterTradeId, bool navigatingBack, bool getDescriptions, string language, bool includeFailed, bool includeTotal);
+        Task<ISteamWebResponse<TradeHistoryModel>> GetTradeHistoryAsync(
+            uint maxTrades,
+            DateTime? startAfterTime,
+            ulong startAfterTradeId,
+            bool navigatingBack,
+            bool getDescriptions,
+            string language,
+            bool includeFailed,
+            bool includeTotal);
+
+        Task<ISteamWebResponse<dynamic>> GetTradeStatusAsync(
+            ulong tradeId,
+            bool getDescriptions,
+            string language);
 
         /// <summary>
         /// This API gets a list of trade offers (up to a maximum of 500 sent or 1000 received regardless of time_historical_cutoff) for the account associated with the WebAPI key. You cannot call this API for accounts other than your own.
@@ -29,9 +43,16 @@ namespace SteamWebAPI2.Interfaces
         /// <param name="language">Needed if get_descriptions is set, the language to use for item descriptions.</param>
         /// <param name="activeOnly">Return only trade offers in an active state (offers that haven't been accepted yet), or any offers that have had their state change since time_historical_cutoff.</param>
         /// <param name="historicalOnly">Return trade offers that are not in an active state.</param>
-        /// <param name="timeHistoricalCutoff">A unix time value. when active_only is set, inactive offers will be returned if their state was updated since this time. Useful to get delta updates on what has changed. WARNING: If not passed, this will default to the time your account last viewed the trade offers page. To avoid this behavior use a very low or very high date.</param>
+        /// <param name="timeHistoricalCutoff">A unix time value. When active_only is set, inactive offers will be returned if their state was updated since this time. Useful to get delta updates on what has changed. WARNING: If not passed, this will default to the time your account last viewed the trade offers page. To avoid this behavior use a very low or very high date.</param>
         /// <returns></returns>
-        Task<ISteamWebResponse<TradeOffersResultModel>> GetTradeOffersAsync(bool getSentOffers, bool getReceivedOffers, bool getDescriptions, string language, bool activeOnly, bool historicalOnly, uint timeHistoricalCutoff);
+        Task<ISteamWebResponse<TradeOffersResultModel>> GetTradeOffersAsync(
+            bool getSentOffers,
+            bool getReceivedOffers,
+            bool getDescriptions,
+            string language,
+            bool activeOnly,
+            bool historicalOnly,
+            DateTime? timeHistoricalCutoff);
 
         /// <summary>
         /// This API gets details about a single trade offer. The trade offer must have been sent to or from the account associated with the WebAPI key. You cannot call this API for accounts other than your own.
@@ -39,10 +60,14 @@ namespace SteamWebAPI2.Interfaces
         /// <param name="tradeOfferId">The trade offer identifier</param>
         /// <param name="language">The language to use for item display information.</param>
         /// <returns></returns>
-        Task<ISteamWebResponse<TradeOfferResultModel>> GetTradeOfferAsync(ulong tradeOfferId, string language);
+        Task<ISteamWebResponse<TradeOfferResultModel>> GetTradeOfferAsync(ulong tradeOfferId, string language, bool getDescriptions);
 
-        //Task GetTradeOffersSummary(ulong timeLastVisit);
-        //Task DeclineTradeOffer(ulong tradeOfferId);
-        //Task CancelTradeOffer(ulong tradeOfferId);
+        Task<ISteamWebResponse<dynamic>> GetTradeOffersSummaryAsync(DateTime? timeLastVisit);
+
+        Task<ISteamWebResponse<dynamic>> DeclineTradeOfferAsync(ulong tradeOfferId);
+        
+        Task<ISteamWebResponse<dynamic>> CancelTradeOfferAsync(ulong tradeOfferId);
+
+        Task<ISteamWebResponse<TradeHoldDurationsResultModel>> GetTradeHoldDurationsAsync(ulong steamIdTarget, string tradeOfferAccessToken);
     }
 }

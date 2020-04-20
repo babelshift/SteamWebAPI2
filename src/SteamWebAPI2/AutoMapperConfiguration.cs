@@ -97,6 +97,7 @@ namespace SteamWebAPI2
                     CreateSteamWebResponseMap<ResetLoginTokenContainer, string>(x);
                     CreateSteamWebResponseMap<AccountPublicInfoContainer, AccountPublicInfoModel>(x);
                     CreateSteamWebResponseMap<QueryLoginTokenContainer, QueryLoginTokenModel>(x);
+                    CreateSteamWebResponseMap<TradeHoldDurationsResultContainer, TradeHoldDurationsResultModel>(x);
 
                     x.AddProfile<DOTA2EconProfile>();
                     x.AddProfile<DOTA2FantasyProfile>();

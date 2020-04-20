@@ -1,3 +1,4 @@
+using System;
 using AutoMapper;
 using Steam.Models.SteamEconomy;
 using SteamWebAPI2.Models.SteamEconomy;
@@ -35,6 +36,15 @@ namespace SteamWebAPI2.Mappings
             CreateMap<TradeOffersResultContainer, TradeOffersResultModel>().ConvertUsing((src, dest, context) =>
                 context.Mapper.Map<TradeOffersResult, TradeOffersResultModel>(src.Result)
             );
+            CreateMap<TradeHoldDurationsResultContainer, TradeHoldDurationsResultModel>().ConvertUsing((src, dest, context) =>
+                context.Mapper.Map<TradeHoldDurationsResult, TradeHoldDurationsResultModel>(src.Result)
+            );
+            CreateMap<TradeHoldDurationsResult, TradeHoldDurationsResultModel>();
+            CreateMap<TradeHoldDurations, TradeHoldDurationsModel>()
+                .ForMember(dest => dest.EscrowEndDate, 
+                    opts => opts.MapFrom(src => src.EscrowEndDateRfc3339))
+                .ForMember(dest => dest.EscrowEndDuration, 
+                    opts => opts.MapFrom(src => TimeSpan.FromSeconds(src.EscrowEndDurationSeconds)));
         }
     }
 }
