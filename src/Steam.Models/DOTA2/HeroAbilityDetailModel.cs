@@ -30,6 +30,7 @@ namespace Steam.Models.DOTA2
         public string Note3 { get; set; }
         public string Note4 { get; set; }
         public string Note5 { get; set; }
+        public string Note6 { get; set; }
         public bool HasLinkedSpecialBonus
         {
             get
