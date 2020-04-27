@@ -12,7 +12,8 @@ namespace SteamWebAPI2.Interfaces
     /// </summary>
     public class DOTA2Econ : IDOTA2Econ
     {
-        private ISteamWebInterface steamWebInterface;
+        private ISteamWebInterface dota2WebInterface;
+        private ISteamWebInterface dota2TestWebInterface;
 
         /// <summary>
         /// Default constructor established the Steam Web API key and initializes for subsequent method calls
@@ -20,9 +21,11 @@ namespace SteamWebAPI2.Interfaces
         /// <param name="steamWebApiKey"></param>
         public DOTA2Econ(ISteamWebRequest steamWebRequest, ISteamWebInterface steamWebInterface = null)
         {
-            this.steamWebInterface = steamWebInterface == null
+            this.dota2WebInterface = steamWebInterface == null
                 ? new SteamWebInterface("IEconDOTA2_570", steamWebRequest)
                 : steamWebInterface;
+
+            this.dota2TestWebInterface = new SteamWebInterface("IEconDOTA2_205790", steamWebRequest);
         }
 
         /// <summary>
@@ -36,7 +39,7 @@ namespace SteamWebAPI2.Interfaces
 
             parameters.AddIfHasValue(language, "language");
 
-            var steamWebResponse = await steamWebInterface.GetAsync<GameItemResultContainer>("GetGameItems", 1, parameters);
+            var steamWebResponse = await dota2WebInterface.GetAsync<GameItemResultContainer>("GetGameItems", 1, parameters);
 
             var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<ISteamWebResponse<GameItemResultContainer>, ISteamWebResponse<IReadOnlyCollection<GameItemModel>>>(steamWebResponse);
 
@@ -58,7 +61,7 @@ namespace SteamWebAPI2.Interfaces
             parameters.AddIfHasValue(language, "language");
             parameters.AddIfHasValue(itemizedOnlyValue, "itemizedonly");
 
-            var steamWebResponse = await steamWebInterface.GetAsync<HeroResultContainer>("GetHeroes", 1, parameters);
+            var steamWebResponse = await dota2WebInterface.GetAsync<HeroResultContainer>("GetHeroes", 1, parameters);
 
             var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<ISteamWebResponse<HeroResultContainer>, ISteamWebResponse<IReadOnlyCollection<HeroModel>>>(steamWebResponse);
 
@@ -76,7 +79,7 @@ namespace SteamWebAPI2.Interfaces
 
             parameters.AddIfHasValue(language, "language");
 
-            var steamWebResponse = await steamWebInterface.GetAsync<RarityResultContainer>("GetRarities", 1, parameters);
+            var steamWebResponse = await dota2WebInterface.GetAsync<RarityResultContainer>("GetRarities", 1, parameters);
 
             var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<ISteamWebResponse<RarityResultContainer>, ISteamWebResponse<IReadOnlyCollection<RarityModel>>>(steamWebResponse);
 
@@ -94,9 +97,34 @@ namespace SteamWebAPI2.Interfaces
 
             parameters.AddIfHasValue(leagueId, "leagueid");
 
-            var steamWebResponse = await steamWebInterface.GetAsync<PrizePoolResultContainer>("GetTournamentPrizePool", 1, parameters);
+            var steamWebResponse = await dota2WebInterface.GetAsync<PrizePoolResultContainer>("GetTournamentPrizePool", 1, parameters);
 
             var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<ISteamWebResponse<PrizePoolResultContainer>, ISteamWebResponse<uint>>(steamWebResponse);
+
+            return steamWebResponseModel;
+        }
+
+        /// <summary>
+        /// It is important to note that the "items" this method is referring to are not the in game items. These are actually cosmetic items found in the DOTA 2 store and workshop.
+        /// </summary>
+        /// <param name="iconName"></param>
+        /// <param name="iconType"></param>
+        /// <returns></returns>
+        public async Task<ISteamWebResponse<string>> GetItemIconPathAsync(string iconName, string iconType = "")
+        {
+            if (string.IsNullOrEmpty(iconName))
+            {
+                throw new ArgumentNullException("iconName");
+            }
+
+            List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
+
+            parameters.AddIfHasValue(iconName, "iconname");
+            parameters.AddIfHasValue(iconType, "icontype");
+
+            var steamWebResponse = await dota2TestWebInterface.GetAsync<ItemIconPathResultContainer>("GetItemIconPath", 1, parameters);
+
+            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<ISteamWebResponse<ItemIconPathResultContainer>, ISteamWebResponse<string>>(steamWebResponse);
 
             return steamWebResponseModel;
         }
