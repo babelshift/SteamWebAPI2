@@ -40,5 +40,7 @@ namespace Steam.Models.DOTA2
         public IList<string> UsedByHeroes { get; set; }
 
         public IList<string> BundledItems { get; set; }
+
+        public IList<SchemaItemStaticAttributeModel> StaticAttributes { get; set; }
     }
 }
