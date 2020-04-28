@@ -28,7 +28,9 @@
         public static readonly DotaHeroAbilityBehaviorType UNRESTRICTED = new DotaHeroAbilityBehaviorType("DOTA_ABILITY_BEHAVIOR_UNRESTRICTED", "Unrestricted", "Unknown.");
         public static readonly DotaHeroAbilityBehaviorType RUNE_TARGET = new DotaHeroAbilityBehaviorType("DOTA_ABILITY_BEHAVIOR_RUNE_TARGET", "Rune Target", "Unknown.");
         public static readonly DotaHeroAbilityBehaviorType DONT_CANCEL_MOVEMENT = new DotaHeroAbilityBehaviorType("DOTA_ABILITY_BEHAVIOR_DONT_CANCEL_MOVEMENT", "Does Not Cancel Movement", "This ability does not stop hero movement.");
-
+        public static readonly DotaHeroAbilityBehaviorType OPTIONAL_UNIT_TARGET = new DotaHeroAbilityBehaviorType("DOTA_ABILITY_BEHAVIOR_OPTIONAL_UNIT_TARGET", "Optional Unit Target", "Unknown.");
+        public static readonly DotaHeroAbilityBehaviorType SUPPRESS_ASSOCIATED_CONSUMABLE = new DotaHeroAbilityBehaviorType("DOTA_ABILITY_BEHAVIOR_SUPPRESS_ASSOCIATED_CONSUMABLE", "Suppress Associated Consumable", "Unknown.");
+        
         public DotaHeroAbilityBehaviorType(string key, string displayName, string description)
             : base(key, displayName, description)
         { }
