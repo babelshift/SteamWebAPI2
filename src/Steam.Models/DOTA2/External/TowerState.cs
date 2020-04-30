@@ -1,12 +1,12 @@
 ﻿namespace Steam.Models.DOTA2
 {
-    public class TowerStateModel
+    public class TowerState
     {
-        public TowerStateModel()
+        public TowerState()
         {
         }
 
-        public TowerStateModel(uint towerState)
+        public TowerState(uint towerState)
         {
             IsAncientBottomAlive = ((towerState >> 10) & 1) == 1 ? true : false;
             IsAncientTopAlive = ((towerState >> 9) & 1) == 1 ? true : false;

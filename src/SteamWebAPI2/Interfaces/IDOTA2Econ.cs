@@ -7,7 +7,7 @@ namespace SteamWebAPI2.Interfaces
 {
     public interface IDOTA2Econ
     {
-        Task<ISteamWebResponse<IReadOnlyCollection<GameItemModel>>> GetGameItemsAsync(string language = "");
+        Task<ISteamWebResponse<IReadOnlyCollection<GameItem>>> GetGameItemsAsync(string language = "");
 
         Task<ISteamWebResponse<IReadOnlyCollection<Hero>>> GetHeroesAsync(string language = "", bool itemizedOnly = false);
 

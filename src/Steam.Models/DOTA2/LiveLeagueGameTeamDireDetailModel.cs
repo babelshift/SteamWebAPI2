@@ -15,6 +15,6 @@ namespace Steam.Models.DOTA2
         public IReadOnlyCollection<LiveLeagueGamePlayerDetailModel> Players { get; set; }
         public IReadOnlyCollection<LiveLeagueGameAbilityModel> Abilities { get; set; }
 
-        public TowerStateModel TowerStates { get { return new TowerStateModel(TowerState); } }
+        public TowerState TowerStates { get { return new TowerState(TowerState); } }
     }
 }

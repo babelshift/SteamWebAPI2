@@ -1,6 +1,6 @@
 ﻿namespace Steam.Models.DOTA2
 {
-    public class GameItemModel
+    public class GameItem
     {
         public uint Id { get; set; }
         public uint Cost { get; set; }

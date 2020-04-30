@@ -15,9 +15,9 @@ namespace SteamWebAPI2.Mappings
                 context.Mapper.Map<IList<SteamWebAPI2.Models.DOTA2.Hero>, IReadOnlyCollection<Steam.Models.DOTA2.Hero>>(src.Result != null ? src.Result.Heroes : null)
             );
 
-            CreateMap<GameItem, GameItemModel>();
-            CreateMap<GameItemResultContainer, IReadOnlyCollection<GameItemModel>>().ConvertUsing((src, dest, context) =>
-                context.Mapper.Map<IList<GameItem>, IReadOnlyCollection<GameItemModel>>(src.Result != null ? src.Result.Items : null)
+            CreateMap<SteamWebAPI2.Models.DOTA2.GameItem, Steam.Models.DOTA2.GameItem>();
+            CreateMap<GameItemResultContainer, IReadOnlyCollection<Steam.Models.DOTA2.GameItem>>().ConvertUsing((src, dest, context) =>
+                context.Mapper.Map<IList<SteamWebAPI2.Models.DOTA2.GameItem>, IReadOnlyCollection<Steam.Models.DOTA2.GameItem>>(src.Result != null ? src.Result.Items : null)
             );
 
             CreateMap<ItemIconPathResultContainer, string>().ConvertUsing(src => src.Result != null ? src.Result.Path : null);

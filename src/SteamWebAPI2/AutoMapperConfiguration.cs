@@ -41,7 +41,7 @@ namespace SteamWebAPI2
                 config = new MapperConfiguration(x =>
                 {
                     CreateSteamWebResponseMap<ServerStatusResultContainer, ServerStatusModel>(x);
-                    CreateSteamWebResponseMap<GameItemResultContainer, IReadOnlyCollection<GameItemModel>>(x);
+                    CreateSteamWebResponseMap<GameItemResultContainer, IReadOnlyCollection<Steam.Models.DOTA2.GameItem>>(x);
                     CreateSteamWebResponseMap<HeroResultContainer, IReadOnlyCollection<Steam.Models.DOTA2.Hero>>(x);
                     CreateSteamWebResponseMap<ItemIconPathResultContainer, string>(x);
                     CreateSteamWebResponseMap<RarityResultContainer, IReadOnlyCollection<Steam.Models.DOTA2.Rarity>>(x);

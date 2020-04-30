@@ -1,12 +1,12 @@
 ﻿namespace Steam.Models.DOTA2
 {
-    public class BarracksStateModel
+    public class BarracksState
     {
-        public BarracksStateModel()
+        public BarracksState()
         {
         }
 
-        public BarracksStateModel(uint barracksState)
+        public BarracksState(uint barracksState)
         {
             IsTopMeleeAlive = ((barracksState >> 0) & 1) == 1 ? true : false;
             IsTopRangedAlive = ((barracksState >> 1) & 1) == 1 ? true : false;

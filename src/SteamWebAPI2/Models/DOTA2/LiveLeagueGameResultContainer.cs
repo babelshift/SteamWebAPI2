@@ -33,8 +33,8 @@ namespace SteamWebAPI2.Models.DOTA2
         public IList<LiveLeagueGamePlayerDetail> Players { get; set; }
         public IList<LiveLeagueGameAbility> Abilities { get; set; }
 
-        public TowerStateModel TowerStates { get { return new TowerStateModel(TowerState); } }
-        public TowerStateModel BarracksStates { get { return new TowerStateModel(BarracksState); } }
+        public TowerState TowerStates { get { return new TowerState(TowerState); } }
+        public TowerState BarracksStates { get { return new TowerState(BarracksState); } }
     }
 
     internal class LiveLeagueGameTeamDireInfo
@@ -66,7 +66,7 @@ namespace SteamWebAPI2.Models.DOTA2
         public IList<LiveLeagueGamePlayerDetail> Players { get; set; }
         public IList<LiveLeagueGameAbility> Abilities { get; set; }
 
-        public TowerStateModel TowerStates { get { return new TowerStateModel(TowerState); } }
+        public TowerState TowerStates { get { return new TowerState(TowerState); } }
     }
 
     internal class LiveLeagueGameScoreboard

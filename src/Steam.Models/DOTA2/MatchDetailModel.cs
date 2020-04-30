@@ -19,19 +19,19 @@ namespace Steam.Models.DOTA2
 
         public uint TowerStatusRadiant { get; set; }
 
-        public TowerStateModel TowerStatesRadiant { get { return new TowerStateModel(TowerStatusRadiant); } }
+        public TowerState TowerStatesRadiant { get { return new TowerState(TowerStatusRadiant); } }
 
         public uint TowerStatusDire { get; set; }
 
-        public TowerStateModel TowerStatesDire { get { return new TowerStateModel(TowerStatusDire); } }
+        public TowerState TowerStatesDire { get { return new TowerState(TowerStatusDire); } }
 
         public uint BarracksStatusRadiant { get; set; }
 
-        public BarracksStateModel BarracksStatesRadiant { get { return new BarracksStateModel(BarracksStatusRadiant); } }
+        public BarracksState BarracksStatesRadiant { get { return new BarracksState(BarracksStatusRadiant); } }
 
         public uint BarracksStatusDire { get; set; }
 
-        public BarracksStateModel BarracksStatesDire { get { return new BarracksStateModel(BarracksStatusDire); } }
+        public BarracksState BarracksStatesDire { get { return new BarracksState(BarracksStatusDire); } }
 
         public uint Cluster { get; set; }
 
