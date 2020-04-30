@@ -1,6 +1,6 @@
 ﻿namespace Steam.Models.DOTA2
 {
-    public class SchemaItemToolUsageModel
+    public class SchemaItemToolUsage
     {
         public uint LeagueId { get; set; }
 

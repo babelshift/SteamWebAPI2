@@ -4,13 +4,13 @@ using System.Linq;
 
 namespace Steam.Models.DOTA2
 {
-    public class HeroAbilityDetailModel
+    public class HeroAbilityDetail
     {
         public uint Id { get; set; }
         public string Name { get; set; }
         public string AvatarImagePath { get; set; }
         public string Description { get; set; }
-        public IReadOnlyCollection<HeroAbilitySpecialDetailModel> Attributes { get; set; }
+        public IReadOnlyCollection<HeroAbilitySpecialDetail> AbilitySpecials { get; set; }
         public string Behaviors { get; set; }
         public string TeamTargets { get; set; }
         public string TargetTypes { get; set; }
@@ -35,7 +35,7 @@ namespace Steam.Models.DOTA2
         {
             get
             {
-                return Attributes.Any(x => !String.IsNullOrWhiteSpace(x.LinkedSpecialBonus));
+                return AbilitySpecials.Any(x => !String.IsNullOrWhiteSpace(x.LinkedSpecialBonus));
             }
         }
     }

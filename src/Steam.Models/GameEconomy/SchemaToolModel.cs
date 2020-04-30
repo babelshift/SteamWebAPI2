@@ -8,7 +8,7 @@ namespace Steam.Models.GameEconomy
 
         public SchemaUsageCapabilitiesModel UsageCapabilities { get; set; }
 
-        public SchemaItemToolUsageModel Usage { get; set; }
+        public SchemaItemToolUsage Usage { get; set; }
 
         public string UseString { get; set; }
 

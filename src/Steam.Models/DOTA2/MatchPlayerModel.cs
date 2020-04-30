@@ -23,7 +23,9 @@ namespace Steam.Models.DOTA2
         public uint Item5 { get; set; }
 
         public uint Kills { get; set; }
+
         public uint Deaths { get; set; }
+        
         public uint Assists { get; set; }
 
         public uint LeaverStatus { get; set; }

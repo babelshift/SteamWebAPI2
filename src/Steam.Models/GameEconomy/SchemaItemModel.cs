@@ -72,7 +72,7 @@ namespace Steam.Models.GameEconomy
 
         public string ItemRarity { get; set; }
 
-        public SchemaItemPriceInfoModel PriceInfo { get; set; }
+        public SchemaItemPriceInfo PriceInfo { get; set; }
 
         public IList<string> UsedByHeroes { get; set; }
 

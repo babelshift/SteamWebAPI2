@@ -15,6 +15,6 @@ namespace SteamWebAPI2.Interfaces
 
         Task<ISteamWebResponse<IReadOnlyCollection<MatchHistoryMatchModel>>> GetMatchHistoryBySequenceNumberAsync(ulong? startAtMatchSequenceNumber = null, uint? matchesRequested = null);
 
-        Task<ISteamWebResponse<IReadOnlyCollection<TeamInfoModel>>> GetTeamInfoByTeamIdAsync(long? startAtTeamId = default(long?), uint? teamsRequested = null);
+        Task<ISteamWebResponse<IReadOnlyCollection<TeamInfo>>> GetTeamInfoByTeamIdAsync(long? startAtTeamId = default(long?), uint? teamsRequested = null);
     }
 }

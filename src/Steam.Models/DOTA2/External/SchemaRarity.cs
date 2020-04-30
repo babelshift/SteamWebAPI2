@@ -1,6 +1,6 @@
 ﻿namespace Steam.Models.DOTA2
 {
-    public class SchemaRarityModel
+    public class SchemaRarity
     {
         public string Name { get; set; }
 

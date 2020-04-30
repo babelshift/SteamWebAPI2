@@ -2,7 +2,7 @@
 
 namespace Steam.Models.DOTA2
 {
-    public class SchemaItemPriceInfoModel
+    public class SchemaItemPriceInfo
     {
         public string Bucket { get; set; }
 

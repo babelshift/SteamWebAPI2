@@ -2,7 +2,7 @@
 
 namespace Steam.Models.DOTA2
 {
-    public class TeamInfoModel
+    public class TeamInfo
     {
         public uint TeamId { get; set; }
         public string Name { get; set; }

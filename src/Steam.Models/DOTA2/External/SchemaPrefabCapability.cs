@@ -1,6 +1,6 @@
 ﻿namespace Steam.Models.DOTA2
 {
-    public class SchemaPrefabCapabilityModel
+    public class SchemaPrefabCapability
     {
         public bool Nameable { get; set; }
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Steam.Models.DOTA2
 {
-    public class HeroDetailModel
+    public class HeroDetail
     {
         private const int baseHealth = 150;
         private const int healthPerStrength = 19;
@@ -38,7 +38,7 @@ namespace Steam.Models.DOTA2
         public bool IsEnabled { get; set; }
 
         public IReadOnlyCollection<HeroRoleModel> Roles { get; set; }
-        public IReadOnlyCollection<HeroAbilityDetailModel> Abilities { get; set; }
+        public IReadOnlyCollection<HeroAbilityDetail> Abilities { get; set; }
 
         public double GetBaseHealth()
         {

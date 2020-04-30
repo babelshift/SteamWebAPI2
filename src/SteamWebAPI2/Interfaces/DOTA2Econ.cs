@@ -52,7 +52,7 @@ namespace SteamWebAPI2.Interfaces
         /// <param name="language"></param>
         /// <param name="itemizedOnly"></param>
         /// <returns></returns>
-        public async Task<ISteamWebResponse<IReadOnlyCollection<HeroModel>>> GetHeroesAsync(string language = "en_us", bool itemizedOnly = false)
+        public async Task<ISteamWebResponse<IReadOnlyCollection<Steam.Models.DOTA2.Hero>>> GetHeroesAsync(string language = "en_us", bool itemizedOnly = false)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
@@ -63,7 +63,7 @@ namespace SteamWebAPI2.Interfaces
 
             var steamWebResponse = await dota2WebInterface.GetAsync<HeroResultContainer>("GetHeroes", 1, parameters);
 
-            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<ISteamWebResponse<HeroResultContainer>, ISteamWebResponse<IReadOnlyCollection<HeroModel>>>(steamWebResponse);
+            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<ISteamWebResponse<HeroResultContainer>, ISteamWebResponse<IReadOnlyCollection<Steam.Models.DOTA2.Hero>>>(steamWebResponse);
 
             return steamWebResponseModel;
         }
@@ -73,7 +73,7 @@ namespace SteamWebAPI2.Interfaces
         /// </summary>
         /// <param name="language"></param>
         /// <returns></returns>
-        public async Task<ISteamWebResponse<IReadOnlyCollection<RarityModel>>> GetRaritiesAsync(string language = "en_us")
+        public async Task<ISteamWebResponse<IReadOnlyCollection<Steam.Models.DOTA2.Rarity>>> GetRaritiesAsync(string language = "en_us")
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
@@ -81,7 +81,7 @@ namespace SteamWebAPI2.Interfaces
 
             var steamWebResponse = await dota2WebInterface.GetAsync<RarityResultContainer>("GetRarities", 1, parameters);
 
-            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<ISteamWebResponse<RarityResultContainer>, ISteamWebResponse<IReadOnlyCollection<RarityModel>>>(steamWebResponse);
+            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<ISteamWebResponse<RarityResultContainer>, ISteamWebResponse<IReadOnlyCollection<Steam.Models.DOTA2.Rarity>>>(steamWebResponse);
 
             return steamWebResponseModel;
         }

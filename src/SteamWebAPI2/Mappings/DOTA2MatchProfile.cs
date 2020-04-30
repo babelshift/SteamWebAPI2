@@ -61,9 +61,9 @@ namespace SteamWebAPI2.Mappings
                 context.Mapper.Map<IList<MatchHistoryMatch>, IReadOnlyCollection<MatchHistoryMatchModel>>(src.Result != null ? src.Result.Matches : null)
             );
 
-            CreateMap<TeamInfo, TeamInfoModel>();
-            CreateMap<TeamInfoResultContainer, IReadOnlyCollection<TeamInfoModel>>().ConvertUsing((src, dest, context) =>
-                context.Mapper.Map<IList<TeamInfo>, IReadOnlyCollection<TeamInfoModel>>(src.Result != null ? src.Result.Teams : null)
+            CreateMap<SteamWebAPI2.Models.DOTA2.TeamInfo, Steam.Models.DOTA2.TeamInfo>();
+            CreateMap<TeamInfoResultContainer, IReadOnlyCollection<Steam.Models.DOTA2.TeamInfo>>().ConvertUsing((src, dest, context) =>
+                context.Mapper.Map<IList<SteamWebAPI2.Models.DOTA2.TeamInfo>, IReadOnlyCollection<Steam.Models.DOTA2.TeamInfo>>(src.Result != null ? src.Result.Teams : null)
             );
         }
     }

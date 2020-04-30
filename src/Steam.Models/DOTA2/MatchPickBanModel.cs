@@ -7,6 +7,7 @@
         public uint HeroId { get; set; }
 
         public uint Team { get; set; }
+        
         public uint Order { get; set; }
     }
 }

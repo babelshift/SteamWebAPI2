@@ -1,6 +1,6 @@
 ﻿namespace Steam.Models.DOTA2
 {
-    public class SchemaPrefabModel
+    public class SchemaPrefab
     {
         public string Type { get; set; }
 
@@ -24,6 +24,6 @@
 
         public string ImageInventorySizeHeight { get; set; }
 
-        public SchemaPrefabCapabilityModel Capabilities { get; set; }
+        public SchemaPrefabCapability Capabilities { get; set; }
     }
 }

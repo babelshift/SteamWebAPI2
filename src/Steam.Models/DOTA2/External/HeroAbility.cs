@@ -2,7 +2,7 @@
 
 namespace Steam.Models.DOTA2
 {
-    public class AbilitySchemaItemModel
+    public class HeroAbility
     {
         public uint Id { get; set; }
 
@@ -50,6 +50,6 @@ namespace Steam.Models.DOTA2
 
         public string AbilityUnitTargetType { get; set; }
 
-        public IList<AbilitySpecialSchemaItemModel> AbilitySpecials { get; set; }
+        public IList<HeroAbilitySpecial> AbilitySpecials { get; set; }
     }
 }

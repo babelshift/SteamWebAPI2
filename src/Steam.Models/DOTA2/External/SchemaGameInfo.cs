@@ -1,6 +1,6 @@
 ﻿namespace Steam.Models.DOTA2
 {
-    public class SchemaGameInfoModel
+    public class SchemaGameInfo
     {
         public string FirstValidClass { get; set; }
 

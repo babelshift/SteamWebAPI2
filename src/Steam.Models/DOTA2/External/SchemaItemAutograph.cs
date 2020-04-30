@@ -1,6 +1,6 @@
 ﻿namespace Steam.Models.DOTA2
 {
-    public class SchemaItemAutographModel
+    public class SchemaItemAutograph
     {
         public string DefIndex { get; set; }
 

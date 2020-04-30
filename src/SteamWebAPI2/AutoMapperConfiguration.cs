@@ -42,9 +42,9 @@ namespace SteamWebAPI2
                 {
                     CreateSteamWebResponseMap<ServerStatusResultContainer, ServerStatusModel>(x);
                     CreateSteamWebResponseMap<GameItemResultContainer, IReadOnlyCollection<GameItemModel>>(x);
-                    CreateSteamWebResponseMap<HeroResultContainer, IReadOnlyCollection<HeroModel>>(x);
+                    CreateSteamWebResponseMap<HeroResultContainer, IReadOnlyCollection<Steam.Models.DOTA2.Hero>>(x);
                     CreateSteamWebResponseMap<ItemIconPathResultContainer, string>(x);
-                    CreateSteamWebResponseMap<RarityResultContainer, IReadOnlyCollection<RarityModel>>(x);
+                    CreateSteamWebResponseMap<RarityResultContainer, IReadOnlyCollection<Steam.Models.DOTA2.Rarity>>(x);
                     CreateSteamWebResponseMap<PrizePoolResultContainer, uint>(x);
                     CreateSteamWebResponseMap<PlayerOfficialInfoResultContainer, PlayerOfficialInfoModel>(x);
                     CreateSteamWebResponseMap<ProPlayerListResult, ProPlayerDetailModel>(x);
@@ -53,7 +53,7 @@ namespace SteamWebAPI2
                     CreateSteamWebResponseMap<MatchDetailResultContainer, MatchDetailModel>(x);
                     CreateSteamWebResponseMap<MatchHistoryResultContainer, MatchHistoryModel>(x);
                     CreateSteamWebResponseMap<MatchHistoryBySequenceNumberResultContainer, IReadOnlyCollection<MatchHistoryMatchModel>>(x);
-                    CreateSteamWebResponseMap<TeamInfoResultContainer, IReadOnlyCollection<TeamInfoModel>>(x);
+                    CreateSteamWebResponseMap<TeamInfoResultContainer, IReadOnlyCollection<Steam.Models.DOTA2.TeamInfo>>(x);
                     CreateSteamWebResponseMap<EconItemResultContainer, EconItemResultModel>(x);
                     CreateSteamWebResponseMap<SchemaUrlResultContainer, string>(x);
                     CreateSteamWebResponseMap<StoreMetaDataResultContainer, StoreMetaDataModel>(x);

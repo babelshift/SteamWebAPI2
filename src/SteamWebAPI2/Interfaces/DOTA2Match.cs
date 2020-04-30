@@ -123,7 +123,7 @@ namespace SteamWebAPI2.Interfaces
         /// <param name="startAtTeamId"></param>
         /// <param name="teamsRequested"></param>
         /// <returns></returns>
-        public async Task<ISteamWebResponse<IReadOnlyCollection<TeamInfoModel>>> GetTeamInfoByTeamIdAsync(long? startAtTeamId = null, uint? teamsRequested = null)
+        public async Task<ISteamWebResponse<IReadOnlyCollection<Steam.Models.DOTA2.TeamInfo>>> GetTeamInfoByTeamIdAsync(long? startAtTeamId = null, uint? teamsRequested = null)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
@@ -132,7 +132,7 @@ namespace SteamWebAPI2.Interfaces
 
             var steamWebResponse = await steamWebInterface.GetAsync<TeamInfoResultContainer>("GetTeamInfoByTeamID", 1, parameters);
 
-            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<ISteamWebResponse<TeamInfoResultContainer>, ISteamWebResponse<IReadOnlyCollection<TeamInfoModel>>>(steamWebResponse);
+            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<ISteamWebResponse<TeamInfoResultContainer>, ISteamWebResponse<IReadOnlyCollection<Steam.Models.DOTA2.TeamInfo>>>(steamWebResponse);
 
             return steamWebResponseModel;
         }

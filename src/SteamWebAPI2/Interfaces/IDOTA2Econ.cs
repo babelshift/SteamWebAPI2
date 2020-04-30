@@ -9,9 +9,9 @@ namespace SteamWebAPI2.Interfaces
     {
         Task<ISteamWebResponse<IReadOnlyCollection<GameItemModel>>> GetGameItemsAsync(string language = "");
 
-        Task<ISteamWebResponse<IReadOnlyCollection<HeroModel>>> GetHeroesAsync(string language = "", bool itemizedOnly = false);
+        Task<ISteamWebResponse<IReadOnlyCollection<Hero>>> GetHeroesAsync(string language = "", bool itemizedOnly = false);
 
-        Task<ISteamWebResponse<IReadOnlyCollection<RarityModel>>> GetRaritiesAsync(string language = "");
+        Task<ISteamWebResponse<IReadOnlyCollection<Rarity>>> GetRaritiesAsync(string language = "");
 
         Task<ISteamWebResponse<uint>> GetTournamentPrizePoolAsync(uint? leagueId = null);
     }

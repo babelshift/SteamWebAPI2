@@ -1,6 +1,6 @@
 ﻿namespace Steam.Models.DOTA2
 {
-    public class SchemaQualityModel
+    public class SchemaQuality
     {
         public string Name { get; set; }
 

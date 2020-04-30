@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Steam.Models.DOTA2
 {
-    public class SchemaItemModel
+    public class SchemaItem
     {
         public string DefIndex { get; set; }
 
@@ -23,7 +23,7 @@ namespace Steam.Models.DOTA2
 
         public DateTime? ExpirationDate { get; set; }
 
-        public SchemaItemToolModel Tool { get; set; }
+        public SchemaItemTool Tool { get; set; }
 
         public string TournamentUrl { get; set; }
 
@@ -35,12 +35,12 @@ namespace Steam.Models.DOTA2
 
         public string ItemSlot { get; set; }
 
-        public SchemaItemPriceInfoModel PriceInfo { get; set; }
+        public SchemaItemPriceInfo PriceInfo { get; set; }
 
         public IList<string> UsedByHeroes { get; set; }
 
         public IList<string> BundledItems { get; set; }
 
-        public IList<SchemaItemStaticAttributeModel> StaticAttributes { get; set; }
+        public IList<SchemaItemStaticAttribute> StaticAttributes { get; set; }
     }
 }

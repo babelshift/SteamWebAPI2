@@ -2,12 +2,14 @@
 
 namespace Steam.Models.DOTA2
 {
-    public class ItemBuildSchemaItemModel
+    public class ItemBuild
     {
         public string Author { get; set; }
+
         public string Hero { get; set; }
+        
         public string Title { get; set; }
 
-        public IList<ItemBuildGroupSchemaItemModel> Items { get; set; }
+        public IList<ItemBuildGroup> Items { get; set; }
     }
 }
