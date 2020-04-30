@@ -37,7 +37,7 @@ namespace Steam.Models.DOTA2
         public string MinimapIconPath { get; set; }
         public bool IsEnabled { get; set; }
 
-        public IReadOnlyCollection<HeroRoleModel> Roles { get; set; }
+        public IReadOnlyCollection<HeroRole> Roles { get; set; }
         public IReadOnlyCollection<HeroAbilityDetail> Abilities { get; set; }
 
         public double GetBaseHealth()

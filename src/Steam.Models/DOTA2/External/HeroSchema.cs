@@ -1,6 +1,6 @@
 ﻿namespace Steam.Models.DOTA2
 {
-    public class HeroSchemaModel
+    public class HeroSchema
     {
         public uint HeroId { get; set; }
 

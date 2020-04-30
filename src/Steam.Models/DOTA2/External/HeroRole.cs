@@ -1,6 +1,6 @@
 ﻿namespace Steam.Models.DOTA2
 {
-    public class HeroRoleModel
+    public class HeroRole
     {
         public string Name { get; set; }
         
