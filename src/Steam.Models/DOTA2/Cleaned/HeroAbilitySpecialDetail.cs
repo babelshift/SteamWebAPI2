@@ -9,5 +9,7 @@
         public string RawName { get; set; }
 
         public string LinkedSpecialBonus { get; set; }
+
+        public bool RequiresScepter { get; set; }
     }
 }
