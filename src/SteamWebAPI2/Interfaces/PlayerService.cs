@@ -1,8 +1,10 @@
-﻿using Newtonsoft.Json;
+﻿using AutoMapper;
+using Newtonsoft.Json;
 using Steam.Models.SteamCommunity;
 using SteamWebAPI2.Models.SteamCommunity;
 using SteamWebAPI2.Models.SteamPlayer;
 using SteamWebAPI2.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
@@ -11,14 +13,17 @@ namespace SteamWebAPI2.Interfaces
 {
     public class PlayerService : IPlayerService
     {
-        private ISteamWebInterface steamWebInterface;
+        private readonly ISteamWebInterface steamWebInterface;
+        private readonly IMapper mapper;
 
         /// <summary>
         /// Default constructor established the Steam Web API key and initializes for subsequent method calls
         /// </summary>
         /// <param name="steamWebRequest"></param>
-        public PlayerService(ISteamWebRequest steamWebRequest, ISteamWebInterface steamWebInterface = null)
+        public PlayerService(IMapper mapper, ISteamWebRequest steamWebRequest, ISteamWebInterface steamWebInterface = null)
         {
+            this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+
             this.steamWebInterface = steamWebInterface == null
                 ? new SteamWebInterface("IPlayerService", steamWebRequest)
                 : steamWebInterface;
@@ -44,7 +49,7 @@ namespace SteamWebAPI2.Interfaces
                 return null;
             }
 
-            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+            var steamWebResponseModel = mapper.Map<
                 ISteamWebResponse<PlayingSharedGameResultContainer>,
                 ISteamWebResponse<ulong?>>(steamWebResponse);
 
@@ -71,7 +76,7 @@ namespace SteamWebAPI2.Interfaces
                 return null;
             }
 
-            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+            var steamWebResponseModel = mapper.Map<
                 ISteamWebResponse<CommunityBadgeProgressResultContainer>,
                 ISteamWebResponse<IReadOnlyCollection<BadgeQuestModel>>>(steamWebResponse);
 
@@ -96,7 +101,7 @@ namespace SteamWebAPI2.Interfaces
                 return null;
             }
 
-            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+            var steamWebResponseModel = mapper.Map<
                 ISteamWebResponse<BadgesResultContainer>,
                 ISteamWebResponse<BadgesResultModel>>(steamWebResponse);
 
@@ -119,7 +124,7 @@ namespace SteamWebAPI2.Interfaces
                 return null;
             }
 
-            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+            var steamWebResponseModel = mapper.Map<
                 ISteamWebResponse<SteamLevelResultContainer>,
                 ISteamWebResponse<uint?>>(steamWebResponse);
 
@@ -179,7 +184,7 @@ namespace SteamWebAPI2.Interfaces
                 }
             }
 
-            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+            var steamWebResponseModel = mapper.Map<
                 ISteamWebResponse<OwnedGamesResultContainer>,
                 ISteamWebResponse<OwnedGamesResultModel>>(steamWebResponse);
 
@@ -203,7 +208,7 @@ namespace SteamWebAPI2.Interfaces
                 return null;
             }
 
-            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+            var steamWebResponseModel = mapper.Map<
                 ISteamWebResponse<RecentlyPlayedGameResultContainer>,
                 ISteamWebResponse<RecentlyPlayedGamesResultModel>>(steamWebResponse);
 

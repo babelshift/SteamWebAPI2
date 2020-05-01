@@ -1,4 +1,5 @@
-﻿using Steam.Models.SteamEconomy;
+﻿using AutoMapper;
+using Steam.Models.SteamEconomy;
 using SteamWebAPI2.Models.SteamEconomy;
 using SteamWebAPI2.Utilities;
 using System;
@@ -9,14 +10,17 @@ namespace SteamWebAPI2.Interfaces
 {
     public class EconService : IEconService
     {
-        private ISteamWebInterface steamWebInterface;
+        private readonly ISteamWebInterface steamWebInterface;
+        private readonly IMapper mapper;
 
         /// <summary>
         /// Default constructor established the Steam Web API key and initializes for subsequent method calls
         /// </summary>
         /// <param name="steamWebRequest"></param>
-        public EconService(ISteamWebRequest steamWebRequest, ISteamWebInterface steamWebInterface = null)
+        public EconService(IMapper mapper, ISteamWebRequest steamWebRequest, ISteamWebInterface steamWebInterface = null)
         {
+            this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+
             this.steamWebInterface = steamWebInterface == null
                 ? new SteamWebInterface("IEconService", steamWebRequest)
                 : steamWebInterface;
@@ -61,7 +65,7 @@ namespace SteamWebAPI2.Interfaces
 
             var steamWebResponse = await steamWebInterface.GetAsync<TradeHistoryResultContainer>("GetTradeHistory", 1, parameters);
 
-            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+            var steamWebResponseModel = mapper.Map<
                 ISteamWebResponse<TradeHistoryResultContainer>,
                 ISteamWebResponse<Steam.Models.SteamEconomy.TradeHistoryModel>>(steamWebResponse);
 
@@ -107,7 +111,7 @@ namespace SteamWebAPI2.Interfaces
 
             var steamWebResponse = await steamWebInterface.GetAsync<TradeOffersResultContainer>("GetTradeOffers", 1, parameters);
 
-            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+            var steamWebResponseModel = mapper.Map<
                 ISteamWebResponse<TradeOffersResultContainer>,
                 ISteamWebResponse<Steam.Models.SteamEconomy.TradeOffersResultModel>>(steamWebResponse);
 
@@ -133,7 +137,7 @@ namespace SteamWebAPI2.Interfaces
 
             var steamWebResponse = await steamWebInterface.GetAsync<TradeOfferResultContainer>("GetTradeOffer", 1, parameters);
 
-            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+            var steamWebResponseModel = mapper.Map<
                 ISteamWebResponse<TradeOfferResultContainer>,
                 ISteamWebResponse<Steam.Models.SteamEconomy.TradeOfferResultModel>>(steamWebResponse);
 
@@ -185,7 +189,7 @@ namespace SteamWebAPI2.Interfaces
             parameters.AddIfHasValue(tradeOfferAccessToken, "trade_offer_access_token");
             var steamWebResponse = await steamWebInterface.GetAsync<TradeHoldDurationsResultContainer>("GetTradeHoldDurations", 1, parameters);
             
-            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+            var steamWebResponseModel = mapper.Map<
                 ISteamWebResponse<TradeHoldDurationsResultContainer>,
                 ISteamWebResponse<TradeHoldDurationsResultModel>>(steamWebResponse);
 

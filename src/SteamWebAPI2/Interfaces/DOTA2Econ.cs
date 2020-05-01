@@ -1,4 +1,4 @@
-﻿using Steam.Models.DOTA2;
+﻿using AutoMapper;
 using SteamWebAPI2.Models.DOTA2;
 using SteamWebAPI2.Utilities;
 using System;
@@ -12,15 +12,18 @@ namespace SteamWebAPI2.Interfaces
     /// </summary>
     public class DOTA2Econ : IDOTA2Econ
     {
-        private ISteamWebInterface dota2WebInterface;
-        private ISteamWebInterface dota2TestWebInterface;
+        private readonly ISteamWebInterface dota2WebInterface;
+        private readonly ISteamWebInterface dota2TestWebInterface;
+        private readonly IMapper mapper;
 
         /// <summary>
         /// Default constructor established the Steam Web API key and initializes for subsequent method calls
         /// </summary>
         /// <param name="steamWebApiKey"></param>
-        public DOTA2Econ(ISteamWebRequest steamWebRequest, ISteamWebInterface steamWebInterface = null)
+        public DOTA2Econ(IMapper mapper, ISteamWebRequest steamWebRequest, ISteamWebInterface steamWebInterface = null)
         {
+            this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+
             this.dota2WebInterface = steamWebInterface == null
                 ? new SteamWebInterface("IEconDOTA2_570", steamWebRequest)
                 : steamWebInterface;
@@ -41,7 +44,7 @@ namespace SteamWebAPI2.Interfaces
 
             var steamWebResponse = await dota2WebInterface.GetAsync<GameItemResultContainer>("GetGameItems", 1, parameters);
 
-            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<ISteamWebResponse<GameItemResultContainer>, ISteamWebResponse<IReadOnlyCollection<Steam.Models.DOTA2.GameItem>>>(steamWebResponse);
+            var steamWebResponseModel = mapper.Map<ISteamWebResponse<GameItemResultContainer>, ISteamWebResponse<IReadOnlyCollection<Steam.Models.DOTA2.GameItem>>>(steamWebResponse);
 
             return steamWebResponseModel;
         }
@@ -63,7 +66,7 @@ namespace SteamWebAPI2.Interfaces
 
             var steamWebResponse = await dota2WebInterface.GetAsync<HeroResultContainer>("GetHeroes", 1, parameters);
 
-            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<ISteamWebResponse<HeroResultContainer>, ISteamWebResponse<IReadOnlyCollection<Steam.Models.DOTA2.Hero>>>(steamWebResponse);
+            var steamWebResponseModel = mapper.Map<ISteamWebResponse<HeroResultContainer>, ISteamWebResponse<IReadOnlyCollection<Steam.Models.DOTA2.Hero>>>(steamWebResponse);
 
             return steamWebResponseModel;
         }
@@ -81,7 +84,7 @@ namespace SteamWebAPI2.Interfaces
 
             var steamWebResponse = await dota2WebInterface.GetAsync<RarityResultContainer>("GetRarities", 1, parameters);
 
-            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<ISteamWebResponse<RarityResultContainer>, ISteamWebResponse<IReadOnlyCollection<Steam.Models.DOTA2.Rarity>>>(steamWebResponse);
+            var steamWebResponseModel = mapper.Map<ISteamWebResponse<RarityResultContainer>, ISteamWebResponse<IReadOnlyCollection<Steam.Models.DOTA2.Rarity>>>(steamWebResponse);
 
             return steamWebResponseModel;
         }
@@ -99,7 +102,7 @@ namespace SteamWebAPI2.Interfaces
 
             var steamWebResponse = await dota2WebInterface.GetAsync<PrizePoolResultContainer>("GetTournamentPrizePool", 1, parameters);
 
-            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<ISteamWebResponse<PrizePoolResultContainer>, ISteamWebResponse<uint>>(steamWebResponse);
+            var steamWebResponseModel = mapper.Map<ISteamWebResponse<PrizePoolResultContainer>, ISteamWebResponse<uint>>(steamWebResponse);
 
             return steamWebResponseModel;
         }
@@ -124,7 +127,7 @@ namespace SteamWebAPI2.Interfaces
 
             var steamWebResponse = await dota2TestWebInterface.GetAsync<ItemIconPathResultContainer>("GetItemIconPath", 1, parameters);
 
-            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<ISteamWebResponse<ItemIconPathResultContainer>, ISteamWebResponse<string>>(steamWebResponse);
+            var steamWebResponseModel = mapper.Map<ISteamWebResponse<ItemIconPathResultContainer>, ISteamWebResponse<string>>(steamWebResponse);
 
             return steamWebResponseModel;
         }

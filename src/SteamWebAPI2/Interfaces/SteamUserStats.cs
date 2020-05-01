@@ -1,4 +1,5 @@
-﻿using Steam.Models;
+﻿using AutoMapper;
+using Steam.Models;
 using Steam.Models.SteamCommunity;
 using Steam.Models.SteamPlayer;
 using SteamWebAPI2.Models;
@@ -13,14 +14,17 @@ namespace SteamWebAPI2.Interfaces
 {
     public class SteamUserStats : ISteamUserStats
     {
-        private ISteamWebInterface steamWebInterface;
+        private readonly ISteamWebInterface steamWebInterface;
+        private readonly IMapper mapper;
 
         /// <summary>
         /// Default constructor established the Steam Web API key and initializes for subsequent method calls
         /// </summary>
         /// <param name="steamWebRequest"></param>
-        public SteamUserStats(ISteamWebRequest steamWebRequest, ISteamWebInterface steamWebInterface = null)
+        public SteamUserStats(IMapper mapper, ISteamWebRequest steamWebRequest, ISteamWebInterface steamWebInterface = null)
         {
+            this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            
             this.steamWebInterface = steamWebInterface == null
                 ? new SteamWebInterface("ISteamUserStats", steamWebRequest)
                 : steamWebInterface;
@@ -38,7 +42,7 @@ namespace SteamWebAPI2.Interfaces
 
             var steamWebResponse = await steamWebInterface.GetAsync<GlobalAchievementPercentagesResultContainer>("GetGlobalAchievementPercentagesForApp", 2, parameters);
 
-            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+            var steamWebResponseModel = mapper.Map<
                 ISteamWebResponse<GlobalAchievementPercentagesResultContainer>,
                 ISteamWebResponse<IReadOnlyCollection<GlobalAchievementPercentageModel>>>(steamWebResponse);
 
@@ -81,7 +85,7 @@ namespace SteamWebAPI2.Interfaces
 
             var steamWebResponse = await steamWebInterface.GetAsync<GlobalStatsForGameResultContainer>("GetGlobalStatsForGame", 1, parameters);
 
-            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+            var steamWebResponseModel = mapper.Map<
                 ISteamWebResponse<GlobalStatsForGameResultContainer>,
                 ISteamWebResponse<IReadOnlyCollection<GlobalStatModel>>>(steamWebResponse);
 
@@ -100,7 +104,7 @@ namespace SteamWebAPI2.Interfaces
 
             var steamWebResponse = await steamWebInterface.GetAsync<CurrentPlayersResultContainer>("GetNumberOfCurrentPlayers", 1, parameters);
 
-            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+            var steamWebResponseModel = mapper.Map<
                 ISteamWebResponse<CurrentPlayersResultContainer>,
                 ISteamWebResponse<uint>>(steamWebResponse);
 
@@ -123,7 +127,7 @@ namespace SteamWebAPI2.Interfaces
 
             var steamWebResponse = await steamWebInterface.GetAsync<PlayerAchievementResultContainer>("GetPlayerAchievements", 1, parameters);
 
-            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+            var steamWebResponseModel = mapper.Map<
                 ISteamWebResponse<PlayerAchievementResultContainer>,
                 ISteamWebResponse<PlayerAchievementResultModel>>(steamWebResponse);
 
@@ -144,7 +148,7 @@ namespace SteamWebAPI2.Interfaces
 
             var steamWebResponse = await steamWebInterface.GetAsync<SchemaForGameResultContainer>("GetSchemaForGame", 2, parameters);
 
-            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+            var steamWebResponseModel = mapper.Map<
                 ISteamWebResponse<SchemaForGameResultContainer>,
                 ISteamWebResponse<SchemaForGameResultModel>>(steamWebResponse);
 
@@ -165,7 +169,7 @@ namespace SteamWebAPI2.Interfaces
 
             var steamWebResponse = await steamWebInterface.GetAsync<UserStatsForGameResultContainer>("GetUserStatsForGame", 2, parameters);
 
-            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+            var steamWebResponseModel = mapper.Map<
                 ISteamWebResponse<UserStatsForGameResultContainer>,
                 ISteamWebResponse<UserStatsForGameResultModel>>(steamWebResponse);
 

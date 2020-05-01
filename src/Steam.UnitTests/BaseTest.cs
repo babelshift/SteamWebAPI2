@@ -1,5 +1,6 @@
 using Microsoft.Extensions.Configuration;
 using SteamWebAPI2.Utilities;
+using Microsoft.Extensions.Options;
 
 namespace Steam.UnitTests
 {
@@ -15,7 +16,11 @@ namespace Steam.UnitTests
                 .AddUserSecrets<CSGOServersTests>();
             configuration = builder.Build();
 
-            factory = new SteamWebInterfaceFactory(configuration["SteamWebApiKey"]);
+            var factoryOptions = new SteamWebInterfaceFactoryOptions()
+            {
+                SteamWebApiKey = configuration["SteamWebApiKey"]
+            };
+            factory = new SteamWebInterfaceFactory(Options.Create(factoryOptions));
         }
     }
 }

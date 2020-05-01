@@ -1,6 +1,8 @@
-﻿using Steam.Models.SteamEconomy;
+﻿using AutoMapper;
+using Steam.Models.SteamEconomy;
 using SteamWebAPI2.Models.SteamEconomy;
 using SteamWebAPI2.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -8,14 +10,17 @@ namespace SteamWebAPI2.Interfaces
 {
     public class SteamEconomy : ISteamEconomy
     {
-        private ISteamWebInterface steamWebInterface;
+        private readonly ISteamWebInterface steamWebInterface;
+        private readonly IMapper mapper;
 
         /// <summary>
         /// Default constructor established the Steam Web API key and initializes for subsequent method calls
         /// </summary>
         /// <param name="steamWebApiKey"></param>
-        public SteamEconomy(ISteamWebRequest steamWebRequest, ISteamWebInterface steamWebInterface = null)
+        public SteamEconomy(IMapper mapper, ISteamWebRequest steamWebRequest, ISteamWebInterface steamWebInterface = null)
         {
+            this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            
             this.steamWebInterface = steamWebInterface == null
                 ? new SteamWebInterface("ISteamEconomy", steamWebRequest)
                 : steamWebInterface;
@@ -43,7 +48,7 @@ namespace SteamWebAPI2.Interfaces
 
             var steamWebResponse = await steamWebInterface.GetAsync<AssetClassInfoResultContainer>("GetAssetClassInfo", 1, parameters);
 
-            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+            var steamWebResponseModel = mapper.Map<
                 ISteamWebResponse<AssetClassInfoResultContainer>,
                 ISteamWebResponse<AssetClassInfoResultModel>>(steamWebResponse);
 
@@ -67,7 +72,7 @@ namespace SteamWebAPI2.Interfaces
 
             var steamWebResponse = await steamWebInterface.GetAsync<AssetPriceResultContainer>("GetAssetPrices", 1, parameters);
 
-            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+            var steamWebResponseModel = mapper.Map<
                 ISteamWebResponse<AssetPriceResultContainer>,
                 ISteamWebResponse<AssetPriceResultModel>>(steamWebResponse);
 

@@ -1,6 +1,8 @@
-﻿using Steam.Models.CSGO;
+﻿using AutoMapper;
+using Steam.Models.CSGO;
 using SteamWebAPI2.Models.CSGO;
 using SteamWebAPI2.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -11,14 +13,17 @@ namespace SteamWebAPI2.Interfaces
     /// </summary>
     public class CSGOServers : ICSGOServers
     {
-        private ISteamWebInterface steamWebInterface;
+        private readonly IMapper mapper;
+        private readonly ISteamWebInterface steamWebInterface;
 
         /// <summary>
         /// Default constructor established the Steam Web API key and initializes for subsequent method calls
         /// </summary>
         /// <param name="steamWebApiKey"></param>
-        public CSGOServers(ISteamWebRequest steamWebRequest, ISteamWebInterface steamWebInterface = null)
+        public CSGOServers(IMapper mapper, ISteamWebRequest steamWebRequest, ISteamWebInterface steamWebInterface = null)
         {
+            this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+
             this.steamWebInterface = steamWebInterface == null
                 ? new SteamWebInterface("ICSGOServers_730", steamWebRequest)
                 : steamWebInterface;
@@ -42,7 +47,7 @@ namespace SteamWebAPI2.Interfaces
 
             var steamWebResponse = await steamWebInterface.GetAsync<GameMapsPlaytimeContainer>("GetGameMapsPlaytime", 1, parameters);
 
-            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+            var steamWebResponseModel = mapper.Map<
                 ISteamWebResponse<GameMapsPlaytimeContainer>, 
                 ISteamWebResponse<IEnumerable<GameMapsPlaytimeModel>>>(steamWebResponse);
 
@@ -57,7 +62,7 @@ namespace SteamWebAPI2.Interfaces
         {
             var steamWebResponse = await steamWebInterface.GetAsync<ServerStatusResultContainer>("GetGameServersStatus", 1);
 
-            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<ISteamWebResponse<ServerStatusResultContainer>, ISteamWebResponse<ServerStatusModel>>(steamWebResponse);
+            var steamWebResponseModel = mapper.Map<ISteamWebResponse<ServerStatusResultContainer>, ISteamWebResponse<ServerStatusModel>>(steamWebResponse);
 
             return steamWebResponseModel;
         }

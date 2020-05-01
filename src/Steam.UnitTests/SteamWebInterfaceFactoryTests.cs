@@ -1,4 +1,5 @@
-﻿using SteamWebAPI2.Interfaces;
+﻿using Microsoft.Extensions.Options;
+using SteamWebAPI2.Interfaces;
 using SteamWebAPI2.Utilities;
 using System;
 using System.Net.Http;
@@ -8,19 +9,36 @@ namespace Steam.UnitTests
 {
     public class SteamWebInterfaceFactoryTests
     {
-        private readonly SteamWebInterfaceFactory factory = new SteamWebInterfaceFactory("ABC123");
+        private readonly SteamWebInterfaceFactory factory;
+
+        public SteamWebInterfaceFactoryTests()
+        {
+            var factoryOptions = new SteamWebInterfaceFactoryOptions()
+            {
+                SteamWebApiKey = "ABC123"
+            };
+            factory = new SteamWebInterfaceFactory(Options.Create(factoryOptions));
+        }
 
         [Fact]
         public void Constructor_Should_Succeed()
         {
-            var factory = new SteamWebInterfaceFactory("ABC123");
+            var factoryOptions = new SteamWebInterfaceFactoryOptions()
+            {
+                SteamWebApiKey = "ABC123"
+            };
+            var factory = new SteamWebInterfaceFactory(Options.Create(factoryOptions));
             Assert.NotNull(factory);
         }
 
         [Fact]
         public void Constructor_Should_Fail_If_Empty_Key()
         {
-            Assert.Throws<ArgumentNullException>(() => new SteamWebInterfaceFactory(""));
+            var factoryOptions = new SteamWebInterfaceFactoryOptions()
+            {
+                SteamWebApiKey = ""
+            };
+            Assert.Throws<ArgumentNullException>(() => new SteamWebInterfaceFactory(Options.Create(factoryOptions)));
         }
 
         [Fact]
@@ -130,7 +148,7 @@ namespace Steam.UnitTests
         [Fact]
         public void Create_SteamStore_Interface_Should_Succeed()
         {
-            var steamInterface = new SteamStore();
+            var steamInterface = factory.CreateSteamStoreInterface();
             Assert.NotNull(steamInterface);
         }
 

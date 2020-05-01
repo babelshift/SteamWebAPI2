@@ -66,7 +66,7 @@ namespace SteamWebAPI2.Models
     {
         #region Members
 
-        private ISteamWebRequest steamWebRequest;
+        private ISteamUser steamUser;
 
         // Special flags for chat accounts in the high 8 bits of the Steam ID instance. Adopted from https://github.com/xPaw/SteamID.php.
         //private uint instanceFlagClan = 524288;         // (SteamAccountInstanceMask + 1) >> 1
@@ -190,9 +190,9 @@ namespace SteamWebAPI2.Models
         /// you have on hand.
         /// </summary>
         /// <param name="steamWebRequest">Required in the event that the Steam Web API is needed to resolve a Profile URL to a 64-bit Steam ID.</param>
-        public SteamId(ISteamWebRequest steamWebRequest, ISteamWebInterface steamWebInterface = null)
+        public SteamId(ISteamUser steamUser)
         {
-            this.steamWebRequest = steamWebRequest;
+            this.steamUser = steamUser;
         }
 
         /// <summary>
@@ -248,8 +248,6 @@ namespace SteamWebAPI2.Models
                 Uri uriResult;
                 bool isUri = Uri.TryCreate(value, UriKind.Absolute, out uriResult)
                     && (uriResult.Scheme == "http" || uriResult.Scheme == "https");
-
-                SteamUser steamUser = new SteamUser(steamWebRequest);
 
                 try
                 {
@@ -415,7 +413,7 @@ namespace SteamWebAPI2.Models
         /// <param name="steamUser"></param>
         /// <param name="value"></param>
         /// <returns></returns>
-        private static async Task<ulong> ResolveSteamIdFromValueAsync(SteamUser steamUser, string value)
+        private static async Task<ulong> ResolveSteamIdFromValueAsync(ISteamUser steamUser, string value)
         {
             ulong steamId64 = 0;
 

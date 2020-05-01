@@ -35,8 +35,6 @@ namespace SteamWebAPI2.Utilities
 
             this.interfaceName = interfaceName;
             this.steamWebRequest = steamWebRequest;
-
-            AutoMapperConfiguration.Initialize();
         }
 
         /// <summary>

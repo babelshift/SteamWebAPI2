@@ -1,4 +1,5 @@
-﻿using Steam.Models;
+﻿using AutoMapper;
+using Steam.Models;
 using SteamWebAPI2.Models;
 using SteamWebAPI2.Utilities;
 using System;
@@ -12,14 +13,17 @@ namespace SteamWebAPI2.Interfaces
 {
     public class SteamRemoteStorage : ISteamRemoteStorage
     {
-        private ISteamWebInterface steamWebInterface;
+        private readonly ISteamWebInterface steamWebInterface;
+        private readonly IMapper mapper;
 
         /// <summary>
         /// Default constructor established the Steam Web API key and initializes for subsequent method calls
         /// </summary>
         /// <param name="steamWebRequest"></param>
-        public SteamRemoteStorage(ISteamWebRequest steamWebRequest, ISteamWebInterface steamWebInterface = null)
+        public SteamRemoteStorage(IMapper mapper, ISteamWebRequest steamWebRequest, ISteamWebInterface steamWebInterface = null)
         {
+            this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+
             this.steamWebInterface = steamWebInterface == null
                 ? new SteamWebInterface("ISteamRemoteStorage", steamWebRequest)
                 : steamWebInterface;
@@ -115,7 +119,7 @@ namespace SteamWebAPI2.Interfaces
             {
                 var steamWebResponse = await steamWebInterface.GetAsync<UGCFileDetailsResultContainer>("GetUGCFileDetails", 1, parameters);
 
-                var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+                var steamWebResponseModel = mapper.Map<
                     ISteamWebResponse<UGCFileDetailsResultContainer>,
                     ISteamWebResponse<UGCFileDetailsModel>>(steamWebResponse);
 
@@ -139,7 +143,7 @@ namespace SteamWebAPI2.Interfaces
             {
                 var steamWebResponse = await steamWebInterface.PostAsync<PublishedFileDetailsResultContainer>("GetPublishedFileDetails", 1, parameters);
 
-                var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+                var steamWebResponseModel = mapper.Map<
                     ISteamWebResponse<PublishedFileDetailsResultContainer>,
                     ISteamWebResponse<TData>>(steamWebResponse);
 

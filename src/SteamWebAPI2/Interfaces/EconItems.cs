@@ -1,4 +1,5 @@
-﻿using Steam.Models.GameEconomy;
+﻿using AutoMapper;
+using Steam.Models.GameEconomy;
 using SteamWebAPI2.Models.GameEconomy;
 using SteamWebAPI2.Utilities;
 using System;
@@ -9,6 +10,9 @@ namespace SteamWebAPI2.Interfaces
 {
     public class EconItems : IEconItems
     {
+        private readonly ISteamWebInterface steamWebInterface;
+        private readonly IMapper mapper;
+
         private uint appId;
 
         // The API only exposes certain methods for certain App Ids in the EconItems interface
@@ -18,14 +22,14 @@ namespace SteamWebAPI2.Interfaces
         private List<uint> validStoreMetaDataAppIds = new List<uint>();
         private List<uint> validStoreStatusAppIds = new List<uint>();
 
-        private ISteamWebInterface steamWebInterface;
-
         /// <summary>
         /// Default constructor established the Steam Web API key and initializes for subsequent method calls
         /// </summary>
         /// <param name="steamWebRequest"></param>
-        public EconItems(ISteamWebRequest steamWebRequest, AppId appId, ISteamWebInterface steamWebInterface = null)
+        public EconItems(IMapper mapper, ISteamWebRequest steamWebRequest, AppId appId, ISteamWebInterface steamWebInterface = null)
         {
+            this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+
             if (appId <= 0)
             {
                 throw new ArgumentOutOfRangeException("appId");
@@ -67,7 +71,7 @@ namespace SteamWebAPI2.Interfaces
 
             var steamWebResponse = await steamWebInterface.GetAsync<EconItemResultContainer>("GetPlayerItems", 1, parameters);
 
-            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<ISteamWebResponse<EconItemResultContainer>, ISteamWebResponse<EconItemResultModel>>(steamWebResponse);
+            var steamWebResponseModel = mapper.Map<ISteamWebResponse<EconItemResultContainer>, ISteamWebResponse<EconItemResultModel>>(steamWebResponse);
 
             return steamWebResponseModel;
         }
@@ -127,7 +131,7 @@ namespace SteamWebAPI2.Interfaces
 
             var steamWebResponse = await steamWebInterface.GetAsync<SchemaUrlResultContainer>("GetSchemaURL", 1);
 
-            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<ISteamWebResponse<SchemaUrlResultContainer>, ISteamWebResponse<string>>(steamWebResponse);
+            var steamWebResponseModel = mapper.Map<ISteamWebResponse<SchemaUrlResultContainer>, ISteamWebResponse<string>>(steamWebResponse);
 
             return steamWebResponseModel;
         }
@@ -150,7 +154,7 @@ namespace SteamWebAPI2.Interfaces
 
             var steamWebResponse = await steamWebInterface.GetAsync<StoreMetaDataResultContainer>("GetStoreMetaData", 1, parameters);
 
-            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<ISteamWebResponse<StoreMetaDataResultContainer>, ISteamWebResponse<StoreMetaDataModel>>(steamWebResponse);
+            var steamWebResponseModel = mapper.Map<ISteamWebResponse<StoreMetaDataResultContainer>, ISteamWebResponse<StoreMetaDataModel>>(steamWebResponse);
 
             return steamWebResponseModel;
         }
@@ -168,7 +172,7 @@ namespace SteamWebAPI2.Interfaces
 
             var steamWebResponse = await steamWebInterface.GetAsync<StoreStatusResultContainer>("GetStoreStatus", 1);
 
-            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<ISteamWebResponse<StoreStatusResultContainer>, ISteamWebResponse<uint>>(steamWebResponse);
+            var steamWebResponseModel = mapper.Map<ISteamWebResponse<StoreStatusResultContainer>, ISteamWebResponse<uint>>(steamWebResponse);
 
             return steamWebResponseModel;
         }

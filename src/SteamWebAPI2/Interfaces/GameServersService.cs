@@ -1,6 +1,8 @@
-﻿using Steam.Models.GameServers;
+﻿using AutoMapper;
+using Steam.Models.GameServers;
 using SteamWebAPI2.Models.GameServers;
 using SteamWebAPI2.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -8,14 +10,17 @@ namespace SteamWebAPI2.Interfaces
 {
     public class GameServersService : IGameServersService
     {
-        private ISteamWebInterface steamWebInterface;
+        private readonly ISteamWebInterface steamWebInterface;
+        private readonly IMapper mapper;
 
         /// <summary>
         /// Default constructor established the Steam Web API key and initializes for subsequent method calls
         /// </summary>
         /// <param name="steamWebRequest"></param>
-        public GameServersService(ISteamWebRequest steamWebRequest, ISteamWebInterface steamWebInterface = null)
+        public GameServersService(IMapper mapper, ISteamWebRequest steamWebRequest, ISteamWebInterface steamWebInterface = null)
         {
+            this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+
             this.steamWebInterface = steamWebInterface == null
                 ? new SteamWebInterface("IGameServersService", steamWebRequest)
                 : steamWebInterface;
@@ -27,7 +32,7 @@ namespace SteamWebAPI2.Interfaces
         public async Task<ISteamWebResponse<AccountListModel>> GetAccountListAsync()
         {
             var steamWebResponse = await steamWebInterface.GetAsync<AccountListContainer>("GetAccountList", 1);
-            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+            var steamWebResponseModel = mapper.Map<
                 ISteamWebResponse<AccountListContainer>,
                 ISteamWebResponse<AccountListModel>>(steamWebResponse);
             return steamWebResponseModel;
@@ -46,7 +51,7 @@ namespace SteamWebAPI2.Interfaces
 
             var steamWebResponse = await steamWebInterface.PostAsync<CreateAccountContainer>("CreateAccount", 1, parameters);
 
-            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+            var steamWebResponseModel = mapper.Map<
                 ISteamWebResponse<CreateAccountContainer>,
                 ISteamWebResponse<CreateAccountModel>>(steamWebResponse);
 
@@ -77,7 +82,7 @@ namespace SteamWebAPI2.Interfaces
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
             parameters.AddIfHasValue(steamId, "steamid");
             var steamWebResponse = await steamWebInterface.PostAsync<ResetLoginTokenContainer>("ResetLoginToken", 1, parameters);
-            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+            var steamWebResponseModel = mapper.Map<
                 ISteamWebResponse<ResetLoginTokenContainer>,
                 ISteamWebResponse<string>>(steamWebResponse);
             return steamWebResponseModel;
@@ -103,7 +108,7 @@ namespace SteamWebAPI2.Interfaces
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
             parameters.AddIfHasValue(steamId, "steamid");
             var steamWebResponse = await steamWebInterface.GetAsync<AccountPublicInfoContainer>("GetAccountPublicInfo", 1, parameters);
-            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+            var steamWebResponseModel = mapper.Map<
                 ISteamWebResponse<AccountPublicInfoContainer>,
                 ISteamWebResponse<AccountPublicInfoModel>>(steamWebResponse);
             return steamWebResponseModel;
@@ -114,7 +119,7 @@ namespace SteamWebAPI2.Interfaces
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
             parameters.AddIfHasValue(loginToken, "login_token");
             var steamWebResponse = await steamWebInterface.GetAsync<QueryLoginTokenContainer>("QueryLoginToken", 1, parameters);
-            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+            var steamWebResponseModel = mapper.Map<
                 ISteamWebResponse<QueryLoginTokenContainer>,
                 ISteamWebResponse<QueryLoginTokenModel>>(steamWebResponse);
             return steamWebResponseModel;

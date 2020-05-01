@@ -1,8 +1,10 @@
-﻿using Steam.Models.SteamCommunity;
+﻿using AutoMapper;
+using Steam.Models.SteamCommunity;
 using SteamWebAPI2.Exceptions;
 using SteamWebAPI2.Models.SteamCommunity;
 using SteamWebAPI2.Models.SteamPlayer;
 using SteamWebAPI2.Utilities;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -14,14 +16,17 @@ namespace SteamWebAPI2.Interfaces
 {
     public class SteamUser : ISteamUser
     {
-        private ISteamWebInterface steamWebInterface;
+        private readonly ISteamWebInterface steamWebInterface;
+        private readonly IMapper mapper;
 
         /// <summary>
         /// Default constructor established the Steam Web API key and initializes for subsequent method calls
         /// </summary>
         /// <param name="steamWebRequest"></param>
-        public SteamUser(ISteamWebRequest steamWebRequest, ISteamWebInterface steamWebInterface = null)
+        public SteamUser(IMapper mapper, ISteamWebRequest steamWebRequest, ISteamWebInterface steamWebInterface = null)
         {
+            this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+
             this.steamWebInterface = steamWebInterface == null
                 ? new SteamWebInterface("ISteamUser", steamWebRequest)
                 : steamWebInterface;
@@ -48,7 +53,7 @@ namespace SteamWebAPI2.Interfaces
                 return null;
             }
 
-            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+            var steamWebResponseModel = mapper.Map<
                 ISteamWebResponse<PlayerSummaryResultContainer>,
                 ISteamWebResponse<PlayerSummaryModel>>(steamWebResponse);
 
@@ -73,7 +78,7 @@ namespace SteamWebAPI2.Interfaces
                 return null;
             }
 
-            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+            var steamWebResponseModel = mapper.Map<
                 ISteamWebResponse<PlayerSummaryResultContainer>,
                 ISteamWebResponse<IReadOnlyCollection<PlayerSummaryModel>>>(steamWebResponse);
 
@@ -94,7 +99,7 @@ namespace SteamWebAPI2.Interfaces
 
             var steamWebResponse = await steamWebInterface.GetAsync<FriendsListResultContainer>("GetFriendList", 1, parameters);
 
-            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<ISteamWebResponse<FriendsListResultContainer>, ISteamWebResponse<IReadOnlyCollection<FriendModel>>>(steamWebResponse);
+            var steamWebResponseModel = mapper.Map<ISteamWebResponse<FriendsListResultContainer>, ISteamWebResponse<IReadOnlyCollection<FriendModel>>>(steamWebResponse);
 
             return steamWebResponseModel;
         }
@@ -125,7 +130,7 @@ namespace SteamWebAPI2.Interfaces
 
             var steamWebResponse = await steamWebInterface.GetAsync<PlayerBansContainer>("GetPlayerBans", 1, parameters);
 
-            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+            var steamWebResponseModel = mapper.Map<
                 ISteamWebResponse<PlayerBansContainer>,
                 ISteamWebResponse<IReadOnlyCollection<PlayerBansModel>>>(steamWebResponse);
 
@@ -145,7 +150,7 @@ namespace SteamWebAPI2.Interfaces
 
             var steamWebResponse = await steamWebInterface.GetAsync<UserGroupListResultContainer>("GetUserGroupList", 1, parameters);
 
-            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+            var steamWebResponseModel = mapper.Map<
                 ISteamWebResponse<UserGroupListResultContainer>,
                 ISteamWebResponse<IReadOnlyCollection<ulong>>>(steamWebResponse);
 
@@ -172,7 +177,7 @@ namespace SteamWebAPI2.Interfaces
                 throw new VanityUrlNotResolvedException(ErrorMessages.VanityUrlNotResolved);
             }
 
-            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<
+            var steamWebResponseModel = mapper.Map<
                 ISteamWebResponse<ResolveVanityUrlResultContainer>,
                 ISteamWebResponse<ulong>>(steamWebResponse);
 
@@ -191,7 +196,7 @@ namespace SteamWebAPI2.Interfaces
 
             var profile = DeserializeXML<SteamCommunityProfile>(xml);
 
-            var profileModel = AutoMapperConfiguration.Mapper.Map<SteamCommunityProfile, SteamCommunityProfileModel>(profile);
+            var profileModel = mapper.Map<SteamCommunityProfile, SteamCommunityProfileModel>(profile);
 
             return profileModel;
         }

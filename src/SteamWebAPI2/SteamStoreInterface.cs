@@ -1,4 +1,6 @@
-﻿using SteamWebAPI2.Utilities;
+﻿using AutoMapper;
+using SteamWebAPI2.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
@@ -14,25 +16,25 @@ namespace SteamWebAPI2
         private const string steamStoreApiBaseUrl = "http://store.steampowered.com/api/";
         private readonly SteamStoreRequest steamStoreRequest;
 
+        protected readonly IMapper mapper;
+
         /// <summary>
         /// Constructs and maps the default objects for Steam Store Web API use
         /// </summary>
-        public SteamStoreInterface()
+        public SteamStoreInterface(IMapper mapper)
         {
+            this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             steamStoreRequest = new SteamStoreRequest(steamStoreApiBaseUrl);
-
-            AutoMapperConfiguration.Initialize();
         }
 
         /// <summary>
         /// Constructs and maps based on a custom http client
         /// </summary>
         /// <param name="httpClient">Client to make requests with</param>
-        public SteamStoreInterface(HttpClient httpClient)
+        public SteamStoreInterface(IMapper mapper, HttpClient httpClient)
         {
+            this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             steamStoreRequest = new SteamStoreRequest(steamStoreApiBaseUrl, httpClient);
-
-            AutoMapperConfiguration.Initialize();
         }
 
         /// <summary>
@@ -42,8 +44,6 @@ namespace SteamWebAPI2
         public SteamStoreInterface(string steamStoreApiBaseUrl)
         {
             steamStoreRequest = new SteamStoreRequest(steamStoreApiBaseUrl);
-
-            AutoMapperConfiguration.Initialize();
         }
 
         /// <summary>
@@ -54,8 +54,6 @@ namespace SteamWebAPI2
         public SteamStoreInterface(string steamStoreApiBaseUrl, HttpClient httpClient)
         {
             steamStoreRequest = new SteamStoreRequest(steamStoreApiBaseUrl, httpClient);
-
-            AutoMapperConfiguration.Initialize();
         }
 
         /// <summary>

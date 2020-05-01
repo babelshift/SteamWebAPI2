@@ -1,4 +1,5 @@
-﻿using Steam.Models;
+﻿using AutoMapper;
+using Steam.Models;
 using SteamWebAPI2.Models;
 using SteamWebAPI2.Utilities;
 using System;
@@ -9,22 +10,24 @@ namespace SteamWebAPI2.Interfaces
 {
     public class GCVersion : IGCVersion
     {
+        private readonly ISteamWebInterface steamWebInterface;
+        private readonly IMapper mapper;
+
         private uint appId;
 
         // The API only exposes certain methods for certain App Ids in the EconItems interface
         // I'm hard coding the values for now until I come up with a better, more dynamic solution
         private List<uint> validClientVersionAppIds = new List<uint>();
-
         private List<uint> validServerVersionAppIds = new List<uint>();
-
-        private ISteamWebInterface steamWebInterface;
 
         /// <summary>
         /// Default constructor established the Steam Web API key and initializes for subsequent method calls
         /// </summary>
         /// <param name="steamWebRequest"></param>
-        public GCVersion(ISteamWebRequest steamWebRequest, AppId appId, ISteamWebInterface steamWebInterface = null)
+        public GCVersion(IMapper mapper, ISteamWebRequest steamWebRequest, AppId appId, ISteamWebInterface steamWebInterface = null)
         {
+            this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+
             this.steamWebInterface = steamWebInterface == null
                 ? new SteamWebInterface("IGCVersion_" + (uint)appId, steamWebRequest)
                 : steamWebInterface;
@@ -61,7 +64,7 @@ namespace SteamWebAPI2.Interfaces
 
             var steamWebResponse = await steamWebInterface.GetAsync<GameClientResultContainer>("GetClientVersion", 1);
 
-            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<ISteamWebResponse<GameClientResultContainer>, ISteamWebResponse<GameClientResultModel>>(steamWebResponse);
+            var steamWebResponseModel = mapper.Map<ISteamWebResponse<GameClientResultContainer>, ISteamWebResponse<GameClientResultModel>>(steamWebResponse);
 
             return steamWebResponseModel;
         }
@@ -79,7 +82,7 @@ namespace SteamWebAPI2.Interfaces
 
             var steamWebResponse = await steamWebInterface.GetAsync<GameClientResultContainer>("GetServerVersion", 1);
 
-            var steamWebResponseModel = AutoMapperConfiguration.Mapper.Map<ISteamWebResponse<GameClientResultContainer>, ISteamWebResponse<GameClientResultModel>>(steamWebResponse);
+            var steamWebResponseModel = mapper.Map<ISteamWebResponse<GameClientResultContainer>, ISteamWebResponse<GameClientResultModel>>(steamWebResponse);
 
             return steamWebResponseModel;
         }
