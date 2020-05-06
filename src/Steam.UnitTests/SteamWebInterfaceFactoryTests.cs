@@ -44,7 +44,7 @@ namespace Steam.UnitTests
         [Fact]
         public void Constructor_Should_Fail_If_Null_Key()
         {
-            Assert.Throws<ArgumentNullException>(() => new SteamWebInterfaceFactory(null));
+            Assert.Throws<ArgumentNullException>(() => new SteamWebInterfaceFactory(steamWebApiKey: null));
         }
 
         [Fact]
