@@ -18,7 +18,7 @@ namespace SteamWebAPI2.Mappings
                 });
             CreateMap<PublishedFileDetails, PublishedFileDetailsModel>()
                 .ForMember(dest => dest.FileUrl, opts => opts.MapFrom(source => !string.IsNullOrWhiteSpace(source.FileUrl) ? new Uri(source.FileUrl) : null))
-                .ForMember(dest => dest.PreviewUrl, opts => opts.MapFrom(source => !string.IsNullOrWhiteSpace(source.FileUrl) ? new Uri(source.PreviewUrl) : null));
+                .ForMember(dest => dest.PreviewUrl, opts => opts.MapFrom(source => !string.IsNullOrWhiteSpace(source.PreviewUrl) ? new Uri(source.PreviewUrl) : null));
             CreateMap<PublishedFileDetailsResultContainer, IReadOnlyCollection<PublishedFileDetailsModel>>()
                 .ConvertUsing((src, dest, context) =>
                     context.Mapper.Map<IList<PublishedFileDetails>, IReadOnlyCollection<PublishedFileDetailsModel>>(
