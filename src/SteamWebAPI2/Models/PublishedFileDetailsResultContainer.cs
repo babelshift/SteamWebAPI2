@@ -1,11 +1,11 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using Steam.Models;
+using SteamWebAPI2.Utilities.JsonConverters;
 
 namespace SteamWebAPI2.Models
 {
-    using SteamWebAPI2.Utilities.JsonConverters;
-
     internal class PublishedFileDetailsResultContainer
     {
         [JsonProperty("response")]
@@ -74,7 +74,7 @@ namespace SteamWebAPI2.Models
         public DateTime TimeUpdated { get; set; }
 
         [JsonProperty("visibility")]
-        public uint Visibility { get; set; }
+        public uint Visibility { get; set; } = (uint)PublishedFileVisibility.Unknown;
 
         [JsonProperty("banned")]
         public bool Banned { get; set; }
