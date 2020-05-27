@@ -1,9 +1,10 @@
 ﻿namespace Steam.Models
 {
-    public enum PublishedFileVisibility
+    public enum PublishedFileVisibility : uint
     {
         Public = 0,
-        FreindsOnly = 1,
-        Private = 2
+        FriendsOnly = 1,
+        Private = 2,
+        Unknown = 3
     }
 }
