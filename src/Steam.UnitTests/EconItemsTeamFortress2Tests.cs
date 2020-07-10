@@ -20,9 +20,17 @@ namespace Steam.UnitTests
         [Fact]
         public async Task GetSchemaItemsForTF2Async_Should_Succeed()
         {
-            var response = await steamInterface.GetSchemaItemsForTF2Async();
-            Assert.NotNull(response);
-            Assert.NotNull(response.Data);
+            uint? next = null;
+
+            do
+            {
+                var response = await steamInterface.GetSchemaItemsForTF2Async(start: next);
+                Assert.NotNull(response);
+                Assert.NotNull(response.Data);
+
+                next = response.Data.Result.Next;
+            }
+            while (next.HasValue);
         }
 
         [Fact]
