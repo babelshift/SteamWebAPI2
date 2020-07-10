@@ -15,7 +15,7 @@ namespace SteamWebAPI2.Models.GameEconomy
         public IList<SchemaItem> Items { get; set; }
 
         [JsonProperty("next")]
-        public uint Next { get; set; }
+        public uint? Next { get; set; }
     }
 
     public class SchemaItemsResultContainer
