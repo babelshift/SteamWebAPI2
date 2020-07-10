@@ -81,7 +81,7 @@ namespace SteamWebAPI2.Interfaces
         /// </summary>
         /// <param name="language"></param>
         /// <returns></returns>
-        public async Task<ISteamWebResponse<SchemaItemsResultContainer>> GetSchemaItemsForTF2Async(string language = "en_us")
+        public async Task<ISteamWebResponse<SchemaItemsResultContainer>> GetSchemaItemsForTF2Async(string language = "en_us", uint? start = null)
         {
             if (appId != (int)AppId.TeamFortress2)
             {
@@ -91,6 +91,7 @@ namespace SteamWebAPI2.Interfaces
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
             parameters.AddIfHasValue(language, "language");
+            parameters.AddIfHasValue(start, "start");
 
             var steamWebResponse = await steamWebInterface.GetAsync<SchemaItemsResultContainer>("GetSchemaItems", 1, parameters);
 

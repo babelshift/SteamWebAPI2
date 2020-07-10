@@ -8,7 +8,7 @@ namespace SteamWebAPI2.Interfaces
     {
         Task<ISteamWebResponse<EconItemResultModel>> GetPlayerItemsAsync(ulong steamId);
 
-        Task<ISteamWebResponse<SteamWebAPI2.Models.GameEconomy.SchemaItemsResultContainer>> GetSchemaItemsForTF2Async(string language = "en_us");
+        Task<ISteamWebResponse<SteamWebAPI2.Models.GameEconomy.SchemaItemsResultContainer>> GetSchemaItemsForTF2Async(string language = "en_us", uint? start = null);
 
         Task<ISteamWebResponse<SteamWebAPI2.Models.GameEconomy.SchemaOverviewResultContainer>> GetSchemaOverviewForTF2Async(string language = "en_us");
 
