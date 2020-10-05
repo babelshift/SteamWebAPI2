@@ -36,6 +36,8 @@ namespace SteamWebAPI2.Mappings
             CreateMap<UGCFileDetailsResultContainer, UGCFileDetailsModel>().ConvertUsing((src, dest, context) =>
                 context.Mapper.Map<UGCFileDetails, UGCFileDetailsModel>(src.Result)
             );
+            CreateMap<CollectionDetailsResponseContainer, IReadOnlyCollection<CollectionDetail>>().ConvertUsing((src, dest, context) => 
+                context.Mapper.Map<IReadOnlyCollection<CollectionDetail>>(src.Response.CollectionDetails));
         }
     }
 }

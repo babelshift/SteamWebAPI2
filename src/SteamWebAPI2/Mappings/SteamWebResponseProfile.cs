@@ -62,6 +62,7 @@ namespace SteamWebAPI2.Mappings
             CreateSteamWebResponseMap<PublishedFileDetailsResultContainer, IReadOnlyCollection<PublishedFileDetailsModel>>();
             CreateSteamWebResponseMap<PublishedFileDetailsResultContainer, PublishedFileDetailsModel>();
             CreateSteamWebResponseMap<UGCFileDetailsResultContainer, UGCFileDetailsModel>();
+            CreateSteamWebResponseMap<CollectionDetailsResponseContainer, IReadOnlyCollection<CollectionDetail>>();
             CreateSteamWebResponseMap<PlayerSummaryResultContainer, PlayerSummaryModel>();
             CreateSteamWebResponseMap<PlayerSummaryResultContainer, IReadOnlyCollection<PlayerSummaryModel>>();
             CreateSteamWebResponseMap<FriendsListResultContainer, IReadOnlyCollection<FriendModel>>();

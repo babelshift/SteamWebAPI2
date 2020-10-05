@@ -30,6 +30,51 @@ namespace SteamWebAPI2.Interfaces
         }
 
         /// <summary>
+        /// Retrieves the list of items in the provided collection.
+        /// </summary>
+        /// <param name="collectionId">The collection's ID.</param>
+        /// <returns>A collection of the details of each collection or <c>null</c> if the request failed.</returns>
+        public async Task<ISteamWebResponse<IReadOnlyCollection<CollectionDetail>>> GetCollectionDetails(ulong collectionId) => await GetCollectionDetails(new List<ulong> { collectionId });
+
+        /// <summary>
+        /// Retrieves the list of items in the provided collections.
+        /// </summary>
+        /// <param name="collectionIds">The list of IDs of collections for which to retrieve details.</param>
+        /// <returns>A collection of the details of each collection or <c>null</c> if the request failed.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="collectionIds"/> is null.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="collectionIds"/> is empty.</exception>
+        public async Task<ISteamWebResponse<IReadOnlyCollection<CollectionDetail>>> GetCollectionDetails(IList<ulong> collectionIds)
+        {
+            if (collectionIds == null)
+                throw new ArgumentNullException(nameof(collectionIds));
+
+            if (!collectionIds.Any())
+                throw new ArgumentOutOfRangeException(nameof(collectionIds), $"{nameof(collectionIds)} is empty.");
+
+            IList<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
+
+            parameters.AddIfHasValue(collectionIds.Count, "collectioncount");
+
+            for (int i = 0; i < collectionIds.Count; ++i)
+                parameters.AddIfHasValue(collectionIds[i], $"publishedfileids[{i}]");
+
+            try
+            {
+                var steamWebResponse = await steamWebInterface.PostAsync<CollectionDetailsResponseContainer>("GetCollectionDetails", 1, parameters);
+
+                var steamWebResponseModel = mapper.Map<
+                    ISteamWebResponse<CollectionDetailsResponseContainer>,
+                    ISteamWebResponse<IReadOnlyCollection<CollectionDetail>>>(steamWebResponse);
+
+                return steamWebResponseModel;
+            }
+            catch (HttpRequestException)
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
         /// Retrieves information about published files such as workshop items and screenshots.
         /// </summary>
         /// <param name="itemCount">The quantity of items for which to retrieve details.
