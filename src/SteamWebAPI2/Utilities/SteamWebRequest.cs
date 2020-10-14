@@ -110,6 +110,8 @@ namespace SteamWebAPI2.Utilities
             }
 
             parameters.Insert(0, new SteamWebRequestParameter("key", steamWebApiKey));
+            //parameters.Insert(0, new SteamWebRequestParameter("feeds", "SteamDB")); -- Demonstration of Implementing Feeds Parameter
+            //parameters.Insert(0, new SteamWebRequestParameter("tags", "halloween")); -- Demonstration of Implementing Tags Parameter
 
             HttpResponseMessage httpResponse = null;
 

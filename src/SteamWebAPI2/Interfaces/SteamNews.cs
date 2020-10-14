@@ -33,8 +33,10 @@ namespace SteamWebAPI2.Interfaces
         /// <param name="maxLength"></param>
         /// <param name="endDate"></param>
         /// <param name="count"></param>
+        /// <param name="feeds"></param>
+        /// <param name="tags"></param>
         /// <returns></returns>
-        public async Task<ISteamWebResponse<SteamNewsResultModel>> GetNewsForAppAsync(uint appId, uint? maxLength = null, DateTime? endDate = null, uint? count = null)
+        public async Task<ISteamWebResponse<SteamNewsResultModel>> GetNewsForAppAsync(uint appId, uint? maxLength = null, DateTime? endDate = null, uint? count = null, string feeds = null, string[] tags = null)
         {
             ulong? endDateUnixTimeStamp = null;
 
@@ -49,6 +51,8 @@ namespace SteamWebAPI2.Interfaces
             parameters.AddIfHasValue(maxLength, "maxlength");
             parameters.AddIfHasValue(endDateUnixTimeStamp, "enddate");
             parameters.AddIfHasValue(count, "count");
+            parameters.AddIfHasValue(feeds, "feeds");
+            parameters.AddIfHasValue(tags, "tags"); 
 
             var steamWebResponse = await steamWebInterface.GetAsync<SteamNewsResultContainer>("GetNewsForApp", 2, parameters);
 

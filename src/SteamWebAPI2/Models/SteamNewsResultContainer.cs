@@ -31,6 +31,9 @@ namespace SteamWebAPI2.Models
 
         [JsonProperty("feedname")]
         public string Feedname { get; set; }
+
+        [JsonProperty("tags")]
+        public string[] Tags { get; set; }
     }
 
     internal class SteamNewsResult
