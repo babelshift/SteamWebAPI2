@@ -7,6 +7,6 @@ namespace SteamWebAPI2.Interfaces
 {
     public interface ISteamNews
     {
-        Task<ISteamWebResponse<SteamNewsResultModel>> GetNewsForAppAsync(uint appId, uint? maxLength = null, DateTime? endDate = null, uint? count = null);
+        Task<ISteamWebResponse<SteamNewsResultModel>> GetNewsForAppAsync(uint appId, uint? maxLength = null, DateTime? endDate = null, uint? count = null, string feeds = null, string[] tags = null);
     }
 }

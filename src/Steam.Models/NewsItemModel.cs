@@ -19,5 +19,7 @@
         public ulong Date { get; set; }
 
         public string Feedname { get; set; }
+
+        public string[] Tags { get; set; }
     }
 }
