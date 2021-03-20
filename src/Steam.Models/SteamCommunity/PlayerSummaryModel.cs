@@ -100,5 +100,10 @@ namespace Steam.Models.SteamCommunity
         /// The id of the game that the player is currently playing. This doesn't seem to be an appid, so I'm not sure how to make use of this field.
         /// </summary>
         public string PlayingGameId { get; set; }
+		
+		/// <summary>
+        /// The IP of the server the user is currently playing on.
+        /// </summary>
+        public string PlayingGameServerIP { get; set; }
     }
 }
