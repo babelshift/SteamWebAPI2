@@ -130,6 +130,12 @@ namespace SteamWebAPI2.Models.SteamCommunity
         /// </summary>
         [JsonProperty(PropertyName = "gameid")]
         public string PlayingGameId { get; set; }
+		
+		/// <summary>
+        /// The IP of the server the user is currently playing on.
+        /// </summary>
+        [JsonProperty(PropertyName = "gameserverip")]
+        public string PlayingGameServerIP { get; set; }
     }
 
     /// <summary>
