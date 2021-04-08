@@ -22,10 +22,18 @@ namespace Steam.Models.DOTA2
 
         public uint Item5 { get; set; }
 
+        public uint Backpack0 { get; set; }
+
+        public uint Backpack1 { get; set; }
+
+        public uint Backpack2 { get; set; }
+
+        public uint ItemNeutral { get; set; }
+
         public uint Kills { get; set; }
 
         public uint Deaths { get; set; }
-        
+
         public uint Assists { get; set; }
 
         public uint LeaverStatus { get; set; }
@@ -43,6 +51,12 @@ namespace Steam.Models.DOTA2
         public uint GoldSpent { get; set; }
 
         public uint HeroDamage { get; set; }
+
+        public uint ScaledHeroDamage { get; set; }
+
+        public uint ScaledTowerDamage { get; set; }
+
+        public uint ScaledHeroHealing { get; set; }
 
         public uint TowerDamage { get; set; }
 
