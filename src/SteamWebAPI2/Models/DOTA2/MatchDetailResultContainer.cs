@@ -39,6 +39,18 @@ namespace SteamWebAPI2.Models.DOTA2
         [JsonProperty(PropertyName = "item_5")]
         public uint Item5 { get; set; }
 
+        [JsonProperty(PropertyName = "backpack_0")]
+        public uint Backpack0 { get; set; }
+
+        [JsonProperty(PropertyName = "backpack_1")]
+        public uint Backpack1 { get; set; }
+
+        [JsonProperty(PropertyName = "backpack_2")]
+        public uint Backpack2 { get; set; }
+
+        [JsonProperty(PropertyName = "item_neutral")]
+        public uint ItemNeutral { get; set; }
+
         public uint Kills { get; set; }
         public uint Deaths { get; set; }
         public uint Assists { get; set; }
@@ -71,6 +83,15 @@ namespace SteamWebAPI2.Models.DOTA2
         [JsonProperty(PropertyName = "hero_healing")]
         public uint HeroHealing { get; set; }
 
+        [JsonProperty(PropertyName = "scaled_hero_damage")]
+        public uint ScaledHeroDamage { get; set; }
+
+        [JsonProperty(PropertyName = "scaled_tower_damage")]
+        public uint ScaledTowerDamage { get; set; }
+
+        [JsonProperty(PropertyName = "scaled_hero_healing")]
+        public uint ScaledHeroHealing { get; set; }
+
         public uint Level { get; set; }
 
         [JsonProperty(PropertyName = "ability_upgrades")]
@@ -95,6 +116,9 @@ namespace SteamWebAPI2.Models.DOTA2
 
         [JsonProperty(PropertyName = "radiant_win")]
         public bool RadiantWin { get; set; }
+
+        [JsonProperty(PropertyName = "pre_game_duration")]
+        public uint PreGameDuration { get; set; }
 
         public uint Duration { get; set; }
 
@@ -173,6 +197,12 @@ namespace SteamWebAPI2.Models.DOTA2
 
         [JsonProperty(PropertyName = "dire_captain")]
         public uint DireCaptain { get; set; }
+
+        [JsonProperty(PropertyName = "radiant_score")]
+        public uint RadiantScore { get; set; }
+
+        [JsonProperty(PropertyName = "dire_score")]
+        public uint DireScore { get; set; }
 
         [JsonProperty(PropertyName = "picks_bans")]
         public IList<MatchPickBan> PicksAndBans { get; set; }

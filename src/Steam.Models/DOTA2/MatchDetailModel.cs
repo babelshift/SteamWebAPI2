@@ -9,6 +9,8 @@ namespace Steam.Models.DOTA2
 
         public bool RadiantWin { get; set; }
 
+        public uint PreGameDuration { get; set; }
+
         public uint Duration { get; set; }
 
         public DateTime StartTime { get; set; }
@@ -70,6 +72,10 @@ namespace Steam.Models.DOTA2
         public uint RadiantCaptain { get; set; }
 
         public uint DireCaptain { get; set; }
+
+        public uint RadiantScore { get; set; }
+
+        public uint DireScore { get; set; }
 
         public IReadOnlyCollection<MatchPickBanModel> PicksAndBans { get; set; }
     }
