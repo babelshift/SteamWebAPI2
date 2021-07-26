@@ -7,6 +7,7 @@ using Steam.Models.SteamPlayer;
 using SteamWebAPI2.Models;
 using SteamWebAPI2.Models.SteamCommunity;
 using SteamWebAPI2.Models.SteamPlayer;
+using SteamWebAPI2.Utilities;
 
 namespace SteamWebAPI2.Mappings
 {
@@ -29,7 +30,8 @@ namespace SteamWebAPI2.Mappings
                 src.Result != null ? src.Result.PlayerCount : default(uint)
             );
 
-            CreateMap<PlayerAchievement, PlayerAchievementModel>();
+            CreateMap<PlayerAchievement, PlayerAchievementModel>()
+                .ForMember(dest => dest.UnlockTime, opts => opts.MapFrom(source => source.UnlockTime.ToDateTime()));
             CreateMap<PlayerAchievementResult, PlayerAchievementResultModel>();
             CreateMap<PlayerAchievementResultContainer, PlayerAchievementResultModel>().ConvertUsing((src, dest, context) =>
                 context.Mapper.Map<PlayerAchievementResult, PlayerAchievementResultModel>(src.Result)
