@@ -11,6 +11,9 @@ namespace SteamWebAPI2.Models.SteamPlayer
         [JsonProperty("achieved")]
         public uint Achieved { get; set; }
 
+        [JsonProperty("unlocktime")]
+        public ulong UnlockTime { get; set; }
+
         public string Name { get; set; }
         public string Description { get; set; }
     }
