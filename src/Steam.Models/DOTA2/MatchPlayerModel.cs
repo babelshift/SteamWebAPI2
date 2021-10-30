@@ -50,6 +50,14 @@ namespace Steam.Models.DOTA2
 
         public uint GoldSpent { get; set; }
 
+        public uint NetWorth { get; set; }
+
+        public uint AghanimsScepter { get; set; }
+
+        public uint AghanimsShard { get; set; }
+
+        public uint Moonshard { get; set; }
+
         public uint HeroDamage { get; set; }
 
         public uint ScaledHeroDamage { get; set; }
@@ -65,5 +73,7 @@ namespace Steam.Models.DOTA2
         public uint Level { get; set; }
 
         public IReadOnlyCollection<MatchPlayerAbilityUpgradeModel> AbilityUpgrades { get; set; }
+
+        public IReadOnlyCollection<MatchPlayerAdditionalUnitModel> AdditionalUnits { get; set; }
     }
 }

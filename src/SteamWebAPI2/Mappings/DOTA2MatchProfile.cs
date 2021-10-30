@@ -40,6 +40,7 @@ namespace SteamWebAPI2.Mappings
             CreateMap<MatchDetailResult, MatchDetailModel>()
                 .ForMember(dest => dest.StartTime, opts => opts.MapFrom(src => src.StartTime.ToDateTime()));
             CreateMap<MatchPlayer, MatchPlayerModel>();
+            CreateMap<MatchPlayerAdditionalUnit, MatchPlayerAdditionalUnitModel>();
             CreateMap<MatchPlayerAbilityUpgrade, MatchPlayerAbilityUpgradeModel>();
             CreateMap<MatchPickBan, MatchPickBanModel>();
             CreateMap<MatchDetailResultContainer, MatchDetailModel>().ConvertUsing((src, dest, context) =>

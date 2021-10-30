@@ -10,6 +10,41 @@ namespace SteamWebAPI2.Models.DOTA2
         public uint Level { get; set; }
     }
 
+    internal class MatchPlayerAdditionalUnit
+    {
+        public string Unitname { get; set; }
+
+        [JsonProperty(PropertyName = "item_0")]
+        public uint Item0 { get; set; }
+
+        [JsonProperty(PropertyName = "item_1")]
+        public uint Item1 { get; set; }
+
+        [JsonProperty(PropertyName = "item_2")]
+        public uint Item2 { get; set; }
+
+        [JsonProperty(PropertyName = "item_3")]
+        public uint Item3 { get; set; }
+
+        [JsonProperty(PropertyName = "item_4")]
+        public uint Item4 { get; set; }
+
+        [JsonProperty(PropertyName = "item_5")]
+        public uint Item5 { get; set; }
+
+        [JsonProperty(PropertyName = "backpack_0")]
+        public uint Backpack0 { get; set; }
+
+        [JsonProperty(PropertyName = "backpack_1")]
+        public uint Backpack1 { get; set; }
+
+        [JsonProperty(PropertyName = "backpack_2")]
+        public uint Backpack2 { get; set; }
+
+        [JsonProperty(PropertyName = "item_neutral")]
+        public uint ItemNeutral { get; set; }
+    }
+
     internal class MatchPlayer
     {
         [JsonProperty(PropertyName = "account_id")]
@@ -74,6 +109,17 @@ namespace SteamWebAPI2.Models.DOTA2
         [JsonProperty(PropertyName = "gold_spent")]
         public uint GoldSpent { get; set; }
 
+        [JsonProperty(PropertyName = "net_worth")]
+        public uint NetWorth { get; set; }
+
+        [JsonProperty(PropertyName = "aghanims_scepter")]
+        public uint AghanimsScepter { get; set; }
+
+        [JsonProperty(PropertyName = "aghanims_shard")]
+        public uint AghanimsShard { get; set; }
+
+        public uint Moonshard { get; set; }
+
         [JsonProperty(PropertyName = "hero_damage")]
         public uint HeroDamage { get; set; }
 
@@ -96,6 +142,9 @@ namespace SteamWebAPI2.Models.DOTA2
 
         [JsonProperty(PropertyName = "ability_upgrades")]
         public IList<MatchPlayerAbilityUpgrade> AbilityUpgrades { get; set; }
+
+        [JsonProperty(PropertyName = "additional_units")]
+        public IList<MatchPlayerAdditionalUnit> AdditionalUnits { get; set; }
     }
 
     internal class MatchPickBan

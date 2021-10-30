@@ -30,9 +30,14 @@ namespace Steam.UnitTests
         [Fact]
         public async Task GetMatchDetailsAsync_Should_Succeed()
         {
-            var response = await steamInterface.GetMatchDetailsAsync(5327512468);
-            Assert.NotNull(response);
-            Assert.NotNull(response.Data);
+            //Old game without some params
+            var responseOld = await steamInterface.GetMatchDetailsAsync(5327512468);
+            //game played - 31.10.2021 
+            var responseNew = await steamInterface.GetMatchDetailsAsync(6249820594);
+            Assert.NotNull(responseOld);
+            Assert.NotNull(responseOld.Data);
+            Assert.NotNull(responseNew);
+            Assert.NotNull(responseNew.Data);
         }
 
         [Fact]
