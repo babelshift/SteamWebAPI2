@@ -3,6 +3,7 @@ using SteamWebAPI2.Interfaces;
 using SteamWebAPI2.Utilities;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -80,7 +81,9 @@ namespace Steam.UnitTests
         [Fact]
         public async Task GetCommunityProfileAsync_Should_Succeed()
         {
-            var response = await steamInterface.GetCommunityProfileAsync(76561198050013009);
+            //for other cultures (for example ru) automaper will not be able to convert floating point numbers and will throw an error
+            CultureInfo.DefaultThreadCurrentCulture = CultureInfo.CreateSpecificCulture("en");
+            var response = await steamInterface.GetCommunityProfileAsync(76561198064401017);
             Assert.NotNull(response);
         }
     }
