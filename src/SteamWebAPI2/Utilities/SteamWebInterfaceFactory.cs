@@ -44,6 +44,11 @@ namespace SteamWebAPI2.Utilities
 
             this.steamWebApiKey = options.Value.SteamWebApiKey;
 
+            if (!string.IsNullOrWhiteSpace(options.Value.SteamWebApiBaseUrl))
+            {
+                this.steamWebApiBaseUrl = options.Value.SteamWebApiBaseUrl;
+            }
+
             var mapperConfig = new MapperConfiguration(config =>
             {
                 config.AddProfile<SteamWebResponseProfile>();
