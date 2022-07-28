@@ -6,7 +6,7 @@
     <UserSecretsId>46a53f4e-b4d4-4fad-b7c9-b777001cfe42</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="automapper" Version="10.1.1" />
+    <PackageReference Include="automapper" Version="11.0.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="5.0.0" />
