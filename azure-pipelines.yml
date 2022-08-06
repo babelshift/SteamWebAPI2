@@ -76,7 +76,7 @@ steps:
       push $(Build.ArtifactStagingDirectory)/**.nupkg
       -s $(NuGetSourceServerUrl)
       -k $(NuGetSourceServerApiKey)
-      -n true
+      -n
       --skip-duplicate
 
 # Deploy release to GitHub
