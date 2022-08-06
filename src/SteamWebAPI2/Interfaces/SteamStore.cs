@@ -23,12 +23,13 @@ namespace SteamWebAPI2.Interfaces
         /// </summary>
         /// <param name="appId"></param>
         /// <returns></returns>
-        public async Task<StoreAppDetailsDataModel> GetStoreAppDetailsAsync(uint appId, string cc = "")
+        public async Task<StoreAppDetailsDataModel> GetStoreAppDetailsAsync(uint appId, string cc = "", string language = "")
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
             parameters.AddIfHasValue(appId, "appids");
             parameters.AddIfHasValue(cc, "cc");
+            parameters.AddIfHasValue(language, "l");
 
             var appDetails = await CallMethodAsync<AppDetailsContainer>("appdetails", parameters);
 

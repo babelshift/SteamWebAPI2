@@ -38,5 +38,13 @@ namespace Steam.UnitTests
             Assert.NotNull(response.PriceOverview?.Currency);
             Assert.Equal("MXN", response.PriceOverview.Currency);
         }
+
+        [Fact]
+        public async Task GetStoreAppDetailsAsync_WithLanguage_Should_Succeed()
+        {
+            var response = await steamStore.GetStoreAppDetailsAsync(1086940, "german");
+            Assert.NotNull(response);
+            Assert.NotNull(response.Name);
+        }
     }
 }

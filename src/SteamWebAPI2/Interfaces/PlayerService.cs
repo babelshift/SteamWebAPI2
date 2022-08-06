@@ -28,34 +28,7 @@ namespace SteamWebAPI2.Interfaces
                 ? new SteamWebInterface("IPlayerService", steamWebRequest)
                 : steamWebInterface;
         }
-
-        /// <summary>
-        /// Returns a message which indicates if a player is playing a shared game (from their shared Steam library).
-        /// </summary>
-        /// <param name="steamId"></param>
-        /// <param name="appId"></param>
-        /// <returns></returns>
-        public async Task<ISteamWebResponse<ulong?>> IsPlayingSharedGameAsync(ulong steamId, uint appId)
-        {
-            List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
-
-            parameters.AddIfHasValue(steamId, "steamid");
-            parameters.AddIfHasValue(appId, "appid_playing");
-
-            var steamWebResponse = await steamWebInterface.GetAsync<PlayingSharedGameResultContainer>("IsPlayingSharedGame", 1, parameters);
-
-            if (steamWebResponse == null)
-            {
-                return null;
-            }
-
-            var steamWebResponseModel = mapper.Map<
-                ISteamWebResponse<PlayingSharedGameResultContainer>,
-                ISteamWebResponse<ulong?>>(steamWebResponse);
-
-            return steamWebResponseModel;
-        }
-
+        
         /// <summary>
         /// Returns a collection of badge meta data which indicates the progress towards a badge for a specific user.
         /// </summary>

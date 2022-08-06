@@ -20,14 +20,6 @@ namespace Steam.UnitTests
         }
         
         [Fact]
-        public async Task IsPlayingSharedGameAsync_Should_Succeed()
-        {
-            var response = await steamInterface.IsPlayingSharedGameAsync(76561198050013009, 440);
-            Assert.NotNull(response);
-            Assert.NotNull(response.Data);
-        }
-        
-        [Fact]
         public async Task GetCommunityBadgeProgressAsync_Should_Succeed()
         {
             var response = await steamInterface.GetCommunityBadgeProgressAsync(76561198050013009);

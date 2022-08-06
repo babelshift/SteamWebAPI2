@@ -5,7 +5,7 @@ namespace SteamWebAPI2.Interfaces
 {
     internal interface ISteamStore
     {
-        Task<StoreAppDetailsDataModel> GetStoreAppDetailsAsync(uint appId, string cc = "");
+        Task<StoreAppDetailsDataModel> GetStoreAppDetailsAsync(uint appId, string cc = "", string language = "");
 
         Task<StoreFeaturedCategoriesModel> GetStoreFeaturedCategoriesAsync();
 
