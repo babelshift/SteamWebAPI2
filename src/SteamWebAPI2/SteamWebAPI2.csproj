@@ -15,7 +15,7 @@
     <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="automapper" Version="11.0.1" Condition="'$(TargetFramework)' == 'netstandard2.1'" />
+    <PackageReference Include="automapper" Version="12.0.0" Condition="'$(TargetFramework)' == 'netstandard2.1'" />
     <PackageReference Include="automapper" Version="10.1.1" Condition="'$(TargetFramework)' == 'netstandard2.0'" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="6.0.0" />
