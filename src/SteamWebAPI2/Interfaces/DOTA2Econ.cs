@@ -32,24 +32,6 @@ namespace SteamWebAPI2.Interfaces
         }
 
         /// <summary>
-        /// Returns a collection of in game Dota 2 items. Example: blink dagger.
-        /// </summary>
-        /// <param name="language"></param>
-        /// <returns></returns>
-        public async Task<ISteamWebResponse<IReadOnlyCollection<Steam.Models.DOTA2.GameItem>>> GetGameItemsAsync(string language = "en_us")
-        {
-            List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
-
-            parameters.AddIfHasValue(language, "language");
-
-            var steamWebResponse = await dota2WebInterface.GetAsync<GameItemResultContainer>("GetGameItems", 1, parameters);
-
-            var steamWebResponseModel = mapper.Map<ISteamWebResponse<GameItemResultContainer>, ISteamWebResponse<IReadOnlyCollection<Steam.Models.DOTA2.GameItem>>>(steamWebResponse);
-
-            return steamWebResponseModel;
-        }
-
-        /// <summary>
         /// Returns a collection of heroes and basic hero data.
         /// </summary>
         /// <param name="language"></param>

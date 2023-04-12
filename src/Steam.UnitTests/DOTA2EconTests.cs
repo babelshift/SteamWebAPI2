@@ -20,14 +20,6 @@ namespace Steam.UnitTests
         }
 
         [Fact]
-        public async Task GetGameItemsAsync_Should_Succeed()
-        {
-            var response = await steamInterface.GetGameItemsAsync();
-            Assert.NotNull(response);
-            Assert.NotNull(response.Data);
-        }
-
-        [Fact]
         public async Task GetHeroesAsync_Should_Succeed()
         {
             var response = await steamInterface.GetHeroesAsync();
