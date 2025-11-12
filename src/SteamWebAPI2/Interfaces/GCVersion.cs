@@ -1,17 +1,15 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Steam.Models;
 using SteamWebAPI2.Models;
 using SteamWebAPI2.Utilities;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace SteamWebAPI2.Interfaces
 {
     public class GCVersion : IGCVersion
     {
         private readonly ISteamWebInterface steamWebInterface;
-        private readonly IMapper mapper;
 
         private uint appId;
 
@@ -24,10 +22,8 @@ namespace SteamWebAPI2.Interfaces
         /// Default constructor established the Steam Web API key and initializes for subsequent method calls
         /// </summary>
         /// <param name="steamWebRequest"></param>
-        public GCVersion(IMapper mapper, ISteamWebRequest steamWebRequest, AppId appId, ISteamWebInterface steamWebInterface = null)
+        public GCVersion(ISteamWebRequest steamWebRequest, AppId appId, ISteamWebInterface steamWebInterface = null)
         {
-            this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-
             this.steamWebInterface = steamWebInterface == null
                 ? new SteamWebInterface("IGCVersion_" + (uint)appId, steamWebRequest)
                 : steamWebInterface;
@@ -64,9 +60,21 @@ namespace SteamWebAPI2.Interfaces
 
             var steamWebResponse = await steamWebInterface.GetAsync<GameClientResultContainer>("GetClientVersion", 1);
 
-            var steamWebResponseModel = mapper.Map<ISteamWebResponse<GameClientResultContainer>, ISteamWebResponse<GameClientResultModel>>(steamWebResponse);
+            return steamWebResponse.MapTo((from) =>
+            {
+                var result = from?.Result;
+                if (result == null)
+                {
+                    return null;
+                }
 
-            return steamWebResponseModel;
+                return new GameClientResultModel
+                {
+                    Success = result.Success,
+                    DeployVersion = result.DeployVersion,
+                    ActiveVersion = result.ActiveVersion
+                };
+            });
         }
 
         /// <summary>
@@ -82,9 +90,21 @@ namespace SteamWebAPI2.Interfaces
 
             var steamWebResponse = await steamWebInterface.GetAsync<GameClientResultContainer>("GetServerVersion", 1);
 
-            var steamWebResponseModel = mapper.Map<ISteamWebResponse<GameClientResultContainer>, ISteamWebResponse<GameClientResultModel>>(steamWebResponse);
+            return steamWebResponse.MapTo((from) =>
+            {
+                var result = from?.Result;
+                if (result == null)
+                {
+                    return null;
+                }
 
-            return steamWebResponseModel;
+                return new GameClientResultModel
+                {
+                    Success = result.Success,
+                    DeployVersion = result.DeployVersion,
+                    ActiveVersion = result.ActiveVersion
+                };
+            });
         }
     }
 }

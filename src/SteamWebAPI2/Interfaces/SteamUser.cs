@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+﻿
 using Steam.Models.SteamCommunity;
 using SteamWebAPI2.Exceptions;
 using SteamWebAPI2.Models.SteamCommunity;
@@ -17,16 +17,13 @@ namespace SteamWebAPI2.Interfaces
     public class SteamUser : ISteamUser
     {
         private readonly ISteamWebInterface steamWebInterface;
-        private readonly IMapper mapper;
 
         /// <summary>
         /// Default constructor established the Steam Web API key and initializes for subsequent method calls
         /// </summary>
         /// <param name="steamWebRequest"></param>
-        public SteamUser(IMapper mapper, ISteamWebRequest steamWebRequest, ISteamWebInterface steamWebInterface = null)
+        public SteamUser(ISteamWebRequest steamWebRequest, ISteamWebInterface steamWebInterface = null)
         {
-            this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-
             this.steamWebInterface = steamWebInterface == null
                 ? new SteamWebInterface("ISteamUser", steamWebRequest)
                 : steamWebInterface;
@@ -53,11 +50,40 @@ namespace SteamWebAPI2.Interfaces
                 return null;
             }
 
-            var steamWebResponseModel = mapper.Map<
-                ISteamWebResponse<PlayerSummaryResultContainer>,
-                ISteamWebResponse<PlayerSummaryModel>>(steamWebResponse);
+            return steamWebResponse.MapTo((from) =>
+            {
+                var players = from?.Result?.Players;
+                if (players == null || players.Count == 0)
+                {
+                    return null;
+                }
 
-            return steamWebResponseModel;
+                var p = players[0];
+
+                return new PlayerSummaryModel
+                {
+                    SteamId = p.SteamId,
+                    ProfileVisibility = p.ProfileVisibility,
+                    ProfileState = p.ProfileState,
+                    Nickname = p.Nickname,
+                    LastLoggedOffDate = p.LastLoggedOffDate,
+                    CommentPermission = p.CommentPermission,
+                    ProfileUrl = p.ProfileUrl,
+                    AvatarUrl = p.AvatarUrl,
+                    AvatarMediumUrl = p.AvatarMediumUrl,
+                    AvatarFullUrl = p.AvatarFullUrl,
+                    UserStatus = p.UserStatus,
+                    RealName = p.RealName,
+                    PrimaryGroupId = p.PrimaryGroupId,
+                    AccountCreatedDate = p.AccountCreatedDate,
+                    CountryCode = p.CountryCode,
+                    StateCode = p.StateCode,
+                    CityCode = p.CityCode,
+                    PlayingGameName = p.PlayingGameName,
+                    PlayingGameId = p.PlayingGameId,
+                    PlayingGameServerIP = p.PlayingGameServerIP
+                };
+            });
         }
 
         public async Task<ISteamWebResponse<IReadOnlyCollection<PlayerSummaryModel>>> GetPlayerSummariesAsync(IReadOnlyCollection<ulong> steamIds)
@@ -78,11 +104,38 @@ namespace SteamWebAPI2.Interfaces
                 return null;
             }
 
-            var steamWebResponseModel = mapper.Map<
-                ISteamWebResponse<PlayerSummaryResultContainer>,
-                ISteamWebResponse<IReadOnlyCollection<PlayerSummaryModel>>>(steamWebResponse);
+            return steamWebResponse.MapTo<IReadOnlyCollection<PlayerSummaryModel>>((from) =>
+            {
+                var result = from?.Result;
+                if (result == null)
+                {
+                    return null;
+                }
 
-            return steamWebResponseModel;
+                return result.Players?.Select(p => new PlayerSummaryModel
+                {
+                    SteamId = p.SteamId,
+                    ProfileVisibility = p.ProfileVisibility,
+                    ProfileState = p.ProfileState,
+                    Nickname = p.Nickname,
+                    LastLoggedOffDate = p.LastLoggedOffDate,
+                    CommentPermission = p.CommentPermission,
+                    ProfileUrl = p.ProfileUrl,
+                    AvatarUrl = p.AvatarUrl,
+                    AvatarMediumUrl = p.AvatarMediumUrl,
+                    AvatarFullUrl = p.AvatarFullUrl,
+                    UserStatus = p.UserStatus,
+                    RealName = p.RealName,
+                    PrimaryGroupId = p.PrimaryGroupId,
+                    AccountCreatedDate = p.AccountCreatedDate,
+                    CountryCode = p.CountryCode,
+                    StateCode = p.StateCode,
+                    CityCode = p.CityCode,
+                    PlayingGameName = p.PlayingGameName,
+                    PlayingGameId = p.PlayingGameId,
+                    PlayingGameServerIP = p.PlayingGameServerIP
+                }).ToList().AsReadOnly();
+            });
         }
 
         /// <summary>
@@ -99,9 +152,21 @@ namespace SteamWebAPI2.Interfaces
 
             var steamWebResponse = await steamWebInterface.GetAsync<FriendsListResultContainer>("GetFriendList", 1, parameters);
 
-            var steamWebResponseModel = mapper.Map<ISteamWebResponse<FriendsListResultContainer>, ISteamWebResponse<IReadOnlyCollection<FriendModel>>>(steamWebResponse);
+            return steamWebResponse.MapTo<IReadOnlyCollection<FriendModel>>((from) =>
+            {
+                var result = from?.Result;
+                if (result == null)
+                {
+                    return null;
+                }
 
-            return steamWebResponseModel;
+                return result.Friends?.Select(p => new FriendModel
+                {
+                    SteamId = p.SteamId,
+                    FriendSince = p.FriendSince,
+                    Relationship = p.Relationship
+                }).ToList().AsReadOnly();
+            });
         }
 
         /// <summary>
@@ -130,11 +195,25 @@ namespace SteamWebAPI2.Interfaces
 
             var steamWebResponse = await steamWebInterface.GetAsync<PlayerBansContainer>("GetPlayerBans", 1, parameters);
 
-            var steamWebResponseModel = mapper.Map<
-                ISteamWebResponse<PlayerBansContainer>,
-                ISteamWebResponse<IReadOnlyCollection<PlayerBansModel>>>(steamWebResponse);
+            return steamWebResponse.MapTo<IReadOnlyCollection<PlayerBansModel>>((from) =>
+            {
+                var result = from?.PlayerBans;
+                if (result == null)
+                {
+                    return null;
+                }
 
-            return steamWebResponseModel;
+                return result?.Select(p => new PlayerBansModel
+                {
+                    CommunityBanned = p.CommunityBanned,
+                    DaysSinceLastBan = p.DaysSinceLastBan,
+                    EconomyBan = p.EconomyBan,
+                    NumberOfVACBans = p.NumberOfVACBans,
+                    SteamId = p.SteamId,
+                    NumberOfGameBans = p.NumberOfGameBans,
+                    VACBanned = p.VACBanned
+                }).ToList().AsReadOnly();
+            });
         }
 
         /// <summary>
@@ -150,11 +229,19 @@ namespace SteamWebAPI2.Interfaces
 
             var steamWebResponse = await steamWebInterface.GetAsync<UserGroupListResultContainer>("GetUserGroupList", 1, parameters);
 
-            var steamWebResponseModel = mapper.Map<
-                ISteamWebResponse<UserGroupListResultContainer>,
-                ISteamWebResponse<IReadOnlyCollection<ulong>>>(steamWebResponse);
+            return steamWebResponse.MapTo<IReadOnlyCollection<ulong>>((from) =>
+            {
+                var result = from?.Result;
+                if (result == null)
+                {
+                    return null;
+                }
 
-            return steamWebResponseModel;
+                return result?.Groups?
+                    .Select(p => p.Gid)
+                    .ToList()
+                    .AsReadOnly();
+            });
         }
 
         /// <summary>
@@ -177,11 +264,10 @@ namespace SteamWebAPI2.Interfaces
                 throw new VanityUrlNotResolvedException(ErrorMessages.VanityUrlNotResolved);
             }
 
-            var steamWebResponseModel = mapper.Map<
-                ISteamWebResponse<ResolveVanityUrlResultContainer>,
-                ISteamWebResponse<ulong>>(steamWebResponse);
-
-            return steamWebResponseModel;
+            return steamWebResponse.MapTo((from) =>
+            {
+                return from?.Result?.SteamId ?? 0;
+            });
         }
 
         /// <summary>
@@ -196,9 +282,47 @@ namespace SteamWebAPI2.Interfaces
 
             var profile = DeserializeXML<SteamCommunityProfile>(xml);
 
-            var profileModel = mapper.Map<SteamCommunityProfile, SteamCommunityProfileModel>(profile);
-
-            return profileModel;
+            return new SteamCommunityProfileModel
+            {
+                AvatarFull = new Uri(profile.AvatarFull),
+                Avatar = new Uri(profile.AvatarIcon),
+                AvatarMedium = new Uri(profile.AvatarMedium),
+                CustomURL = profile.CustomURL,
+                MostPlayedGames = profile.MostPlayedGames?.Select(mpg => new SteamCommunityProfileMostPlayedGameModel
+                {
+                    HoursOnRecord = !string.IsNullOrEmpty(mpg.HoursOnRecord) ? double.Parse(mpg.HoursOnRecord) : 0d,
+                    HoursPlayed = !string.IsNullOrEmpty(mpg.HoursPlayed) ? double.Parse(mpg.HoursPlayed) : 0d,
+                    Icon = new Uri(mpg.GameIcon),
+                    Link = new Uri(mpg.GameLink),
+                    Logo = new Uri(mpg.GameLogo),
+                    LogoSmall = new Uri(mpg.GameLogoSmall),
+                    Name = mpg.GameName,
+                    StatsName = mpg.StatsName
+                }).ToList().AsReadOnly(),
+                Headline = profile.Headline,
+                HoursPlayedLastTwoWeeks = !string.IsNullOrEmpty(profile.HoursPlayed2Wk) ? double.Parse(profile.HoursPlayed2Wk) : 0d,
+                InGameInfo = profile.InGameInfo == null ? null : new InGameInfoModel
+                {
+                    GameIcon = profile.InGameInfo.GameIcon,
+                    GameLink = profile.InGameInfo.GameLink,
+                    GameLogo = profile.InGameInfo.GameLogo,
+                    GameLogoSmall = profile.InGameInfo.GameLogoSmall,
+                    GameName = profile.InGameInfo.GameName
+                },
+                IsLimitedAccount = profile.IsLimitedAccount == 1 ? true : false,
+                Location = profile.Location,
+                MemberSince = profile.MemberSince,
+                State = profile.OnlineState,
+                StateMessage = profile.StateMessage,
+                SteamID = profile.SteamID64,
+                SteamRating = !string.IsNullOrEmpty(profile.SteamRating) ? double.Parse(profile.SteamRating) : 0d,
+                Summary = profile.Summary,
+                TradeBanState = profile.TradeBanState,
+                IsVacBanned = profile.VacBanned == 1 ? true : false,
+                VisibilityState = profile.VisibilityState,
+                InGameServerIP = profile.InGameServerIP,
+                RealName = profile.RealName
+            };
         }
 
         private static T DeserializeXML<T>(string xml)

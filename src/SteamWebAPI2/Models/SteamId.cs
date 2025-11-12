@@ -1,6 +1,5 @@
 ﻿using SteamWebAPI2.Exceptions;
 using SteamWebAPI2.Interfaces;
-using SteamWebAPI2.Utilities;
 using System;
 using System.Runtime.ExceptionServices;
 using System.Text.RegularExpressions;

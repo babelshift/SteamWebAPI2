@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Steam.Models.TF2
+﻿namespace Steam.Models.TF2
 {
     public class SchemaQualitiesModel
     {
@@ -82,7 +76,7 @@ namespace Steam.Models.TF2
         /// Collector's item: https://wiki.teamfortress.com/wiki/Collector%27s
         /// </summary>
         public uint Collectors { get; set; }
-        
+
         public uint PaintKitWeapon { get; set; }
     }
 }

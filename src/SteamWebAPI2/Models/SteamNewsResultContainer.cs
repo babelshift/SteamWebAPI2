@@ -27,7 +27,7 @@ namespace SteamWebAPI2.Models
         public string FeedLabel { get; set; }
 
         [JsonProperty("date")]
-        public uint Date { get; set; }
+        public ulong Date { get; set; }
 
         [JsonProperty("feedname")]
         public string Feedname { get; set; }

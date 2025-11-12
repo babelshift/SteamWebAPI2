@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+﻿
 using Steam.Models;
 using SteamWebAPI2.Models;
 using SteamWebAPI2.Utilities;
@@ -14,16 +14,13 @@ namespace SteamWebAPI2.Interfaces
     public class SteamRemoteStorage : ISteamRemoteStorage
     {
         private readonly ISteamWebInterface steamWebInterface;
-        private readonly IMapper mapper;
 
         /// <summary>
         /// Default constructor established the Steam Web API key and initializes for subsequent method calls
         /// </summary>
         /// <param name="steamWebRequest"></param>
-        public SteamRemoteStorage(IMapper mapper, ISteamWebRequest steamWebRequest, ISteamWebInterface steamWebInterface = null)
+        public SteamRemoteStorage(ISteamWebRequest steamWebRequest, ISteamWebInterface steamWebInterface = null)
         {
-            this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-
             this.steamWebInterface = steamWebInterface == null
                 ? new SteamWebInterface("ISteamRemoteStorage", steamWebRequest)
                 : steamWebInterface;
@@ -63,7 +60,7 @@ namespace SteamWebAPI2.Interfaces
                 parameters.AddIfHasValue(publishedFileIds[i], $"publishedfileids[{i}]");
             }
 
-            return await GetPublishedFileDetailsAsync<IReadOnlyCollection<PublishedFileDetailsModel>>(parameters);
+            return await GetPublishedFileDetailsAsync(parameters);
         }
 
         /// <summary>
@@ -88,14 +85,14 @@ namespace SteamWebAPI2.Interfaces
         /// </summary>
         /// <param name="publishedFileId">The ID of the file for which to retrieve details.</param>
         /// <returns>The details of the file or <c>null</c> if the request failed.</returns>
-        public async Task<ISteamWebResponse<PublishedFileDetailsModel>> GetPublishedFileDetailsAsync(ulong publishedFileId)
+        public async Task<ISteamWebResponse<IReadOnlyCollection<PublishedFileDetailsModel>>> GetPublishedFileDetailsAsync(ulong publishedFileId)
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
             parameters.AddIfHasValue(1, "itemcount");
             parameters.AddIfHasValue(publishedFileId, "publishedfileids[0]");
 
-            return await GetPublishedFileDetailsAsync<PublishedFileDetailsModel>(parameters);
+            return await GetPublishedFileDetailsAsync(parameters);
         }
 
         /// <summary>
@@ -119,11 +116,21 @@ namespace SteamWebAPI2.Interfaces
             {
                 var steamWebResponse = await steamWebInterface.GetAsync<UGCFileDetailsResultContainer>("GetUGCFileDetails", 1, parameters);
 
-                var steamWebResponseModel = mapper.Map<
-                    ISteamWebResponse<UGCFileDetailsResultContainer>,
-                    ISteamWebResponse<UGCFileDetailsModel>>(steamWebResponse);
+                return steamWebResponse.MapTo((from) =>
+                {
+                    var result = from?.Result;
+                    if (result == null)
+                    {
+                        return null;
+                    }
 
-                return steamWebResponseModel;
+                    return new UGCFileDetailsModel
+                    {
+                        FileName = result.FileName,
+                        Size = result.Size,
+                        URL = result.URL
+                    };
+                });
             }
             catch (HttpRequestException)
             {
@@ -137,17 +144,47 @@ namespace SteamWebAPI2.Interfaces
         /// <typeparam name="TData">The type to which to map the data of the response.</typeparam>
         /// <param name="parameters">The parameters of the request.</param>
         /// <returns>The response of the request to the API or <c>null</c> if the request failed.</returns>
-        private async Task<ISteamWebResponse<TData>> GetPublishedFileDetailsAsync<TData>(IList<SteamWebRequestParameter> parameters)
+        private async Task<SteamWebResponse<IReadOnlyCollection<PublishedFileDetailsModel>>> GetPublishedFileDetailsAsync(IList<SteamWebRequestParameter> parameters)
         {
             try
             {
                 var steamWebResponse = await steamWebInterface.PostAsync<PublishedFileDetailsResultContainer>("GetPublishedFileDetails", 1, parameters);
+                return steamWebResponse.MapTo<IReadOnlyCollection<PublishedFileDetailsModel>>((from) =>
+                {
+                    var result = from?.Result;
+                    if (result == null)
+                    {
+                        return null;
+                    }
 
-                var steamWebResponseModel = mapper.Map<
-                    ISteamWebResponse<PublishedFileDetailsResultContainer>,
-                    ISteamWebResponse<TData>>(steamWebResponse);
-
-                return steamWebResponseModel;
+                    return result.Details?.Select(d => new PublishedFileDetailsModel
+                    {
+                        PublishedFileId = d.PublishedFileId,
+                        Result = d.Result,
+                        Title = d.Title,
+                        Description = d.Description,
+                        FileUrl = !string.IsNullOrWhiteSpace(d.FileUrl) ? new Uri(d.FileUrl) : null,
+                        PreviewUrl = !string.IsNullOrWhiteSpace(d.PreviewUrl) ? new Uri(d.PreviewUrl) : null,
+                        ConsumerAppId = d.ConsumerAppId,
+                        CreatorAppId = d.CreatorAppId,
+                        TimeCreated = d.TimeCreated,
+                        TimeUpdated = d.TimeUpdated,
+                        Visibility = (PublishedFileVisibility)d.Visibility,
+                        Tags = d.Tags?.ToList().AsReadOnly(),
+                        FileSize = d.FileSize,
+                        Banned = d.Banned,
+                        BanReason = d.BanReason,
+                        Creator = d.Creator,
+                        Favorited = d.Favorited,
+                        FileContentHandle = d.FileContentHandle,
+                        FileName = d.FileName,
+                        LifetimeFavorited = d.LifetimeFavorited,
+                        LifetimeSubscriptions = d.LifetimeSubscriptions,
+                        PreviewContentHandle = d.PreviewContentHandle,
+                        Subscriptions = d.Subscriptions,
+                        Views = d.Views
+                    }).ToList().AsReadOnly();
+                });
             }
             catch (HttpRequestException)
             {

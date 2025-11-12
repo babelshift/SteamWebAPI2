@@ -1,26 +1,23 @@
-﻿using AutoMapper;
+﻿
 using Steam.Models;
 using SteamWebAPI2.Models;
 using SteamWebAPI2.Utilities;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace SteamWebAPI2.Interfaces
 {
     public class SteamWebAPIUtil : ISteamWebAPIUtil
     {
         private readonly ISteamWebInterface steamWebInterface;
-        private readonly IMapper mapper;
 
         /// <summary>
         /// Default constructor established the Steam Web API key and initializes for subsequent method calls
         /// </summary>
         /// <param name="steamWebRequest"></param>
-        public SteamWebAPIUtil(IMapper mapper, ISteamWebRequest steamWebRequest, ISteamWebInterface steamWebInterface = null)
+        public SteamWebAPIUtil(ISteamWebRequest steamWebRequest, ISteamWebInterface steamWebInterface = null)
         {
-            this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-            
             this.steamWebInterface = steamWebInterface == null
                 ? new SteamWebInterface("ISteamWebAPIUtil", steamWebRequest)
                 : steamWebInterface;
@@ -32,13 +29,16 @@ namespace SteamWebAPI2.Interfaces
         /// <returns></returns>
         public async Task<ISteamWebResponse<SteamServerInfoModel>> GetServerInfoAsync()
         {
-            var steamServerInfo = await steamWebInterface.GetAsync<SteamServerInfo>("GetServerInfo", 1);
+            var steamWebResponse = await steamWebInterface.GetAsync<SteamServerInfo>("GetServerInfo", 1);
 
-            var steamServerInfoModel = mapper.Map<
-                ISteamWebResponse<SteamServerInfo>,
-                ISteamWebResponse<SteamServerInfoModel>>(steamServerInfo);
-
-            return steamServerInfoModel;
+            return steamWebResponse.MapTo((from) =>
+            {
+                return new SteamServerInfoModel
+                {
+                    ServerTime = from?.ServerTime ?? 0,
+                    ServerTimeString = from?.ServerTimeString
+                };
+            });
         }
 
         /// <summary>
@@ -49,11 +49,33 @@ namespace SteamWebAPI2.Interfaces
         {
             var steamWebResponse = await steamWebInterface.GetAsync<SteamApiListContainer>("GetSupportedAPIList", 1);
 
-            var steamWebResponseModel = mapper.Map<
-                ISteamWebResponse<SteamApiListContainer>,
-                ISteamWebResponse<IReadOnlyCollection<SteamInterfaceModel>>>(steamWebResponse);
+            return steamWebResponse.MapTo<IReadOnlyCollection<SteamInterfaceModel>>((from) =>
+            {
+                var result = from?.Result;
+                if (result == null)
+                {
+                    return null;
+                }
 
-            return steamWebResponseModel;
+                return result.Interfaces?.Select(i => new SteamInterfaceModel
+                {
+                    Name = i.Name,
+                    Methods = i.Methods?.Select(m => new SteamMethodModel
+                    {
+                        Description = m.Description,
+                        HttpMethod = m.HttpMethod,
+                        Name = m.Name,
+                        Version = m.Version,
+                        Parameters = m.Parameters?.Select(p => new SteamParameterModel
+                        {
+                            Name = p.Name,
+                            Type = p.Type,
+                            Description = p.Description,
+                            IsOptional = p.IsOptional
+                        }).ToList().AsReadOnly()
+                    }).ToList().AsReadOnly()
+                }).ToList().AsReadOnly();
+            });
         }
     }
 }

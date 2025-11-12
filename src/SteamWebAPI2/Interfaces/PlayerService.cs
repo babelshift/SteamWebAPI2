@@ -1,34 +1,31 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Steam.Models.SteamCommunity;
 using SteamWebAPI2.Models.SteamCommunity;
 using SteamWebAPI2.Models.SteamPlayer;
 using SteamWebAPI2.Utilities;
-using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Threading.Tasks;
 
 namespace SteamWebAPI2.Interfaces
 {
     public class PlayerService : IPlayerService
     {
         private readonly ISteamWebInterface steamWebInterface;
-        private readonly IMapper mapper;
 
         /// <summary>
         /// Default constructor established the Steam Web API key and initializes for subsequent method calls
         /// </summary>
         /// <param name="steamWebRequest"></param>
-        public PlayerService(IMapper mapper, ISteamWebRequest steamWebRequest, ISteamWebInterface steamWebInterface = null)
+        public PlayerService(ISteamWebRequest steamWebRequest, ISteamWebInterface steamWebInterface = null)
         {
-            this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-
             this.steamWebInterface = steamWebInterface == null
                 ? new SteamWebInterface("IPlayerService", steamWebRequest)
                 : steamWebInterface;
         }
-        
+
         /// <summary>
         /// Returns a collection of badge meta data which indicates the progress towards a badge for a specific user.
         /// </summary>
@@ -49,11 +46,20 @@ namespace SteamWebAPI2.Interfaces
                 return null;
             }
 
-            var steamWebResponseModel = mapper.Map<
-                ISteamWebResponse<CommunityBadgeProgressResultContainer>,
-                ISteamWebResponse<IReadOnlyCollection<BadgeQuestModel>>>(steamWebResponse);
+            return steamWebResponse.MapTo<IReadOnlyCollection<BadgeQuestModel>>((from) =>
+            {
+                var result = from?.Result;
+                if (result == null)
+                {
+                    return null;
+                }
 
-            return steamWebResponseModel;
+                return result.Quests?.Select(q => new BadgeQuestModel
+                {
+                    QuestId = q.QuestId,
+                    Completed = q.Completed
+                }).ToList().AsReadOnly();
+            });
         }
 
         /// <summary>
@@ -74,11 +80,33 @@ namespace SteamWebAPI2.Interfaces
                 return null;
             }
 
-            var steamWebResponseModel = mapper.Map<
-                ISteamWebResponse<BadgesResultContainer>,
-                ISteamWebResponse<BadgesResultModel>>(steamWebResponse);
+            return steamWebResponse.MapTo((from) =>
+            {
+                var result = from?.Result;
+                if (result == null)
+                {
+                    return null;
+                }
 
-            return steamWebResponseModel;
+                return new BadgesResultModel
+                {
+                    Badges = result.Badges?.Select(b => new BadgeModel
+                    {
+                        BadgeId = b.BadgeId,
+                        Level = b.Level,
+                        CompletionTime = b.CompletionTime,
+                        AppId = b.AppId,
+                        BorderColor = b.BorderColor,
+                        CommunityItemId = b.CommunityItemId,
+                        Scarcity = b.Scarcity,
+                        Xp = b.Xp
+                    }).ToList().AsReadOnly(),
+                    PlayerXp = result.PlayerXp,
+                    PlayerLevel = result.PlayerLevel,
+                    PlayerXpNeededToLevelUp = result.PlayerXpNeededToLevelUp,
+                    PlayerXpNeededCurrentLevel = result.PlayerXpNeededCurrentLevel
+                };
+            });
         }
 
         /// <summary>
@@ -97,11 +125,10 @@ namespace SteamWebAPI2.Interfaces
                 return null;
             }
 
-            var steamWebResponseModel = mapper.Map<
-                ISteamWebResponse<SteamLevelResultContainer>,
-                ISteamWebResponse<uint?>>(steamWebResponse);
-
-            return steamWebResponseModel;
+            return steamWebResponse.MapTo((from) =>
+            {
+                return from?.Result?.PlayerLevel;
+            });
         }
 
         /// <summary>
@@ -146,7 +173,7 @@ namespace SteamWebAPI2.Interfaces
             }
 
             // for some reason, some games have trailing spaces in the result so let's get rid of them
-            if (steamWebResponse.Data != null && steamWebResponse.Data.Result != null && steamWebResponse.Data.Result.OwnedGames != null)
+            if (steamWebResponse.Data?.Result?.OwnedGames != null)
             {
                 foreach (var ownedGame in steamWebResponse.Data.Result.OwnedGames)
                 {
@@ -157,11 +184,31 @@ namespace SteamWebAPI2.Interfaces
                 }
             }
 
-            var steamWebResponseModel = mapper.Map<
-                ISteamWebResponse<OwnedGamesResultContainer>,
-                ISteamWebResponse<OwnedGamesResultModel>>(steamWebResponse);
+            return steamWebResponse.MapTo((from) =>
+            {
+                var result = from?.Result;
+                if (result == null)
+                {
+                    return null;
+                }
 
-            return steamWebResponseModel;
+                return new OwnedGamesResultModel
+                {
+                    GameCount = result.GameCount,
+                    OwnedGames = result.OwnedGames?.Select(g => new OwnedGameModel
+                    {
+                        AppId = g.AppId,
+                        Name = g.Name,
+                        PlaytimeForever = TimeSpan.FromMinutes(g.PlaytimeForever),
+                        ImgIconUrl = g.ImgIconUrl,
+                        ImgLogoUrl = g.ImgLogoUrl,
+                        HasCommunityVisibleStats = g.HasCommunityVisibleStats,
+                        PlaytimeLastTwoWeeks = g.Playtime2weeks.HasValue
+                            ? TimeSpan.FromMinutes(g.Playtime2weeks.Value)
+                            : (TimeSpan?)null
+                    }).ToList().AsReadOnly()
+                };
+            });
         }
 
         /// <summary>
@@ -181,11 +228,28 @@ namespace SteamWebAPI2.Interfaces
                 return null;
             }
 
-            var steamWebResponseModel = mapper.Map<
-                ISteamWebResponse<RecentlyPlayedGameResultContainer>,
-                ISteamWebResponse<RecentlyPlayedGamesResultModel>>(steamWebResponse);
+            return steamWebResponse.MapTo((from) =>
+            {
+                var result = from?.Result;
+                if (result == null)
+                {
+                    return null;
+                }
 
-            return steamWebResponseModel;
+                return new RecentlyPlayedGamesResultModel
+                {
+                    TotalCount = result.TotalCount,
+                    RecentlyPlayedGames = result.RecentlyPlayedGames?.Select(g => new RecentlyPlayedGameModel
+                    {
+                        AppId = g.AppId,
+                        Name = g.Name,
+                        Playtime2Weeks = g.Playtime2Weeks,
+                        PlaytimeForever = g.PlaytimeForever,
+                        ImgIconUrl = g.ImgIconUrl,
+                        ImgLogoUrl = g.ImgLogoUrl
+                    }).ToList().AsReadOnly()
+                };
+            });
         }
     }
 }

@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Description>This is a .NET library that makes it easy to use the Steam Web API. It conveniently wraps around all of the JSON data and ugly API details with clean methods, structures and classes.</Description>
-    <VersionPrefix>4.4.1</VersionPrefix>
+    <VersionPrefix>5.0.0</VersionPrefix>
     <Authors>Justin Skiles</Authors>
     <AssemblyName>SteamWebAPI2</AssemblyName>
     <PackageId>SteamWebAPI2</PackageId>
@@ -15,11 +15,9 @@
     <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="automapper" Version="12.0.0" Condition="'$(TargetFramework)' == 'netstandard2.1'" />
-    <PackageReference Include="automapper" Version="10.1.1" Condition="'$(TargetFramework)' == 'netstandard2.0'" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Options" Version="6.0.0" />
-    <PackageReference Include="newtonsoft.json" Version="13.0.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="8.0.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
   </ItemGroup>
 
   <ItemGroup>

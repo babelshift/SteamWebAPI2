@@ -27,7 +27,7 @@ namespace SteamWebAPI2.Models.SteamCommunity
         public string CommunityItemId { get; set; }
 
         [JsonProperty("border_color")]
-        public int? BorderColor { get; set; }
+        public uint? BorderColor { get; set; }
     }
 
     internal class BadgesResult

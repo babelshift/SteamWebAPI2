@@ -20,6 +20,6 @@ namespace Steam.Models.GameServers
 
         public bool IsExpired { get; set; }
 
-        public DateTime? RtLastLogon { get; set; }
+        public DateTime RtLastLogon { get; set; }
     }
 }

@@ -45,7 +45,7 @@ namespace SteamWebAPI2.Models
         public string FileName { get; set; }
 
         [JsonProperty("file_size")]
-        public uint FileSize { get; set; }
+        public ulong FileSize { get; set; }
 
         [JsonProperty("file_url")]
         public string FileUrl { get; set; }

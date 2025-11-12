@@ -8,7 +8,7 @@ namespace SteamWebAPI2.Models.TF2
     internal class GoldenWrench
     {
         [JsonProperty("steamID")]
-        public object SteamId { get; set; }
+        public ulong SteamId { get; set; }
 
         [JsonConverter(typeof(UnixTimeJsonConverter))]
         [JsonProperty("timestamp")]

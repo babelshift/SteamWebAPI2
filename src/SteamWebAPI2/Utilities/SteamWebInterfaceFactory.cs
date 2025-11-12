@@ -1,7 +1,5 @@
-using AutoMapper;
 using Microsoft.Extensions.Options;
 using SteamWebAPI2.Interfaces;
-using SteamWebAPI2.Mappings;
 using System;
 using System.Net.Http;
 
@@ -11,7 +9,6 @@ namespace SteamWebAPI2.Utilities
     {
         private readonly string steamWebApiBaseUrl = "https://api.steampowered.com/";
         private readonly string steamWebApiKey;
-        private readonly IMapper mapper;
 
         /// <summary>
         /// Backwards compatible constructor that works with just a Steam Web API key instead of forcing
@@ -48,40 +45,11 @@ namespace SteamWebAPI2.Utilities
             {
                 this.steamWebApiBaseUrl = options.Value.SteamWebApiBaseUrl;
             }
-
-            var mapperConfig = new MapperConfiguration(config =>
-            {
-                config.AddProfile<SteamWebResponseProfile>();
-                config.AddProfile<DOTA2EconProfile>();
-                config.AddProfile<DOTA2FantasyProfile>();
-                config.AddProfile<DOTA2MatchProfile>();
-                config.AddProfile<EconServiceProfile>();
-                config.AddProfile<SteamEconomyProfile>();
-                config.AddProfile<SteamStoreProfile>();
-                config.AddProfile<SteamProfileProfile>();
-                config.AddProfile<GameServersProfile>();
-                config.AddProfile<PlayerServiceProfile>();
-                config.AddProfile<SteamRemoteStorageProfile>();
-                config.AddProfile<SteamUserProfile>();
-                config.AddProfile<SteamUserStatsProfile>();
-                config.AddProfile<GCVersionProfile>();
-                config.AddProfile<SteamAppsProfile>();
-                config.AddProfile<SteamWebAPIUtilProfile>();
-                config.AddProfile<TFItemsProfile>();
-                config.AddProfile<SteamNewsProfile>();
-            });
-
-            mapper = mapperConfig.CreateMapper();
         }
 
         public SteamStore CreateSteamStoreInterface(HttpClient httpClient = null)
         {
-            if(httpClient == null)
-            {
-                return new SteamStore(mapper);
-            }
-
-            return new SteamStore(mapper, httpClient);
+            return new SteamStore(httpClient);
         }
 
         /// <summary>
@@ -94,7 +62,7 @@ namespace SteamWebAPI2.Utilities
         public T CreateSteamWebInterface<T>(HttpClient httpClient = null)
         {
             var steamWebRequest = CreateSteamWebRequest(httpClient);
-            return (T)Activator.CreateInstance(typeof(T), mapper, steamWebRequest, null);
+            return (T)Activator.CreateInstance(typeof(T), steamWebRequest, null);
         }
 
         /// <summary>
@@ -108,7 +76,7 @@ namespace SteamWebAPI2.Utilities
         public T CreateSteamWebInterface<T>(AppId appId, HttpClient httpClient = null)
         {
             var steamWebRequest = CreateSteamWebRequest(httpClient);
-            return (T)Activator.CreateInstance(typeof(T), mapper, steamWebRequest, appId, null);
+            return (T)Activator.CreateInstance(typeof(T), steamWebRequest, appId, null);
         }
 
         private ISteamWebRequest CreateSteamWebRequest(HttpClient httpClient)

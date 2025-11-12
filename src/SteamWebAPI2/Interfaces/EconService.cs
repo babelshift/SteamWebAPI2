@@ -1,26 +1,23 @@
-﻿using AutoMapper;
-using Steam.Models.SteamEconomy;
+﻿using Steam.Models.SteamEconomy;
 using SteamWebAPI2.Models.SteamEconomy;
 using SteamWebAPI2.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace SteamWebAPI2.Interfaces
 {
     public class EconService : IEconService
     {
         private readonly ISteamWebInterface steamWebInterface;
-        private readonly IMapper mapper;
 
         /// <summary>
         /// Default constructor established the Steam Web API key and initializes for subsequent method calls
         /// </summary>
         /// <param name="steamWebRequest"></param>
-        public EconService(IMapper mapper, ISteamWebRequest steamWebRequest, ISteamWebInterface steamWebInterface = null)
+        public EconService(ISteamWebRequest steamWebRequest, ISteamWebInterface steamWebInterface = null)
         {
-            this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-
             this.steamWebInterface = steamWebInterface == null
                 ? new SteamWebInterface("IEconService", steamWebRequest)
                 : steamWebInterface;
@@ -50,8 +47,8 @@ namespace SteamWebAPI2.Interfaces
         {
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
 
-            ulong? startAfterTimeUnix = startAfterTime.HasValue 
-                ? startAfterTime.Value.ToUnixTimeStamp() 
+            ulong? startAfterTimeUnix = startAfterTime.HasValue
+                ? startAfterTime.Value.ToUnixTimeStamp()
                 : (ulong?)null;
 
             parameters.AddIfHasValue(maxTrades, "max_trades");
@@ -65,11 +62,33 @@ namespace SteamWebAPI2.Interfaces
 
             var steamWebResponse = await steamWebInterface.GetAsync<TradeHistoryResultContainer>("GetTradeHistory", 1, parameters);
 
-            var steamWebResponseModel = mapper.Map<
-                ISteamWebResponse<TradeHistoryResultContainer>,
-                ISteamWebResponse<Steam.Models.SteamEconomy.TradeHistoryModel>>(steamWebResponse);
+            return steamWebResponse.MapTo((from) =>
+            {
+                var result = from?.Result;
+                if (result == null)
+                {
+                    return null;
+                }
 
-            return steamWebResponseModel;
+                return new TradeHistoryModel
+                {
+                    TotalTradeCount = result.TotalTradeCount,
+                    AreMoreAvailable = result.AreMoreAvailable,
+                    Trades = result.Trades?.Select(t => new TradeModel
+                    {
+                        TradeId = t.TradeId,
+                        TradeParterSteamId = t.TradeParterSteamId,
+                        TimeTradeStarted = t.TimeTradeStarted.ToDateTime(),
+                        TimeEscrowEnds = t.TimeEscrowEnds.ToDateTime(),
+                        TradeStatus = (Steam.Models.SteamEconomy.TradeStatus)t.TradeStatus,
+                        AssetsReceived = t.AssetsReceived?.Select(a => MapToTradedAssetModel(a)).ToList(),
+                        AssetsGiven = t.AssetsGiven?.Select(a => MapToTradedAssetModel(a)).ToList(),
+                        CurrencyReceived = t.CurrencyReceived?.Select(a => MapToTradedCurrencyModel(a)).ToList(),
+                        CurrencyGiven = t.CurrencyGiven?.Select(a => MapToTradedCurrencyModel(a)).ToList()
+                    }).ToList(),
+                    Descriptions = result.Descriptions?.ToList()
+                };
+            });
         }
 
         /// <summary>
@@ -97,8 +116,8 @@ namespace SteamWebAPI2.Interfaces
             int getSentOffersBit = getSentOffers ? 1 : 0;
             int getReceivedOffersBit = getReceivedOffers ? 1 : 0;
 
-            ulong? timeHistoricalCutoffUnix = timeHistoricalCutoff.HasValue 
-                ? timeHistoricalCutoff.Value.ToUnixTimeStamp() 
+            ulong? timeHistoricalCutoffUnix = timeHistoricalCutoff.HasValue
+                ? timeHistoricalCutoff.Value.ToUnixTimeStamp()
                 : (ulong?)null;
 
             parameters.AddIfHasValue(getSentOffersBit, "get_sent_offers");
@@ -111,11 +130,21 @@ namespace SteamWebAPI2.Interfaces
 
             var steamWebResponse = await steamWebInterface.GetAsync<TradeOffersResultContainer>("GetTradeOffers", 1, parameters);
 
-            var steamWebResponseModel = mapper.Map<
-                ISteamWebResponse<TradeOffersResultContainer>,
-                ISteamWebResponse<Steam.Models.SteamEconomy.TradeOffersResultModel>>(steamWebResponse);
+            return steamWebResponse.MapTo((from) =>
+            {
+                var result = from?.Result;
+                if (result == null)
+                {
+                    return null;
+                }
 
-            return steamWebResponseModel;
+                return new TradeOffersResultModel
+                {
+                    TradeOffersSent = result.TradeOffersSent?.Select(tos => MapToTradeOfferModel(tos)).ToList(),
+                    TradeOffersReceived = result.TradeOffersReceived?.Select(tos => MapToTradeOfferModel(tos)).ToList(),
+                    Descriptions = result.Descriptions == null ? null : result.Descriptions.ToList()
+                };
+            });
         }
 
         /// <summary>
@@ -137,11 +166,35 @@ namespace SteamWebAPI2.Interfaces
 
             var steamWebResponse = await steamWebInterface.GetAsync<TradeOfferResultContainer>("GetTradeOffer", 1, parameters);
 
-            var steamWebResponseModel = mapper.Map<
-                ISteamWebResponse<TradeOfferResultContainer>,
-                ISteamWebResponse<Steam.Models.SteamEconomy.TradeOfferResultModel>>(steamWebResponse);
+            return steamWebResponse.MapTo((from) =>
+            {
+                var result = from?.Result;
+                if (result == null)
+                {
+                    return null;
+                }
 
-            return steamWebResponseModel;
+                return new TradeOfferResultModel
+                {
+                    TradeOffer = result.TradeOffer == null ? null : new TradeOfferModel
+                    {
+                        TradeOfferId = result.TradeOffer.TradeOfferId,
+                        TradePartnerSteamId = result.TradeOffer.TradePartnerSteamId,
+                        Message = result.TradeOffer.Message,
+                        TimeExpiration = result.TradeOffer.TimeExpiration.ToDateTime(),
+                        TradeOfferState = (Steam.Models.SteamEconomy.TradeOfferState)result.TradeOffer.TradeOfferState,
+                        ItemsYouWillGive = result.TradeOffer.ItemsYouWillGive?.Select(i => MapToTradeAssetModel(i)).ToList(),
+                        ItemsYouWillReceive = result.TradeOffer.ItemsYouWillReceive?.Select(i => MapToTradeAssetModel(i)).ToList(),
+                        IsOfferYouCreated = result.TradeOffer.IsOfferYouCreated,
+                        TimeCreated = result.TradeOffer.TimeCreated.ToDateTime(),
+                        TimeUpdated = result.TradeOffer.TimeUpdated.ToDateTime(),
+                        WasCreatedFromRealTimeTrade = result.TradeOffer.WasCreatedFromRealTimeTrade,
+                        ConfirmationMethod = (Steam.Models.SteamEconomy.TradeOfferConfirmationMethod)result.TradeOffer.ConfirmationMethod,
+                        TimeEscrowEnds = result.TradeOffer.TimeEscrowEnds.ToDateTime()
+                    },
+                    Descriptions = result.Descriptions == null ? null : result.Descriptions.ToList()
+                };
+            });
         }
 
         public async Task<ISteamWebResponse<dynamic>> GetTradeStatusAsync(ulong tradeId, bool getDescriptions, string language)
@@ -156,8 +209,8 @@ namespace SteamWebAPI2.Interfaces
 
         public async Task<ISteamWebResponse<dynamic>> GetTradeOffersSummaryAsync(DateTime? timeLastVisit = null)
         {
-            ulong? timeLastVisitUnix = timeLastVisit.HasValue 
-                ? timeLastVisit.Value.ToUnixTimeStamp() 
+            ulong? timeLastVisitUnix = timeLastVisit.HasValue
+                ? timeLastVisit.Value.ToUnixTimeStamp()
                 : (ulong?)null;
 
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
@@ -188,12 +241,100 @@ namespace SteamWebAPI2.Interfaces
             parameters.AddIfHasValue(steamIdTarget, "steamid_target");
             parameters.AddIfHasValue(tradeOfferAccessToken, "trade_offer_access_token");
             var steamWebResponse = await steamWebInterface.GetAsync<TradeHoldDurationsResultContainer>("GetTradeHoldDurations", 1, parameters);
-            
-            var steamWebResponseModel = mapper.Map<
-                ISteamWebResponse<TradeHoldDurationsResultContainer>,
-                ISteamWebResponse<TradeHoldDurationsResultModel>>(steamWebResponse);
 
-            return steamWebResponseModel;
+            return steamWebResponse.MapTo((from) =>
+            {
+                var result = from?.Result;
+                if (result == null)
+                {
+                    return null;
+                }
+
+                return new TradeHoldDurationsResultModel
+                {
+                    MyEscrow = MapToTradeHoldDurationsModel(result.MyEscrow),
+                    TheirEscrow = MapToTradeHoldDurationsModel(result.TheirEscrow),
+                    BothEscrow = MapToTradeHoldDurationsModel(result.BothEscrow)
+                };
+            });
         }
+
+        private static TradedAssetModel MapToTradedAssetModel(TradedAsset ta)
+        {
+            return new TradedAssetModel
+            {
+                AppId = ta.AppId,
+                ContextId = ta.ContextId,
+                AssetId = ta.AssetId,
+                AmountTraded = ta.AmountTraded,
+                ClassId = ta.ClassId,
+                InstanceId = ta.InstanceId,
+                AssetIdAfterTrade = ta.AssetIdAfterTrade,
+                ContextIdAfterTrade = ta.ContextIdAfterTrade,
+                AssetIdAfterRollback = ta.AssetIdAfterRollback,
+                ContextIdAfterRollback = ta.ContextIdAfterRollback
+            };
+        }
+
+        private static TradedCurrencyModel MapToTradedCurrencyModel(TradedCurrency tc)
+        {
+            return new TradedCurrencyModel
+            {
+                AppId = tc.AppId,
+                ContextId = tc.ContextId,
+                CurrencyId = tc.CurrencyId,
+                AmountTraded = tc.AmountTraded,
+                ClassId = tc.ClassId,
+                CurrencyIdAfterTrade = tc.CurrencyIdAfterTrade,
+                ContextIdAfterTrade = tc.ContextIdAfterTrade,
+                CurrencyIdAfterRollback = tc.CurrencyIdAfterRollback,
+                ContextIdAfterRollback = tc.ContextIdAfterRollback
+            };
+        }
+
+        private static TradeOfferModel MapToTradeOfferModel(TradeOffer to)
+        {
+            return new TradeOfferModel
+            {
+                TradeOfferId = to.TradeOfferId,
+                TradePartnerSteamId = to.TradePartnerSteamId,
+                Message = to.Message,
+                TimeExpiration = to.TimeExpiration.ToDateTime(),
+                TradeOfferState = (Steam.Models.SteamEconomy.TradeOfferState)to.TradeOfferState,
+                ItemsYouWillGive = to.ItemsYouWillGive?.Select(i => MapToTradeAssetModel(i)).ToList(),
+                ItemsYouWillReceive = to.ItemsYouWillReceive?.Select(i => MapToTradeAssetModel(i)).ToList(),
+                IsOfferYouCreated = to.IsOfferYouCreated,
+                TimeCreated = to.TimeCreated.ToDateTime(),
+                TimeUpdated = to.TimeUpdated.ToDateTime(),
+                WasCreatedFromRealTimeTrade = to.WasCreatedFromRealTimeTrade,
+                ConfirmationMethod = (Steam.Models.SteamEconomy.TradeOfferConfirmationMethod)to.ConfirmationMethod,
+                TimeEscrowEnds = to.TimeEscrowEnds.ToDateTime()
+            };
+        }
+
+        private static TradeAssetModel MapToTradeAssetModel(TradeAsset ta)
+        {
+            return new TradeAssetModel
+            {
+                AppId = ta.AppId,
+                ContextId = ta.ContextId,
+                AssetId = ta.AssetId,
+                AmountOffered = ta.AmountOffered,
+                ClassId = ta.ClassId,
+                InstanceId = ta.InstanceId,
+                CurrencyId = ta.CurrencyId,
+                IsMissing = ta.IsMissing
+            };
+        }
+
+        private static TradeHoldDurationsModel MapToTradeHoldDurationsModel(TradeHoldDurations d)
+        {
+            return new TradeHoldDurationsModel
+            {
+                EscrowEndDuration = TimeSpan.FromSeconds(d.EscrowEndDurationSeconds),
+                EscrowEndDate = d.EscrowEndDateRfc3339,
+            };
+        }
+
     }
 }

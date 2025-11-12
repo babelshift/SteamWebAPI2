@@ -1,26 +1,23 @@
-﻿using AutoMapper;
-using Steam.Models;
+﻿using Steam.Models;
 using SteamWebAPI2.Models;
 using SteamWebAPI2.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace SteamWebAPI2.Interfaces
 {
     public class SteamNews : ISteamNews
     {
         private readonly ISteamWebInterface steamWebInterface;
-        private readonly IMapper mapper;
 
         /// <summary>
         /// Default constructor established the Steam Web API key and initializes for subsequent method calls
         /// </summary>
         /// <param name="steamWebRequest"></param>
-        public SteamNews(IMapper mapper, ISteamWebRequest steamWebRequest, ISteamWebInterface steamWebInterface = null)
+        public SteamNews(ISteamWebRequest steamWebRequest, ISteamWebInterface steamWebInterface = null)
         {
-            this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-            
             this.steamWebInterface = steamWebInterface == null
                 ? new SteamWebInterface("ISteamNews", steamWebRequest)
                 : steamWebInterface;
@@ -52,15 +49,36 @@ namespace SteamWebAPI2.Interfaces
             parameters.AddIfHasValue(endDateUnixTimeStamp, "enddate");
             parameters.AddIfHasValue(count, "count");
             parameters.AddIfHasValue(feeds, "feeds");
-            parameters.AddIfHasValue(tags, "tags"); 
+            parameters.AddIfHasValue(tags, "tags");
 
             var steamWebResponse = await steamWebInterface.GetAsync<SteamNewsResultContainer>("GetNewsForApp", 2, parameters);
 
-            var steamWebResponseModel = mapper.Map<
-                ISteamWebResponse<SteamNewsResultContainer>,
-                ISteamWebResponse<SteamNewsResultModel>>(steamWebResponse);
+            return steamWebResponse.MapTo((from) =>
+            {
+                var result = from?.Result;
+                if (result == null)
+                {
+                    return null;
+                }
 
-            return steamWebResponseModel;
+                return new SteamNewsResultModel
+                {
+                    AppId = result.AppId,
+                    NewsItems = result.NewsItems?.Select(n => new NewsItemModel
+                    {
+                        Gid = n.Gid,
+                        Title = n.Title,
+                        Url = n.Url,
+                        IsExternalUrl = n.IsExternalUrl,
+                        Author = n.Author,
+                        Contents = n.Contents,
+                        FeedLabel = n.FeedLabel,
+                        Date = n.Date,
+                        Feedname = n.Feedname,
+                        Tags = n.Tags
+                    }).ToList().AsReadOnly()
+                };
+            });
         }
     }
 }

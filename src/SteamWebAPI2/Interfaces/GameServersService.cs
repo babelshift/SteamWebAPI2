@@ -1,26 +1,22 @@
-﻿using AutoMapper;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Steam.Models.GameServers;
 using SteamWebAPI2.Models.GameServers;
 using SteamWebAPI2.Utilities;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace SteamWebAPI2.Interfaces
 {
     public class GameServersService : IGameServersService
     {
         private readonly ISteamWebInterface steamWebInterface;
-        private readonly IMapper mapper;
 
         /// <summary>
         /// Default constructor established the Steam Web API key and initializes for subsequent method calls
         /// </summary>
         /// <param name="steamWebRequest"></param>
-        public GameServersService(IMapper mapper, ISteamWebRequest steamWebRequest, ISteamWebInterface steamWebInterface = null)
+        public GameServersService(ISteamWebRequest steamWebRequest, ISteamWebInterface steamWebInterface = null)
         {
-            this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-
             this.steamWebInterface = steamWebInterface == null
                 ? new SteamWebInterface("IGameServersService", steamWebRequest)
                 : steamWebInterface;
@@ -32,10 +28,32 @@ namespace SteamWebAPI2.Interfaces
         public async Task<ISteamWebResponse<AccountListModel>> GetAccountListAsync()
         {
             var steamWebResponse = await steamWebInterface.GetAsync<AccountListContainer>("GetAccountList", 1);
-            var steamWebResponseModel = mapper.Map<
-                ISteamWebResponse<AccountListContainer>,
-                ISteamWebResponse<AccountListModel>>(steamWebResponse);
-            return steamWebResponseModel;
+            return steamWebResponse.MapTo((from) =>
+            {
+                var result = from?.Response;
+                if (result == null)
+                {
+                    return null;
+                }
+
+                return new AccountListModel
+                {
+                    Servers = result.Servers?.Select(s => new AccountServerModel
+                    {
+                        SteamId = s.SteamId,
+                        LoginToken = s.LoginToken,
+                        Memo = s.Memo,
+                        AppId = s.AppId,
+                        IsDeleted = s.IsDeleted,
+                        IsExpired = s.IsExpired,
+                        RtLastLogon = s.RtLastLogon.ToDateTime()
+                    }).ToList(),
+                    IsBanned = result.IsBanned,
+                    Expires = result.Expires,
+                    Actor = result.Actor,
+                    LastActionTime = result.LastActionTime.ToDateTime()
+                };
+            });
         }
 
         /// <summary>Creates a persistent game server account.
@@ -51,11 +69,20 @@ namespace SteamWebAPI2.Interfaces
 
             var steamWebResponse = await steamWebInterface.PostAsync<CreateAccountContainer>("CreateAccount", 1, parameters);
 
-            var steamWebResponseModel = mapper.Map<
-                ISteamWebResponse<CreateAccountContainer>,
-                ISteamWebResponse<CreateAccountModel>>(steamWebResponse);
+            return steamWebResponse.MapTo((from) =>
+            {
+                var result = from?.Response;
+                if (result == null)
+                {
+                    return null;
+                }
 
-            return steamWebResponseModel;
+                return new CreateAccountModel
+                {
+                    SteamId = result.SteamId,
+                    LoginToken = result.LoginToken
+                };
+            });
         }
 
         /// <summary>This method changes the memo associated with the game server account. 
@@ -82,10 +109,16 @@ namespace SteamWebAPI2.Interfaces
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
             parameters.AddIfHasValue(steamId, "steamid");
             var steamWebResponse = await steamWebInterface.PostAsync<ResetLoginTokenContainer>("ResetLoginToken", 1, parameters);
-            var steamWebResponseModel = mapper.Map<
-                ISteamWebResponse<ResetLoginTokenContainer>,
-                ISteamWebResponse<string>>(steamWebResponse);
-            return steamWebResponseModel;
+            return steamWebResponse.MapTo((from) =>
+            {
+                var result = from?.Response;
+                if (result == null)
+                {
+                    return null;
+                }
+
+                return result.LoginToken;
+            });
         }
 
         /// <summary>Deletes a persistent game server account
@@ -108,10 +141,21 @@ namespace SteamWebAPI2.Interfaces
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
             parameters.AddIfHasValue(steamId, "steamid");
             var steamWebResponse = await steamWebInterface.GetAsync<AccountPublicInfoContainer>("GetAccountPublicInfo", 1, parameters);
-            var steamWebResponseModel = mapper.Map<
-                ISteamWebResponse<AccountPublicInfoContainer>,
-                ISteamWebResponse<AccountPublicInfoModel>>(steamWebResponse);
-            return steamWebResponseModel;
+
+            return steamWebResponse.MapTo((from) =>
+            {
+                var result = from?.Response;
+                if (result == null)
+                {
+                    return null;
+                }
+
+                return new AccountPublicInfoModel
+                {
+                    SteamId = result.SteamId,
+                    AppId = result.AppId
+                };
+            });
         }
 
         public async Task<ISteamWebResponse<QueryLoginTokenModel>> QueryLoginTokenAsync(string loginToken)
@@ -119,10 +163,21 @@ namespace SteamWebAPI2.Interfaces
             List<SteamWebRequestParameter> parameters = new List<SteamWebRequestParameter>();
             parameters.AddIfHasValue(loginToken, "login_token");
             var steamWebResponse = await steamWebInterface.GetAsync<QueryLoginTokenContainer>("QueryLoginToken", 1, parameters);
-            var steamWebResponseModel = mapper.Map<
-                ISteamWebResponse<QueryLoginTokenContainer>,
-                ISteamWebResponse<QueryLoginTokenModel>>(steamWebResponse);
-            return steamWebResponseModel;
+            return steamWebResponse.MapTo((from) =>
+            {
+                var result = from?.Response;
+                if (result == null)
+                {
+                    return null;
+                }
+
+                return new QueryLoginTokenModel
+                {
+                    IsBanned = result.IsBanned,
+                    Expires = result.Expires,
+                    SteamId = result.SteamId
+                };
+            });
         }
 
         public async Task<ISteamWebResponse<dynamic>> GetServerSteamIDsByIPAsync(IReadOnlyCollection<string> serverIPs)

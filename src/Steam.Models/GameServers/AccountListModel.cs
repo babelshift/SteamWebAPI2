@@ -21,6 +21,6 @@ namespace Steam.Models.GameServers
         /// <summary>Not sure what this indicates. After creating a game server account,
         /// I expected to see a time stamp here, but it returns 0 instead.
         /// </summary>
-        public DateTime? LastActionTime { get; set; }
+        public DateTime LastActionTime { get; set; }
     }
 }
