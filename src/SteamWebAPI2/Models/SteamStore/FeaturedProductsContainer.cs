@@ -107,7 +107,7 @@ namespace SteamWebAPI2.Models.SteamStore
         public string ControllerSupport { get; set; }
 
         [JsonProperty("discount_expiration")]
-        public int? DiscountExpiration { get; set; }
+        public uint? DiscountExpiration { get; set; }
     }
 
     internal class FeaturedMac

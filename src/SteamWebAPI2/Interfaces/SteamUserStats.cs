@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+﻿
 using Steam.Models;
 using Steam.Models.SteamCommunity;
 using Steam.Models.SteamPlayer;
@@ -9,22 +9,20 @@ using SteamWebAPI2.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace SteamWebAPI2.Interfaces
 {
     public class SteamUserStats : ISteamUserStats
     {
         private readonly ISteamWebInterface steamWebInterface;
-        private readonly IMapper mapper;
 
         /// <summary>
         /// Default constructor established the Steam Web API key and initializes for subsequent method calls
         /// </summary>
         /// <param name="steamWebRequest"></param>
-        public SteamUserStats(IMapper mapper, ISteamWebRequest steamWebRequest, ISteamWebInterface steamWebInterface = null)
+        public SteamUserStats(ISteamWebRequest steamWebRequest, ISteamWebInterface steamWebInterface = null)
         {
-            this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-            
             this.steamWebInterface = steamWebInterface == null
                 ? new SteamWebInterface("ISteamUserStats", steamWebRequest)
                 : steamWebInterface;
@@ -42,11 +40,20 @@ namespace SteamWebAPI2.Interfaces
 
             var steamWebResponse = await steamWebInterface.GetAsync<GlobalAchievementPercentagesResultContainer>("GetGlobalAchievementPercentagesForApp", 2, parameters);
 
-            var steamWebResponseModel = mapper.Map<
-                ISteamWebResponse<GlobalAchievementPercentagesResultContainer>,
-                ISteamWebResponse<IReadOnlyCollection<GlobalAchievementPercentageModel>>>(steamWebResponse);
+            return steamWebResponse.MapTo<IReadOnlyCollection<GlobalAchievementPercentageModel>>((from) =>
+            {
+                var result = from?.Result;
+                if (result == null)
+                {
+                    return null;
+                }
 
-            return steamWebResponseModel;
+                return result.AchievementPercentages?.Select(ap => new GlobalAchievementPercentageModel
+                {
+                    Name = ap.Name,
+                    Percent = ap.Percent
+                }).ToList().AsReadOnly();
+            });
         }
 
         /// <summary>
@@ -85,11 +92,20 @@ namespace SteamWebAPI2.Interfaces
 
             var steamWebResponse = await steamWebInterface.GetAsync<GlobalStatsForGameResultContainer>("GetGlobalStatsForGame", 1, parameters);
 
-            var steamWebResponseModel = mapper.Map<
-                ISteamWebResponse<GlobalStatsForGameResultContainer>,
-                ISteamWebResponse<IReadOnlyCollection<GlobalStatModel>>>(steamWebResponse);
+            return steamWebResponse.MapTo<IReadOnlyCollection<GlobalStatModel>>((from) =>
+            {
+                var result = from?.Result;
+                if (result == null)
+                {
+                    return null;
+                }
 
-            return steamWebResponseModel;
+                return result.GlobalStats?.Select(ap => new GlobalStatModel
+                {
+                    Name = ap.Name,
+                    Total = ap.Total
+                }).ToList().AsReadOnly();
+            });
         }
 
         /// <summary>
@@ -104,11 +120,10 @@ namespace SteamWebAPI2.Interfaces
 
             var steamWebResponse = await steamWebInterface.GetAsync<CurrentPlayersResultContainer>("GetNumberOfCurrentPlayers", 1, parameters);
 
-            var steamWebResponseModel = mapper.Map<
-                ISteamWebResponse<CurrentPlayersResultContainer>,
-                ISteamWebResponse<uint>>(steamWebResponse);
-
-            return steamWebResponseModel;
+            return steamWebResponse.MapTo((from) =>
+            {
+                return from?.Result.PlayerCount ?? 0;
+            });
         }
 
         /// <summary>
@@ -127,11 +142,29 @@ namespace SteamWebAPI2.Interfaces
 
             var steamWebResponse = await steamWebInterface.GetAsync<PlayerAchievementResultContainer>("GetPlayerAchievements", 1, parameters);
 
-            var steamWebResponseModel = mapper.Map<
-                ISteamWebResponse<PlayerAchievementResultContainer>,
-                ISteamWebResponse<PlayerAchievementResultModel>>(steamWebResponse);
+            return steamWebResponse.MapTo((from) =>
+            {
+                var result = from?.Result;
+                if (result == null)
+                {
+                    return null;
+                }
 
-            return steamWebResponseModel;
+                return new PlayerAchievementResultModel
+                {
+                    Success = result.Success,
+                    SteamId = result.SteamId,
+                    GameName = result.GameName,
+                    Achievements = result.Achievements?.Select(a => new PlayerAchievementModel
+                    {
+                        Achieved = a.Achieved,
+                        UnlockTime = a.UnlockTime.ToDateTime(),
+                        Name = a.Name,
+                        Description = a.Description,
+                        APIName = a.APIName
+                    }).ToList().AsReadOnly()
+                };
+            });
         }
 
         /// <summary>
@@ -148,11 +181,39 @@ namespace SteamWebAPI2.Interfaces
 
             var steamWebResponse = await steamWebInterface.GetAsync<SchemaForGameResultContainer>("GetSchemaForGame", 2, parameters);
 
-            var steamWebResponseModel = mapper.Map<
-                ISteamWebResponse<SchemaForGameResultContainer>,
-                ISteamWebResponse<SchemaForGameResultModel>>(steamWebResponse);
+            return steamWebResponse.MapTo((from) =>
+            {
+                var result = from?.Result;
+                if (result == null)
+                {
+                    return null;
+                }
 
-            return steamWebResponseModel;
+                return new SchemaForGameResultModel
+                {
+                    GameName = result.GameName,
+                    GameVersion = result.GameVersion,
+                    AvailableGameStats = result.AvailableGameStats == null ? null : new AvailableGameStatsModel
+                    {
+                        Achievements = result.AvailableGameStats.Achievements?.Select(a => new SchemaGameAchievementModel
+                        {
+                            Name = a.Name,
+                            DefaultValue = a.DefaultValue,
+                            DisplayName = a.DisplayName,
+                            Hidden = a.Hidden,
+                            Description = a.Description,
+                            Icon = a.Icon,
+                            Icongray = a.Icongray
+                        }).ToList().AsReadOnly(),
+                        Stats = result.AvailableGameStats.Stats?.Select(s => new SchemaGameStatModel
+                        {
+                            Name = s.Name,
+                            DefaultValue = s.DefaultValue,
+                            DisplayName = s.DisplayName
+                        }).ToList().AsReadOnly()
+                    }
+                };
+            });
         }
 
         /// <summary>
@@ -169,11 +230,30 @@ namespace SteamWebAPI2.Interfaces
 
             var steamWebResponse = await steamWebInterface.GetAsync<UserStatsForGameResultContainer>("GetUserStatsForGame", 2, parameters);
 
-            var steamWebResponseModel = mapper.Map<
-                ISteamWebResponse<UserStatsForGameResultContainer>,
-                ISteamWebResponse<UserStatsForGameResultModel>>(steamWebResponse);
+            return steamWebResponse.MapTo((from) =>
+            {
+                var result = from?.Result;
+                if (result == null)
+                {
+                    return null;
+                }
 
-            return steamWebResponseModel;
+                return new UserStatsForGameResultModel
+                {
+                    GameName = result.GameName,
+                    SteamId = ulong.Parse(result.SteamId),
+                    Achievements = result.Achievements?.Select(a => new UserStatAchievementModel
+                    {
+                        Name = a.Name,
+                        Achieved = a.Achieved,
+                    }).ToList().AsReadOnly(),
+                    Stats = result.Stats?.Select(s => new UserStatModel
+                    {
+                        Name = s.Name,
+                        Value = s.Value
+                    }).ToList().AsReadOnly()
+                };
+            });
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-using SteamWebAPI2.Utilities;
-using System;
+﻿using SteamWebAPI2.Utilities;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
@@ -16,24 +14,12 @@ namespace SteamWebAPI2
         private const string steamStoreApiBaseUrl = "http://store.steampowered.com/api/";
         private readonly SteamStoreRequest steamStoreRequest;
 
-        protected readonly IMapper mapper;
-
-        /// <summary>
-        /// Constructs and maps the default objects for Steam Store Web API use
-        /// </summary>
-        public SteamStoreInterface(IMapper mapper)
-        {
-            this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-            steamStoreRequest = new SteamStoreRequest(steamStoreApiBaseUrl);
-        }
-
         /// <summary>
         /// Constructs and maps based on a custom http client
         /// </summary>
         /// <param name="httpClient">Client to make requests with</param>
-        public SteamStoreInterface(IMapper mapper, HttpClient httpClient)
+        public SteamStoreInterface(HttpClient httpClient)
         {
-            this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             steamStoreRequest = new SteamStoreRequest(steamStoreApiBaseUrl, httpClient);
         }
 

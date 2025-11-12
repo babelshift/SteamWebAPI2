@@ -1,15 +1,12 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SteamWebAPI2.Interfaces;
-using SteamWebAPI2.Utilities;
-using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
-using Xunit;
 
 namespace Steam.UnitTests
 {
+    [TestClass]
     public class SteamUserStatsTests : BaseTest
     {
         private readonly SteamUserStats steamInterface;
@@ -19,52 +16,52 @@ namespace Steam.UnitTests
             steamInterface = factory.CreateSteamWebInterface<SteamUserStats>(new HttpClient());
         }
 
-        [Fact]
+        [TestMethod]
         public async Task GetGlobalAchievementPercentagesForAppAsync_Should_Succeed()
         {
             var response = await steamInterface.GetGlobalAchievementPercentagesForAppAsync(440);
-            Assert.NotNull(response);
-            Assert.NotNull(response.Data);
+            Assert.IsNotNull(response);
+            Assert.IsNotNull(response.Data);
         }
 
-        [Fact]
+        [TestMethod]
         public async Task GetGlobalStatsForGameAsync_Should_Succeed()
         {
             List<string> statNames = new List<string>() { "crimefest_challenge_dallas_1" };
             var response = await steamInterface.GetGlobalStatsForGameAsync(218620, statNames.AsReadOnly());
-            Assert.NotNull(response);
-            Assert.NotNull(response.Data);
+            Assert.IsNotNull(response);
+            Assert.IsNotNull(response.Data);
         }
-        
-        [Fact]
+
+        [TestMethod]
         public async Task GetNumberOfCurrentPlayersForGameAsync_Should_Succeed()
         {
             var response = await steamInterface.GetNumberOfCurrentPlayersForGameAsync(440);
-            Assert.NotNull(response);
+            Assert.IsNotNull(response);
         }
-        
-        [Fact]
+
+        [TestMethod]
         public async Task GetPlayerAchievementsAsync_Should_Succeed()
         {
             var response = await steamInterface.GetPlayerAchievementsAsync(440, 76561198050013009);
-            Assert.NotNull(response);
-            Assert.NotNull(response.Data);
+            Assert.IsNotNull(response);
+            Assert.IsNotNull(response.Data);
         }
-        
-        [Fact]
+
+        [TestMethod]
         public async Task GetSchemaForGameAsync_Should_Succeed()
         {
             var response = await steamInterface.GetSchemaForGameAsync(440);
-            Assert.NotNull(response);
-            Assert.NotNull(response.Data);
+            Assert.IsNotNull(response);
+            Assert.IsNotNull(response.Data);
         }
-        
-        [Fact]
+
+        [TestMethod]
         public async Task GetUserStatsForGameAsync_Should_Succeed()
         {
             var response = await steamInterface.GetUserStatsForGameAsync(76561198050013009, 440);
-            Assert.NotNull(response);
-            Assert.NotNull(response.Data);
+            Assert.IsNotNull(response);
+            Assert.IsNotNull(response.Data);
         }
     }
 }

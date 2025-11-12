@@ -1,6 +1,5 @@
-﻿using AutoMapper;
+﻿
 using SteamWebAPI2.Utilities;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Steam.Models.SteamUserAuth;
@@ -9,17 +8,14 @@ namespace SteamWebAPI2.Interfaces
 {
     public class SteamUserAuth : ISteamUserAuth
     {
-        private readonly IMapper mapper;
         private ISteamWebInterface steamWebInterface;
 
         /// <summary>
         /// Default constructor established the Steam Web API key and initializes for subsequent method calls
         /// </summary>
         /// <param name="steamWebRequest"></param>
-        public SteamUserAuth(IMapper mapper, ISteamWebRequest steamWebRequest, ISteamWebInterface steamWebInterface = null)
+        public SteamUserAuth(ISteamWebRequest steamWebRequest, ISteamWebInterface steamWebInterface = null)
         {
-            this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-            
             this.steamWebInterface = steamWebInterface == null
                 ? new SteamWebInterface("ISteamUserAuth", steamWebRequest)
                 : steamWebInterface;

@@ -1,17 +1,16 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Steam.Models.GameEconomy;
 using SteamWebAPI2.Models.GameEconomy;
 using SteamWebAPI2.Utilities;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace SteamWebAPI2.Interfaces
 {
     public class EconItems : IEconItems
     {
         private readonly ISteamWebInterface steamWebInterface;
-        private readonly IMapper mapper;
 
         private uint appId;
 
@@ -26,10 +25,8 @@ namespace SteamWebAPI2.Interfaces
         /// Default constructor established the Steam Web API key and initializes for subsequent method calls
         /// </summary>
         /// <param name="steamWebRequest"></param>
-        public EconItems(IMapper mapper, ISteamWebRequest steamWebRequest, AppId appId, ISteamWebInterface steamWebInterface = null)
+        public EconItems(ISteamWebRequest steamWebRequest, AppId appId, ISteamWebInterface steamWebInterface = null)
         {
-            this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-
             if (appId <= 0)
             {
                 throw new ArgumentOutOfRangeException("appId");
@@ -71,9 +68,50 @@ namespace SteamWebAPI2.Interfaces
 
             var steamWebResponse = await steamWebInterface.GetAsync<EconItemResultContainer>("GetPlayerItems", 1, parameters);
 
-            var steamWebResponseModel = mapper.Map<ISteamWebResponse<EconItemResultContainer>, ISteamWebResponse<EconItemResultModel>>(steamWebResponse);
+            return steamWebResponse.MapTo((from) =>
+            {
+                var result = from?.Result;
+                if (result == null)
+                {
+                    return null;
+                }
 
-            return steamWebResponseModel;
+                return new EconItemResultModel
+                {
+                    Status = result.Status,
+                    NumBackpackSlots = result.NumBackpackSlots,
+                    Items = result.Items?.Select(i => new EconItemModel
+                    {
+                        Id = i.Id,
+                        OriginalId = i.OriginalId,
+                        DefIndex = i.DefIndex,
+                        Level = i.Level,
+                        Quality = i.Quality,
+                        Inventory = i.Inventory,
+                        Quantity = i.Quantity,
+                        Origin = i.Origin,
+                        Equipped = i.Equipped?.Select(e => new EconItemEquippedModel
+                        {
+                            ClassId = e.ClassId,
+                            Slot = e.Slot
+                        }).ToList().AsReadOnly(),
+                        Style = i.Style,
+                        Attributes = i.Attributes?.Select(a => new EconItemAttributeModel
+                        {
+                            DefIndex = a.DefIndex,
+                            Value = a.Value,
+                            FloatValue = a.FloatValue,
+                            AccountInfo = a.AccountInfo == null ? null : new EconItemAttributeAccountInfoModel
+                            {
+                                SteamId = a.AccountInfo.SteamId,
+                                PersonaName = a.AccountInfo.PersonaName
+                            }
+                        }).ToList().AsReadOnly(),
+                        FlagCannotTrade = i.FlagCannotTrade,
+                        FlagCannotCraft = i.FlagCannotCraft
+                    }).ToList().AsReadOnly()
+                };
+            });
         }
 
         /// <summary>
@@ -132,9 +170,10 @@ namespace SteamWebAPI2.Interfaces
 
             var steamWebResponse = await steamWebInterface.GetAsync<SchemaUrlResultContainer>("GetSchemaURL", 1);
 
-            var steamWebResponseModel = mapper.Map<ISteamWebResponse<SchemaUrlResultContainer>, ISteamWebResponse<string>>(steamWebResponse);
-
-            return steamWebResponseModel;
+            return steamWebResponse.MapTo((from) =>
+            {
+                return from?.Result?.ItemsGameUrl;
+            });
         }
 
         /// <summary>
@@ -155,9 +194,123 @@ namespace SteamWebAPI2.Interfaces
 
             var steamWebResponse = await steamWebInterface.GetAsync<StoreMetaDataResultContainer>("GetStoreMetaData", 1, parameters);
 
-            var steamWebResponseModel = mapper.Map<ISteamWebResponse<StoreMetaDataResultContainer>, ISteamWebResponse<StoreMetaDataModel>>(steamWebResponse);
+            return steamWebResponse.MapTo((from) =>
+            {
+                var result = from?.Result;
+                if (result == null)
+                {
+                    return null;
+                }
 
-            return steamWebResponseModel;
+                return new StoreMetaDataModel
+                {
+                    CarouselData = result.CarouselData == null ? null : new StoreCarouselDataModel
+                    {
+                        Banners = result.CarouselData.Banners?.Select(b => new StoreBannerModel
+                        {
+                            BaseFileName = b.BaseFileName,
+                            Action = b.Action,
+                            Placement = b.Placement,
+                            ActionParam = b.ActionParam
+                        }).ToList().AsReadOnly(),
+                        MaxDisplayBanners = result.CarouselData.MaxDisplayBanners
+                    },
+                    Tabs = result.Tabs?.Select(t => new StoreTabModel
+                    {
+                        Children = t.Children?.Select(c => new StoreTabChildModel
+                        {
+                            Name = t.ParentName,
+                            Id = t.Id,
+                        }).ToList().AsReadOnly(),
+                        Default = t.Default,
+                        Home = t.Home,
+                        DropdownPrefabId = t.DropdownPrefabId,
+                        Id = t.Id,
+                        Label = t.Label,
+                        ParentId = t.ParentId,
+                        ParentName = t.ParentName,
+                        UseLargeCells = t.UseLargeCells
+                    }).ToList().AsReadOnly(),
+                    DropdownData = result.DropdownData == null ? null : new StoreDropdownDataModel
+                    {
+                        Dropdowns = result.DropdownData.Dropdowns?.Select(d => new StoreDropdownModel
+                        {
+                            Id = d.Id,
+                            Name = d.Name,
+                            LabelText = d.LabelText,
+                            Type = d.Type,
+                            UrlHistoryParamName = d.UrlHistoryParamName
+                        }).ToList().AsReadOnly(),
+                        Prefabs = result.DropdownData.Prefabs.Select(p => new StorePrefabModel
+                        {
+                            Id = p.Id,
+                            Name = p.Name,
+                            Config = p.Config?.Select(c => new StoreConfigModel
+                            {
+                                DefaultSelectionId = c.DefaultSelectionId,
+                                DropdownId = c.DropdownId,
+                                Enabled = c.Enabled,
+                                Name = c.Name
+                            }).ToList().AsReadOnly()
+                        }).ToList().AsReadOnly()
+                    },
+                    Filters = result.Filters?.Select(f => new StoreFilterModel
+                    {
+                        Id = f.Id,
+                        Name = f.Name,
+                        UrlHistoryParamName = f.UrlHistoryParamName,
+                        Count = f.Count,
+                        AllElement = f.AllElement == null ? null : new StoreFilterAllElementModel
+                        {
+                            Id = f.AllElement.Id,
+                            LocalizedText = f.AllElement.LocalizedText
+                        },
+                        Elements = f.Elements?.Select(e => new StoreFilterElementModel
+                        {
+                            Id = e.Id,
+                            LocalizedText = e.LocalizedText,
+                            Name = e.Name
+                        }).ToList().AsReadOnly()
+                    }).ToList().AsReadOnly(),
+                    HomePageData = result.HomePageData == null ? null : new StoreHomePageDataModel
+                    {
+                        HomeCategoryId = result.HomePageData.HomeCategoryId,
+                        PopularItems = result.HomePageData.PopularItems?.Select(i => new StorePopularItemModel
+                        {
+                            DefIndex = i.DefIndex,
+                            Order = i.Order,
+                        }).ToList().AsReadOnly()
+                    },
+                    PlayerClassData = result.PlayerClassData?.Select(pc => new StorePlayerClassDataModel
+                    {
+                        BaseName = pc.BaseName,
+                        Id = pc.Id,
+                        LocalizedText = pc.LocalizedText
+                    }).ToList().AsReadOnly(),
+                    Sorting = result.Sorting == null ? null : new StoreSortingModel
+                    {
+                        Sorters = result.Sorting.Sorters?.Select(s => new StoreSorterModel
+                        {
+                            Id = s.Id,
+                            Name = s.Name,
+                            DataType = s.DataType,
+                            LocalizedText = s.LocalizedText,
+                            SortField = s.SortField,
+                            SortReversed = s.SortReversed
+                        }).ToList().AsReadOnly(),
+                        SortingPrefabs = result.Sorting.SortingPrefabs?.Select(sp => new StoreSortingPrefabModel
+                        {
+                            Id = sp.Id,
+                            Name = sp.Name,
+                            UrlHistoryParamName = sp.UrlHistoryParamName,
+                            SorterIds = sp.SorterIds?.Select(si => new StoreSorterIdModel
+                            {
+                                Id = si.Id
+                            }).ToList().AsReadOnly()
+                        }).ToList().AsReadOnly()
+                    }
+                };
+            });
         }
 
         /// <summary>
@@ -173,9 +326,10 @@ namespace SteamWebAPI2.Interfaces
 
             var steamWebResponse = await steamWebInterface.GetAsync<StoreStatusResultContainer>("GetStoreStatus", 1);
 
-            var steamWebResponseModel = mapper.Map<ISteamWebResponse<StoreStatusResultContainer>, ISteamWebResponse<uint>>(steamWebResponse);
-
-            return steamWebResponseModel;
+            return steamWebResponse.MapTo((from) =>
+            {
+                return from?.Result?.StoreStatus ?? 0;
+            });
         }
     }
 }

@@ -1,15 +1,11 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SteamWebAPI2.Interfaces;
-using SteamWebAPI2.Utilities;
-using System;
-using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
-using Xunit;
 
 namespace Steam.UnitTests
 {
+    [TestClass]
     public class DOTA2EconTests : BaseTest
     {
         private readonly DOTA2Econ steamInterface;
@@ -19,27 +15,27 @@ namespace Steam.UnitTests
             steamInterface = factory.CreateSteamWebInterface<DOTA2Econ>(new HttpClient());
         }
 
-        [Fact]
+        [TestMethod]
         public async Task GetHeroesAsync_Should_Succeed()
         {
             var response = await steamInterface.GetHeroesAsync();
-            Assert.NotNull(response);
-            Assert.NotNull(response.Data);
+            Assert.IsNotNull(response);
+            Assert.IsNotNull(response.Data);
         }
 
-        [Fact]
+        [TestMethod]
         public async Task GetRaritiesAsync_Should_Succeed()
         {
             var response = await steamInterface.GetRaritiesAsync();
-            Assert.NotNull(response);
-            Assert.NotNull(response.Data);
+            Assert.IsNotNull(response);
+            Assert.IsNotNull(response.Data);
         }
 
-        [Fact]
+        [TestMethod]
         public async Task GetTournamentPrizePoolAsync_Should_Succeed()
         {
             var response = await steamInterface.GetTournamentPrizePoolAsync();
-            Assert.NotNull(response);
+            Assert.IsNotNull(response);
         }
     }
 }

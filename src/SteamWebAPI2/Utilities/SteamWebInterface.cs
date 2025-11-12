@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace SteamWebAPI2.Utilities
@@ -65,12 +64,12 @@ namespace SteamWebAPI2.Utilities
         /// <returns></returns>
         public async Task<ISteamWebResponse<T>> GetAsync<T>(string methodName, int version, IList<SteamWebRequestParameter> parameters = null)
         {
-            if(string.IsNullOrWhiteSpace(methodName))
+            if (string.IsNullOrWhiteSpace(methodName))
             {
                 throw new ArgumentNullException(nameof(methodName));
             }
 
-            if(version <= 0)
+            if (version <= 0)
             {
                 throw new ArgumentOutOfRangeException(nameof(version));
             }
@@ -88,12 +87,12 @@ namespace SteamWebAPI2.Utilities
         /// <returns></returns>
         public async Task<ISteamWebResponse<T>> PostAsync<T>(string methodName, int version, IList<SteamWebRequestParameter> parameters = null)
         {
-            if(string.IsNullOrWhiteSpace(methodName))
+            if (string.IsNullOrWhiteSpace(methodName))
             {
                 throw new ArgumentNullException(nameof(methodName));
             }
 
-            if(version <= 0)
+            if (version <= 0)
             {
                 throw new ArgumentOutOfRangeException(nameof(version));
             }

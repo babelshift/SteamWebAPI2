@@ -58,7 +58,7 @@ namespace SteamWebAPI2.Models.SteamCommunity
         public string SteamRating { get; set; }
 
         [DataMember(Name = "hoursPlayed2Wk", Order = 17)]
-        public decimal HoursPlayed2Wk { get; set; }
+        public string HoursPlayed2Wk { get; set; }
 
         [DataMember(Name = "headline", Order = 18)]
         public string Headline { get; set; }
@@ -117,7 +117,7 @@ namespace SteamWebAPI2.Models.SteamCommunity
         public string GameLogoSmall { get; set; }
 
         [DataMember(Name = "hoursPlayed", Order = 5)]
-        public decimal HoursPlayed { get; set; }
+        public string HoursPlayed { get; set; }
 
         [DataMember(Name = "hoursOnRecord", Order = 6)]
         public string HoursOnRecord { get; set; }

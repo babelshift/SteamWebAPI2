@@ -1,26 +1,22 @@
-﻿using AutoMapper;
-using Steam.Models.DOTA2;
+﻿using Steam.Models.DOTA2;
 using SteamWebAPI2.Models.DOTA2;
 using SteamWebAPI2.Utilities;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace SteamWebAPI2.Interfaces
 {
     public class DOTA2Match : IDOTA2Match
     {
-        private readonly IMapper mapper;
         private readonly ISteamWebInterface steamWebInterface;
 
         /// <summary>
         /// Default constructor established the Steam Web API key and initializes for subsequent method calls
         /// </summary>
         /// <param name="steamWebApiKey"></param>
-        public DOTA2Match(IMapper mapper, ISteamWebRequest steamWebRequest, ISteamWebInterface steamWebInterface = null)
+        public DOTA2Match(ISteamWebRequest steamWebRequest, ISteamWebInterface steamWebInterface = null)
         {
-            this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-            
             this.steamWebInterface = steamWebInterface == null
                 ? new SteamWebInterface("IDOTA2Match_570", steamWebRequest)
                 : steamWebInterface;
@@ -41,9 +37,104 @@ namespace SteamWebAPI2.Interfaces
 
             var steamWebResponse = await steamWebInterface.GetAsync<LiveLeagueGameResultContainer>("GetLiveLeagueGames", 1);
 
-            var steamWebResponseModel = mapper.Map<ISteamWebResponse<LiveLeagueGameResultContainer>, ISteamWebResponse<IReadOnlyCollection<LiveLeagueGameModel>>>(steamWebResponse);
+            return steamWebResponse.MapTo<IReadOnlyCollection<LiveLeagueGameModel>>((from) =>
+            {
+                var result = from?.Result;
+                if (result == null)
+                {
+                    return null;
+                }
 
-            return steamWebResponseModel;
+                return result.Games?.Select(x => new LiveLeagueGameModel
+                {
+                    Players = x.Players?.Select(p => new LiveLeagueGamePlayerInfoModel
+                    {
+                        AccountId = p.AccountId,
+                        HeroId = p.HeroId,
+                        Name = p.Name,
+                        Team = p.Team
+                    }).ToList().AsReadOnly(),
+                    RadiantTeam = x.RadiantTeam == null ? null : new LiveLeagueGameTeamRadiantInfoModel
+                    {
+                        TeamId = x.RadiantTeam.TeamId,
+                        TeamName = x.RadiantTeam.TeamName,
+                        TeamLogo = x.RadiantTeam.TeamLogo,
+                        Complete = x.RadiantTeam.Complete
+                    },
+                    DireTeam = x.DireTeam == null ? null : new LiveLeagueGameTeamDireInfoModel
+                    {
+                        TeamId = x.DireTeam.TeamId,
+                        TeamName = x.DireTeam.TeamName,
+                        TeamLogo = x.DireTeam.TeamLogo,
+                        Complete = x.DireTeam.Complete
+                    },
+                    LobbyId = x.LobbyId,
+                    DireSeriesWins = x.DireSeriesWins,
+                    RadiantSeriesWins = x.RadiantSeriesWins,
+                    LeagueId = x.LeagueId,
+                    MatchId = x.MatchId,
+                    Spectators = x.Spectators,
+                    GameNumber = x.GameNumber,
+                    LeagueGameId = x.LeagueGameId,
+                    LeagueSeriesId = x.LeagueSeriesId,
+                    StreamDelaySeconds = x.StreamDelaySeconds,
+                    LeagueTier = x.LeagueTier,
+                    Scoreboard = x.Scoreboard == null ? null : new LiveLeagueGameScoreboardModel
+                    {
+                        Dire = x.Scoreboard.Dire == null ? null : new LiveLeagueGameTeamDireDetailModel
+                        {
+                            Abilities = x.Scoreboard.Dire.Abilities?.Select(a => new LiveLeagueGameAbilityModel
+                            {
+                                AbilityId = a.AbilityId,
+                                AbilityLevel = a.AbilityLevel
+                            }).ToList().AsReadOnly(),
+                            Bans = x.Scoreboard.Dire.Bans?.Select(b => new LiveLeagueGameBanModel
+                            {
+                                HeroId = b.HeroId
+                            }).ToList().AsReadOnly(),
+                            BarracksState = x.Scoreboard.Dire?.BarracksState ?? 0,
+                            Picks = x.Scoreboard.Dire.Picks?.Select(p => new LiveLeagueGamePickModel
+                            {
+                                HeroId = p.HeroId,
+                            }).ToList().AsReadOnly(),
+                            Players = x.Scoreboard.Dire.Players?
+                                .Select(p => MapToLiveLeagueGamePlayerDetail(p))
+                                .ToList()
+                                .AsReadOnly(),
+                            Score = x.Scoreboard.Dire.Score,
+                            TowerState = x.Scoreboard.Dire.TowerState
+                        },
+                        Radiant = x.Scoreboard.Radiant == null ? null : new LiveLeagueGameTeamRadiantDetailModel
+                        {
+                            Abilities = x.Scoreboard.Radiant.Abilities?.Select(a => new LiveLeagueGameAbilityModel
+                            {
+                                AbilityId = a.AbilityId,
+                                AbilityLevel = a.AbilityLevel
+                            }).ToList().AsReadOnly(),
+                            Bans = x.Scoreboard.Radiant.Bans?.Select(b => new LiveLeagueGameBanModel
+                            {
+                                HeroId = b.HeroId
+                            }).ToList().AsReadOnly(),
+                            BarracksState = x.Scoreboard.Radiant?.BarracksState ?? 0,
+                            Picks = x.Scoreboard.Radiant.Picks?.Select(p => new LiveLeagueGamePickModel
+                            {
+                                HeroId = p.HeroId,
+                            }).ToList().AsReadOnly(),
+                            Players = x.Scoreboard.Radiant.Players?
+                                .Select(p => MapToLiveLeagueGamePlayerDetail(p))
+                                .ToList()
+                                .AsReadOnly(),
+                            Score = x.Scoreboard.Radiant.Score,
+                            TowerState = x.Scoreboard.Radiant.TowerState
+                        },
+                        Duration = x.Scoreboard.Duration,
+                        RoshanRespawnTimer = x.Scoreboard.RoshanRespawnTimer
+                    },
+                    SeriesId = x.SeriesId,
+                    SeriesType = x.SeriesType,
+                    StageName = x.StageName
+                }).ToList().AsReadOnly();
+            });
         }
 
         /// <summary>
@@ -59,9 +150,113 @@ namespace SteamWebAPI2.Interfaces
 
             var steamWebResponse = await steamWebInterface.GetAsync<MatchDetailResultContainer>("GetMatchDetails", 1, parameters);
 
-            var steamWebResponseModel = mapper.Map<ISteamWebResponse<MatchDetailResultContainer>, ISteamWebResponse<MatchDetailModel>>(steamWebResponse);
+            return steamWebResponse.MapTo((from) =>
+            {
+                var result = from?.Result;
+                if (result == null)
+                {
+                    return null;
+                }
 
-            return steamWebResponseModel;
+                return new MatchDetailModel
+                {
+                    Players = result.Players?.Select(p => new MatchPlayerModel
+                    {
+                        AccountId = p.AccountId,
+                        PlayerSlot = p.PlayerSlot,
+                        HeroId = p.HeroId,
+                        Item0 = p.Item0,
+                        Item1 = p.Item1,
+                        Item2 = p.Item2,
+                        Item3 = p.Item3,
+                        Item4 = p.Item4,
+                        Item5 = p.Item5,
+                        Backpack0 = p.Backpack0,
+                        Backpack1 = p.Backpack1,
+                        Backpack2 = p.Backpack2,
+                        ItemNeutral = p.ItemNeutral,
+                        Kills = p.Kills,
+                        Deaths = p.Deaths,
+                        Assists = p.Assists,
+                        LeaverStatus = p.LeaverStatus,
+                        Gold = p.Gold,
+                        LastHits = p.LastHits,
+                        Denies = p.Denies,
+                        GoldPerMinute = p.GoldPerMinute,
+                        ExperiencePerMinute = p.ExperiencePerMinute,
+                        GoldSpent = p.GoldSpent,
+                        NetWorth = p.NetWorth,
+                        AghanimsScepter = p.AghanimsScepter,
+                        AghanimsShard = p.AghanimsShard,
+                        Moonshard = p.Moonshard,
+                        HeroDamage = p.HeroDamage,
+                        TowerDamage = p.TowerDamage,
+                        HeroHealing = p.HeroHealing,
+                        ScaledHeroDamage = p.ScaledHeroDamage,
+                        ScaledTowerDamage = p.ScaledTowerDamage,
+                        ScaledHeroHealing = p.ScaledHeroHealing,
+                        Level = p.Level,
+                        AbilityUpgrades = p.AbilityUpgrades?.Select(a => new MatchPlayerAbilityUpgradeModel
+                        {
+                            Ability = a.Ability,
+                            Time = a.Time,
+                            Level = a.Level
+                        }).ToList().AsReadOnly(),
+                        AdditionalUnits = p.AdditionalUnits?.Select(u => new MatchPlayerAdditionalUnitModel
+                        {
+                            Unitname = u.Unitname,
+                            Item0 = u.Item0,
+                            Item1 = u.Item1,
+                            Item2 = u.Item2,
+                            Item3 = u.Item3,
+                            Item4 = u.Item4,
+                            Item5 = u.Item5,
+                            Backpack0 = u.Backpack0,
+                            Backpack1 = u.Backpack1,
+                            Backpack2 = u.Backpack2,
+                            ItemNeutral = u.ItemNeutral
+                        }).ToList().AsReadOnly()
+                    }).ToList().AsReadOnly(),
+                    RadiantWin = result.RadiantWin,
+                    PreGameDuration = result.PreGameDuration,
+                    Duration = result.Duration,
+                    StartTime = result.StartTime.ToDateTime(),
+                    MatchId = result.MatchId,
+                    MatchSequenceNumber = result.MatchSequenceNumber,
+                    TowerStatusRadiant = result.TowerStatusRadiant,
+                    TowerStatusDire = result.TowerStatusDire,
+                    BarracksStatusRadiant = result.BarracksStatusRadiant,
+                    BarracksStatusDire = result.BarracksStatusDire,
+                    Cluster = result.Cluster,
+                    FirstBloodTime = result.FirstBloodTime,
+                    LobbyType = result.LobbyType,
+                    HumanPlayers = result.HumanPlayers,
+                    LeagueId = result.LeagueId,
+                    PositiveVotes = result.PositiveVotes,
+                    NegativeVotes = result.NegativeVotes,
+                    GameMode = result.GameMode,
+                    Engine = result.Engine,
+                    RadiantTeamId = result.RadiantTeamId,
+                    RadiantName = result.RadiantName,
+                    RadiantLogo = result.RadiantLogo,
+                    RadiantTeamComplete = result.RadiantTeamComplete,
+                    DireTeamId = result.DireTeamId,
+                    DireName = result.DireName,
+                    DireLogo = result.DireLogo,
+                    DireTeamComplete = result.DireTeamComplete,
+                    RadiantCaptain = result.RadiantCaptain,
+                    DireCaptain = result.DireCaptain,
+                    RadiantScore = result.RadiantScore,
+                    DireScore = result.DireScore,
+                    PicksAndBans = result.PicksAndBans?.Select(pb => new MatchPickBanModel
+                    {
+                        IsPick = pb.IsPick,
+                        HeroId = pb.HeroId,
+                        Team = pb.Team,
+                        Order = pb.Order
+                    }).ToList().AsReadOnly()
+                };
+            });
         }
 
         /// <summary>
@@ -95,9 +290,37 @@ namespace SteamWebAPI2.Interfaces
 
             var steamWebResponse = await steamWebInterface.GetAsync<MatchHistoryResultContainer>("GetMatchHistory", 1, parameters);
 
-            var steamWebResponseModel = mapper.Map<ISteamWebResponse<MatchHistoryResultContainer>, ISteamWebResponse<MatchHistoryModel>>(steamWebResponse);
+            return steamWebResponse.MapTo((from) =>
+            {
+                var result = from?.Result;
+                if (result == null)
+                {
+                    return null;
+                }
 
-            return steamWebResponseModel;
+                return new MatchHistoryModel
+                {
+                    Matches = result.Matches?.Select(m => new MatchHistoryMatchModel
+                    {
+                        DireTeamId = m.DireTeamId,
+                        LobbyType = m.LobbyType,
+                        MatchId = m.MatchId,
+                        MatchSequenceNumber = m.MatchSequenceNumber,
+                        Players = m.Players?.Select(p => new MatchHistoryPlayerModel
+                        {
+                            AccountId = p.AccountId,
+                            PlayerSlot = p.PlayerSlot,
+                            HeroId = p.HeroId,
+                        }).ToList().AsReadOnly(),
+                        RadiantTeamId = m.RadiantTeamId,
+                        StartTime = m.StartTime
+                    }).ToList().AsReadOnly(),
+                    NumResults = result.NumResults,
+                    ResultsRemaining = result.ResultsRemaining,
+                    Status = result.Status,
+                    TotalResults = result.TotalResults
+                };
+            });
         }
 
         /// <summary>
@@ -115,11 +338,30 @@ namespace SteamWebAPI2.Interfaces
 
             var steamWebResponse = await steamWebInterface.GetAsync<MatchHistoryBySequenceNumberResultContainer>("GetMatchHistoryBySequenceNum", 1, parameters);
 
-            var steamWebResponseModel = mapper.Map<
-                ISteamWebResponse<MatchHistoryBySequenceNumberResultContainer>,
-                ISteamWebResponse<IReadOnlyCollection<MatchHistoryMatchModel>>>(steamWebResponse);
+            return steamWebResponse.MapTo<IReadOnlyCollection<MatchHistoryMatchModel>>((from) =>
+            {
+                var result = from?.Result;
+                if (result == null)
+                {
+                    return null;
+                }
 
-            return steamWebResponseModel;
+                return result.Matches?.Select(m => new MatchHistoryMatchModel
+                {
+                    DireTeamId = m.DireTeamId,
+                    LobbyType = m.LobbyType,
+                    MatchId = m.MatchId,
+                    MatchSequenceNumber = m.MatchSequenceNumber,
+                    Players = m.Players?.Select(p => new MatchHistoryPlayerModel
+                    {
+                        AccountId = p.AccountId,
+                        PlayerSlot = p.PlayerSlot,
+                        HeroId = p.HeroId
+                    }).ToList().AsReadOnly(),
+                    RadiantTeamId = m.RadiantTeamId,
+                    StartTime = m.StartTime
+                }).ToList().AsReadOnly();
+            });
         }
 
         /// <summary>
@@ -137,9 +379,62 @@ namespace SteamWebAPI2.Interfaces
 
             var steamWebResponse = await steamWebInterface.GetAsync<TeamInfoResultContainer>("GetTeamInfoByTeamID", 1, parameters);
 
-            var steamWebResponseModel = mapper.Map<ISteamWebResponse<TeamInfoResultContainer>, ISteamWebResponse<IReadOnlyCollection<Steam.Models.DOTA2.TeamInfo>>>(steamWebResponse);
+            return steamWebResponse.MapTo<IReadOnlyCollection<Steam.Models.DOTA2.TeamInfo>>((from) =>
+            {
+                var result = from?.Result;
+                if (result == null)
+                {
+                    return null;
+                }
 
-            return steamWebResponseModel;
+                return result.Teams?.Select(t => new Steam.Models.DOTA2.TeamInfo
+                {
+                    TeamId = t.TeamId,
+                    Name = t.Name,
+                    Tag = t.Tag,
+                    TimeCreated = t.TimeCreated,
+                    Rating = t.Rating,
+                    CountryCode = t.CountryCode,
+                    AdminAccountId = t.AdminAccountId,
+                    Logo = t.Logo,
+                    LogoSponsor = t.LogoSponsor,
+                    Url = t.Url,
+                    GamesPlayedWithCurrentRoster = t.GamesPlayedWithCurrentRoster,
+                    PlayerIds = t.PlayerIds?.ToList().AsReadOnly(),
+                    LeagueIds = t.LeagueIds?.ToList().AsReadOnly()
+                }).ToList().AsReadOnly();
+            });
+        }
+
+        private LiveLeagueGamePlayerDetailModel MapToLiveLeagueGamePlayerDetail(LiveLeagueGamePlayerDetail p)
+        {
+            return new LiveLeagueGamePlayerDetailModel
+            {
+                AccountId = p.AccountId,
+                Assists = p.Assists,
+                Deaths = p.Deaths,
+                Denies = p.Denies,
+                Gold = p.Gold,
+                HeroId = p.HeroId,
+                ExperiencePerMinute = p.ExperiencePerMinute,
+                GoldPerMinute = p.GoldPerMinute,
+                Item0 = p.Item0,
+                Item1 = p.Item1,
+                Item2 = p.Item2,
+                Item3 = p.Item3,
+                Item4 = p.Item4,
+                Item5 = p.Item5,
+                Kills = p.Kills,
+                LastHits = p.LastHits,
+                Level = p.Level,
+                NetWorth = p.NetWorth,
+                PlayerSlot = p.PlayerSlot,
+                PositionX = p.PositionX,
+                PositionY = p.PositionY,
+                RespawnTimer = p.RespawnTimer,
+                UltimateCooldown = p.UltimateCooldown,
+                UltimateState = p.UltimateState
+            };
         }
     }
 }

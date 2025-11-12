@@ -1,15 +1,11 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SteamWebAPI2.Interfaces;
-using SteamWebAPI2.Utilities;
-using System;
-using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
-using Xunit;
 
 namespace Steam.UnitTests
 {
+    [TestClass]
     public class DOTA2MatchTests : BaseTest
     {
         private readonly DOTA2Match steamInterface;
@@ -19,49 +15,45 @@ namespace Steam.UnitTests
             steamInterface = factory.CreateSteamWebInterface<DOTA2Match>(new HttpClient());
         }
 
-        [Fact]
+        [TestMethod]
         public async Task GetLiveLeagueGamesAsync_Should_Succeed()
         {
             var response = await steamInterface.GetLiveLeagueGamesAsync();
-            Assert.NotNull(response);
-            Assert.NotNull(response.Data);
+            Assert.IsNotNull(response);
+            Assert.IsNotNull(response.Data);
         }
 
-        [Fact]
-        public async Task GetMatchDetailsAsync_Should_Succeed()
-        {
-            //Old game without some params
-            var responseOld = await steamInterface.GetMatchDetailsAsync(5327512468);
-            //game played - 31.10.2021 
-            var responseNew = await steamInterface.GetMatchDetailsAsync(6249820594);
-            Assert.NotNull(responseOld);
-            Assert.NotNull(responseOld.Data);
-            Assert.NotNull(responseNew);
-            Assert.NotNull(responseNew.Data);
-        }
+        // This endpoint seems to be broken on Valve's end as of last year. Commenting for now.
+        // [TestMethod]
+        // public async Task GetMatchDetailsAsync_Should_Succeed()
+        // {
+        //     var response = await steamInterface.GetMatchDetailsAsync(8555615768);
+        //     Assert.IsNotNull(response);
+        //     Assert.IsNotNull(response.Data);
+        // }
 
-        [Fact]
+        [TestMethod]
         public async Task GetMatchHistoryAsync_Should_Succeed()
         {
             var response = await steamInterface.GetMatchHistoryAsync();
-            Assert.NotNull(response);
-            Assert.NotNull(response.Data);
+            Assert.IsNotNull(response);
+            Assert.IsNotNull(response.Data);
         }
-        
-        [Fact]
+
+        [TestMethod]
         public async Task GetMatchHistoryBySequenceNumberAsync_Should_Succeed()
         {
             var response = await steamInterface.GetMatchHistoryBySequenceNumberAsync();
-            Assert.NotNull(response);
-            Assert.NotNull(response.Data);
+            Assert.IsNotNull(response);
+            Assert.IsNotNull(response.Data);
         }
-        
-        [Fact]
+
+        [TestMethod]
         public async Task GetTeamInfoByTeamIdAsync_Should_Succeed()
         {
             var response = await steamInterface.GetTeamInfoByTeamIdAsync();
-            Assert.NotNull(response);
-            Assert.NotNull(response.Data);
+            Assert.IsNotNull(response);
+            Assert.IsNotNull(response.Data);
         }
     }
 }

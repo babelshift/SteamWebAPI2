@@ -16,5 +16,6 @@ namespace SteamWebAPI2.Utilities
         DateTimeOffset? Expires { get; set; }
         // Last modified header from the HTTP response
         DateTimeOffset? LastModified { get; set; }
+        SteamWebResponse<TNew> MapTo<TNew>(Func<T, TNew> mapFunction);
     }
 }

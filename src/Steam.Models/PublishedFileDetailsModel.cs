@@ -17,7 +17,7 @@ namespace Steam.Models
 
         public string FileName { get; set; }
 
-        public uint FileSize { get; set; }
+        public ulong FileSize { get; set; }
 
         public Uri FileUrl { get; set; }
 
