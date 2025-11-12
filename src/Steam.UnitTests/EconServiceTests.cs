@@ -1,15 +1,11 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SteamWebAPI2.Interfaces;
-using SteamWebAPI2.Utilities;
-using System;
-using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
-using Xunit;
 
 namespace Steam.UnitTests
 {
+    [TestClass]
     public class EconServiceTests : BaseTest
     {
         private readonly EconService steamInterface;
@@ -19,29 +15,29 @@ namespace Steam.UnitTests
             steamInterface = factory.CreateSteamWebInterface<EconService>(new HttpClient());
         }
 
-        [Fact]
+        [TestMethod]
         public async Task GetPlayerItemsAsync_Should_Succeed()
         {
             var response = await steamInterface.GetTradeHistoryAsync(10);
-            Assert.NotNull(response);
-            Assert.NotNull(response.Data);
+            Assert.IsNotNull(response);
+            Assert.IsNotNull(response.Data);
         }
 
-        [Fact]
+        [TestMethod]
         public async Task GetTradeOffersAsync_Should_Succeed()
         {
             var response = await steamInterface.GetTradeOffersAsync(true, true);
-            Assert.NotNull(response);
-            Assert.NotNull(response.Data);
+            Assert.IsNotNull(response);
+            Assert.IsNotNull(response.Data);
         }
 
         // TODO: Figure out how to get a Trade Offer ID? From History?
-        // [Fact]
+        // [TestMethod]
         // public async Task GetTradeOfferAsync_Should_Succeed()
         // {
         //     var response = await steamInterface.GetTradeOfferAsync();
-        //     Assert.NotNull(response);
-        //     Assert.NotNull(response.Data);
+        //     Assert.IsNotNull(response);
+        //     Assert.IsNotNull(response.Data);
         // }
     }
 }

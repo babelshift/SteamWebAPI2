@@ -12,8 +12,7 @@ namespace Steam.UnitTests
         public BaseTest()
         {
             var builder = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json")
-                .AddUserSecrets<CSGOServersTests>();
+                .AddJsonFile("appsettings.json");
             configuration = builder.Build();
 
             var factoryOptions = new SteamWebInterfaceFactoryOptions()

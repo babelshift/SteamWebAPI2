@@ -1,10 +1,11 @@
-﻿using SteamWebAPI2.Interfaces;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SteamWebAPI2.Interfaces;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Xunit;
 
 namespace Steam.UnitTests
 {
+    [TestClass]
     public class EconItemsTeamFortress2Tests : BaseTest
     {
         private readonly EconItems steamInterface;
@@ -17,7 +18,7 @@ namespace Steam.UnitTests
             );
         }
 
-        [Fact]
+        [TestMethod]
         public async Task GetSchemaItemsForTF2Async_Should_Succeed()
         {
             uint? next = null;
@@ -25,43 +26,43 @@ namespace Steam.UnitTests
             do
             {
                 var response = await steamInterface.GetSchemaItemsForTF2Async(start: next);
-                Assert.NotNull(response);
-                Assert.NotNull(response.Data);
+                Assert.IsNotNull(response);
+                Assert.IsNotNull(response.Data);
 
                 next = response.Data.Result.Next;
             }
             while (next.HasValue);
         }
 
-        [Fact]
+        [TestMethod]
         public async Task GetSchemaOverviewForTF2Async_Should_Succeed()
         {
             var response = await steamInterface.GetSchemaOverviewForTF2Async();
-            Assert.NotNull(response);
-            Assert.NotNull(response.Data);
+            Assert.IsNotNull(response);
+            Assert.IsNotNull(response.Data);
         }
 
-        [Fact]
+        [TestMethod]
         public async Task GetSchemaUrlAsync_Should_Succeed()
         {
             var response = await steamInterface.GetSchemaUrlAsync();
-            Assert.NotNull(response);
-            Assert.NotNull(response.Data);
+            Assert.IsNotNull(response);
+            Assert.IsNotNull(response.Data);
         }
 
-        [Fact]
+        [TestMethod]
         public async Task GetStoreMetaDataAsync_Should_Succeed()
         {
             var response = await steamInterface.GetStoreMetaDataAsync();
-            Assert.NotNull(response);
-            Assert.NotNull(response.Data);
+            Assert.IsNotNull(response);
+            Assert.IsNotNull(response.Data);
         }
 
-        [Fact]
+        [TestMethod]
         public async Task GetStoreStatusAsync_Should_Succeed()
         {
             var response = await steamInterface.GetStoreStatusAsync();
-            Assert.NotNull(response);
+            Assert.IsNotNull(response);
         }
     }
 }

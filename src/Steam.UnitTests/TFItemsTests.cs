@@ -1,15 +1,11 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SteamWebAPI2.Interfaces;
-using SteamWebAPI2.Utilities;
-using System;
-using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
-using Xunit;
 
 namespace Steam.UnitTests
 {
+    [TestClass]
     public class TFItemsTests : BaseTest
     {
         private readonly TFItems steamInterface;
@@ -19,12 +15,12 @@ namespace Steam.UnitTests
             steamInterface = factory.CreateSteamWebInterface<TFItems>(new HttpClient());
         }
 
-        [Fact]
+        [TestMethod]
         public async Task GetServerInfoAsync_Should_Succeed()
         {
             var response = await steamInterface.GetGoldenWrenchesAsync();
-            Assert.NotNull(response);
-            Assert.NotNull(response.Data);
+            Assert.IsNotNull(response);
+            Assert.IsNotNull(response.Data);
         }
     }
 }

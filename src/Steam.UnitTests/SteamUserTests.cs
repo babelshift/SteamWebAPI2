@@ -1,16 +1,13 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SteamWebAPI2.Interfaces;
-using SteamWebAPI2.Utilities;
-using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
-using Xunit;
 
 namespace Steam.UnitTests
 {
+    [TestClass]
     public class SteamUserTests : BaseTest
     {
         private readonly SteamUser steamInterface;
@@ -20,71 +17,71 @@ namespace Steam.UnitTests
             steamInterface = factory.CreateSteamWebInterface<SteamUser>(new HttpClient());
         }
 
-        [Fact]
+        [TestMethod]
         public async Task GetPlayerSummaryAsync_Should_Succeed()
         {
             var response = await steamInterface.GetPlayerSummaryAsync(76561198050013009);
-            Assert.NotNull(response);
-            Assert.NotNull(response.Data);
+            Assert.IsNotNull(response);
+            Assert.IsNotNull(response.Data);
         }
 
-        [Fact]
+        [TestMethod]
         public async Task GetPlayerSummariesAsync_Should_Succeed()
         {
             List<ulong> steamIds = new List<ulong>() { 76561198050013009 };
             var response = await steamInterface.GetPlayerSummariesAsync(steamIds.AsReadOnly());
-            Assert.NotNull(response);
-            Assert.NotNull(response.Data);
+            Assert.IsNotNull(response);
+            Assert.IsNotNull(response.Data);
         }
 
-        [Fact]
+        [TestMethod]
         public async Task GetFriendsListAsync_Should_Succeed()
         {
             var response = await steamInterface.GetFriendsListAsync(76561198050013009);
-            Assert.NotNull(response);
-            Assert.NotNull(response.Data);
+            Assert.IsNotNull(response);
+            Assert.IsNotNull(response.Data);
         }
 
-        [Fact]
+        [TestMethod]
         public async Task GetPlayerBansAsync_Should_Succeed()
         {
             var response = await steamInterface.GetPlayerBansAsync(76561198050013009);
-            Assert.NotNull(response);
-            Assert.NotNull(response.Data);
+            Assert.IsNotNull(response);
+            Assert.IsNotNull(response.Data);
         }
 
-        [Fact]
+        [TestMethod]
         public async Task GetPlayerBansMultipleAsync_Should_Succeed()
         {
             List<ulong> steamIds = new List<ulong>() { 76561198050013009 };
             var response = await steamInterface.GetPlayerBansAsync(steamIds.AsReadOnly());
-            Assert.NotNull(response);
-            Assert.NotNull(response.Data);
+            Assert.IsNotNull(response);
+            Assert.IsNotNull(response.Data);
         }
 
-        [Fact]
+        [TestMethod]
         public async Task GetUserGroupsAsync_Should_Succeed()
         {
             var response = await steamInterface.GetUserGroupsAsync(76561198050013009);
-            Assert.NotNull(response);
-            Assert.NotNull(response.Data);
+            Assert.IsNotNull(response);
+            Assert.IsNotNull(response.Data);
         }
 
-        [Fact]
+        [TestMethod]
         public async Task ResolveVanityUrlAsync_Should_Succeed()
         {
             var response = await steamInterface.ResolveVanityUrlAsync("aro");
-            Assert.NotNull(response);
-            Assert.True(response.Data > 0);
+            Assert.IsNotNull(response);
+            Assert.IsTrue(response.Data > 0);
         }
 
-        [Fact]
+        [TestMethod]
         public async Task GetCommunityProfileAsync_Should_Succeed()
         {
             //for other cultures (for example ru) automaper will not be able to convert floating point numbers and will throw an error
             CultureInfo.DefaultThreadCurrentCulture = CultureInfo.CreateSpecificCulture("en");
             var response = await steamInterface.GetCommunityProfileAsync(76561198064401017);
-            Assert.NotNull(response);
+            Assert.IsNotNull(response);
         }
     }
 }

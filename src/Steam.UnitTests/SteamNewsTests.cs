@@ -1,10 +1,11 @@
-﻿using SteamWebAPI2.Interfaces;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SteamWebAPI2.Interfaces;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Xunit;
 
 namespace Steam.UnitTests
 {
+    [TestClass]
     public class SteamNewsTests : BaseTest
     {
         private readonly SteamNews steamInterface;
@@ -13,13 +14,13 @@ namespace Steam.UnitTests
         {
             steamInterface = factory.CreateSteamWebInterface<SteamNews>(new HttpClient());
         }
-        
-        [Fact]
+
+        [TestMethod]
         public async Task GetNewsForAppAsync_Should_Succeed()
         {
             var response = await steamInterface.GetNewsForAppAsync(440);
-            Assert.NotNull(response);
-            Assert.NotNull(response.Data);
+            Assert.IsNotNull(response);
+            Assert.IsNotNull(response.Data);
         }
     }
 }

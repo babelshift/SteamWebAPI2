@@ -1,34 +1,34 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Steam.Models.CSGO;
 using SteamWebAPI2.Interfaces;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Xunit;
 
 namespace Steam.UnitTests
 {
+    [TestClass]
     public class CSGOServersTests : BaseTest
     {
-        [Fact]
+        [TestMethod]
         public async Task GetGameMapsPlaytimeAsync_Should_Succeed()
         {
             var steamInterface = factory.CreateSteamWebInterface<CSGOServers>(new HttpClient());
             var response = await steamInterface.GetGameMapsPlaytimeAsync(
-                GameMapsPlaytimeInterval.Week, 
-                GameMapsPlaytimeGameMode.Competitive, 
+                GameMapsPlaytimeInterval.Week,
+                GameMapsPlaytimeGameMode.Competitive,
                 GameMapsPlaytimeMapGroup.Operation
             );
-            Assert.NotNull(response);
-            Assert.NotNull(response.Data);
+            Assert.IsNotNull(response);
+            Assert.IsNotNull(response.Data);
         }
 
-        [Fact]
+        [TestMethod]
         public async Task GetGameServerStatusAsync_Should_Succeed()
         {
             var steamInterface = factory.CreateSteamWebInterface<CSGOServers>(new HttpClient());
             var response = await steamInterface.GetGameServerStatusAsync();
-            Assert.NotNull(response);
-            Assert.NotNull(response.Data);
+            Assert.IsNotNull(response);
+            Assert.IsNotNull(response.Data);
         }
     }
 }

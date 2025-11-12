@@ -1,11 +1,13 @@
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Steam.Models;
 using SteamWebAPI2.Interfaces;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Xunit;
 
 namespace Steam.UnitTests
 {
+    [TestClass]
     public class SteamRemoteTests : BaseTest
     {
         private readonly SteamRemoteStorage steamInterface;
@@ -14,23 +16,23 @@ namespace Steam.UnitTests
         {
             steamInterface = factory.CreateSteamWebInterface<SteamRemoteStorage>(new HttpClient());
         }
-        
-        [Fact]
+
+        [TestMethod]
         public async Task GetPublishedFileDetailsAsync_Public_Visibility_Should_Succeed()
         {
             var response = await steamInterface.GetPublishedFileDetailsAsync(1673456286);
-            Assert.NotNull(response);
-            Assert.NotNull(response.Data);
-            Assert.Equal(PublishedFileVisibility.Public, response.Data.Visibility);
+            Assert.IsNotNull(response);
+            Assert.IsNotNull(response.Data);
+            Assert.AreEqual(PublishedFileVisibility.Public, response.Data.FirstOrDefault()?.Visibility);
         }
 
-        [Fact]
+        [TestMethod]
         public async Task GetPublishedFileDetailsAsync_Unknown_Visibility_Should_Succeed()
         {
             var response = await steamInterface.GetPublishedFileDetailsAsync(2097579725);
-            Assert.NotNull(response);
-            Assert.NotNull(response.Data);
-            Assert.Equal(PublishedFileVisibility.Unknown, response.Data.Visibility);
+            Assert.IsNotNull(response);
+            Assert.IsNotNull(response.Data);
+            Assert.AreEqual(PublishedFileVisibility.Unknown, response.Data.FirstOrDefault()?.Visibility);
         }
     }
 }
