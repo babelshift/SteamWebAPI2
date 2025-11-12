@@ -85,7 +85,7 @@ steps:
   displayName: Push GitHub Release (if tagged)
   condition: startsWith(variables['Build.SourceBranch'], 'refs/tags/')
   inputs:
-    gitHubConnection: 'GitHub.com OAuth - Babelshift'
+    gitHubConnection: 'github.com_babelshift'
     repositoryName: 'babelshift/SteamWebAPI2'
     action: 'create'
     target: '$(Build.SourceVersion)'
