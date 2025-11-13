@@ -1,5 +1,5 @@
 # SteamWebAPI2
-[![Build Status](https://dev.azure.com/justinskiles/justinskiles/_apis/build/status/babelshift.SteamWebAPI2?branchName=master)](https://dev.azure.com/justinskiles/justinskiles/_build/latest?definitionId=2&branchName=master)
+[![Build Status](https://github.com/babelshift/SteamWebAPI2/actions/workflows/dotnet-build.yml/badge.svg?branch=master)](https://github.com/babelshift/SteamWebAPI2/actions/workflows/dotnet-build.yml)
 [![NuGet](https://img.shields.io/nuget/v/SteamWebAPI2.svg)](https://www.nuget.org/packages/SteamWebAPI2)
 [![MyGet CI](https://img.shields.io/myget/babelshift-ci/v/SteamWebAPI2.svg)](https://www.myget.org/feed/babelshift-ci/package/nuget/SteamWebAPI2)
 
@@ -54,7 +54,7 @@ The library is structured to mirror the Steam Web API endpoint structure. For ex
 Each method returns a SteamWebResponse object which contains the following:
 
 | Field              | Type            | Description                                        |
-|--------------------|-----------------|----------------------------------------------------|
+| ------------------ | --------------- | -------------------------------------------------- |
 | Data               | T               | Maps to the payload returned by the Steam Web API. |
 | ContentLength      | long?           | Maps to the HTTP ContentLength header.             |
 | ContentType        | string          | Maps to the HTTP ContentType header.               |
