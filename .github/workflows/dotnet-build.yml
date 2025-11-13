@@ -28,5 +28,7 @@ jobs:
       uses: microsoft/variable-substitution@v1
       with:
         files: ./src/Steam.UnitTests/appsettings.json
+      env:
+        SteamWebApiKey: ${{ secrets.STEAM_WEB_API_KEY }}
     - name: Test
       run: dotnet test ./src --no-build --verbosity normal
