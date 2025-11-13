@@ -27,11 +27,11 @@ jobs:
     - name: Build (Debug)
       run: dotnet build ./src/SteamWebAPI2.sln --no-restore
     - name: Build (Release)
-      if: env.IS_PUSH_TAG
+      if: ${{ env.IS_PUSH_TAG == 'true' }}
       run: dotnet build ./src/SteamWebAPI2.sln -c Release --no-restore
     - name: Pack
-      if: env.IS_PUSH_TAG
-      run: dotnet pack ./src/SteamWebAPI2/SteamWebAPI2.csproj -c Release --no-build --output .
+      if: ${{ env.IS_PUSH_TAG == 'true' }}
+      run: dotnet pack ./src/SteamWebAPI2/SteamWebAPI2.csproj -c Release --output .
     - name: Publish
-      if: env.IS_PUSH_TAG
+      if: ${{ env.IS_PUSH_TAG == 'true' }}
       run: dotnet nuget push "*.nupkg" -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json -n --skip-duplicate
