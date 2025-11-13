@@ -34,6 +34,8 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
+    - name: Restore dependencies
+      run: dotnet restore ./src/SteamWebAPI2.sln
     - name: Pack
       run: dotnet pack ./src/SteamWebAPI2/SteamWebAPI2.csproj -c Release --no-build --output .
     - name: Publish
