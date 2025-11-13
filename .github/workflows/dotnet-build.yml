@@ -24,5 +24,9 @@ jobs:
       run: dotnet restore ./src/SteamWebAPI2.sln
     - name: Build
       run: dotnet build ./src/SteamWebAPI2.sln --no-restore
+    - name: App Settings Variable Substitution
+      uses: microsoft/variable-substitution@v1
+      with:
+        files: ./src/Steam.UnitTests/appsettings.json
     - name: Test
       run: dotnet test ./src --no-build --verbosity normal

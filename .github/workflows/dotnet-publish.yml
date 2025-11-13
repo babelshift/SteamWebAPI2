@@ -5,7 +5,6 @@ name: Build, Test, and Publish .NET
 
 on:
   push:
-    branches: [ "master" ]
     tags: [ "*" ]
 
 jobs:
@@ -22,9 +21,7 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore ./src/SteamWebAPI2.sln
     - name: Build
-      run: dotnet build ./src/SteamWebAPI2.sln -c Release --no-restore 
-    - name: Test
-      run: dotnet test ./src -c Release --no-build --verbosity normal
+      run: dotnet build ./src/SteamWebAPI2.sln -c Release --no-restore
     - name: Pack
       run: dotnet pack ./src/SteamWebAPI2/SteamWebAPI2.csproj -c Release --no-build --output .
     - name: Publish
