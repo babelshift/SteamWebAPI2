@@ -6,6 +6,7 @@ name: Build & Test .NET
 on:
   push:
     branches: [ "master" ]
+    tags: [ "*" ]
   pull_request:
     branches: [ "master" ]
 
